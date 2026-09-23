@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission A - Pecahan & Operasi Dasar | VisualMath Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark {
+            background-color: #1e293b; 
+            border: 1px solid #334155; 
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #38bdf8, #818cf8); /* Gradien biru ke indigo untuk Mission A */
+        }
+        /* KHUSUS RUMUS MATEMATIKA PECAHAN (FRACTION) */
+        .math-frac {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 0.25rem;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+        .math-num {
+            border-bottom: 2px solid currentColor;
+            padding: 0 0.3rem;
+            width: 100%;
+            text-align: center;
+        }
+        .math-den {
+            padding: 0 0.3rem;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="VisualMath Logo" class="h-10 w-auto">
+                <div class="hidden sm:block">
+                    <h1 class="text-lg font-bold text-sky-400">VisualMath Academy</h1>
+                </div>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="index.html" class="text-sm text-slate-400 hover:text-white transition-colors">🏠 Home</a>
+                <!-- Badge biru untuk Mission A -->
+                <span class="px-3 py-1 bg-blue-900/50 border border-blue-700 rounded-full text-xs font-semibold text-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.2)]">
+                    🔵 Sedang Berjalan: Mission A
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-12">
+        
+        <!-- Judul Misi -->
+        <section class="text-center space-y-4">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-slate-800 rounded-full text-sm text-slate-300 border border-slate-700 mb-2">
+                🏅 Equalizer Badge
+            </div>
+            <h2 class="text-3xl md:text-5xl font-extrabold text-white">
+                MISSION A <br> 
+                <span class="text-gradient">Pecahan Senilai & Operasi Hitung</span>
+            </h2>
+        </section>
+
+        <!-- Mission Brief -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 relative overflow-hidden border-blue-900">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-blue-500/10 rounded-bl-full"></div>
+            
+            <div class="flex items-center gap-2 mb-6">
+                <span class="text-2xl">🎯</span>
+                <h3 class="text-xl font-bold text-white">MISSION BRIEF</h3>
+            </div>
+
+            <!-- Big Idea -->
+            <div class="bg-gradient-to-r from-blue-900/40 to-slate-800 p-4 rounded-xl border border-blue-800/50 mb-6 border-l-4 border-l-blue-400">
+                <p class="font-bold text-blue-400 mb-1 text-sm uppercase tracking-wider">💡 Big Idea</p>
+                <p class="text-slate-200 text-lg">Bentuk pecahan boleh berubah nilainya tetap sama, tetapi untuk menjumlahkan dan mengurangkan, kita wajib menyamakan ukuran bagiannya terlebih dahulu.</p>
+            </div>
+
+            <!-- Pesan Pixel -->
+            <div class="bg-slate-900 rounded-xl p-5 flex flex-col sm:flex-row gap-6 items-center sm:items-start border border-slate-800 mb-6 shadow-lg shadow-blue-900/20">
+                <img src="assets/Pixel.png" alt="Pixel" class="w-20 h-20 object-contain bg-slate-800 rounded-full p-2 border-2 border-blue-500 shrink-0">
+                <div class="space-y-2">
+                    <p class="text-blue-400 font-bold text-sm">🤖 Pixel berkata:</p>
+                    <p class="text-slate-300 italic">
+                        "Selamat datang di Mission A! Setelah mengkalibrasi logika dasarmu, kini saatnya kita menguasai seni menyamakan pecahan serta menjumlahkan dan mengurangkannya dengan penuh keyakinan!"
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mt-6">
+                <!-- Learning Goals -->
+                <div class="space-y-3">
+                    <p class="font-bold text-slate-200 border-b border-slate-700 pb-2 flex items-center gap-2">✅ Learning Goals</p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-slate-400">
+                        <li>Memahami konsep pecahan senilai menggunakan model visual.</li>
+                        <li>Menyamakan penyebut menggunakan pecahan senilai, KPK, atau cara cepat.</li>
+                        <li>Melakukan operasi penjumlahan dan pengurangan pecahan dengan benar.</li>
+                        <li>Menghindari miskonsepsi umum dalam operasi pecahan.</li>
+                    </ul>
+                </div>
+                <!-- Vocabulary & Tools -->
+                <div class="space-y-4">
+                    <p class="font-bold text-slate-200 border-b border-slate-700 pb-2 flex items-center gap-2">📚 Vocabulary & Tools</p>
+                    <table class="w-full text-sm text-left text-slate-300">
+                        <tr class="border-b border-slate-700"><th class="py-1 text-slate-400">English</th><th class="py-1 text-slate-400">Indonesia</th></tr>
+                        <tr class="border-b border-slate-800"><td class="py-1">Equivalent Fraction</td><td class="py-1 font-semibold text-sky-300">Pecahan Senilai</td></tr>
+                        <tr class="border-b border-slate-800"><td class="py-1">Common Denominator</td><td class="py-1 font-semibold text-sky-300">Penyebut Sama</td></tr>
+                        <tr><td class="py-1">Sum / Difference</td><td class="py-1 font-semibold text-sky-300">Jumlah / Selisih</td></tr>
+                    </table>
+                    <div class="flex flex-wrap gap-3 text-sm text-slate-400 pt-2 border-t border-slate-800">
+                        <span class="bg-slate-800 px-2 py-1 rounded">📦 Bar Model</span>
+                        <span class="bg-slate-800 px-2 py-1 rounded">📏 Fraction Strip</span>
+                        <span class="bg-slate-800 px-2 py-1 rounded">📍 Number Line</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MISSION SERIES ROADMAP A -->
+        <section class="space-y-6">
+            <div class="text-center mb-10">
+                <h3 class="text-2xl font-bold text-white mb-2">📖 Roadmap Mission A</h3>
+                <p class="text-slate-400">Mission A terbagi ke dalam tiga sub-misi utama. Pilih misi untuk mulai belajar:</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- A1 Card -->
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-5 hover:border-sky-500 transition-colors relative overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="absolute top-0 right-0 w-2 h-full bg-sky-500"></div>
+                        <span class="bg-sky-500 text-white text-xs font-bold px-2 py-1 rounded">Mission A1</span>
+                        <h4 class="text-lg font-bold text-sky-400 mt-3 mb-2">Pecahan Senilai</h4>
+                        <p class="text-sm text-slate-300 mb-4">Mempelajari bagaimana bentuk pecahan bisa berbeda namun nilainya tetap sama.</p>
+                    </div>
+                    <a href="mission-a1.html" class="block text-center bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded-lg text-sm transition-all">
+                        Mulai Mission A1 ➔
+                    </a>
+                </div>
+
+                <!-- A2 Card -->
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-5 hover:border-blue-500 transition-colors relative overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="absolute top-0 right-0 w-2 h-full bg-blue-500"></div>
+                        <span class="bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded">Mission A2</span>
+                        <h4 class="text-lg font-bold text-blue-400 mt-3 mb-2">Penjumlahan Pecahan</h4>
+                        <p class="text-sm text-slate-300 mb-4">Menguasai strategi konsep, KPK, dan kali silang untuk menjumlahkan pecahan.</p>
+                    </div>
+                    <a href="mission-a2.html" class="block text-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg text-sm transition-all">
+                        Mulai Mission A2 ➔
+                    </a>
+                </div>
+
+                <!-- A3 Card -->
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-5 hover:border-indigo-500 transition-colors relative overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="absolute top-0 right-0 w-2 h-full bg-indigo-500"></div>
+                        <span class="bg-indigo-500 text-white text-xs font-bold px-2 py-1 rounded">Mission A3</span>
+                        <h4 class="text-lg font-bold text-indigo-400 mt-3 mb-2">Pengurangan Pecahan</h4>
+                        <p class="text-sm text-slate-300 mb-4">Mempelajari konsep sisa dari keseluruhan dan cara mengurangkan pecahan berbeda penyebut.</p>
+                    </div>
+                    <a href="mission-a3.html" class="block text-center bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2 px-4 rounded-lg text-sm transition-all">
+                        Mulai Mission A3 ➔
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- REWARD & TOMBOL LANJUT KE MISSION A1 -->
+        <section class="border-t border-slate-700 pt-8 flex flex-col items-center space-y-6">
+            <div class="text-center">
+                <p class="text-slate-400 text-sm mb-2">Selesaikan seluruh rangkaian Mission A untuk mengklaim:</p>
+                <span class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full text-white font-bold shadow-[0_0_20px_rgba(59,130,246,0.4)] border border-blue-400/50">
+                    🏅 Equalizer Badge (+150 XP Total)
+                </span>
+            </div>
+
+            <!-- Tombol Lanjut ke A1 -->
+            <a href="mission-a1.html" class="inline-block bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-sky-500/30 transition-all hover:-translate-y-1 text-lg mt-4">
+                Mulai Masuk ke Mission A1 Sekarang 🚀
+            </a>
+        </section>
+
+    </main>
+</body>
+</html>
