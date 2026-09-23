@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisualMath Academy | Pecahan & Desimal</title>
+    
+    <!-- Google Fonts: Nunito for a friendly, kid-friendly look -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        nunito: ['Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            900: '#1e3a8a',
+                        },
+                        darkbase: '#0f172a', /* slate-900 */
+                        pureblack: '#000000'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Nunito', sans-serif; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        /* Animation for floating elements */
+        .float-anim {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="bg-darkbase text-slate-200 antialiased selection:bg-brand-500 selection:text-white flex flex-col min-h-screen">
+
+    <!-- HERO SECTION (Pure Black background to blend with Logo if it has a black BG) -->
+    <header class="bg-pureblack relative overflow-hidden pt-12 pb-20 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
+        <!-- Decorative background elements -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20 pointer-events-none">
+            <div class="absolute w-64 h-64 bg-brand-600 rounded-full blur-3xl -top-20 -left-20 mix-blend-screen"></div>
+            <div class="absolute w-64 h-64 bg-purple-600 rounded-full blur-3xl top-20 -right-20 mix-blend-screen"></div>
+        </div>
+
+        <div class="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center">
+            <!-- Logo -->
+            <img src="logo.png" alt="VisualMath Academy Logo" class="w-64 md:w-80 lg:w-96 mb-6 float-anim object-contain" onerror="this.src='https://placehold.co/400x300/000000/3b82f6?text=VisualMath+Logo'">
+            
+            <div class="inline-block bg-slate-800/80 border border-slate-700 backdrop-blur-sm text-brand-400 px-4 py-1.5 rounded-full text-sm font-black uppercase tracking-widest mb-6">
+                Matematika Kelas 6
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-black text-white mb-4 leading-tight tracking-tight">
+                BAB 1 — <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-emerald-400">PECAHAN & DESIMAL</span>
+            </h1>
+            
+            <p class="mt-4 text-xl md:text-2xl font-bold text-slate-400 max-w-2xl">
+                Mission Series · See • Think • Solve
+            </p>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+        
+        <!-- Welcome & Quote -->
+        <section class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="bg-slate-800/50 p-8 rounded-3xl border border-slate-700 shadow-xl relative overflow-hidden h-full">
+                <div class="absolute text-8xl text-slate-700/30 -top-4 -left-2">"</div>
+                <p class="text-lg md:text-xl font-bold text-slate-300 leading-relaxed relative z-10 italic">
+                    Setiap misi dimulai dengan melihat. Setiap penemuan dimulai dengan berpikir. Dan setiap solusi lahir dari pemahaman.
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <h2 class="text-3xl font-black text-white flex items-center gap-3">
+                    <span class="text-4xl">👋</span> Selamat Datang!
+                </h2>
+                <p class="text-slate-400 text-lg leading-relaxed">
+                    Hari ini kamu resmi menjadi bagian dari <strong class="text-brand-400">VisualMath Academy</strong>. 
+                    Di akademi ini, matematika bukan sekadar menghitung angka. Setiap konsep dipelajari melalui pengamatan, visualisasi, dan penalaran.
+                </p>
+                <p class="text-slate-400 text-lg leading-relaxed">
+                    Dalam bab ini, kamu akan menjalankan serangkaian <em>mission</em> untuk menguasai pecahan dan desimal layaknya seorang <strong class="text-emerald-400">Master Math Agent</strong>.
+                </p>
+            </div>
+        </section>
+
+        <!-- Competencies -->
+        <section class="bg-gradient-to-br from-brand-900/40 to-slate-800/40 p-8 md:p-10 rounded-[2.5rem] border border-brand-500/20 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 -mt-10 -mr-10 text-9xl opacity-10">🎯</div>
+            <h2 class="text-2xl md:text-3xl font-black text-white mb-8 flex items-center gap-3">
+                🎯 Kompetensi Utama
+            </h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="flex gap-4 p-4 bg-pureblack/40 rounded-2xl border border-slate-700/50 hover:border-brand-500/50 transition-colors">
+                    <div class="text-brand-400 text-2xl">✔</div>
+                    <p class="text-slate-300 font-semibold">Memahami makna pecahan dan desimal sebagai representasi suatu nilai.</p>
+                </div>
+                <div class="flex gap-4 p-4 bg-pureblack/40 rounded-2xl border border-slate-700/50 hover:border-brand-500/50 transition-colors">
+                    <div class="text-brand-400 text-2xl">✔</div>
+                    <p class="text-slate-300 font-semibold">Menjelaskan konsep menggunakan gambar, Bar Model, Area Model, dan Number Line.</p>
+                </div>
+                <div class="flex gap-4 p-4 bg-pureblack/40 rounded-2xl border border-slate-700/50 hover:border-brand-500/50 transition-colors">
+                    <div class="text-brand-400 text-2xl">✔</div>
+                    <p class="text-slate-300 font-semibold">Melakukan operasi hitung dengan pemahaman konsep yang benar.</p>
+                </div>
+                <div class="flex gap-4 p-4 bg-pureblack/40 rounded-2xl border border-slate-700/50 hover:border-brand-500/50 transition-colors">
+                    <div class="text-brand-400 text-2xl">✔</div>
+                    <p class="text-slate-300 font-semibold">Menggunakan strategi (Singapore Math Heuristics) untuk menyelesaikan soal kontekstual.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cara Belajar (Learning Framework) -->
+        <section>
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-black text-white mb-4">🌟 Cara Belajar di Akademi</h2>
+                <p class="text-slate-400 text-lg max-w-2xl mx-auto">
+                    Kita tidak langsung menghafal rumus. Kita belajar melalui lima langkah yang akan memandumu menemukan konsep sendiri.
+                </p>
+            </div>
+
+            <!-- The Grid of Characters -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- 1. SEE (Pixel) -->
+                <div class="bg-pureblack rounded-3xl p-6 border-2 border-slate-800 hover:border-brand-500 transition-all duration-300 group flex flex-col h-full shadow-lg">
+                    <div class="h-48 w-full flex items-center justify-center mb-4 overflow-hidden rounded-2xl">
+                        <!-- Image with pure black background matching the container -->
+                        <img src="Pixel.jpg" alt="Pixel Robot" class="h-full w-full object-contain group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x300/000000/ffffff?text=Pixel'">
+                    </div>
+                    <div class="mt-auto">
+                        <div class="inline-block bg-slate-800 text-slate-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2">Dipandu oleh Pixel</div>
+                        <h3 class="text-2xl font-black text-brand-400 mb-2">👀 SEE</h3>
+                        <p class="text-slate-400 font-medium text-sm">Mengamati benda, gambar, atau situasi nyata untuk menemukan petunjuk.</p>
+                    </div>
+                </div>
+
+                <!-- 2. VISUALIZE (Luna) -->
+                <div class="bg-pureblack rounded-3xl p-6 border-2 border-slate-800 hover:border-purple-500 transition-all duration-300 group flex flex-col h-full shadow-lg">
+                    <div class="h-48 w-full flex items-center justify-center mb-4 overflow-hidden rounded-2xl">
+                        <img src="Luna.jpg" alt="Luna" class="h-full w-full object-contain group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x300/000000/ffffff?text=Luna'">
+                    </div>
+                    <div class="mt-auto">
+                        <div class="inline-block bg-slate-800 text-slate-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2">Dipandu oleh Luna</div>
+                        <h3 class="text-2xl font-black text-purple-400 mb-2">🎨 VISUALIZE</h3>
+                        <p class="text-slate-400 font-medium text-sm">Mengubah pengamatan menjadi gambar atau model matematika yang mudah dipahami.</p>
+                    </div>
+                </div>
+
+                <!-- 3. THINK (Kian) -->
+                <div class="bg-pureblack rounded-3xl p-6 border-2 border-slate-800 hover:border-amber-500 transition-all duration-300 group flex flex-col h-full shadow-lg">
+                    <div class="h-48 w-full flex items-center justify-center mb-4 overflow-hidden rounded-2xl">
+                        <img src="Kian.jpg" alt="Kian" class="h-full w-full object-contain group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x300/000000/ffffff?text=Kian'">
+                    </div>
+                    <div class="mt-auto">
+                        <div class="inline-block bg-slate-800 text-slate-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2">Dipandu oleh Kian</div>
+                        <h3 class="text-2xl font-black text-amber-400 mb-2">🧠 THINK</h3>
+                        <p class="text-slate-400 font-medium text-sm">Mencari pola, membandingkan, dan membuat dugaan logika.</p>
+                    </div>
+                </div>
+
+                <!-- 4. DISCOVER (Kian & Prof. Sigma) -->
+                <div class="bg-pureblack rounded-3xl p-6 border-2 border-slate-800 hover:border-emerald-500 transition-all duration-300 group flex flex-col h-full shadow-lg lg:col-span-2">
+                    <div class="h-48 w-full flex items-center justify-center gap-4 mb-4 overflow-hidden rounded-2xl">
+                        <img src="Kian.jpg" alt="Kian" class="h-full object-contain group-hover:-translate-y-2 transition-transform duration-500" onerror="this.src='https://placehold.co/200x300/000000/ffffff?text=Kian'">
+                        <img src="Prof. Sigma.jpg" alt="Prof. Sigma" class="h-full object-contain group-hover:-translate-y-2 transition-transform duration-500 delay-75" onerror="this.src='https://placehold.co/200x300/000000/ffffff?text=Prof+Sigma'">
+                    </div>
+                    <div class="mt-auto">
+                        <div class="inline-block bg-slate-800 text-slate-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2">Kian & Prof. Sigma</div>
+                        <h3 class="text-2xl font-black text-emerald-400 mb-2">💡 DISCOVER</h3>
+                        <p class="text-slate-400 font-medium text-sm lg:w-2/3">Menemukan sendiri konsep atau aturan matematika dari hasil pemikiranmu. Aha moment!</p>
+                    </div>
+                </div>
+
+                <!-- 5. SOLVE (Prof. Sigma) -->
+                <div class="bg-pureblack rounded-3xl p-6 border-2 border-slate-800 hover:border-rose-500 transition-all duration-300 group flex flex-col h-full shadow-lg">
+                    <div class="h-48 w-full flex items-center justify-center mb-4 overflow-hidden rounded-2xl">
+                        <img src="Prof. Sigma.jpg" alt="Prof. Sigma" class="h-full w-full object-contain group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/400x300/000000/ffffff?text=Prof+Sigma'">
+                    </div>
+                    <div class="mt-auto">
+                        <div class="inline-block bg-slate-800 text-slate-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-2">Dipandu Prof. Sigma</div>
+                        <h3 class="text-2xl font-black text-rose-400 mb-2">✅ SOLVE</h3>
+                        <p class="text-slate-400 font-medium text-sm">Menggunakan konsep yang ditemukan untuk menyelesaikan berbagai tantangan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Map -->
+        <section class="max-w-3xl mx-auto">
+            <h2 class="text-3xl font-black text-center text-white mb-10 flex items-center justify-center gap-3">
+                <span>🗺️</span> Mission Map
+            </h2>
+            
+            <div class="bg-slate-800/30 rounded-3xl p-6 md:p-10 border border-slate-700">
+                <div class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-1 before:bg-gradient-to-b before:from-brand-500 before:via-slate-700 before:to-slate-700">
+                    
+                    <!-- Item 1 (Pra-Mission) -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                        <!-- Marker -->
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-darkbase bg-emerald-500 text-white shadow shadow-emerald-500/50 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                        </div>
+                        <!-- Card -->
+                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-2xl border border-brand-500/30 bg-brand-900/20 shadow-sm transition-all hover:bg-brand-900/40">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-bold text-emerald-400 text-sm">Pra-Mission</span>
+                                <span class="text-xs font-bold px-2 py-1 bg-emerald-500/20 text-emerald-300 rounded-md">🏅 Foundation Badge</span>
+                            </div>
+                            <h4 class="font-black text-white text-lg">Kalibrasi Logika Pecahan</h4>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 (Mission A) -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-darkbase bg-slate-700 text-slate-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                            <span class="text-sm font-bold">A</span>
+                        </div>
+                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-2xl border border-slate-700 bg-slate-800/50 opacity-60">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-bold text-slate-400 text-sm">Mission A</span>
+                                <span class="text-xs font-bold px-2 py-1 bg-slate-700 text-slate-300 rounded-md">🔒 Terkunci</span>
+                            </div>
+                            <h4 class="font-bold text-slate-300 text-lg">Pecahan Senilai</h4>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 (Mission B) -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-darkbase bg-slate-700 text-slate-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                            <span class="text-sm font-bold">B</span>
+                        </div>
+                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-2xl border border-slate-700 bg-slate-800/50 opacity-60">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-bold text-slate-400 text-sm">Mission B</span>
+                                <span class="text-xs font-bold px-2 py-1 bg-slate-700 text-slate-300 rounded-md">🔒 Terkunci</span>
+                            </div>
+                            <h4 class="font-bold text-slate-300 text-lg">Operasi Perkalian Pecahan</h4>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 4 (Mission C) -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-darkbase bg-slate-700 text-slate-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                            <span class="text-sm font-bold">C</span>
+                        </div>
+                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-2xl border border-slate-700 bg-slate-800/50 opacity-60">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-bold text-slate-400 text-sm">Mission C</span>
+                                <span class="text-xs font-bold px-2 py-1 bg-slate-700 text-slate-300 rounded-md">🔒 Terkunci</span>
+                            </div>
+                            <h4 class="font-bold text-slate-300 text-lg">Operasi Pembagian Pecahan</h4>
+                        </div>
+                    </div>
+
+                    <!-- Item 5 (Mission D) -->
+                    <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                        <div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-darkbase bg-slate-700 text-slate-400 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                            <span class="text-sm font-bold">D</span>
+                        </div>
+                        <div class="w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-2xl border border-slate-700 bg-slate-800/50 opacity-60">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="font-bold text-slate-400 text-sm">Mission D</span>
+                                <span class="text-xs font-bold px-2 py-1 bg-slate-700 text-slate-300 rounded-md">🔒 Terkunci</span>
+                            </div>
+                            <h4 class="font-bold text-slate-300 text-lg">Bilangan Desimal</h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- CTA SECTION -->
+    <div class="mt-auto bg-slate-900 border-t border-slate-800 py-16 text-center">
+        <div class="max-w-2xl mx-auto px-4">
+            <h2 class="text-2xl font-bold text-white mb-6">Siap menjalankan misimu, Agent?</h2>
+            
+            <!-- Link to Pra-Mission HTML -->
+            <a href="pra-mission.html" class="inline-block group relative">
+                <div class="absolute -inset-1 bg-gradient-to-r from-brand-500 to-emerald-500 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-200"></div>
+                <button class="relative bg-pureblack hover:bg-slate-900 text-white font-black text-xl py-4 px-10 rounded-full border-2 border-brand-500/50 transform transition-transform duration-200 group-hover:scale-105 flex items-center gap-3 shadow-2xl">
+                    <span>Mulai Pra-Mission</span>
+                    <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-pureblack py-6 text-center border-t border-slate-800">
+        <p class="text-slate-500 font-semibold text-sm">© VisualMath.Lim | Matematika Lebih Mudah, Lebih Seru, Lebih Bermakna!</p>
+    </footer>
+
+</body>
+</html>
