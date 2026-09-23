@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission B - Operasi Perkalian Pecahan | VisualMath Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark {
+            background-color: #1e293b; 
+            border: 1px solid #334155; 
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #a855f7, #ec4899); /* Gradien ungu ke pink untuk Mission B */
+        }
+        /* KHUSUS RUMUS MATEMATIKA PECAHAN (FRACTION) */
+        .math-frac {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 0.25rem;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+        .math-num {
+            border-bottom: 2px solid currentColor;
+            padding: 0 0.3rem;
+            width: 100%;
+            text-align: center;
+        }
+        .math-den {
+            padding: 0 0.3rem;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="VisualMath Logo" class="h-10 w-auto">
+                <div class="hidden sm:block">
+                    <h1 class="text-lg font-bold text-sky-400">VisualMath Academy</h1>
+                </div>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="index.html" class="text-sm text-slate-400 hover:text-white transition-colors">🏠 Home</a>
+                <!-- Badge ungu untuk Mission B -->
+                <span class="px-3 py-1 bg-purple-900/50 border border-purple-700 rounded-full text-xs font-semibold text-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+                    🟣 Sedang Berjalan: Mission B
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-12">
+        
+        <!-- Judul Misi -->
+        <section class="text-center space-y-4">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-slate-800 rounded-full text-sm text-slate-300 border border-slate-700 mb-2">
+                🏅 Fraction Multiplier Badge
+            </div>
+            <h2 class="text-3xl md:text-5xl font-extrabold text-white">
+                MISSION B <br> 
+                <span class="text-gradient">Operasi Perkalian Pecahan</span>
+            </h2>
+        </section>
+
+        <!-- Mission Brief -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 relative overflow-hidden border-purple-900">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-purple-500/10 rounded-bl-full"></div>
+            
+            <div class="flex items-center gap-2 mb-6">
+                <span class="text-2xl">🎯</span>
+                <h3 class="text-xl font-bold text-white">MISSION BRIEF</h3>
+            </div>
+
+            <!-- Big Idea -->
+            <div class="bg-gradient-to-r from-purple-900/40 to-slate-800 p-4 rounded-xl border border-purple-800/50 mb-6 border-l-4 border-l-purple-400">
+                <p class="font-bold text-purple-400 mb-1 text-sm uppercase tracking-wider">💡 Big Idea</p>
+                <p class="text-slate-200 text-lg">Perkalian pecahan berarti mencari <strong>beberapa kelompok</strong> pecahan atau menentukan <strong>sebagian dari suatu keseluruhan</strong>.</p>
+            </div>
+
+            <!-- Pesan Pixel -->
+            <div class="bg-slate-900 rounded-xl p-5 flex flex-col sm:flex-row gap-6 items-center sm:items-start border border-slate-800 mb-6 shadow-lg shadow-purple-900/20">
+                <img src="assets/Pixel.png" alt="Pixel" class="w-20 h-20 object-contain bg-slate-800 rounded-full p-2 border-2 border-purple-500 shrink-0">
+                <div class="space-y-2">
+                    <p class="text-purple-400 font-bold text-sm">🤖 Pixel berkata:</p>
+                    <p class="text-slate-300 italic">
+                        "Selamat datang di Mission B! Kali ini kamu akan membuka kemampuan baru sebagai Math Agent. Perkalian pecahan bukan sekadar mengalikan angka, tetapi memahami makna 'beberapa kelompok' dan 'sebagian dari suatu keseluruhan' melalui gambar dan penalaran."
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mt-6">
+                <!-- Learning Goals -->
+                <div class="space-y-3">
+                    <p class="font-bold text-slate-200 border-b border-slate-700 pb-2 flex items-center gap-2">✅ Learning Goals</p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-slate-400">
+                        <li>Memahami makna perkalian melalui model konkret & visual.</li>
+                        <li>Menjelaskan perkalian sebagai kelompok berulang <em class="text-slate-300">(repeated groups)</em> dan bagian keseluruhan <em class="text-slate-300">(part of a whole)</em>.</li>
+                        <li>Menggunakan Bar Model dan Area Model.</li>
+                        <li>Menyelesaikan operasi perkalian secara konseptual dan prosedural.</li>
+                        <li>Memilih strategi yang tepat dalam menyelesaikan masalah.</li>
+                    </ul>
+                </div>
+                <!-- Vocabulary & Tools -->
+                <div class="space-y-4">
+                    <p class="font-bold text-slate-200 border-b border-slate-700 pb-2 flex items-center gap-2">📚 Vocabulary & Tools</p>
+                    <table class="w-full text-sm text-left text-slate-300">
+                        <tr class="border-b border-slate-700"><th class="py-1 text-slate-400">English</th><th class="py-1 text-slate-400">Indonesia</th></tr>
+                        <tr class="border-b border-slate-800"><td class="py-1">Multiply</td><td class="py-1 font-semibold text-purple-300">Mengalikan</td></tr>
+                        <tr class="border-b border-slate-800"><td class="py-1">Product</td><td class="py-1 font-semibold text-purple-300">Hasil Perkalian</td></tr>
+                        <tr class="border-b border-slate-800"><td class="py-1">Repeated Groups</td><td class="py-1 font-semibold text-purple-300">Kelompok Berulang</td></tr>
+                        <tr class="border-b border-slate-800"><td class="py-1">Part of a Whole</td><td class="py-1 font-semibold text-purple-300">Sebagian Keseluruhan</td></tr>
+                        <tr><td class="py-1">Area Model</td><td class="py-1 font-semibold text-purple-300">Model Luas</td></tr>
+                    </table>
+                    <div class="flex flex-wrap gap-3 text-sm text-slate-400 pt-2 border-t border-slate-800">
+                        <span class="bg-slate-800 px-2 py-1 rounded">📦 Bar Model</span>
+                        <span class="bg-slate-800 px-2 py-1 rounded border border-purple-500/30 text-purple-300">🟦 Area Model (Baru!)</span>
+                        <span class="bg-slate-800 px-2 py-1 rounded">📏 Fraction Strip</span>
+                        <span class="bg-slate-800 px-2 py-1 rounded">📍 Number Line</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MISSION SERIES ROADMAP -->
+        <section class="space-y-6">
+            <div class="text-center mb-10">
+                <h3 class="text-2xl font-bold text-white mb-2">📖 Roadmap Mission B</h3>
+                <p class="text-slate-400">Mission B terdiri atas empat sub-mission. Inilah yang akan kamu hadapi:</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- B1 Card -->
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-5 hover:border-sky-500 transition-colors relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-sky-500"></div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="bg-sky-500 text-white text-xs font-bold px-2 py-1 rounded">Mission B1</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-sky-400 mb-3">Konsep Dasar Perkalian Pecahan</h4>
+                    <p class="text-sm font-semibold text-white mb-2">💡 Big Idea:</p>
+                    <p class="text-sm text-slate-300 mb-4">Perkalian menunjukkan beberapa kelompok atau sebagian dari suatu keseluruhan.</p>
+                    <div class="bg-slate-800 p-3 rounded-lg text-sm text-slate-400">
+                        <p class="font-bold text-slate-300 mb-1">Fokus Visual:</p>
+                        <p>Area Model, Bar Model Berulang, Fraction Strip.</p>
+                    </div>
+                </div>
+
+                <!-- B2 Card -->
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-5 hover:border-emerald-500 transition-colors relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-emerald-500"></div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="bg-emerald-500 text-white text-xs font-bold px-2 py-1 rounded">Mission B2</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-emerald-400 mb-3">Bilangan Asli × Pecahan</h4>
+                    <p class="text-sm font-semibold text-white mb-2">💡 Big Idea:</p>
+                    <p class="text-sm text-slate-300 mb-3">Beberapa kelompok pecahan.</p>
+                    <div class="flex items-center gap-3 bg-slate-800 p-2 rounded-lg text-lg font-bold text-emerald-300 w-max mb-3 border border-emerald-900">
+                        3 <span class="text-slate-400 text-sm">×</span> <div class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></div>
+                    </div>
+                    <p class="text-xs text-slate-400">Berarti terdapat tiga kelompok, yang masing-masing bernilai seperempat.</p>
+                </div>
+
+                <!-- B3 Card -->
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-5 hover:border-amber-500 transition-colors relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-amber-500"></div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="bg-amber-500 text-white text-xs font-bold px-2 py-1 rounded">Mission B3</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-amber-400 mb-3">Pecahan × Bilangan Asli</h4>
+                    <p class="text-sm font-semibold text-white mb-2">💡 Big Idea:</p>
+                    <p class="text-sm text-slate-300 mb-3">Mengambil sebagian dari suatu jumlah.</p>
+                    <div class="flex items-center gap-3 bg-slate-800 p-2 rounded-lg text-lg font-bold text-amber-300 w-max mb-3 border border-amber-900">
+                        <div class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></div> <span class="text-slate-400 text-sm">×</span> 12
+                    </div>
+                    <p class="text-xs text-slate-400">Berarti mengambil seperempat dari 12 benda (Kelompok Benda / Array).</p>
+                </div>
+
+                <!-- B4 Card -->
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-5 hover:border-rose-500 transition-colors relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-2 h-full bg-rose-500"></div>
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="bg-rose-500 text-white text-xs font-bold px-2 py-1 rounded">Mission B4</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-rose-400 mb-3">Pecahan × Pecahan</h4>
+                    <p class="text-sm font-semibold text-white mb-2">💡 Big Idea:</p>
+                    <p class="text-sm text-slate-300 mb-3">Sebagian dari sebagian <em class="text-rose-300">(Part of a Part)</em>.</p>
+                    <div class="flex items-center gap-3 bg-slate-800 p-2 rounded-lg text-lg font-bold text-rose-300 w-max mb-3 border border-rose-900">
+                        <div class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></div> <span class="text-slate-400 text-sm">×</span> <div class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></div>
+                    </div>
+                    <p class="text-xs text-slate-400">Artinya mengambil setengah dari tiga perempat. Area Model sangat efektif di sini.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PIXEL ALERT (Penting untuk Perkalian Pecahan) -->
+        <section class="bg-gradient-to-r from-red-950 to-slate-900 border border-red-800 rounded-2xl p-6 flex flex-col sm:flex-row gap-6 items-center shadow-[0_0_20px_rgba(220,38,38,0.15)] mt-8">
+            <img src="assets/Pixel.png" alt="Pixel Warning" class="w-20 h-20 object-contain drop-shadow-[0_0_15px_rgba(220,38,38,0.5)]">
+            <div class="w-full space-y-3">
+                <h4 class="text-lg font-bold text-red-400 flex items-center gap-2">⚠️ PIXEL ALERT: Miskonsepsi Perkalian</h4>
+                <div class="space-y-2 text-sm text-slate-300">
+                    <p class="font-bold text-white">Perkalian tidak selalu menghasilkan bilangan yang lebih besar!</p>
+                    <p>Contoh:</p>
+                    <div class="flex items-center gap-3 bg-slate-900/80 p-3 rounded-lg w-max border border-red-900/50">
+                        <div class="math-frac text-lg font-bold text-white"><span class="math-num">1</span><span class="math-den">2</span></div> 
+                        <span class="text-slate-400">×</span> 
+                        <div class="math-frac text-lg font-bold text-white"><span class="math-num">1</span><span class="math-den">2</span></div> 
+                        <span class="text-slate-400">=</span> 
+                        <div class="math-frac text-lg font-bold text-red-400"><span class="math-num">1</span><span class="math-den">4</span></div>
+                    </div>
+                    <p class="text-red-300 pt-2">Karena kita sedang mencari sebagian dari sebagian (setengahnya dari setengah), hasilnya justru bisa menjadi <strong>lebih kecil</strong> daripada kedua pecahan semula.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curriculum Insight (Singapore Math Note) -->
+        <section class="bg-indigo-950/40 border border-indigo-900/50 rounded-2xl p-6 relative">
+            <h4 class="text-indigo-400 font-bold mb-3 flex items-center gap-2">
+                <span class="text-xl">💡</span> Curriculum Insight (Singapore Math)
+            </h4>
+            <p class="text-sm text-slate-300 leading-relaxed mb-3">
+                Susunan Mission B ini dirancang sangat selaras dengan pendekatan <strong>Singapore Primary Mathematics</strong> karena urutan konsep berkembang secara alami:
+            </p>
+            <ol class="list-decimal list-inside space-y-1 text-sm text-slate-400 mb-4 ml-2">
+                <li>Memahami makna perkalian melalui konteks dan visual.</li>
+                <li>Bilangan Asli × Pecahan (kelompok berulang).</li>
+                <li>Pecahan × Bilangan Asli (sebagian dari jumlah benda).</li>
+                <li>Pecahan × Pecahan menggunakan <em>Area Model</em>.</li>
+            </ol>
+            <p class="text-sm text-slate-300 leading-relaxed">
+                Urutan ini membuat siswa <strong>membangun pemahaman secara bertahap</strong> sebelum mempelajari algoritma. Sehingga ketika mereka sampai pada aturan <em>"kalikan pembilang dengan pembilang"</em>, mereka sudah memahami mengapa aturan itu bekerja, bukan sekadar menghafalnya.
+            </p>
+        </section>
+
+        <!-- REWARD & TOMBOL LANJUT -->
+        <section class="border-t border-slate-700 pt-8 flex flex-col items-center space-y-6">
+            <div class="text-center">
+                <p class="text-slate-400 text-sm mb-2">Selesaikan seluruh Mission B untuk membuka:</p>
+                <span class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-white font-bold shadow-[0_0_20px_rgba(168,85,247,0.4)] border border-purple-400/50">
+                    🏅 Fraction Multiplier Badge (+240 XP)
+                </span>
+            </div>
+
+            <!-- Tombol Lanjut ke B1 -->
+            <a href="mission-b1.html" class="inline-block bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-sky-500/30 transition-all hover:-translate-y-1 text-lg mt-4">
+                Siap? Lanjut ke Mission B1 Sekarang ➔
+            </a>
+        </section>
+
+    </main>
+</body>
+</html>
