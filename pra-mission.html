@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pra-Mission | VisualMath Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark {
+            background-color: #1e293b; 
+            border: 1px solid #334155; 
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #38bdf8, #818cf8);
+        }
+        /* Style khusus input box agar gelap */
+        .input-dark {
+            background-color: #0f172a;
+            border: 1px solid #475569;
+            color: #f8fafc;
+        }
+        .input-dark:focus {
+            outline: none;
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="VisualMath Logo" class="h-10 w-auto">
+                <div class="hidden sm:block">
+                    <h1 class="text-lg font-bold text-sky-400">VisualMath Academy</h1>
+                </div>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="index.html" class="text-sm text-slate-400 hover:text-white transition-colors">🏠 Kembali ke Home</a>
+                <span class="px-3 py-1 bg-green-900/50 border border-green-700 rounded-full text-xs font-semibold text-green-400 shadow-[0_0_10px_rgba(74,222,128,0.2)]">
+                    🟢 Sedang Berjalan: Pra-Mission
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-12">
+        
+        <!-- Judul Misi -->
+        <section class="text-center space-y-4">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-slate-800 rounded-full text-sm text-slate-300 border border-slate-700 mb-2">
+                🏅 Foundation Badge
+            </div>
+            <h2 class="text-3xl md:text-5xl font-extrabold text-white">
+                PRA-MISSION <br> 
+                <span class="text-gradient">Kalibrasi Logika Pecahan</span>
+            </h2>
+            <p class="text-slate-400 max-w-2xl mx-auto italic">
+                "Sebelum menjalankan misi besar, setiap Math Agent harus memastikan bahwa pemahaman dasarnya sudah siap. Mari kalibrasi kembali cara kita melihat pecahan."
+            </p>
+        </section>
+
+        <!-- Mission Brief (Pixel) -->
+        <section class="card-dark rounded-2xl p-6 relative overflow-hidden border-sky-900">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-sky-500/10 rounded-bl-full"></div>
+            <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                🎯 MISSION BRIEF
+            </h3>
+            <div class="bg-slate-900 rounded-xl p-5 flex flex-col sm:flex-row gap-6 items-center sm:items-start border border-slate-800">
+                <img src="assets/Pixel.png" alt="Pixel" class="w-24 h-24 object-contain bg-slate-800 rounded-full p-2 border-2 border-sky-500 shadow-[0_0_15px_rgba(56,189,248,0.3)] shrink-0">
+                <div class="space-y-3">
+                    <p class="text-sky-400 font-bold uppercase tracking-wider text-sm">Pesan dari Pixel:</p>
+                    <p class="text-slate-300 leading-relaxed">
+                        "Selamat datang, Math Agent! Sebelum menjalankan misi pertama, kita harus memastikan bahwa alat berpikir kita sudah dikalibrasi dengan benar. Banyak agen gagal menyelesaikan operasi pecahan bukan karena tidak bisa berhitung, tetapi karena salah memahami arti angka pada pecahan. Hari ini kita akan membongkar rahasia itu!"
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-6 pl-4 border-l-2 border-sky-500 space-y-2">
+                <p class="font-semibold text-slate-200">Target Misi — Setelah misi ini, kamu dapat:</p>
+                <ul class="list-none space-y-1 text-sm text-slate-400">
+                    <li>✅ Menjelaskan arti pembilang.</li>
+                    <li>✅ Menjelaskan arti penyebut.</li>
+                    <li>✅ Menjelaskan hubungan antara penyebut dan ukuran setiap bagian.</li>
+                    <li>✅ Menghindari kesalahan umum saat memahami pecahan.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Langkah 1: SEE -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-4 border-b border-slate-700 pb-2">
+                <span class="text-3xl">👀</span>
+                <h3 class="text-2xl font-bold text-sky-400">SEE — Explore</h3>
+            </div>
+            
+            <div class="card-dark rounded-2xl p-6 md:p-8 space-y-6">
+                <h4 class="text-lg font-bold text-white">🍫 Kasus Cokelat Akademi</h4>
+                <p class="text-slate-300">Coach Lim membawa satu batang cokelat untuk dibagikan kepada dua kelompok belajar.</p>
+                
+                <div class="grid md:grid-cols-2 gap-8 mt-4">
+                    <!-- Cokelat Kelompok 1 -->
+                    <div class="space-y-3">
+                        <p class="text-sm font-semibold text-sky-300">Kelompok Pertama:</p>
+                        <p class="text-sm text-slate-400">Memotong cokelat menjadi <strong class="text-white">2 bagian</strong> sama besar, lalu mengambil 1 bagian.</p>
+                        <!-- Visualisasi Cokelat HTML -->
+                        <div class="h-16 w-full flex border-2 border-[#5c3a21] rounded-md overflow-hidden shadow-lg">
+                            <div class="w-1/2 bg-[#8b5a2b] flex items-center justify-center border-r border-[#5c3a21]">
+                                <span class="text-xs text-white/50">Diambil</span>
+                            </div>
+                            <div class="w-1/2 bg-[#3e2723]"></div>
+                        </div>
+                    </div>
+
+                    <!-- Cokelat Kelompok 2 -->
+                    <div class="space-y-3">
+                        <p class="text-sm font-semibold text-purple-300">Kelompok Kedua:</p>
+                        <p class="text-sm text-slate-400">Memotong cokelat menjadi <strong class="text-white">4 bagian</strong> sama besar, lalu mengambil 1 bagian.</p>
+                        <!-- Visualisasi Cokelat HTML -->
+                        <div class="h-16 w-full flex border-2 border-[#5c3a21] rounded-md overflow-hidden shadow-lg">
+                            <div class="w-1/4 bg-[#8b5a2b] flex items-center justify-center border-r border-[#5c3a21]">
+                                <span class="text-xs text-white/50">Diambil</span>
+                            </div>
+                            <div class="w-1/4 bg-[#3e2723] border-r border-[#5c3a21]"></div>
+                            <div class="w-1/4 bg-[#3e2723] border-r border-[#5c3a21]"></div>
+                            <div class="w-1/4 bg-[#3e2723]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 rounded-xl p-5 mt-6 border border-slate-700">
+                    <h5 class="font-bold text-amber-400 mb-4 flex items-center gap-2">🤔 Coba Amati!</h5>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-slate-300 mb-1">1. Kelompok mana yang memotong cokelat menjadi lebih banyak bagian?</label>
+                            <input type="text" class="w-full input-dark rounded-lg p-2.5 text-sm" placeholder="Ketik jawabanmu di sini...">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-300 mb-1">2. Kelompok mana yang mendapatkan potongan yang lebih besar?</label>
+                            <input type="text" class="w-full input-dark rounded-lg p-2.5 text-sm" placeholder="Ketik jawabanmu di sini...">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-300 mb-1">3. Mengapa kamu berpikir demikian?</label>
+                            <input type="text" class="w-full input-dark rounded-lg p-2.5 text-sm" placeholder="Ketik alasanmu di sini...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Langkah 2: VISUALIZE -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-4 border-b border-slate-700 pb-2">
+                <span class="text-3xl">🎨</span>
+                <h3 class="text-2xl font-bold text-purple-400">VISUALIZE</h3>
+            </div>
+            
+            <div class="card-dark rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center">
+                <img src="assets/Luna.png" alt="Luna" class="w-32 h-32 object-contain drop-shadow-[0_0_15px_rgba(168,85,247,0.3)] shrink-0">
+                <div class="space-y-4 w-full">
+                    <p class="text-slate-300 italic">
+                        <strong class="text-purple-400 not-italic">Luna berkata:</strong> "Agar lebih mudah dibandingkan, mari kita ubah kedua cokelat tadi menjadi gambar Bar Model sederhana. Panjang batangnya sama ya!"
+                    </p>
+                    
+                    <div class="space-y-3 bg-slate-900 p-5 rounded-xl border border-slate-800">
+                        <!-- Bar Model 1 -->
+                        <div class="h-10 w-full flex border-2 border-slate-600 rounded">
+                            <div class="w-1/2 bg-sky-500 border-r border-slate-600 flex justify-center items-center text-xs font-bold">1 bagian</div>
+                            <div class="w-1/2 bg-slate-800"></div>
+                        </div>
+                        <!-- Bar Model 2 -->
+                        <div class="h-10 w-full flex border-2 border-slate-600 rounded">
+                            <div class="w-1/4 bg-sky-500 border-r border-slate-600 flex justify-center items-center text-xs font-bold">1 bag</div>
+                            <div class="w-1/4 bg-slate-800 border-r border-slate-600"></div>
+                            <div class="w-1/4 bg-slate-800 border-r border-slate-600"></div>
+                            <div class="w-1/4 bg-slate-800"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Langkah 3 & 4: THINK & DISCOVER -->
+        <section class="grid md:grid-cols-2 gap-6">
+            <!-- THINK -->
+            <div class="card-dark rounded-2xl p-6 border-amber-900/50 space-y-4">
+                <h3 class="text-xl font-bold text-amber-400 flex items-center gap-2">🧠 THINK</h3>
+                <div class="flex gap-4 items-start">
+                    <img src="assets/Kian.png" alt="Kian" class="w-16 h-16 object-contain shrink-0">
+                    <div class="space-y-4">
+                        <p class="text-sm text-slate-300 italic"><strong class="text-amber-400 not-italic">Kian:</strong> "Aku melihat sesuatu yang menarik."</p>
+                        <div class="space-y-3">
+                            <p class="text-sm font-semibold">Saat cokelat dipotong menjadi lebih banyak bagian, ukuran setiap potongannya menjadi:</p>
+                            <div class="flex gap-4">
+                                <label class="flex items-center gap-2 text-sm cursor-pointer hover:text-amber-400"><input type="radio" name="ukuran" class="accent-amber-400 w-4 h-4"> Lebih besar</label>
+                                <label class="flex items-center gap-2 text-sm cursor-pointer hover:text-amber-400"><input type="radio" name="ukuran" class="accent-amber-400 w-4 h-4"> Lebih kecil</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DISCOVER -->
+            <div class="card-dark rounded-2xl p-6 border-emerald-900/50 space-y-4">
+                <h3 class="text-xl font-bold text-emerald-400 flex items-center gap-2">💡 DISCOVER</h3>
+                <p class="text-sm text-slate-300">Simpulkan hasil pengamatanmu. Lengkapi kalimat berikut:</p>
+                <div class="space-y-3 text-sm">
+                    <p>Semakin banyak sebuah benda dipotong menjadi bagian yang sama besar, maka ukuran setiap bagiannya menjadi semakin 
+                        <input type="text" class="input-dark border-b border-t-0 border-l-0 border-r-0 rounded-none w-24 px-1 py-0.5 text-center text-emerald-300" placeholder="..."> .
+                    </p>
+                    <p>Apa yang tetap sama? 
+                        <input type="text" class="input-dark border-b border-t-0 border-l-0 border-r-0 rounded-none w-32 px-1 py-0.5 text-center text-emerald-300" placeholder="..."> .
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILL UNLOCK: Anatomi Pecahan -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 border border-rose-900 relative overflow-hidden">
+            <div class="absolute -right-10 -top-10 w-48 h-48 bg-rose-500/5 rounded-full blur-3xl"></div>
+            
+            <div class="flex items-center gap-4 mb-6">
+                <img src="assets/Prof.%20Sigma.png" alt="Prof Sigma" class="w-20 h-20 object-contain drop-shadow-lg">
+                <div>
+                    <h3 class="text-xl font-bold text-rose-400">🔓 SKILL UNLOCK</h3>
+                    <p class="text-sm text-slate-300 italic">"Hebat! Kalian baru saja menemukan salah satu konsep terpenting. Mari kita bedah Anatomi Pecahan."</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 rounded-xl overflow-hidden border border-slate-700">
+                <table class="w-full text-left text-sm sm:text-base">
+                    <thead class="bg-slate-800">
+                        <tr>
+                            <th class="p-4 text-slate-200 w-1/4">Bagian</th>
+                            <th class="p-4 text-slate-200">Arti</th>
+                            <th class="p-4 text-slate-200 w-1/3">Contoh pada <span class="font-bold text-sky-400 text-lg">3/4</span></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800">
+                        <tr>
+                            <td class="p-4 font-bold text-emerald-400">Pembilang <br><span class="text-xs font-normal text-slate-400">(Angka di atas)</span></td>
+                            <td class="p-4 text-slate-300">Menunjukkan berapa bagian yang dimiliki atau diambil.</td>
+                            <td class="p-4 text-slate-400">Angka <strong class="text-emerald-400">3</strong> berarti kamu memiliki 3 bagian.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold text-rose-400">Penyebut <br><span class="text-xs font-normal text-slate-400">(Angka di bawah)</span></td>
+                            <td class="p-4 text-slate-300">Menunjukkan menjadi berapa bagian sama besar satu benda utuh dibagi.</td>
+                            <td class="p-4 text-slate-400">Angka <strong class="text-rose-400">4</strong> berarti satu benda utuh dibagi menjadi 4 bagian.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-4 p-4 bg-rose-900/20 border border-rose-900/50 rounded-lg">
+                <p class="text-sm text-slate-200 text-center"><strong class="text-rose-400">Kesimpulan:</strong> Pecahan menunjukkan dua informasi sekaligus — pembilang memberi tahu jumlah bagian, penyebut memberi tahu ukuran setiap bagian.</p>
+            </div>
+        </section>
+
+        <!-- PIXEL ALERT -->
+        <section class="bg-red-900/20 border border-red-700/50 rounded-2xl p-6 flex flex-col sm:flex-row gap-6 items-center shadow-[0_0_20px_rgba(220,38,38,0.1)]">
+            <img src="assets/Pixel.png" alt="Pixel Warning" class="w-20 h-20 object-contain drop-shadow-[0_0_15px_rgba(220,38,38,0.5)]">
+            <div>
+                <h4 class="text-lg font-bold text-red-400 mb-2 flex items-center gap-2">⚠️ PIXEL ALERT</h4>
+                <p class="text-slate-300 text-sm mb-3">"Banyak agen baru melakukan kesalahan ini."</p>
+                <div class="space-y-2 text-sm">
+                    <p class="text-slate-400"><span class="line-through decoration-red-500 font-semibold text-slate-300">Miskonsepsi:</span> "Penyebut lebih besar berarti pecahannya lebih besar." ❌ (Salah)</p>
+                    <p class="text-emerald-300"><strong class="text-emerald-400">Yang benar:</strong> Semakin besar penyebut, semakin banyak bagian yang dibuat, sehingga ukuran setiap bagian menjadi <strong>semakin kecil</strong>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUEST & BOSS BATTLE -->
+        <section class="space-y-6">
+            <h3 class="text-2xl font-bold text-center mb-8">🎮 Waktunya Uji Kemampuan</h3>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Easy Quest -->
+                <div class="card-dark p-6 rounded-2xl border-t-4 border-sky-500">
+                    <h4 class="font-bold text-sky-400 mb-4">Easy Quest</h4>
+                    <p class="text-sm text-slate-300 mb-4">Pada pecahan <strong class="text-lg">2/5</strong> :</p>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Angka 2 menunjukkan:</label>
+                            <input type="text" class="w-full input-dark rounded-lg p-2 text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Angka 5 menunjukkan:</label>
+                            <input type="text" class="w-full input-dark rounded-lg p-2 text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Challenge Quest -->
+                <div class="card-dark p-6 rounded-2xl border-t-4 border-purple-500">
+                    <h4 class="font-bold text-purple-400 mb-4">Challenge Quest</h4>
+                    <p class="text-sm text-slate-300 mb-4">Manakah potongan yang lebih besar?</p>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-sm font-bold text-white mb-2">1/3 atau 1/6 ?</p>
+                            <input type="text" class="w-full input-dark rounded-lg p-2 text-sm" placeholder="Jawaban & alasanmu...">
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white mb-2">1/4 atau 1/8 ?</p>
+                            <input type="text" class="w-full input-dark rounded-lg p-2 text-sm" placeholder="Jawaban & alasanmu...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Boss Battle -->
+            <div class="bg-gradient-to-br from-slate-900 to-rose-950 p-1 rounded-2xl shadow-xl mt-6">
+                <div class="bg-slate-900 p-6 sm:p-8 rounded-xl h-full">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-3xl">👾</span>
+                        <h4 class="font-bold text-xl text-rose-400">BOSS BATTLE</h4>
+                    </div>
+                    <p class="text-slate-300 leading-relaxed mb-4">
+                        Chef Akademi memiliki satu batang cokelat. <br>
+                        Batang pertama dipotong menjadi <strong class="text-white">5 bagian</strong> sama besar.<br>
+                        Batang kedua dipotong menjadi <strong class="text-white">10 bagian</strong> sama besar.
+                    </p>
+                    <p class="text-amber-300 font-semibold mb-3">
+                        Jika kamu hanya boleh mengambil 1 potong, batang cokelat mana yang akan memberikan potongan lebih besar?
+                    </p>
+                    <textarea rows="3" class="w-full input-dark rounded-lg p-3 text-sm resize-none" placeholder="Jelaskan alasan logismu di sini..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- Akhir Misi (Log & Badge) -->
+        <section class="border-t border-slate-700 pt-10">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Mission Log -->
+                <div class="space-y-4">
+                    <h4 class="font-bold text-lg flex items-center gap-2">📖 MISSION LOG</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Hari ini aku menemukan bahwa...</label>
+                            <textarea rows="2" class="w-full input-dark rounded-lg p-2 text-sm resize-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-slate-400 mb-1">Hal yang paling mengejutkanku adalah...</label>
+                            <textarea rows="2" class="w-full input-dark rounded-lg p-2 text-sm resize-none"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievement -->
+                <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700 relative">
+                    <div class="absolute top-4 right-4 text-4xl opacity-20">🏅</div>
+                    <h4 class="font-bold text-lg text-emerald-400 mb-4 flex items-center gap-2">🏆 ACHIEVEMENT</h4>
+                    <p class="text-sm text-slate-300 mb-3">Centang jika kamu sudah mampu:</p>
+                    <div class="space-y-2 text-sm text-slate-300">
+                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" class="w-4 h-4 accent-emerald-500"> Menjelaskan arti pembilang.</label>
+                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" class="w-4 h-4 accent-emerald-500"> Menjelaskan arti penyebut.</label>
+                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" class="w-4 h-4 accent-emerald-500"> Menjelaskan hubungan penyebut & ukuran.</label>
+                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" class="w-4 h-4 accent-emerald-500"> Menjelaskan alasan menggunakan gambar.</label>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-700 text-center">
+                        <span class="inline-block px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-full text-white font-bold text-sm shadow-[0_0_15px_rgba(16,185,129,0.4)]">
+                            ⭐ Reward: Foundation Badge (+50 XP)
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tombol Lanjut -->
+        <div class="text-center pt-8 pb-12">
+            <!-- Ini nanti akan diarahkan ke mission-a.html -->
+            <a href="mission-a.html" class="inline-block bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-sky-500/30 transition-all hover:-translate-y-1 text-lg">
+                Misi Selesai! Lanjut ke Mission A ➔
+            </a>
+        </div>
+
+    </main>
+</body>
+</html>
