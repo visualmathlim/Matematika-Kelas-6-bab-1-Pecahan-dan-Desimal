@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission B2 - Pecahan × Bilangan Asli | VisualMath Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark {
+            background-color: #1e293b; 
+            border: 1px solid #334155; 
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #3b82f6, #8b5cf6); /* Tema Biru-Ungu untuk B2 */
+        }
+        .input-dark {
+            background-color: #0f172a;
+            border: 1px solid #475569;
+            color: #f8fafc;
+        }
+        .input-dark:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+        /* KHUSUS RUMUS MATEMATIKA PECAHAN (FRACTION) */
+        .math-frac {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 0.25rem;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+        .math-num {
+            border-bottom: 2px solid currentColor;
+            padding: 0 0.3rem;
+            width: 100%;
+            text-align: center;
+        }
+        .math-den {
+            padding: 0 0.3rem;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="VisualMath Logo" class="h-10 w-auto">
+                <div class="hidden sm:block">
+                    <h1 class="text-lg font-bold text-sky-400">VisualMath Academy</h1>
+                </div>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="index.html" class="text-sm text-slate-400 hover:text-white transition-colors">🏠 Home</a>
+                <span class="px-3 py-1 bg-blue-900/50 border border-blue-700 rounded-full text-xs font-semibold text-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.2)]">
+                    🔵 Sedang Berjalan: Mission B2
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-12">
+        
+        <!-- Judul Misi -->
+        <section class="text-center space-y-4">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-slate-800 rounded-full text-sm text-slate-300 border border-slate-700 mb-2">
+                🏅 Fraction Multiplier Badge — Part 2
+            </div>
+            <h2 class="text-3xl md:text-5xl font-extrabold text-white">
+                MISSION B2 <br> 
+                <span class="text-gradient">Pecahan × Bilangan Asli</span>
+            </h2>
+            <p class="text-lg text-blue-300 font-semibold tracking-wide">Fraction of a Quantity</p>
+        </section>
+
+        <!-- Mission Brief -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 relative overflow-hidden border-blue-900">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-bl-full"></div>
+            
+            <div class="flex items-center gap-2 mb-6">
+                <span class="text-2xl">🎯</span>
+                <h3 class="text-xl font-bold text-white">MISSION BRIEF</h3>
+            </div>
+
+            <!-- Big Idea -->
+            <div class="bg-gradient-to-r from-blue-900/40 to-slate-800 p-4 rounded-xl border border-blue-800/50 mb-6 border-l-4 border-l-blue-400">
+                <p class="font-bold text-blue-400 mb-2 text-sm uppercase tracking-wider">💡 Big Idea</p>
+                <p class="text-slate-200 text-base leading-relaxed">
+                    Pecahan × bilangan asli berarti mencari <strong>sebagian dari suatu jumlah keseluruhan</strong>.
+                </p>
+                <div class="mt-3 text-sm text-slate-300 space-y-2 border-t border-slate-700 pt-3">
+                    <div class="flex items-center gap-2">
+                        <span>Pada Mission B1:</span>
+                        <span class="font-bold">3 <span class="text-slate-400">×</span> <div class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></div></span>
+                        <span>artinya 3 kelompok yang ukurannya <div class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></div>.</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span>Sekarang kita membalik sudut pandangnya:</span>
+                        <span class="font-bold"><div class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></div> <span class="text-slate-400">×</span> 12</span>
+                        <span>artinya mencari <div class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></div> dari 12.</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <!-- Learning Goals -->
+                <div class="space-y-3">
+                    <p class="font-bold text-slate-200 border-b border-slate-700 pb-2">✅ Learning Goals</p>
+                    <ul class="list-disc list-inside space-y-1 text-sm text-slate-400">
+                        <li>Memahami makna pecahan dari suatu kuantitas.</li>
+                        <li>Menentukan pecahan dari suatu bilangan asli.</li>
+                        <li>Menggunakan Bar Model untuk menemukan bagian keseluruhan.</li>
+                        <li>Menghubungkan konsep pecahan dengan perkalian.</li>
+                        <li>Menyelesaikan masalah sehari-hari.</li>
+                    </ul>
+                </div>
+                <!-- Vocabulary -->
+                <div class="space-y-4">
+                    <p class="font-bold text-slate-200 border-b border-slate-700 pb-2">📚 Mathematical Vocabulary</p>
+                    <table class="w-full text-sm text-left text-slate-300">
+                        <tr class="border-b border-slate-700"><th class="py-1 text-slate-400">English</th><th class="py-1 text-slate-400">Indonesia</th></tr>
+                        <tr class="border-b border-slate-800"><td class="py-1">Fraction of a Quantity</td><td class="py-1 font-semibold text-blue-300">Pecahan dari suatu kuantitas</td></tr>
+                        <tr class="border-b border-slate-800"><td class="py-1">Whole / Part</td><td class="py-1 font-semibold text-blue-300">Keseluruhan / Bagian</td></tr>
+                        <tr class="border-b border-slate-800"><td class="py-1">Unit Fraction</td><td class="py-1 font-semibold text-blue-300">Pecahan Satuan</td></tr>
+                        <tr><td class="py-1">Quantity / Product</td><td class="py-1 font-semibold text-blue-300">Jumlah / Hasil Perkalian</td></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONNECTION -->
+        <section class="bg-indigo-950/40 border border-indigo-900/50 rounded-2xl p-6 flex flex-col md:flex-row gap-6 items-center">
+            <div class="bg-indigo-900/50 p-3 rounded-full shrink-0">
+                <span class="text-2xl">🔗</span>
+            </div>
+            <div class="w-full space-y-3">
+                <h4 class="font-bold text-indigo-400 uppercase tracking-wide text-sm">CONNECTION</h4>
+                <div class="flex gap-4 items-start">
+                    <img src="assets/Pixel.png" alt="Pixel" class="w-12 h-12 object-contain bg-slate-800 rounded-full p-1 shrink-0">
+                    <div>
+                        <p class="text-sm text-slate-300 italic mb-2">
+                            "Pada Mission B1, kita membuat beberapa kelompok pecahan. Sekarang kita punya 12 benda dan ingin mengetahui sebagian dari 12 benda tersebut."
+                        </p>
+                        <div class="text-sm text-slate-400">
+                            Perhatikan: <span class="font-bold text-white">3 <span class="text-slate-500">×</span> <div class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></div></span> 
+                            berbeda makna dengan <span class="font-bold text-white"><div class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></div> <span class="text-slate-500">×</span> 12</span>. Namun keduanya tetap berhubungan dengan perkalian.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 1: SEE -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-4 border-b border-slate-700 pb-2">
+                <span class="text-3xl">👀</span>
+                <h3 class="text-2xl font-bold text-sky-400">STEP 1 — SEE (Explore)</h3>
+            </div>
+            
+            <div class="card-dark rounded-2xl p-6 md:p-8 space-y-6">
+                <h4 class="text-lg font-bold text-white flex items-center gap-2">🍫 Kasus Batang Cokelat</h4>
+                <div class="bg-slate-900 p-5 rounded-xl border border-slate-800">
+                    <p class="text-slate-300 text-sm leading-relaxed mb-2">
+                        VisualMath Academy memiliki <strong class="text-white text-base">12 batang cokelat kecil</strong>.<br>
+                        Sebanyak <strong class="text-white text-base"><div class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></div></strong> dari seluruh cokelat akan diberikan kepada Luna.
+                    </p>
+                    <p class="text-blue-300 font-semibold">Berapa batang cokelat yang diterima Luna?</p>
+                </div>
+
+                <div class="bg-slate-800/50 rounded-xl p-5 border-l-4 border-sky-500 space-y-4">
+                    <h5 class="font-bold text-sky-400 flex items-center gap-2">🤔 Thinking Time</h5>
+                    <p class="text-sm text-slate-300">Jangan langsung menghitung dengan rumus. Pikirkan:</p>
+                    <ul class="list-disc list-inside text-sm text-slate-400 space-y-1 mb-3">
+                        <li>12 batang cokelat = keseluruhan.</li>
+                        <li>Jika keseluruhan dibagi menjadi 4 bagian sama besar, berapa banyak cokelat dalam setiap bagian?</li>
+                    </ul>
+                    <div class="flex items-center gap-3 text-lg font-bold bg-slate-900 p-3 rounded w-max">
+                        12 <span class="text-slate-400">÷</span> 4 <span class="text-slate-400">=</span> 
+                        <input type="text" class="w-12 h-10 text-center input-dark rounded border-sky-700 text-sky-300 font-bold">
+                    </div>
+                    <div class="flex items-center gap-3 text-lg font-bold mt-2">
+                        <span class="text-sm text-slate-400 font-normal">Jadi:</span>
+                        <div class="math-frac"><span class="math-num text-white">1</span><span class="math-den text-white">4</span></div> 
+                        <span class="text-slate-400 text-sm font-normal">dari 12 =</span> 
+                        <input type="text" class="w-12 h-10 text-center input-dark rounded border-sky-700 text-sky-300 font-bold">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 2: VISUALIZE -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-4 border-b border-slate-700 pb-2">
+                <span class="text-3xl">🎨</span>
+                <h3 class="text-2xl font-bold text-purple-400">STEP 2 — VISUALIZE</h3>
+            </div>
+            
+            <div class="card-dark rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center">
+                <img src="assets/Luna.png" alt="Luna" class="w-28 h-28 object-contain drop-shadow-xl shrink-0">
+                <div class="space-y-6 w-full">
+                    <p class="text-slate-300 italic text-sm">
+                        <strong class="text-purple-400 not-italic">Luna:</strong> "Mari kita lihat jumlahnya dengan Bar Model!"
+                    </p>
+                    
+                    <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 text-sm">
+                        <h4 class="font-bold text-purple-300 mb-4 border-b border-slate-700 pb-2">📊 Bar Model</h4>
+                        
+                        <ol class="list-decimal list-inside space-y-2 text-slate-400 mb-6">
+                            <li>Gambarkan satu batang panjang yang mewakili <strong>12 cokelat</strong>.</li>
+                            <li>Bagi menjadi <strong>4 bagian sama besar</strong>.</li>
+                        </ol>
+
+                        <!-- Bar Model Visual -->
+                        <div class="max-w-md mx-auto space-y-2">
+                            <!-- Label Keseluruhan -->
+                            <div class="flex justify-center text-sm font-bold text-white border-b-2 border-slate-500 w-full relative h-6">
+                                <span class="absolute -top-1 bg-slate-900 px-2">12 Cokelat Keseluruhan</span>
+                            </div>
+                            <!-- Batang -->
+                            <div class="h-12 w-full flex border-2 border-purple-500 rounded-md overflow-hidden shadow-lg">
+                                <div class="w-1/4 bg-purple-500/80 border-r border-purple-600 flex justify-center items-center font-bold text-white text-lg">?</div>
+                                <div class="w-1/4 bg-slate-800 border-r border-slate-700"></div>
+                                <div class="w-1/4 bg-slate-800 border-r border-slate-700"></div>
+                                <div class="w-1/4 bg-slate-800"></div>
+                            </div>
+                            <!-- Penjelasan per bagian -->
+                            <div class="flex justify-between px-2 text-xs text-slate-500">
+                                <span class="w-1/4 text-center">1/4 bagian</span>
+                                <span class="w-1/4 text-center">1/4 bagian</span>
+                                <span class="w-1/4 text-center">1/4 bagian</span>
+                                <span class="w-1/4 text-center">1/4 bagian</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 pt-4 border-t border-slate-700 space-y-3">
+                            <p class="text-slate-300">Setiap bagian bernilai: <strong class="text-white">12 ÷ 4 = 3</strong></p>
+                            <div class="flex items-center gap-2 font-bold text-lg bg-slate-800 p-3 rounded w-max">
+                                <span class="text-sm font-normal text-slate-400 mr-2">Jadi:</span>
+                                <div class="math-frac text-purple-400"><span class="math-num">1</span><span class="math-den">4</span></div>
+                                <span class="text-slate-400 text-sm">×</span> 12 <span class="text-slate-400 text-sm">=</span> <span class="text-white">3</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 3 & 4: THINK & DISCOVER -->
+        <section class="grid md:grid-cols-2 gap-6">
+            <!-- THINK -->
+            <div class="card-dark rounded-2xl p-6 border-amber-900/50 space-y-4 flex flex-col">
+                <h3 class="text-xl font-bold text-amber-400 flex items-center gap-2">🧠 STEP 3 — THINK</h3>
+                <div class="flex gap-4 items-start mb-4">
+                    <img src="assets/Kian.png" alt="Kian" class="w-14 h-14 object-contain shrink-0">
+                    <p class="text-sm text-slate-300 italic"><strong class="text-amber-400 not-italic">Kian:</strong> "Sekarang coba lihat hubungan antara penyebut dan jumlah keseluruhan. Lengkapi tabel berikut!"</p>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-center text-sm border-collapse bg-slate-900 rounded-lg overflow-hidden border border-slate-700">
+                        <thead class="bg-slate-800 text-slate-300">
+                            <tr>
+                                <th class="p-2 border border-slate-700">Pecahan</th>
+                                <th class="p-2 border border-slate-700">Keseluruhan</th>
+                                <th class="p-2 border border-slate-700">Banyak Kelompok</th>
+                                <th class="p-2 border border-slate-700">Isi setiap Kelompok</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-slate-300 font-bold">
+                            <tr>
+                                <td class="p-2 border border-slate-700"><div class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></div></td>
+                                <td class="p-2 border border-slate-700">12</td>
+                                <td class="p-2 border border-slate-700">2</td>
+                                <td class="p-2 border border-slate-700"><input type="text" class="w-10 input-dark text-center rounded border-amber-700" placeholder="..."></td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-slate-700"><div class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></div></td>
+                                <td class="p-2 border border-slate-700">12</td>
+                                <td class="p-2 border border-slate-700">3</td>
+                                <td class="p-2 border border-slate-700"><input type="text" class="w-10 input-dark text-center rounded border-amber-700" placeholder="..."></td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-slate-700"><div class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></div></td>
+                                <td class="p-2 border border-slate-700">12</td>
+                                <td class="p-2 border border-slate-700">4</td>
+                                <td class="p-2 border border-slate-700"><input type="text" class="w-10 input-dark text-center rounded border-amber-700" placeholder="..."></td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 border border-slate-700"><div class="math-frac"><span class="math-num">1</span><span class="math-den">6</span></div></td>
+                                <td class="p-2 border border-slate-700">12</td>
+                                <td class="p-2 border border-slate-700">6</td>
+                                <td class="p-2 border border-slate-700"><input type="text" class="w-10 input-dark text-center rounded border-amber-700" placeholder="..."></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-auto pt-4 space-y-3 text-sm text-slate-300">
+                    <label class="block">Apa yang dilakukan terhadap 12? <input type="text" class="input-dark border-b border-t-0 border-l-0 border-r-0 rounded-none w-full px-1 py-0.5 mt-1"></label>
+                    <label class="block">Apa hubungan penyebut dengan jumlah kelompok? <textarea rows="1" class="w-full input-dark rounded-lg p-2 resize-none mt-1"></textarea></label>
+                </div>
+            </div>
+
+            <!-- DISCOVER -->
+            <div class="card-dark rounded-2xl p-6 border-emerald-900/50 space-y-4 flex flex-col">
+                <h3 class="text-xl font-bold text-emerald-400 flex items-center gap-2">💡 STEP 4 — DISCOVER</h3>
+                <p class="text-sm text-slate-300 font-semibold mb-2">Perhatikan pola berikut:</p>
+                <div class="grid grid-cols-2 gap-2 text-sm font-bold bg-slate-900 p-4 rounded-lg border border-slate-700 text-center mb-4">
+                    <div><div class="math-frac text-white"><span class="math-num">1</span><span class="math-den">2</span></div> <span class="text-slate-400 font-normal mx-1">× 12 =</span> <span class="text-emerald-400">6</span></div>
+                    <div><div class="math-frac text-white"><span class="math-num">1</span><span class="math-den">3</span></div> <span class="text-slate-400 font-normal mx-1">× 12 =</span> <span class="text-emerald-400">4</span></div>
+                    <div><div class="math-frac text-white"><span class="math-num">1</span><span class="math-den">4</span></div> <span class="text-slate-400 font-normal mx-1">× 12 =</span> <span class="text-emerald-400">3</span></div>
+                    <div><div class="math-frac text-white"><span class="math-num">1</span><span class="math-den">6</span></div> <span class="text-slate-400 font-normal mx-1">× 12 =</span> <span class="text-emerald-400">2</span></div>
+                </div>
+                
+                <div class="bg-emerald-900/20 p-4 rounded-lg border border-emerald-800/50 flex-grow">
+                    <p class="text-sm text-slate-200 mb-3 leading-relaxed">Kita menemukan pola: Untuk mencari <div class="math-frac font-bold text-emerald-300"><span class="math-num">1</span><span class="math-den">n</span></div> dari suatu bilangan, <strong>bagi bilangan tersebut dengan <em class="text-emerald-300">n</em></strong>.</p>
+                    <p class="text-sm text-slate-400 mb-2">Contoh:</p>
+                    <div class="flex flex-wrap items-center gap-2 text-base font-bold bg-slate-800 p-2 rounded mb-3">
+                        <div class="math-frac text-white"><span class="math-num">1</span><span class="math-den">4</span></div> <span class="text-slate-400 font-normal text-sm">×</span> 20
+                        <span class="text-slate-400 font-normal text-sm">=</span> 20 <span class="text-slate-400 font-normal text-sm">÷</span> 4
+                        <span class="text-slate-400 font-normal text-sm">=</span> <span class="text-emerald-400">5</span>
+                    </div>
+                    <div class="text-sm font-bold border-l-4 border-emerald-500 pl-3">
+                        Jadi: <div class="math-frac text-white"><span class="math-num">1</span><span class="math-den">4</span></div> dari 20 = <span class="text-emerald-400">5</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 5: SKILL UNLOCK (STRATEGIES & CONCEPT) -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 border border-rose-900 relative overflow-hidden space-y-8">
+            <div class="absolute -left-10 -top-10 w-64 h-64 bg-rose-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="flex items-center gap-4">
+                <img src="assets/Prof.%20Sigma.png" alt="Prof Sigma" class="w-20 h-20 object-contain drop-shadow-lg shrink-0">
+                <div>
+                    <h3 class="text-2xl font-bold text-rose-400">🔓 STEP 5 — SKILL UNLOCK</h3>
+                    <p class="text-sm text-slate-300 italic">"Sekarang kita naik satu level. Bagaimana jika pecahannya bukan <div class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></div>, tetapi <div class="math-frac font-bold text-white"><span class="math-num">3</span><span class="math-den">4</span></div>?"</p>
+                </div>
+            </div>
+
+            <!-- Intro Example -->
+            <div class="bg-slate-900 p-5 rounded-xl border border-slate-700">
+                <p class="text-sm text-slate-300 mb-4">Misalnya: <span class="font-bold text-lg text-white mx-2"><div class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></div> <span class="text-slate-400 text-sm">×</span> 20</span></p>
+                <div class="grid sm:grid-cols-2 gap-4">
+                    <div class="bg-slate-800 p-3 rounded-lg border border-slate-700">
+                        <p class="text-xs text-sky-400 font-bold uppercase tracking-wider mb-2">Langkah 1 — Cari 1/4</p>
+                        <p class="text-sm font-bold text-white mb-1">20 ÷ 4 = 5</p>
+                        <p class="text-xs text-slate-400">Jadi: <div class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></div> dari 20 = 5</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-lg border border-slate-700">
+                        <p class="text-xs text-rose-400 font-bold uppercase tracking-wider mb-2">Langkah 2 — Ambil 3 Bagian</p>
+                        <p class="text-sm font-bold text-white mb-1">5 × 3 = 15</p>
+                        <p class="text-xs text-slate-400">Maka: <div class="math-frac font-bold text-white"><span class="math-num">3</span><span class="math-den">4</span></div> × 20 = <strong class="text-rose-400 text-base">15</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- CARA 1 -->
+                <div class="bg-slate-900 p-5 rounded-xl border-t-4 border-sky-500 shadow-lg flex flex-col">
+                    <h4 class="font-bold text-sky-400 mb-1">🧩 CARA 1 — CARA LENGKAP</h4>
+                    <p class="text-xs text-slate-400 mb-4 h-8">Unit Fraction → Beberapa Bagian</p>
+                    <div class="space-y-3 text-sm flex-grow">
+                        <p class="text-slate-300 font-semibold mb-2">Untuk: <div class="math-frac text-white font-bold"><span class="math-num">3</span><span class="math-den">5</span></div> <span class="text-slate-400">×</span> <strong class="text-white">20</strong></p>
+                        <ul class="space-y-2 text-slate-400">
+                            <li><strong class="text-sky-300">Langkah 1 (Cari 1/5):</strong> 20 ÷ 5 = 4</li>
+                            <li><strong class="text-sky-300">Langkah 2 (Ambil 3 bag):</strong> 4 × 3 = 12</li>
+                        </ul>
+                        <div class="bg-slate-800 p-3 rounded text-center font-bold text-lg text-white mt-3 border border-slate-700">
+                            <div class="math-frac"><span class="math-num">3</span><span class="math-den">5</span></div> <span class="text-slate-400 text-sm">×</span> 20 <span class="text-slate-400 text-sm">=</span> <span class="text-sky-400">12</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-700">
+                        <p class="text-xs text-slate-400 mb-1">Pola konseptual:</p>
+                        <p class="text-sm font-bold text-slate-300"><div class="math-frac"><span class="math-num italic text-rose-300">a</span><span class="math-den italic text-sky-300">b</span></div> <span class="text-slate-500 text-xs">×</span> <em class="text-white not-italic">N</em> ➔ <em class="text-white not-italic">N</em> ÷ <em class="text-sky-300 not-italic">b</em> × <em class="text-rose-300 not-italic">a</em></p>
+                    </div>
+                </div>
+
+                <!-- CARA 2 -->
+                <div class="bg-slate-900 p-5 rounded-xl border-t-4 border-amber-500 shadow-lg flex flex-col">
+                    <h4 class="font-bold text-amber-400 mb-1">⚡ CARA 2 — CARA CEPAT</h4>
+                    <p class="text-xs text-slate-400 mb-4 h-8">Gunakan jika sudah memahami konsep.</p>
+                    <div class="bg-amber-900/20 p-3 rounded border border-amber-700/50 text-center font-bold text-lg text-white mb-4">
+                        <div class="math-frac"><span class="math-num italic text-rose-300">a</span><span class="math-den italic text-sky-300">b</span></div> <span class="text-slate-400 text-sm">×</span> <em class="text-white not-italic">N</em> 
+                        <span class="text-slate-400 text-sm mx-2">=</span> 
+                        <div class="math-frac"><span class="math-num"><span class="italic text-rose-300">a</span> <span class="text-slate-400 text-xs">×</span> <em class="text-white not-italic">N</em></span><span class="math-den italic text-sky-300">b</span></div>
+                    </div>
+                    <div class="space-y-3 text-sm text-slate-300 flex-grow">
+                        <p class="font-semibold mb-2">Contoh:</p>
+                        <div class="flex items-center gap-2 flex-wrap font-bold">
+                            <div class="math-frac"><span class="math-num">3</span><span class="math-den">5</span></div> <span class="text-slate-400 text-xs">×</span> 20
+                            <span class="text-slate-400 text-xs">=</span>
+                            <div class="math-frac"><span class="math-num">3 × 20</span><span class="math-den">5</span></div>
+                            <span class="text-slate-400 text-xs">=</span>
+                            <div class="math-frac"><span class="math-num">60</span><span class="math-den">5</span></div>
+                            <span class="text-slate-400 text-xs">=</span>
+                            <span class="text-amber-400 text-lg border-2 border-amber-500 px-2 rounded">12</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Smart Tip -->
+            <div class="bg-gradient-to-br from-emerald-900/50 to-slate-900 p-5 rounded-xl border border-emerald-700/50 shadow-lg">
+                <h4 class="font-bold text-emerald-400 mb-3 flex items-center gap-2">
+                    <span class="text-xl">💡</span> SMART TIP
+                </h4>
+                <p class="text-sm text-slate-300 mb-3">Jika memungkinkan, <strong>bagi terlebih dahulu</strong> agar perhitungan lebih mudah.</p>
+                <div class="flex flex-col sm:flex-row gap-4 items-center justify-center text-sm font-bold bg-slate-800/50 p-4 rounded-lg">
+                    <div class="text-center">
+                        <p class="text-emerald-400 mb-1">Lebih mudah:</p>
+                        <p class="text-white">20 ÷ 5 × 3</p>
+                    </div>
+                    <span class="text-slate-500 italic font-normal text-xs sm:px-4">daripada</span>
+                    <div class="text-center">
+                        <p class="text-slate-400 mb-1">Lebih sulit:</p>
+                        <p class="text-slate-300">3 × 20 ÷ 5</p>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-400 text-center mt-3">Keduanya akan menghasilkan jawaban yang sama (12).</p>
+            </div>
+        </section>
+
+        <!-- PIXEL ALERT -->
+        <section class="bg-red-900/20 border border-red-700/50 rounded-2xl p-6 flex flex-col sm:flex-row gap-6 items-center shadow-[0_0_20px_rgba(220,38,38,0.1)]">
+            <img src="assets/Pixel.png" alt="Pixel Warning" class="w-20 h-20 object-contain drop-shadow-[0_0_15px_rgba(220,38,38,0.5)] shrink-0">
+            <div class="w-full space-y-3">
+                <h4 class="text-lg font-bold text-red-400 flex items-center gap-2">⚠️ PIXEL ALERT</h4>
+                <p class="text-sm text-slate-300 italic">"Bip! Jangan mengalikan pembilang dan penyebut sembarangan!"</p>
+                <div class="bg-slate-900 p-4 rounded-lg border border-red-900/50 text-sm flex flex-col gap-3">
+                    <div class="flex items-center gap-2">
+                        <span class="text-slate-400">Contoh:</span> <div class="math-frac font-bold text-white"><span class="math-num">3</span><span class="math-den">4</span></div> <span class="text-slate-400 font-bold">× 20</span>
+                    </div>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="border border-red-800/50 bg-red-950/30 p-2 rounded line-through decoration-red-500 decoration-2">
+                            <span class="text-xs text-red-400 block mb-1">❌ Salah:</span>
+                            <div class="math-frac font-bold text-slate-300"><span class="math-num">3 × 20</span><span class="math-den">4 × 20</span></div>
+                        </div>
+                        <div class="border border-emerald-800/50 bg-emerald-950/30 p-2 rounded">
+                            <span class="text-xs text-emerald-400 block mb-1">✔ Benar:</span>
+                            <div class="math-frac font-bold text-white"><span class="math-num">3 × 20</span><span class="math-den">4</span></div> 
+                            <span class="text-xs text-slate-400 ml-2">atau</span> 
+                            <span class="font-bold text-white ml-1 text-xs">20 ÷ 4 × 3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 6: SOLVE (QUESTS) -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-4 border-b border-slate-700 pb-2">
+                <span class="text-3xl">🎮</span>
+                <h3 class="text-2xl font-bold text-emerald-400">STEP 6 — QUEST</h3>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Easy Quest -->
+                <div class="card-dark p-6 rounded-2xl border-t-4 border-emerald-500 flex flex-col">
+                    <h4 class="font-bold text-emerald-400 mb-4 flex items-center gap-2">🟢 EASY QUEST</h4>
+                    <p class="text-sm text-slate-300 mb-4">Hitunglah.</p>
+                    <div class="flex-grow flex flex-col justify-between space-y-4">
+                        <div class="flex justify-between items-center bg-slate-900 p-3 rounded-lg border border-slate-700">
+                            <div class="flex items-center gap-2 text-lg font-bold">
+                                <span class="text-slate-500 text-sm w-4">1.</span>
+                                <div class="math-frac"><span class="math-num text-white">1</span><span class="math-den text-white">2</span></div> <span class="text-slate-400 text-sm">×</span> 10 <span class="text-slate-400 text-sm">=</span>
+                            </div>
+                            <input type="text" class="w-12 h-10 text-center input-dark rounded border-emerald-700 text-emerald-300 font-bold text-lg">
+                        </div>
+                        <div class="flex justify-between items-center bg-slate-900 p-3 rounded-lg border border-slate-700">
+                            <div class="flex items-center gap-2 text-lg font-bold">
+                                <span class="text-slate-500 text-sm w-4">2.</span>
+                                <div class="math-frac"><span class="math-num text-white">1</span><span class="math-den text-white">3</span></div> <span class="text-slate-400 text-sm">×</span> 15 <span class="text-slate-400 text-sm">=</span>
+                            </div>
+                            <input type="text" class="w-12 h-10 text-center input-dark rounded border-emerald-700 text-emerald-300 font-bold text-lg">
+                        </div>
+                        <div class="flex justify-between items-center bg-slate-900 p-3 rounded-lg border border-slate-700">
+                            <div class="flex items-center gap-2 text-lg font-bold">
+                                <span class="text-slate-500 text-sm w-4">3.</span>
+                                <div class="math-frac"><span class="math-num text-white">1</span><span class="math-den text-white">4</span></div> <span class="text-slate-400 text-sm">×</span> 24 <span class="text-slate-400 text-sm">=</span>
+                            </div>
+                            <input type="text" class="w-12 h-10 text-center input-dark rounded border-emerald-700 text-emerald-300 font-bold text-lg">
+                        </div>
+                        <div class="flex justify-between items-center bg-slate-900 p-3 rounded-lg border border-slate-700">
+                            <div class="flex items-center gap-2 text-lg font-bold">
+                                <span class="text-slate-500 text-sm w-4">4.</span>
+                                <div class="math-frac"><span class="math-num text-white">2</span><span class="math-den text-white">5</span></div> <span class="text-slate-400 text-sm">×</span> 20 <span class="text-slate-400 text-sm">=</span>
+                            </div>
+                            <input type="text" class="w-12 h-10 text-center input-dark rounded border-emerald-700 text-emerald-300 font-bold text-lg">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Challenge Quest -->
+                <div class="card-dark p-6 rounded-2xl border-t-4 border-blue-500">
+                    <h4 class="font-bold text-blue-400 mb-4 flex items-center gap-2">🔵 CHALLENGE QUEST</h4>
+                    <p class="text-sm text-slate-300 mb-4">Gunakan Bar Model di bukumu untuk menjelaskan jawabanmu.</p>
+                    <div class="space-y-4">
+                        <div class="bg-slate-900 p-4 rounded-lg border border-slate-700">
+                            <div class="flex items-center gap-2 text-lg font-bold mb-2">
+                                <span class="text-slate-500 text-sm">1.</span> <div class="math-frac text-white"><span class="math-num">3</span><span class="math-den">4</span></div> <span class="text-slate-400 text-sm">×</span> 16
+                            </div>
+                            <textarea class="w-full input-dark rounded p-2 text-sm resize-none" rows="1" placeholder="Jawaban..."></textarea>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-lg border border-slate-700">
+                            <div class="flex items-center gap-2 text-lg font-bold mb-2">
+                                <span class="text-slate-500 text-sm">2.</span> <div class="math-frac text-white"><span class="math-num">2</span><span class="math-den">5</span></div> <span class="text-slate-400 text-sm">×</span> 35
+                            </div>
+                            <textarea class="w-full input-dark rounded p-2 text-sm resize-none" rows="1" placeholder="Jawaban..."></textarea>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-lg border border-slate-700">
+                            <div class="flex items-center gap-2 text-lg font-bold mb-2">
+                                <span class="text-slate-500 text-sm">3.</span> <div class="math-frac text-white"><span class="math-num">7</span><span class="math-den">8</span></div> <span class="text-slate-400 text-sm">×</span> 32
+                            </div>
+                            <textarea class="w-full input-dark rounded p-2 text-sm resize-none" rows="1" placeholder="Jawaban..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HOTS Section -->
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <!-- Boss Battle -->
+                <div class="bg-gradient-to-br from-slate-900 to-rose-950 p-6 rounded-2xl border border-rose-900/50 shadow-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-2xl">👾</span>
+                        <h4 class="font-bold text-lg text-rose-400">BOSS BATTLE — HOTS</h4>
+                    </div>
+                    <div class="text-sm text-slate-300 mb-4 space-y-2">
+                        <p>Di sebuah kotak terdapat <strong>48 kartu misi</strong>.</p>
+                        <p>Sebanyak <div class="math-frac font-bold text-white"><span class="math-num">3</span><span class="math-den">8</span></div> dari kartu tersebut adalah kartu Challenge.</p>
+                    </div>
+                    <div class="space-y-3 text-sm">
+                        <label class="block text-slate-300">a. Berapa kartu Challenge?</label>
+                        <input type="text" class="input-dark w-full p-2 rounded-lg" placeholder="...">
+                        <label class="block text-slate-300">b. Berapa kartu yang bukan kartu Challenge?</label>
+                        <input type="text" class="input-dark w-full p-2 rounded-lg" placeholder="...">
+                        <label class="block text-amber-300 font-semibold mt-2">Tunjukkan penyelesaianmu menggunakan Bar Model (penalaranmu):</label>
+                        <textarea class="input-dark w-full p-3 rounded-lg resize-none text-sm" rows="2" placeholder="Tulis langkah logismu..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Pixel Investigation -->
+                <div class="bg-gradient-to-br from-slate-900 to-sky-950 p-6 rounded-2xl border border-sky-900/50 shadow-xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <span class="text-2xl">🕵️</span>
+                        <h4 class="font-bold text-lg text-sky-400">PIXEL INVESTIGATION — HOTS</h4>
+                    </div>
+                    <p class="text-sm text-slate-300 mb-3">Dua siswa menyelesaikan soal: <div class="math-frac font-bold text-white"><span class="math-num">3</span><span class="math-den">5</span></div> <span class="font-bold text-slate-400 text-xs mx-1">×</span> <strong class="text-white">25</strong></p>
+                    
+                    <div class="flex flex-col gap-3 mb-4 text-sm bg-slate-800/50 p-3 rounded border border-slate-700">
+                        <div class="flex gap-4">
+                            <span class="font-bold text-sky-400 w-12">Raka:</span>
+                            <div class="space-y-1">
+                                <p>25 ÷ 5 = 5</p>
+                                <p>5 × 3 = 15</p>
+                            </div>
+                        </div>
+                        <div class="border-t border-slate-700 pt-2 flex gap-4">
+                            <span class="font-bold text-purple-400 w-12">Dina:</span>
+                            <div class="space-y-1">
+                                <p>3 × 25 = 75</p>
+                                <p>75 ÷ 5 = 15</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3 text-sm">
+                        <label class="block text-slate-300">Siapa yang mendapatkan jawaban benar? Apakah kedua cara tersebut dapat digunakan? Jelaskan mengapa.</label>
+                        <textarea class="input-dark w-full p-2 rounded-lg resize-none text-sm" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Master Think & Singapore Challenge -->
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <!-- Master Think -->
+                <div class="card-dark p-6 rounded-2xl border-t-4 border-amber-500">
+                    <h4 class="font-bold text-amber-400 mb-4 flex items-center gap-2">🧠 MASTER THINK</h4>
+                    <p class="text-sm text-slate-300 mb-3">Tanpa menghitung langsung, tentukan mana yang lebih besar:</p>
+                    <div class="flex items-center justify-around bg-slate-900 p-4 rounded-lg border border-amber-900 font-bold text-lg text-white mb-4">
+                        <div><div class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></div> <span class="text-slate-400 text-sm">×</span> 20</div>
+                        <span class="text-amber-400 font-normal italic text-sm">atau</span>
+                        <div><div class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></div> <span class="text-slate-400 text-sm">×</span> 20</div>
+                    </div>
+                    <label class="block text-sm text-slate-400 mb-1">Gunakan Bar Model di bayanganmu untuk menjelaskan alasanmu.</label>
+                    <textarea class="input-dark w-full p-3 rounded-lg resize-none text-sm" rows="3"></textarea>
+                </div>
+
+                <!-- Singapore Challenge -->
+                <div class="bg-gradient-to-br from-emerald-900 to-teal-950 p-6 rounded-2xl border border-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+                    <h4 class="font-bold text-emerald-400 mb-3 flex items-center gap-2">⭐ SINGAPORE CHALLENGE</h4>
+                    <div class="text-sm text-slate-200 space-y-2 mb-4">
+                        <p>Sebuah kelas memiliki <strong>36 murid</strong>.</p>
+                        <p><div class="math-frac font-bold text-emerald-300"><span class="math-num">2</span><span class="math-den">3</span></div> dari seluruh murid mengikuti klub matematika.</p>
+                        <p>Kemudian, <div class="math-frac font-bold text-emerald-300"><span class="math-num">1</span><span class="math-den">4</span></div> <strong>dari anggota klub matematika</strong> mengikuti lomba.</p>
+                    </div>
+                    <div class="space-y-3 text-sm text-slate-300 bg-slate-900/50 p-3 rounded border border-emerald-900">
+                        <label class="block">a. Berapa murid yang mengikuti klub matematika?</label>
+                        <input type="text" class="input-dark w-full p-2 rounded" placeholder="...">
+                        <label class="block">b. Berapa murid anggota klub yang mengikuti lomba?</label>
+                        <input type="text" class="input-dark w-full p-2 rounded" placeholder="...">
+                        <label class="block text-emerald-300 font-semibold pt-2 border-t border-emerald-900/50 mt-2">c. Tuliskan penyelesaianmu dalam bentuk perkalian pecahan (Hint: 1/4 × hasil sebelumnya):</label>
+                        <textarea class="input-dark w-full p-2 rounded resize-none" rows="2"></textarea>
+                    </div>
+                    <p class="text-xs text-teal-400 mt-3 italic flex items-center gap-1">💡 Ini adalah jembatan menuju soal bertingkat pada Mission E.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Akhir Misi (Log & Badge) -->
+        <section class="border-t border-slate-700 pt-10">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Mission Log -->
+                <div class="space-y-4">
+                    <h4 class="font-bold text-lg flex items-center gap-2">📝 MISSION LOG</h4>
+                    <div class="space-y-4 text-sm text-slate-300">
+                        <div>
+                            <label class="block mb-2 font-semibold">Hari ini aku menemukan bahwa... Untuk mencari pecahan dari suatu jumlah, aku dapat...</label>
+                            <textarea rows="2" class="w-full input-dark rounded-lg p-2.5 resize-none"></textarea>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700">
+                            <p class="mb-3 font-semibold text-white">Strategi yang paling membantuku:</p>
+                            <div class="grid grid-cols-2 gap-3 mb-4">
+                                <label class="flex items-center gap-2 cursor-pointer p-2 bg-slate-800 rounded hover:bg-slate-700 border border-slate-600"><input type="checkbox" class="accent-blue-500 w-4 h-4"> Bar Model</label>
+                                <label class="flex items-center gap-2 cursor-pointer p-2 bg-slate-800 rounded hover:bg-slate-700 border border-slate-600"><input type="checkbox" class="accent-blue-500 w-4 h-4"> Unit Fraction</label>
+                                <label class="flex items-center gap-2 cursor-pointer p-2 bg-slate-800 rounded hover:bg-slate-700 border border-slate-600"><input type="checkbox" class="accent-blue-500 w-4 h-4"> Cara Lengkap</label>
+                                <label class="flex items-center gap-2 cursor-pointer p-2 bg-slate-800 rounded hover:bg-slate-700 border border-slate-600"><input type="checkbox" class="accent-blue-500 w-4 h-4"> Cara Cepat</label>
+                            </div>
+                            <label class="block mb-2 font-semibold">Bagian yang masih ingin aku latih:</label>
+                            <input type="text" class="w-full input-dark rounded-lg p-2.5">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievement -->
+                <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700 relative">
+                    <div class="absolute top-4 right-4 text-4xl opacity-20">🏅</div>
+                    <h4 class="font-bold text-lg text-emerald-400 mb-4 flex items-center gap-2">🏆 ACHIEVEMENT</h4>
+                    <div class="space-y-2 text-sm text-slate-300">
+                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" class="w-4 h-4 accent-emerald-500 shrink-0"> Aku memahami arti pecahan dari suatu kuantitas.</label>
+                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" class="w-4 h-4 accent-emerald-500 shrink-0"> Aku dapat menggunakan Bar Model.</label>
+                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" class="w-4 h-4 accent-emerald-500 shrink-0"> Aku dapat mencari pecahan satuan dari suatu jumlah.</label>
+                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" class="w-4 h-4 accent-emerald-500 shrink-0"> Aku dapat mencari pecahan seperti 2/5, 3/4, 7/8 dari jumlah.</label>
+                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" class="w-4 h-4 accent-emerald-500 shrink-0"> Aku dapat menggunakan cara lengkap & cara cepat.</label>
+                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" class="w-4 h-4 accent-emerald-500 shrink-0 font-bold text-emerald-300"> Aku dapat menjelaskan mengapa cara tersebut bekerja.</label>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-700 text-center flex justify-center">
+                        <span class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full text-white font-bold text-sm shadow-[0_0_15px_rgba(59,130,246,0.4)] border border-blue-400/50">
+                            <span class="text-lg">⭐</span> Reward: Multiplier Badge Part 2 (+70 XP)
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tombol Lanjut -->
+        <div class="text-center pt-8 pb-12 border-t border-slate-800 mt-8">
+            <p class="text-purple-400 font-bold mb-2 tracking-widest text-sm uppercase">Next Mission</p>
+            <h3 class="text-2xl font-bold text-white mb-4">MISSION B3 — Pecahan × Pecahan</h3>
+            <p class="text-slate-400 italic mb-6">"Sekarang kita tidak hanya mencari sebagian dari keseluruhan. Kita akan mencari... sebagian dari sebagian." 🤖</p>
+            <a href="mission-b3.html" class="inline-block bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-400 hover:to-pink-500 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-purple-500/30 transition-all hover:-translate-y-1 text-lg">
+                Misi Selesai! Lanjut ke Mission B3 ➔
+            </a>
+        </div>
+
+    </main>
+</body>
+</html>
