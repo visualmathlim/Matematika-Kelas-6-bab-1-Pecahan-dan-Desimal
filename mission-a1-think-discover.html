@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission A1 (Think & Discover) | VisualMath.Lim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark {
+            background-color: #1e293b; 
+            border: 1px solid #334155; 
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #fbbf24, #10b981); /* Amber to Emerald */
+        }
+        .input-dark {
+            background-color: #0f172a;
+            border: 1px solid #475569;
+            color: #f8fafc;
+            transition: all 0.3s;
+        }
+        .input-dark:focus {
+            outline: none;
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
+        }
+        .input-discover:focus {
+            border-color: #10b981;
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+        }
+        .math-frac {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 0.25rem;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+        .math-num {
+            border-bottom: 2px solid currentColor;
+            padding: 0 0.3rem;
+            width: 100%;
+            text-align: center;
+        }
+        .math-den {
+            padding: 0 0.3rem;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="VisualMath.Lim Logo" class="h-10 w-auto">
+                <div class="hidden sm:block">
+                    <h1 class="text-xl font-bold text-sky-400 leading-tight">VisualMath.Lim</h1>
+                    <p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">Math Mastery • Kelas 6</p>
+                </div>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="index.html" class="text-sm text-slate-400 hover:text-white transition-colors">🏠 Home</a>
+                <span class="px-3 py-1 bg-amber-900/50 border border-amber-700 rounded-full text-xs font-semibold text-amber-400 shadow-[0_0_10px_rgba(251,191,36,0.2)]">
+                    🟡 Mission A1 (3/8): Think & Discover
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-10">
+        
+        <!-- STEP 3: THINK -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 border-t-4 border-amber-500 shadow-xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="flex items-center gap-4 border-b border-slate-700 pb-4 mb-6">
+                <span class="text-3xl">🧠</span>
+                <h3 class="text-2xl font-bold text-amber-400">STEP 3 — THINK (Analisis Pola)</h3>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-8 items-start">
+                <!-- Karakter Kian -->
+                <div class="shrink-0 text-center space-y-2">
+                    <img src="assets/Kian.png" alt="Kian" class="w-28 h-28 object-contain drop-shadow-xl mx-auto">
+                    <p class="text-amber-400 font-bold text-sm">👦 Kian</p>
+                </div>
+                
+                <div class="space-y-6 w-full">
+                    <p class="text-slate-300 italic text-lg leading-relaxed">
+                        "Aku melihat sebuah pola yang menarik! Coba perhatikan gambar cokelat tadi. Semakin banyak potongan yang kita buat, ukuran setiap potongan terlihat berbeda. Tapi, apakah nilai keseluruhannya ikut berubah?"
+                    </p>
+
+                    <!-- Pola Visual Bantuan -->
+                    <div class="bg-slate-900 p-5 rounded-xl border border-slate-700 space-y-4">
+                        <p class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-2">Perhatikan Pola Ini:</p>
+                        <div class="flex flex-col gap-3">
+                            <div class="flex items-center gap-4">
+                                <div class="math-frac text-white w-8"><span class="math-num">1</span><span class="math-den">2</span></div>
+                                <div class="h-6 w-full flex border border-slate-600 rounded">
+                                    <div class="w-1/2 bg-sky-500 border-r border-slate-600"></div>
+                                    <div class="w-1/2 bg-slate-800"></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="math-frac text-white w-8"><span class="math-num">2</span><span class="math-den">4</span></div>
+                                <div class="h-6 w-full flex border border-slate-600 rounded">
+                                    <div class="w-1/4 bg-sky-500 border-r border-slate-600"></div>
+                                    <div class="w-1/4 bg-sky-500 border-r border-slate-600"></div>
+                                    <div class="w-1/4 bg-slate-800 border-r border-slate-600"></div>
+                                    <div class="w-1/4 bg-slate-800"></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="math-frac text-white w-8"><span class="math-num">4</span><span class="math-den">8</span></div>
+                                <div class="h-6 w-full flex border border-slate-600 rounded">
+                                    <div class="w-1/8 bg-sky-500 border-r border-slate-600" style="width: 12.5%"></div>
+                                    <div class="w-1/8 bg-sky-500 border-r border-slate-600" style="width: 12.5%"></div>
+                                    <div class="w-1/8 bg-sky-500 border-r border-slate-600" style="width: 12.5%"></div>
+                                    <div class="w-1/8 bg-sky-500 border-r border-slate-600" style="width: 12.5%"></div>
+                                    <div class="w-1/8 bg-slate-800 border-r border-slate-600" style="width: 12.5%"></div>
+                                    <div class="w-1/8 bg-slate-800 border-r border-slate-600" style="width: 12.5%"></div>
+                                    <div class="w-1/8 bg-slate-800 border-r border-slate-600" style="width: 12.5%"></div>
+                                    <div class="w-1/8 bg-slate-800" style="width: 12.5%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Latihan Berpikir -->
+                    <div class="space-y-4">
+                        <p class="font-bold text-amber-300">Lengkapilah kalimat berikut berdasarkan pengamatanmu:</p>
+                        <div class="space-y-4 text-slate-300">
+                            <div class="flex flex-wrap items-center gap-2 leading-loose">
+                                <span>1. Semakin banyak suatu benda dipotong sama besar, ukuran setiap bagian menjadi semakin</span>
+                                <input type="text" class="input-dark border-b-2 border-t-0 border-l-0 border-r-0 rounded-none w-32 px-2 py-1 text-amber-300 font-bold text-center" placeholder="...">
+                                <span>.</span>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-2 leading-loose">
+                                <span>2. Walaupun bentuk potongannya berubah, nilai keseluruhan pecahannya tetap</span>
+                                <input type="text" class="input-dark border-b-2 border-t-0 border-l-0 border-r-0 rounded-none w-32 px-2 py-1 text-amber-300 font-bold text-center" placeholder="...">
+                                <span>.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 4: DISCOVER -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 border-t-4 border-emerald-500 shadow-xl relative overflow-hidden">
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="flex items-center gap-4 border-b border-slate-700 pb-4 mb-6">
+                <span class="text-3xl">💡</span>
+                <h3 class="text-2xl font-bold text-emerald-400">STEP 4 — DISCOVER (Menarik Kesimpulan)</h3>
+            </div>
+            
+            <div class="space-y-6">
+                <p class="text-slate-300 text-lg">
+                    Berdasarkan visualisasi dan pemikiranmu tadi, rumuskanlah sebuah kesimpulan mengenai pecahan senilai.
+                </p>
+                
+                <div class="bg-slate-900 p-6 rounded-xl border border-slate-700 space-y-5">
+                    <div>
+                        <label class="block text-sm font-bold text-emerald-300 mb-2">Tuliskan kesimpulanmu:</label>
+                        <p class="text-sm text-slate-400 mb-2">Mengapa dua pecahan dengan angka yang berbeda (seperti 1/2 dan 2/4) bisa menunjukkan jumlah yang persis sama?</p>
+                        <textarea class="w-full input-dark input-discover rounded-lg p-3 text-slate-200 resize-none" rows="3" placeholder="Ketik kesimpulan dari hasil pengamatanmu di sini..."></textarea>
+                    </div>
+                    
+                    <div class="border-t border-slate-700 pt-5">
+                        <label class="block text-sm font-bold text-emerald-300 mb-2">Dukungan Visual:</label>
+                        <p class="text-sm text-slate-400 mb-2">Model visual apa yang paling membantumu memahami hal ini? (Bar Model, Fraction Strip, atau Number Line?)</p>
+                        <input type="text" class="w-full input-dark input-discover rounded-lg p-3 text-slate-200" placeholder="Model yang paling membantuku adalah...">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tombol Lanjut -->
+        <div class="text-center pt-6 pb-12">
+            <p class="text-slate-400 mb-4 text-sm">Sudah menemukan jawabannya? Mari kita cocokkan dengan penjelasan ahli!</p>
+            <a href="mission-a1-unlock.html" class="inline-flex items-center justify-center bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-emerald-500/30 transition-all hover:-translate-y-1 text-lg group">
+                Lanjut ke Tahap SKILL UNLOCK 
+                <span class="ml-2 group-hover:translate-x-1 transition-transform">➔</span>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 text-center py-6 mt-auto">
+        <p class="text-slate-500 text-sm">© 2026 VisualMath.Lim | Math Mastery - Pendampingan Matematika Sesuai Jenjang</p>
+    </footer>
+
+</body>
+</html>
