@@ -146,7 +146,7 @@ textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3p
   <div class="crumb"><a href="mission-a-hub.html">Misi A2</a> › <span>Tantangan HOTS</span></div>
 
   <section class="hero">
-    <img src="assets/sigma.png" alt="Prof. Sigma" class="hero-avatar" onerror="this.outerHTML='<div class=\'hero-avatar\' style=\'display:flex;align-items:center;justify-content:center;font-size:40px\'>🦉</div>'">
+    <img src="assets/Sigma.png" alt="Prof. Sigma" class="hero-avatar" onerror="this.outerHTML='<div class=\'hero-avatar\' style=\'display:flex;align-items:center;justify-content:center;font-size:40px\'>🦉</div>'">
     <div>
         <h1>Tantangan Tingkat Tinggi</h1>
         <p>"Agent, ini bukan sekadar berhitung. Kamu harus menganalisis, membongkar jebakan, dan mencipta. Buktikan kamu layak mendapat lencana Equalizer!"</p>
@@ -207,7 +207,7 @@ textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3p
 </div>
 
 <script>
-const KKM=60, PRED_KEY="vm_a2_prediksi"; 
+const KKM=60, PRED_KEY="vm_a2_prediksi", DASHBOARD_URL="index.html"; 
 const $=id=>document.getElementById(id);
 const gcd=(a,b)=>b?gcd(b,a%b):a;
 const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
@@ -216,8 +216,8 @@ const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},se
 
 // Gambar Avatar Helper
 const getAvatar = (icon) => {
-    if(icon === '🔍') return `<img src="assets/pixel.png" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><text y=\\'50\\' font-size=\\'40\\'>👾</text></svg>'">`;
-    if(icon === '🧠') return `<img src="assets/sigma.png" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><text y=\\'50\\' font-size=\\'40\\'>🦉</text></svg>'">`;
+    if(icon === '🔍') return `<img src="assets/Pixel.png" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><text y=\\'50\\' font-size=\\'40\\'>👾</text></svg>'">`;
+    if(icon === '🧠') return `<img src="assets/Sigma.png" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><text y=\\'50\\' font-size=\\'40\\'>🦉</text></svg>'">`;
     return `<div style="font-size:30px">${icon}</div>`;
 }
 
@@ -318,12 +318,12 @@ function submit(){
       <button id="retry" class="cta" style="margin-top:10px;">Retas Ulang Sistem 🔄</button></div>`;
     $("retry").onclick=start;res.scrollIntoView({behavior:"smooth"});return;
   }
-  final={score,r,attempt};store.set("vm_a2_hots",JSON.stringify({score,attempt}));
-  res.innerHTML=`<div class="res pass"><div class="score" style="color:var(--ok)">${score}<small style="font-size:1.2rem"> / 100</small></div>
-    <div class="kkm"><i style="width:${score}%"></i><b></b></div>
-    <h2 style="color:var(--ok)">✅ Misi Sukses! Lolos KKM ${KKM}${attempt>1?" (Percobaan ke-"+attempt+")":""}</h2>
-    <p>${attempt>1?"Ketekunanmu membuahkan hasil. Pantang menyerah adalah mental agen sejati!":"Sempurna! Kamu menaklukkan tes ini dalam sekali tebas."} Mari kita analisis laporan akhirmu.</p></div>`;
-  ach.hots=true;ach.kkm=true;showAfter();
+  final={score,r,attempt};
+  store.set("vm_a2_hots",JSON.stringify({score,attempt,kkm:KKM,passed:true,completedAt:new Date().toISOString()}));
+  store.set("vm_a2_hots_passed","1");
+  // Lolos KKM = langsung kembali ke dashboard utama.
+  window.location.replace(DASHBOARD_URL);
+  return;
 }
 
 function showAfter(){
