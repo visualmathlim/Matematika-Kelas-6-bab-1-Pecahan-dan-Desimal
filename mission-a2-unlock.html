@@ -3,374 +3,2585 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Skill Unlock - Mission A2 | VisualMath.Lim</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
         body {
-            background-color: #0f172a; color: #f8fafc; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden;
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
         }
-        .card-dark { background-color: #1e293b; border: 1px solid #334155; }
-        .glass-panel { background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(12px); }
-        
-        /* Math Formatting */
-        .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.25rem; font-weight: bold; line-height: 1.1; }
-        .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
-        .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
-        
-        /* Golden Glow Effect */
-        .golden-glow { box-shadow: 0 0 25px rgba(250, 204, 21, 0.2); }
-        .golden-border { border: 2px solid #eab308; }
 
-        /* Tap-to-Select Quiz Styles */
-        .q-card { cursor: pointer; transition: all 0.2s ease; border: 2px solid #475569; }
-        .q-card:hover { border-color: #38bdf8; transform: translateY(-3px); }
-        .q-card.selected { border-color: #eab308; box-shadow: 0 0 15px rgba(234,179,8,0.4); transform: scale(1.05); background-color: #1e293b; z-index: 10; }
-        .q-card.matched { opacity: 0; transform: scale(0.5); pointer-events: none; } /* Hilang setelah masuk keranjang */
-        
-        .bucket { border: 2px dashed #475569; transition: all 0.2s ease; cursor: pointer; }
-        .bucket.highlight { border-color: #eab308; background-color: rgba(234,179,8,0.1); }
-        .bucket.filled { border: 2px solid #22c55e; background-color: rgba(34,197,94,0.1); cursor: default; }
+        .card-dark {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+        }
 
-        /* Animations */
-        .fade-in { animation: fadeIn 0.4s ease-in forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .grayscale-pixel { filter: grayscale(100%) opacity(50%); transition: filter 0.5s; }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.88);
+            backdrop-filter: blur(12px);
+        }
+
+        /* =========================
+           FRACTION
+        ========================== */
+
+        .math-frac {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 0.25rem;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+
+        .math-num {
+            border-bottom: 2px solid currentColor;
+            padding: 0 0.35rem;
+            min-width: 100%;
+            text-align: center;
+        }
+
+        .math-den {
+            padding: 0 0.35rem;
+            min-width: 100%;
+            text-align: center;
+        }
+
+        .math-big {
+            font-size: 2rem;
+        }
+
+        /* =========================
+           STRATEGY CARDS
+        ========================== */
+
+        .strategy-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.25rem;
+            transition: all 0.25s ease;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .strategy-visual {
+            border-left: 5px solid #34d399;
+        }
+
+        .strategy-equivalent {
+            border-left: 5px solid #a78bfa;
+        }
+
+        .strategy-kpk {
+            border-left: 5px solid #38bdf8;
+        }
+
+        .strategy-cross {
+            border-left: 5px solid #fbbf24;
+        }
+
+        /* =========================
+           VISUAL BAR MODEL
+        ========================== */
+
+        .bar-model {
+            display: flex;
+            width: 100%;
+            max-width: 520px;
+            height: 75px;
+            margin: 0 auto;
+            border: 3px solid #64748b;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #0f172a;
+        }
+
+        .bar-part {
+            flex: 1;
+            border-right: 2px solid #0f172a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            transition: all 0.25s ease;
+        }
+
+        .bar-part:last-child {
+            border-right: none;
+        }
+
+        .bar-part.one-half {
+            background: rgba(56, 189, 248, 0.65);
+        }
+
+        .bar-part.one-fourth {
+            background: rgba(167, 139, 250, 0.65);
+        }
+
+        .bar-part.highlight {
+            background: rgba(52, 211, 153, 0.8);
+        }
+
+        /* =========================
+           FRACTION STRIP
+        ========================== */
+
+        .fraction-strip {
+            display: flex;
+            width: 100%;
+            max-width: 560px;
+            margin: auto;
+            border: 2px solid #475569;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .fraction-piece {
+            height: 48px;
+            flex: 1;
+            border-right: 2px solid #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .fraction-piece:last-child {
+            border-right: none;
+        }
+
+        /* =========================
+           FLOW ARROW
+        ========================== */
+
+        .flow-arrow {
+            color: #38bdf8;
+            font-size: 2rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* =========================
+           GOLDEN RULE
+        ========================== */
+
+        .golden-glow {
+            box-shadow:
+                0 0 25px rgba(250, 204, 21, 0.16),
+                inset 0 0 30px rgba(250, 204, 21, 0.03);
+        }
+
+        .golden-border {
+            border: 2px solid #eab308;
+        }
+
+        /* =========================
+           QUIZ
+        ========================== */
+
+        .quiz-option {
+            width: 100%;
+            text-align: left;
+            padding: 1rem;
+            border: 2px solid #475569;
+            border-radius: 14px;
+            background: #1e293b;
+            transition: all 0.2s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: #38bdf8;
+            background: #26364b;
+            transform: translateY(-2px);
+        }
+
+        .quiz-option.correct {
+            border-color: #22c55e;
+            background: rgba(34, 197, 94, 0.15);
+        }
+
+        .quiz-option.wrong {
+            border-color: #fb7185;
+            background: rgba(244, 63, 94, 0.12);
+        }
+
+        .answer-box {
+            background: #0f172a;
+            border: 2px solid #475569;
+            border-radius: 12px;
+            padding: 12px 15px;
+            color: white;
+            width: 100%;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .answer-box:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+        }
+
+        .submit-btn {
+            transition: all 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           FEEDBACK
+        ========================== */
+
+        .feedback-box {
+            border-radius: 15px;
+            padding: 1rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .feedback-correct {
+            background: rgba(34, 197, 94, 0.12);
+            border: 1px solid #22c55e;
+            color: #bbf7d0;
+        }
+
+        .feedback-wrong {
+            background: rgba(244, 63, 94, 0.10);
+            border: 1px solid #fb7185;
+            color: #fecdd3;
+        }
+
+        .complete-card {
+            background: linear-gradient(
+                135deg,
+                rgba(16, 185, 129, 0.15),
+                rgba(14, 165, 233, 0.12)
+            );
+            border: 2px solid #10b981;
+        }
+
+        /* =========================
+           ANIMATION
+        ========================== */
+
+        .fade-in {
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pulse-soft {
+            animation: pulseSoft 2s infinite;
+        }
+
+        @keyframes pulseSoft {
+            0%, 100% {
+                box-shadow: 0 0 0 rgba(56, 189, 248, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(56, 189, 248, 0.18);
+            }
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 640px) {
+            .bar-model {
+                height: 55px;
+            }
+
+            .math-big {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
+
 <body class="antialiased min-h-screen flex flex-col relative">
 
-    <!-- Efek Cahaya Background -->
+    <!-- BACKGROUND LIGHT -->
     <div class="fixed top-[-10%] right-[-5%] w-96 h-96 bg-amber-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
     <div class="fixed bottom-[10%] left-[-5%] w-96 h-96 bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
 
-    <!-- Header & Progress Bar -->
+    <!-- =========================
+         HEADER
+    ========================== -->
+
     <header class="card-dark shadow-lg border-b sticky top-0 z-50">
-        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
+
+        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+
             <div class="flex items-center gap-3">
-                <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto">
+
+                <img
+                    src="assets/logo.png"
+                    alt="VisualMath.Lim"
+                    class="h-10 w-auto"
+                >
+
                 <div>
-                    <h1 class="text-lg font-bold text-sky-400 leading-tight">VisualMath.Lim</h1>
-                    <p class="text-[11px] text-slate-400 leading-tight tracking-wider">Math Mastery • Kelas 6</p>
+                    <h1 class="text-lg font-bold text-sky-400 leading-tight">
+                        VisualMath.Lim
+                    </h1>
+
+                    <p class="text-[11px] text-slate-400 leading-tight tracking-wider">
+                        Math Mastery • Kelas 6
+                    </p>
                 </div>
+
             </div>
-            <span class="px-3 py-1 bg-amber-900/40 border border-amber-600/50 rounded-full text-xs font-bold text-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.2)]">
+
+            <span class="px-3 py-1 bg-amber-900/40 border border-amber-600/50 rounded-full text-xs font-bold text-amber-400">
                 🔓 Pos 5/8: Skill Unlock
             </span>
+
         </div>
-        <!-- Progress Bar 62.5% -->
+
         <div class="h-1.5 w-full bg-slate-900">
-            <div class="h-full bg-gradient-to-r from-sky-400 via-indigo-500 to-amber-500" style="width:62.5%"></div>
+            <div
+                class="h-full bg-gradient-to-r from-sky-400 via-indigo-500 to-amber-500"
+                style="width:62.5%"
+            ></div>
         </div>
+
     </header>
+
 
     <main class="flex-grow max-w-5xl mx-auto w-full px-4 py-8 space-y-10 relative z-10">
 
-        <!-- STEP 5 HEADER -->
-        <section class="text-center space-y-3">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-white flex items-center justify-center gap-3">
-                <span>🔓</span> STEP 5 — Tiga Strategi Penjumlahan
+        <!-- =========================
+             HEADER STEP
+        ========================== -->
+
+        <section class="text-center space-y-4">
+
+            <div class="inline-flex items-center gap-2 bg-amber-900/30 border border-amber-700/50 rounded-full px-4 py-2 text-xs font-bold text-amber-300">
+                🔓 SKILL UNLOCK
+            </div>
+
+            <h2 class="text-3xl md:text-4xl font-extrabold text-white">
+                4 Strategi Penjumlahan Pecahan
             </h2>
-            <p class="max-w-2xl mx-auto text-slate-300 text-sm md:text-base leading-relaxed">
-                Ternyata menyamakan penyebut itu ada tingkatannya! Mari kita urutkan dari akar visualnya, hingga jalan pintas rahasianya.
+
+            <p class="max-w-3xl mx-auto text-slate-300 text-sm md:text-base leading-relaxed">
+                Ada beberapa cara untuk menjumlahkan pecahan berbeda penyebut.
+                Kita akan mulai dari <strong class="text-emerald-400">gambar</strong>,
+                memahami <strong class="text-violet-400">pecahan senilai</strong>,
+                menggunakan <strong class="text-sky-400">KPK</strong>,
+                lalu mengenal <strong class="text-amber-400">kali silang</strong>.
             </p>
+
         </section>
 
-        <!-- KARTU STRATEGI (Disusun Hierarkis/Berurutan) -->
-        <section class="space-y-6 max-w-3xl mx-auto">
-            
-            <!-- Strategi 1: Akar Konsep -->
-            <div class="bg-slate-900 border-l-4 border-emerald-500 rounded-r-xl p-6 shadow-lg relative overflow-hidden">
-                <span class="absolute top-0 right-0 bg-emerald-900/60 text-emerald-300 text-[10px] font-bold px-3 py-1 rounded-bl-lg">Akar Konsep</span>
-                <h3 class="text-xl font-bold text-emerald-400 flex items-center gap-2 mb-3">
-                    <span>🟢</span> 1. Bar Model / Visual
-                </h3>
-                <p class="text-sm text-slate-300 mb-3">
-                    Menggambar potongan pizza atau cokelat. Ini adalah "akar" dari semua strategi. Sangat bagus untuk memahami <i>kenapa</i> kita harus menyamakan penyebut (menyamakan ukuran potongan).
-                </p>
-                <div class="bg-slate-950 p-3 rounded border border-slate-800 text-sm text-slate-400 flex items-center gap-3">
-                    <span class="text-2xl">🍫</span> Cocok untuk pecahan dengan angka kecil.
+
+        <!-- =========================
+             INTRO
+        ========================== -->
+
+        <section class="glass-panel card-dark rounded-3xl p-6 md:p-8">
+
+            <div class="flex flex-col md:flex-row items-center gap-6">
+
+                <img
+                    src="assets/Luna.png"
+                    alt="Luna"
+                    class="w-28 h-28 object-contain"
+                >
+
+                <div>
+
+                    <h3 class="text-xl font-bold text-sky-400 mb-2">
+                        👀 Mengapa penyebut harus disamakan?
+                    </h3>
+
+                    <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+                        Bayangkan kamu mempunyai dua jenis potongan pizza.
+                        Pecahan
+                        <span class="math-frac text-sky-300">
+                            <span class="math-num">1</span>
+                            <span class="math-den">2</span>
+                        </span>
+                        berarti satu dari dua bagian.
+                        Sedangkan
+                        <span class="math-frac text-violet-300">
+                            <span class="math-num">1</span>
+                            <span class="math-den">4</span>
+                        </span>
+                        berarti satu dari empat bagian.
+                        Ukuran potongannya berbeda.
+                    </p>
+
+                    <p class="text-slate-200 font-semibold mt-3">
+                        Jadi, sebelum menjumlahkan, kita perlu membuat ukuran bagian menjadi sama.
+                    </p>
+
                 </div>
+
             </div>
 
-            <!-- Strategi 2: Standar Emas (KPK) -->
-            <div class="bg-slate-900 border-l-4 border-sky-500 rounded-r-xl p-6 shadow-lg relative overflow-hidden">
-                <span class="absolute top-0 right-0 bg-sky-900/60 text-sky-300 text-[10px] font-bold px-3 py-1 rounded-bl-lg">Cara Utama</span>
-                <h3 class="text-xl font-bold text-sky-400 flex items-center gap-2 mb-3">
-                    <span>🔵</span> 2. Menggunakan KPK
-                </h3>
-                <p class="text-sm text-slate-300 mb-4">
-                    Versi simbolik dari gambar tadi. Kamu mencari <strong>Kelipatan Persekutuan Terkecil (KPK)</strong> dari kedua penyebut untuk dijadikan penyebut baru, lalu menyesuaikan pembilangnya.
-                </p>
-                <div class="bg-sky-950/20 p-4 rounded-lg border border-sky-900/50 flex items-center justify-center gap-4">
-                    <div class="text-sm text-slate-300">Contoh: <span class="math-frac text-white"><span class="math-num">1</span><span class="math-den">2</span></span> + <span class="math-frac text-white"><span class="math-num">1</span><span class="math-den">4</span></span></div>
-                    <span class="text-sky-500 font-bold">➔</span>
-                    <div class="text-sm text-slate-300 text-center">
-                        KPK (2 & 4) = 4 <br>
-                        <span class="math-frac text-white mt-1"><span class="math-num">2</span><span class="math-den">4</span></span> + <span class="math-frac text-white"><span class="math-num">1</span><span class="math-den">4</span></span> = <span class="math-frac text-sky-400"><span class="math-num">3</span><span class="math-den">4</span></span>
+        </section>
+
+
+        <!-- =========================
+             STRATEGI 1
+             BAR MODEL
+        ========================== -->
+
+        <section class="strategy-card strategy-visual bg-slate-900 p-6 md:p-8 shadow-xl">
+
+            <div class="flex items-center gap-3 mb-5">
+
+                <div class="w-12 h-12 rounded-full bg-emerald-900/50 flex items-center justify-center text-2xl">
+                    🟢
+                </div>
+
+                <div>
+                    <p class="text-xs text-emerald-400 font-bold uppercase tracking-wider">
+                        Strategi 1 • Akar Konsep
+                    </p>
+
+                    <h3 class="text-2xl font-extrabold text-white">
+                        Bar Model / Visual
+                    </h3>
+                </div>
+
+            </div>
+
+            <p class="text-slate-300 text-sm md:text-base leading-relaxed mb-6">
+                Bar Model membantu kita <strong>melihat ukuran pecahan</strong>.
+                Kita tidak langsung menghafal rumus. Kita membagi satu utuh menjadi
+                bagian yang sama besar terlebih dahulu.
+            </p>
+
+
+            <!-- CONTOH BAR MODEL -->
+
+            <div class="bg-slate-950 rounded-2xl p-5 border border-slate-800">
+
+                <div class="text-center mb-5">
+
+                    <p class="text-sm text-slate-400 mb-2">
+                        Contoh:
+                    </p>
+
+                    <div class="text-2xl font-bold">
+
+                        <span class="math-frac text-sky-300">
+                            <span class="math-num">1</span>
+                            <span class="math-den">2</span>
+                        </span>
+
+                        <span class="mx-2">+</span>
+
+                        <span class="math-frac text-violet-300">
+                            <span class="math-num">1</span>
+                            <span class="math-den">4</span>
+                        </span>
+
                     </div>
+
                 </div>
+
+
+                <p class="text-center text-xs text-slate-400 mb-2">
+                    Langkah 1 — Gambarkan satu utuh.
+                </p>
+
+                <div class="bar-model mb-6">
+
+                    <div class="bar-part one-half text-white">
+                        1
+                    </div>
+
+                    <div class="bar-part bg-slate-700 text-slate-500">
+                        2
+                    </div>
+
+                </div>
+
+
+                <div class="flex justify-center mb-4 text-slate-500">
+                    ↓
+                </div>
+
+
+                <p class="text-center text-xs text-slate-400 mb-2">
+                    Karena kita ingin menggabungkan
+                    <strong>1/2</strong> dan <strong>1/4</strong>,
+                    bagi setiap setengah menjadi 2 bagian.
+                </p>
+
+                <div class="bar-model">
+
+                    <div class="bar-part highlight">
+                        1/4
+                    </div>
+
+                    <div class="bar-part highlight">
+                        1/4
+                    </div>
+
+                    <div class="bar-part bg-slate-700">
+                        1/4
+                    </div>
+
+                    <div class="bar-part bg-slate-700">
+                        1/4
+                    </div>
+
+                </div>
+
+
+                <div class="mt-6 grid md:grid-cols-3 gap-3 text-center text-xs">
+
+                    <div class="bg-emerald-900/20 border border-emerald-800 rounded-xl p-3">
+                        <strong class="text-emerald-400 block mb-1">
+                            1/2
+                        </strong>
+                        sama dengan
+                        <br>
+                        <strong>2/4</strong>
+                    </div>
+
+                    <div class="flex items-center justify-center text-xl text-sky-400">
+                        →
+                    </div>
+
+                    <div class="bg-sky-900/20 border border-sky-800 rounded-xl p-3">
+                        <strong class="text-sky-400 block mb-1">
+                            2/4 + 1/4
+                        </strong>
+                        sehingga
+                        <br>
+                        <strong class="text-white">3/4</strong>
+                    </div>
+
+                </div>
+
             </div>
 
-            <!-- Strategi 3: Turunan/Shortcut -->
-            <div class="bg-slate-900 border-l-4 border-amber-500 rounded-r-xl p-6 shadow-lg relative overflow-hidden ml-4 md:ml-10">
-                <div class="absolute -left-6 top-1/2 w-8 border-b-2 border-dashed border-amber-500/50 hidden md:block"></div>
-                <span class="absolute top-0 right-0 bg-amber-900/60 text-amber-300 text-[10px] font-bold px-3 py-1 rounded-bl-lg flex items-center gap-1">⚡ Shortcut dari KPK</span>
-                
-                <h3 class="text-xl font-bold text-amber-400 flex items-center gap-2 mb-3">
-                    <span>⚡</span> 3. Kali Silang
-                </h3>
-                <p class="text-sm text-slate-300 mb-3 leading-relaxed">
-                    Kali silang itu sebenarnya mencari penyebut bersama juga! Bedanya, kamu <strong>langsung mengalikan kedua penyebutnya</strong> tanpa mencari KPK terlebih dahulu. 
+
+            <div class="mt-6 bg-emerald-950/30 border border-emerald-800 rounded-xl p-4">
+
+                <p class="text-sm text-emerald-200">
+                    💡 <strong>Inti Bar Model:</strong>
+                    kita melihat bahwa
+                    <span class="math-frac">
+                        <span class="math-num">1</span>
+                        <span class="math-den">2</span>
+                    </span>
+                    ternyata dapat diubah menjadi
+                    <span class="math-frac">
+                        <span class="math-num">2</span>
+                        <span class="math-den">4</span>
+                    </span>.
+                    Inilah ide dasar dari <strong>pecahan senilai</strong>.
                 </p>
-                <div class="bg-rose-950/30 p-3 rounded-lg border border-rose-900/50 text-sm text-rose-200 flex items-start gap-3">
-                    <span class="text-lg">💣</span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             STRATEGI 2
+             PECAHAN SENILAI
+        ========================== -->
+
+        <section class="strategy-card strategy-equivalent bg-slate-900 p-6 md:p-8 shadow-xl">
+
+            <div class="flex items-center gap-3 mb-5">
+
+                <div class="w-12 h-12 rounded-full bg-violet-900/50 flex items-center justify-center text-2xl">
+                    🟣
+                </div>
+
+                <div>
+
+                    <p class="text-xs text-violet-400 font-bold uppercase tracking-wider">
+                        Strategi 2 • Dari Visual ke Simbol
+                    </p>
+
+                    <h3 class="text-2xl font-extrabold text-white">
+                        Pecahan Senilai
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <p class="text-slate-300 text-sm md:text-base leading-relaxed mb-6">
+                Pecahan senilai adalah pecahan yang memiliki <strong>nilai yang sama</strong>,
+                meskipun angka pembilang dan penyebutnya berbeda.
+            </p>
+
+
+            <div class="bg-slate-950 rounded-2xl p-6 border border-slate-800">
+
+                <h4 class="font-bold text-violet-300 mb-5">
+                    Contoh: Mengubah
+                    <span class="math-frac">
+                        <span class="math-num">1</span>
+                        <span class="math-den">2</span>
+                    </span>
+                    menjadi penyebut 4
+                </h4>
+
+
+                <div class="flex flex-wrap items-center justify-center gap-5 text-xl">
+
+                    <div class="text-center">
+
+                        <div class="math-frac math-big text-white">
+                            <span class="math-num">1</span>
+                            <span class="math-den">2</span>
+                        </div>
+
+                    </div>
+
+                    <div class="text-violet-400 font-bold">
+                        ×
+                    </div>
+
+                    <div class="text-center text-sm text-slate-400">
+                        <strong class="text-white">2</strong>
+                        <br>
+                        pembilang dan penyebut
+                    </div>
+
+                    <div class="text-violet-400 font-bold">
+                        =
+                    </div>
+
+                    <div class="math-frac math-big text-violet-300">
+                        <span class="math-num">2</span>
+                        <span class="math-den">4</span>
+                    </div>
+
+                </div>
+
+
+                <div class="mt-6 border-t border-slate-800 pt-5">
+
+                    <p class="text-sm text-slate-300 mb-3">
+                        Mengapa boleh dikali 2?
+                    </p>
+
+                    <div class="bg-violet-950/30 border border-violet-800 rounded-xl p-4">
+
+                        <p class="text-sm text-violet-200 leading-relaxed">
+                            Karena kita mengalikan <strong>pembilang dan penyebut
+                            dengan bilangan yang sama</strong>.
+                            Nilai pecahan tidak berubah.
+                        </p>
+
+                        <div class="text-center mt-4 text-xl">
+
+                            <span class="math-frac">
+                                <span class="math-num">1 × 2</span>
+                                <span class="math-den">2 × 2</span>
+                            </span>
+
+                            <span class="mx-2">=</span>
+
+                            <span class="math-frac text-violet-300">
+                                <span class="math-num">2</span>
+                                <span class="math-den">4</span>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CONTOH LENGKAP PENJUMLAHAN -->
+
+            <div class="mt-6 bg-slate-950 rounded-2xl p-6 border border-slate-800">
+
+                <h4 class="font-bold text-white mb-4">
+                    📘 Contoh Lengkap
+                </h4>
+
+                <div class="space-y-4 text-sm text-slate-300">
+
                     <p>
-                        <strong>Kelemahan Fatal (Ledakan Angka):</strong> Kalau angka penyebut aslinya tidak punya faktor (relatif prima, misal 3 dan 5), cara ini sangat efisien. <strong>TAPI</strong> jika angkanya besar (misal 12 dan 15), awas ledakan angka! Penyebutmu bisa jadi 180, padahal KPK-nya hanya 60. Sangat rawan salah hitung!
+                        Soal:
+                        <span class="math-frac">
+                            <span class="math-num">1</span>
+                            <span class="math-den">2</span>
+                        </span>
+                        +
+                        <span class="math-frac">
+                            <span class="math-num">1</span>
+                            <span class="math-den">4</span>
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong class="text-violet-300">Langkah 1:</strong>
+                        Ubah
+                        <span class="math-frac">
+                            <span class="math-num">1</span>
+                            <span class="math-den">2</span>
+                        </span>
+                        menjadi pecahan berpenyebut 4.
+                    </p>
+
+                    <p class="text-center text-lg">
+
+                        <span class="math-frac">
+                            <span class="math-num">1</span>
+                            <span class="math-den">2</span>
+                        </span>
+
+                        =
+
+                        <span class="math-frac text-violet-300">
+                            <span class="math-num">1 × 2</span>
+                            <span class="math-den">2 × 2</span>
+                        </span>
+
+                        =
+
+                        <span class="math-frac text-violet-300">
+                            <span class="math-num">2</span>
+                            <span class="math-den">4</span>
+                        </span>
+
+                    </p>
+
+                    <p>
+                        <strong class="text-violet-300">Langkah 2:</strong>
+                        Jumlahkan pembilang karena penyebut sudah sama.
+                    </p>
+
+                    <p class="text-center text-lg">
+
+                        <span class="math-frac text-violet-300">
+                            <span class="math-num">2</span>
+                            <span class="math-den">4</span>
+                        </span>
+
+                        +
+
+                        <span class="math-frac text-violet-300">
+                            <span class="math-num">1</span>
+                            <span class="math-den">4</span>
+                        </span>
+
+                        =
+
+                        <span class="math-frac text-emerald-400">
+                            <span class="math-num">3</span>
+                            <span class="math-den">4</span>
+                        </span>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             STRATEGI 3
+             KPK
+        ========================== -->
+
+        <section class="strategy-card strategy-kpk bg-slate-900 p-6 md:p-8 shadow-xl">
+
+            <div class="flex items-center gap-3 mb-5">
+
+                <div class="w-12 h-12 rounded-full bg-sky-900/50 flex items-center justify-center text-2xl">
+                    🔵
+                </div>
+
+                <div>
+
+                    <p class="text-xs text-sky-400 font-bold uppercase tracking-wider">
+                        Strategi 3 • Cara Utama
+                    </p>
+
+                    <h3 class="text-2xl font-extrabold text-white">
+                        Menggunakan KPK
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <p class="text-slate-300 text-sm md:text-base leading-relaxed mb-6">
+                KPK membantu kita menemukan <strong>penyebut bersama terkecil</strong>.
+                Setelah menemukan KPK, setiap pecahan diubah menjadi pecahan senilai
+                dengan penyebut tersebut.
+            </p>
+
+
+            <div class="bg-slate-950 rounded-2xl p-6 border border-slate-800">
+
+                <h4 class="font-bold text-sky-300 mb-5">
+                    Contoh:
+                    <span class="math-frac">
+                        <span class="math-num">1</span>
+                        <span class="math-den">2</span>
+                    </span>
+                    +
+                    <span class="math-frac">
+                        <span class="math-num">1</span>
+                        <span class="math-den">4</span>
+                    </span>
+                </h4>
+
+
+                <!-- STEP 1 -->
+
+                <div class="mb-6">
+
+                    <div class="flex gap-3">
+
+                        <span class="w-8 h-8 rounded-full bg-sky-900 text-sky-300 flex items-center justify-center font-bold shrink-0">
+                            1
+                        </span>
+
+                        <div>
+
+                            <h5 class="font-bold text-white">
+                                Cari kelipatan masing-masing penyebut
+                            </h5>
+
+                            <p class="text-sm text-slate-400 mt-1">
+                                Kelipatan 2:
+                            </p>
+
+                            <p class="text-sky-300 font-bold">
+                                2, 4, 6, 8, 10, ...
+                            </p>
+
+                            <p class="text-sm text-slate-400 mt-2">
+                                Kelipatan 4:
+                            </p>
+
+                            <p class="text-sky-300 font-bold">
+                                4, 8, 12, 16, ...
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STEP 2 -->
+
+                <div class="mb-6">
+
+                    <div class="flex gap-3">
+
+                        <span class="w-8 h-8 rounded-full bg-sky-900 text-sky-300 flex items-center justify-center font-bold shrink-0">
+                            2
+                        </span>
+
+                        <div>
+
+                            <h5 class="font-bold text-white">
+                                Tentukan KPK
+                            </h5>
+
+                            <p class="text-sm text-slate-400 mt-1">
+                                Bilangan pertama yang muncul pada kedua daftar adalah
+                                <strong class="text-sky-300">4</strong>.
+                            </p>
+
+                            <div class="mt-3 bg-sky-950/30 border border-sky-800 rounded-xl p-3 text-center">
+                                <strong class="text-sky-300">
+                                    KPK(2, 4) = 4
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STEP 3 -->
+
+                <div class="mb-6">
+
+                    <div class="flex gap-3">
+
+                        <span class="w-8 h-8 rounded-full bg-sky-900 text-sky-300 flex items-center justify-center font-bold shrink-0">
+                            3
+                        </span>
+
+                        <div class="w-full">
+
+                            <h5 class="font-bold text-white mb-3">
+                                Ubah menjadi pecahan senilai
+                            </h5>
+
+                            <p class="text-sm text-slate-400 mb-3">
+                                Agar penyebut menjadi 4:
+                            </p>
+
+                            <div class="text-center text-lg">
+
+                                <span class="math-frac">
+                                    <span class="math-num">1</span>
+                                    <span class="math-den">2</span>
+                                </span>
+
+                                =
+
+                                <span class="math-frac">
+                                    <span class="math-num">1 × 2</span>
+                                    <span class="math-den">2 × 2</span>
+                                </span>
+
+                                =
+
+                                <span class="math-frac text-sky-300">
+                                    <span class="math-num">2</span>
+                                    <span class="math-den">4</span>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STEP 4 -->
+
+                <div>
+
+                    <div class="flex gap-3">
+
+                        <span class="w-8 h-8 rounded-full bg-emerald-900 text-emerald-300 flex items-center justify-center font-bold shrink-0">
+                            4
+                        </span>
+
+                        <div class="w-full">
+
+                            <h5 class="font-bold text-white mb-3">
+                                Jumlahkan pembilang
+                            </h5>
+
+                            <div class="bg-emerald-950/30 border border-emerald-800 rounded-xl p-5 text-center text-xl">
+
+                                <span class="math-frac text-sky-300">
+                                    <span class="math-num">2</span>
+                                    <span class="math-den">4</span>
+                                </span>
+
+                                +
+
+                                <span class="math-frac text-sky-300">
+                                    <span class="math-num">1</span>
+                                    <span class="math-den">4</span>
+                                </span>
+
+                                =
+
+                                <span class="math-frac text-emerald-400">
+                                    <span class="math-num">3</span>
+                                    <span class="math-den">4</span>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="mt-5 bg-sky-950/30 border border-sky-800 rounded-xl p-4">
+
+                <p class="text-sm text-sky-200">
+                    💡 <strong>Intinya:</strong>
+                    KPK bukanlah rumus baru. KPK adalah cara cepat untuk menentukan
+                    <strong>penyebut bersama</strong>, kemudian kita menggunakan
+                    konsep <strong>pecahan senilai</strong>.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             STRATEGI 4
+             KALI SILANG
+        ========================== -->
+
+        <section class="strategy-card strategy-cross bg-slate-900 p-6 md:p-8 shadow-xl">
+
+            <div class="flex items-center gap-3 mb-5">
+
+                <div class="w-12 h-12 rounded-full bg-amber-900/50 flex items-center justify-center text-2xl">
+                    ⚡
+                </div>
+
+                <div>
+
+                    <p class="text-xs text-amber-400 font-bold uppercase tracking-wider">
+                        Strategi 4 • Jalan Cepat
+                    </p>
+
+                    <h3 class="text-2xl font-extrabold text-white">
+                        Kali Silang
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <p class="text-slate-300 text-sm md:text-base leading-relaxed mb-6">
+                Kali silang dapat digunakan untuk menjumlahkan dua pecahan.
+                Namun, penting memahami <strong>mengapa</strong> caranya bekerja.
+                Kali silang sebenarnya menghasilkan penyebut bersama
+                <strong>a × b</strong>.
+            </p>
+
+
+            <div class="bg-slate-950 rounded-2xl p-6 border border-slate-800">
+
+                <h4 class="font-bold text-amber-300 mb-5">
+                    Contoh:
+                    <span class="math-frac">
+                        <span class="math-num">2</span>
+                        <span class="math-den">3</span>
+                    </span>
+                    +
+                    <span class="math-frac">
+                        <span class="math-num">1</span>
+                        <span class="math-den">5</span>
+                    </span>
+                </h4>
+
+
+                <!-- VISUAL FORMULA -->
+
+                <div class="bg-amber-950/20 border border-amber-800 rounded-xl p-5 mb-6">
+
+                    <div class="text-center text-xl">
+
+                        <span class="math-frac text-white">
+                            <span class="math-num">2</span>
+                            <span class="math-den">3</span>
+                        </span>
+
+                        +
+
+                        <span class="math-frac text-white">
+                            <span class="math-num">1</span>
+                            <span class="math-den">5</span>
+                        </span>
+
+                    </div>
+
+
+                    <div class="text-center text-amber-400 text-2xl my-3">
+                        ↓
+                    </div>
+
+
+                    <div class="grid md:grid-cols-2 gap-4 text-center">
+
+                        <div class="bg-slate-900 rounded-xl p-4">
+
+                            <p class="text-xs text-slate-400 mb-2">
+                                Silangkan pembilang
+                            </p>
+
+                            <p class="text-lg">
+
+                                2 × 5
+                                <span class="text-amber-400 font-bold">
+                                    = 10
+                                </span>
+
+                            </p>
+
+                            <p class="text-xs text-slate-500 mt-1">
+                                pembilang pertama × penyebut kedua
+                            </p>
+
+                        </div>
+
+
+                        <div class="bg-slate-900 rounded-xl p-4">
+
+                            <p class="text-xs text-slate-400 mb-2">
+                                Silangkan pembilang
+                            </p>
+
+                            <p class="text-lg">
+
+                                1 × 3
+                                <span class="text-amber-400 font-bold">
+                                    = 3
+                                </span>
+
+                            </p>
+
+                            <p class="text-xs text-slate-500 mt-1">
+                                pembilang kedua × penyebut pertama
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LANGKAH LENGKAP -->
+
+                <div class="space-y-5 text-sm">
+
+                    <div class="flex gap-3">
+
+                        <span class="w-8 h-8 rounded-full bg-amber-900 text-amber-300 flex items-center justify-center font-bold shrink-0">
+                            1
+                        </span>
+
+                        <div>
+                            <strong class="text-white">
+                                Kalikan silang pembilang.
+                            </strong>
+
+                            <p class="text-slate-400 mt-1">
+                                2 × 5 = 10
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="flex gap-3">
+
+                        <span class="w-8 h-8 rounded-full bg-amber-900 text-amber-300 flex items-center justify-center font-bold shrink-0">
+                            2
+                        </span>
+
+                        <div>
+                            <strong class="text-white">
+                                Kalikan silang pembilang yang lain.
+                            </strong>
+
+                            <p class="text-slate-400 mt-1">
+                                1 × 3 = 3
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="flex gap-3">
+
+                        <span class="w-8 h-8 rounded-full bg-amber-900 text-amber-300 flex items-center justify-center font-bold shrink-0">
+                            3
+                        </span>
+
+                        <div>
+                            <strong class="text-white">
+                                Jumlahkan hasil perkalian.
+                            </strong>
+
+                            <p class="text-slate-400 mt-1">
+                                10 + 3 = 13
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="flex gap-3">
+
+                        <span class="w-8 h-8 rounded-full bg-amber-900 text-amber-300 flex items-center justify-center font-bold shrink-0">
+                            4
+                        </span>
+
+                        <div>
+                            <strong class="text-white">
+                                Kalikan kedua penyebut.
+                            </strong>
+
+                            <p class="text-slate-400 mt-1">
+                                3 × 5 = 15
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="bg-emerald-950/30 border border-emerald-800 rounded-xl p-5 text-center">
+
+                        <p class="text-slate-300 mb-3">
+                            Jadi:
+                        </p>
+
+                        <div class="text-2xl">
+
+                            <span class="math-frac text-emerald-400">
+                                <span class="math-num">2</span>
+                                <span class="math-den">3</span>
+                            </span>
+
+                            +
+
+                            <span class="math-frac text-emerald-400">
+                                <span class="math-num">1</span>
+                                <span class="math-den">5</span>
+                            </span>
+
+                            =
+
+                            <span class="math-frac text-emerald-400">
+                                <span class="math-num">13</span>
+                                <span class="math-den">15</span>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="mt-5 bg-rose-950/30 border border-rose-800 rounded-xl p-4">
+
+                <p class="text-sm text-rose-200 leading-relaxed">
+                    ⚠️ <strong>Perhatikan:</strong>
+                    Kali silang menghasilkan penyebut
+                    <strong>3 × 5 = 15</strong>.
+                    Jika penyebutnya 12 dan 15, hasil kalinya 180,
+                    sedangkan KPK-nya hanya 60.
+                    Jadi, kali silang bisa menghasilkan angka lebih besar
+                    daripada yang diperlukan.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ATURAN EMAS
+        ========================== -->
+
+        <section class="max-w-4xl mx-auto">
+
+            <div class="relative bg-gradient-to-br from-amber-900/40 to-slate-900 rounded-3xl p-6 md:p-8 golden-border golden-glow overflow-hidden">
+
+                <div class="absolute right-0 top-0 text-[160px] opacity-5 pointer-events-none">
+                    📜
+                </div>
+
+
+                <div class="flex flex-col md:flex-row items-center gap-7 relative z-10">
+
+                    <!-- CHARACTER -->
+
+                    <div class="shrink-0 text-center">
+
+                        <img
+                            src="assets/Sigma.png"
+                            alt="Prof. Sigma"
+                            class="w-32 h-32 object-contain mx-auto"
+                        >
+
+                        <p class="text-xs text-amber-300 font-bold mt-1">
+                            Prof. Sigma
+                        </p>
+
+                    </div>
+
+
+                    <!-- GOLDEN RULE -->
+
+                    <div class="w-full">
+
+                        <h3 class="text-2xl font-extrabold text-amber-400 mb-5">
+                            📜 ATURAN EMAS MISSION A2
+                        </h3>
+
+
+                        <!-- VISUAL GOLDEN RULE -->
+
+                        <div class="bg-slate-950/80 rounded-2xl p-5 border border-amber-800 mb-6">
+
+                            <p class="text-center text-sm text-slate-400 mb-4">
+                                Ingat gambar ini:
+                            </p>
+
+                            <div class="grid md:grid-cols-3 gap-3 items-center text-center">
+
+                                <div class="bg-rose-950/30 border border-rose-800 rounded-xl p-4">
+
+                                    <div class="text-3xl mb-2">
+                                        🚫
+                                    </div>
+
+                                    <p class="text-sm text-rose-300 font-bold">
+                                        Jangan
+                                    </p>
+
+                                    <div class="text-lg mt-2">
+
+                                        <span class="math-frac">
+                                            <span class="math-num">1</span>
+                                            <span class="math-den">2</span>
+                                        </span>
+
+                                        +
+
+                                        <span class="math-frac">
+                                            <span class="math-num">1</span>
+                                            <span class="math-den">4</span>
+                                        </span>
+
+                                        ≠
+
+                                        <span class="math-frac">
+                                            <span class="math-num">2</span>
+                                            <span class="math-den">6</span>
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="text-amber-400 text-3xl">
+                                    →
+                                </div>
+
+
+                                <div class="bg-emerald-950/30 border border-emerald-800 rounded-xl p-4">
+
+                                    <div class="text-3xl mb-2">
+                                        ✅
+                                    </div>
+
+                                    <p class="text-sm text-emerald-300 font-bold">
+                                        Lakukan
+                                    </p>
+
+                                    <div class="text-lg mt-2">
+
+                                        Samakan
+                                        <strong>penyebut</strong>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="mt-5 text-center text-sky-300 font-bold">
+                                Ukuran bagian harus sama → baru pembilang dijumlahkan.
+                            </div>
+
+                        </div>
+
+
+                        <div class="space-y-4 text-sm md:text-base">
+
+                            <div class="flex gap-3">
+
+                                <span class="text-rose-400 font-bold">
+                                    1.
+                                </span>
+
+                                <p>
+                                    Jangan langsung menjumlahkan
+                                    <strong>penyebut dengan penyebut</strong>.
+                                </p>
+
+                            </div>
+
+
+                            <div class="flex gap-3">
+
+                                <span class="text-sky-400 font-bold">
+                                    2.
+                                </span>
+
+                                <p>
+                                    Samakan penyebut terlebih dahulu menggunakan
+                                    <strong>Bar Model, Pecahan Senilai, atau KPK</strong>.
+                                </p>
+
+                            </div>
+
+
+                            <div class="flex gap-3">
+
+                                <span class="text-emerald-400 font-bold">
+                                    3.
+                                </span>
+
+                                <p>
+                                    Setelah penyebut sama,
+                                    <strong>jumlahkan pembilangnya</strong>.
+                                </p>
+
+                            </div>
+
+
+                            <div class="flex gap-3">
+
+                                <span class="text-amber-400 font-bold">
+                                    4.
+                                </span>
+
+                                <p>
+                                    Kali silang boleh digunakan sebagai
+                                    <strong>cara cepat</strong>, tetapi tetap pahami
+                                    bahwa tujuannya adalah membuat penyebut bersama.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             GAME INTRO
+        ========================== -->
+
+        <section class="max-w-4xl mx-auto">
+
+            <div class="glass-panel card-dark rounded-3xl p-6 md:p-8 border-t-4 border-indigo-500">
+
+                <div class="flex flex-col md:flex-row items-center gap-5">
+
+                    <img
+                        src="assets/Pixel.png"
+                        alt="Pixel"
+                        class="w-24 h-24 object-contain"
+                    >
+
+                    <div>
+
+                        <h3 class="text-2xl font-bold text-indigo-400">
+                            🎮 Strategy Challenge
+                        </h3>
+
+                        <p class="text-slate-300 text-sm md:text-base mt-2 leading-relaxed">
+                            Sekarang waktunya membuktikan bahwa kamu bukan hanya
+                            tahu strateginya, tetapi juga bisa menggunakannya.
+                            Ada <strong>4 tantangan</strong>.
+                            Setiap tantangan mewakili satu strategi.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             GAME
+        ========================== -->
+
+        <section
+            id="game-section"
+            class="glass-panel card-dark rounded-3xl p-6 md:p-8 max-w-4xl mx-auto"
+        >
+
+            <!-- GAME PROGRESS -->
+
+            <div class="mb-7">
+
+                <div class="flex justify-between text-xs font-bold mb-2">
+
+                    <span class="text-slate-400">
+                        Progress Challenge
+                    </span>
+
+                    <span
+                        id="game-progress-text"
+                        class="text-indigo-400"
+                    >
+                        0 / 4 selesai
+                    </span>
+
+                </div>
+
+                <div class="w-full h-3 bg-slate-900 rounded-full overflow-hidden">
+
+                    <div
+                        id="game-progress"
+                        class="h-full bg-gradient-to-r from-indigo-500 to-emerald-400 transition-all duration-500"
+                        style="width:0%"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CURRENT CHALLENGE -->
+
+            <div id="challenge-container">
+
+                <!-- DIISI JAVASCRIPT -->
+
+            </div>
+
+
+            <!-- FEEDBACK -->
+
+            <div
+                id="game-feedback"
+                class="hidden mt-6"
+                aria-live="polite"
+            ></div>
+
+
+            <!-- NEXT CHALLENGE -->
+
+            <div class="mt-6 flex justify-end">
+
+                <button
+                    id="next-challenge"
+                    class="hidden bg-indigo-500 hover:bg-indigo-400 text-white font-bold px-6 py-3 rounded-full transition-all"
+                >
+                    Tantangan Berikutnya →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             COMPLETION
+        ========================== -->
+
+        <section
+            id="completion-card"
+            class="hidden complete-card max-w-4xl mx-auto rounded-3xl p-8 text-center fade-in"
+        >
+
+            <img
+                src="assets/Sigma.png"
+                alt="Prof. Sigma"
+                class="w-32 h-32 object-contain mx-auto mb-4"
+            >
+
+            <h3 class="text-3xl font-extrabold text-emerald-400">
+                🎉 Skill Unlocked!
+            </h3>
+
+            <p class="text-slate-300 mt-3 max-w-2xl mx-auto">
+                Kamu sudah berlatih empat cara untuk menjumlahkan pecahan:
+                <strong>Bar Model</strong>,
+                <strong>Pecahan Senilai</strong>,
+                <strong>KPK</strong>, dan
+                <strong>Kali Silang</strong>.
+            </p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-7">
+
+                <div class="bg-slate-900/70 rounded-xl p-4">
+                    <div class="text-2xl">🟢</div>
+                    <p class="text-xs font-bold text-emerald-300 mt-2">
+                        Bar Model
                     </p>
                 </div>
+
+                <div class="bg-slate-900/70 rounded-xl p-4">
+                    <div class="text-2xl">🟣</div>
+                    <p class="text-xs font-bold text-violet-300 mt-2">
+                        Pecahan Senilai
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/70 rounded-xl p-4">
+                    <div class="text-2xl">🔵</div>
+                    <p class="text-xs font-bold text-sky-300 mt-2">
+                        KPK
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/70 rounded-xl p-4">
+                    <div class="text-2xl">⚡</div>
+                    <p class="text-xs font-bold text-amber-300 mt-2">
+                        Kali Silang
+                    </p>
+                </div>
+
             </div>
 
         </section>
 
-        <!-- TABEL PERBANDINGAN -->
-        <section class="card-dark rounded-2xl overflow-hidden shadow-xl max-w-4xl mx-auto">
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm text-slate-300 border-collapse">
-                    <thead class="bg-slate-800 text-slate-200">
-                        <tr>
-                            <th class="p-4 border-b border-slate-700">Strategi</th>
-                            <th class="p-4 border-b border-slate-700">Kapan Cocok Dipakai?</th>
-                            <th class="p-4 border-b border-slate-700">Perlu Disederhanakan?</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-700">
-                        <tr class="hover:bg-slate-800/50 transition">
-                            <td class="p-4 font-bold text-emerald-400">Bar Model</td>
-                            <td class="p-4">Angka kecil & belajar konsep awal.</td>
-                            <td class="p-4 text-emerald-300">Jarang</td>
-                        </tr>
-                        <tr class="hover:bg-slate-800/50 transition">
-                            <td class="p-4 font-bold text-sky-400">KPK</td>
-                            <td class="p-4">Salah satu kelipatan yang lain (mis. 4 & 8) atau angkanya besar tapi bisa disederhanakan.</td>
-                            <td class="p-4 text-sky-300">Kadang-kadang</td>
-                        </tr>
-                        <tr class="hover:bg-slate-800/50 transition">
-                            <td class="p-4 font-bold text-amber-400">Kali Silang</td>
-                            <td class="p-4">Penyebut saling prima (mis. 3 & 5). <br><span class="text-rose-400 text-xs font-semibold">Hindari jika angka besar!</span></td>
-                            <td class="p-4 text-rose-400 font-bold">Sering Ya!</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
 
-        <!-- ATURAN EMAS (Sigma & Defeated Pixel) -->
-        <section class="max-w-4xl mx-auto">
-            <div class="relative bg-gradient-to-br from-amber-900/40 to-slate-900 rounded-3xl p-8 golden-border golden-glow flex flex-col md:flex-row items-center gap-8 overflow-hidden">
-                <!-- Watermark -->
-                <div class="absolute right-0 top-0 text-[200px] opacity-5 pointer-events-none">📜</div>
-                
-                <div class="shrink-0 relative">
-                    <img src="assets/sigma.png" alt="Prof. Sigma" class="w-28 h-28 object-contain drop-shadow-[0_0_15px_rgba(250,204,21,0.6)] relative z-10">
-                    <!-- Pixel Defeated -->
-                    <img src="assets/pixel.png" alt="Pixel Takluk" class="w-14 h-14 object-contain absolute -bottom-2 -right-4 grayscale-pixel z-0 rotate-12">
-                    <span class="absolute -bottom-6 -right-6 text-xs bg-slate-800 text-slate-400 px-2 py-1 rounded-full border border-slate-700">🏳️ Nyerah</span>
-                </div>
+        <!-- =========================
+             NAVIGATION
+        ========================== -->
 
-                <div class="w-full relative z-10">
-                    <h3 class="text-2xl font-extrabold text-amber-400 mb-4 tracking-wide flex items-center gap-2">
-                        📜 ATURAN EMAS MISSION A2
-                    </h3>
-                    <ul class="space-y-4 text-slate-200 text-sm md:text-base font-medium">
-                        <li class="flex gap-3">
-                            <span class="text-rose-500 font-bold">1.</span> 
-                            <span><strong>Haram Hukumnya</strong> menjumlahkan penyebut dengan penyebut (bawah + bawah).</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="text-amber-500 font-bold">2.</span> 
-                            <span>Kamu <strong>wajib</strong> menyamakan penyebut lebih dulu (Gunakan KPK untuk rapi, atau Kali Silang jika terpaksa).</span>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="text-emerald-500 font-bold">3.</span> 
-                            <span>Setelah ukuran potongan (penyebut) sama, cukup jumlahkan <strong>pembilangnya saja</strong>. Selesai!</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- MINI-QUIZ: TAP-TO-SELECT -->
-        <section class="glass-panel card-dark rounded-2xl p-6 md:p-8 space-y-8 max-w-4xl mx-auto border-t-4 border-indigo-500">
-            <div class="text-center">
-                <h3 class="text-xl font-bold text-indigo-400 mb-2">🎯 Tes Insting Strategi</h3>
-                <p class="text-sm text-slate-300">Pilih soal (klik kartu), lalu klik keranjang strategi mana yang <strong>paling efisien</strong> untuk menyelesaikannya!</p>
-            </div>
-
-            <!-- Area Soal (Kartu yang bisa di-tap) -->
-            <div class="flex justify-center flex-wrap gap-4" id="quiz-questions">
-                <div class="bg-slate-800 p-4 rounded-xl q-card flex items-center justify-center w-32 h-24" data-q="1" data-ans="visual">
-                    <div class="math-frac text-xl text-white"><span class="math-num">1</span><span class="math-den">3</span></div>
-                    <span class="text-white mx-2">+</span>
-                    <div class="math-frac text-xl text-white"><span class="math-num">1</span><span class="math-den">2</span></div>
-                </div>
-                <div class="bg-slate-800 p-4 rounded-xl q-card flex items-center justify-center w-32 h-24" data-q="2" data-ans="kpk">
-                    <div class="math-frac text-xl text-white"><span class="math-num">3</span><span class="math-den">4</span></div>
-                    <span class="text-white mx-2">+</span>
-                    <div class="math-frac text-xl text-white"><span class="math-num">1</span><span class="math-den">8</span></div>
-                </div>
-                <div class="bg-slate-800 p-4 rounded-xl q-card flex items-center justify-center w-32 h-24" data-q="3" data-ans="silang">
-                    <div class="math-frac text-xl text-white"><span class="math-num">2</span><span class="math-den">3</span></div>
-                    <span class="text-white mx-2">+</span>
-                    <div class="math-frac text-xl text-white"><span class="math-num">1</span><span class="math-den">5</span></div>
-                </div>
-            </div>
-
-            <!-- Pesan Panduan Tengah -->
-            <div id="quiz-instruction" class="text-center text-sm font-bold text-amber-400 bg-amber-900/20 py-2 rounded-lg transition-opacity">
-                👆 Klik salah satu kartu pecahan di atas
-            </div>
-
-            <!-- Area Keranjang (Buckets) -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="quiz-buckets">
-                <div class="bg-slate-900 rounded-xl p-4 bucket flex flex-col items-center justify-center gap-2 h-32" data-target="visual">
-                    <span class="text-2xl">🟢</span>
-                    <span class="font-bold text-slate-300">Bar Model / Konsep</span>
-                    <div class="bucket-content hidden text-xl"></div>
-                </div>
-                <div class="bg-slate-900 rounded-xl p-4 bucket flex flex-col items-center justify-center gap-2 h-32" data-target="kpk">
-                    <span class="text-2xl">🔵</span>
-                    <span class="font-bold text-slate-300">Gunakan KPK</span>
-                    <div class="bucket-content hidden text-xl"></div>
-                </div>
-                <div class="bg-slate-900 rounded-xl p-4 bucket flex flex-col items-center justify-center gap-2 h-32" data-target="silang">
-                    <span class="text-2xl">⚡</span>
-                    <span class="font-bold text-slate-300">Kali Silang</span>
-                    <div class="bucket-content hidden text-xl"></div>
-                </div>
-            </div>
-
-            <!-- Feedback Toast -->
-            <div id="quiz-feedback" class="hidden rounded-lg p-4 text-sm font-medium text-center"></div>
-
-        </section>
-
-        <!-- Navigasi Bawah -->
         <div class="flex justify-between items-center pt-2 pb-12 max-w-5xl mx-auto">
-            <a href="mission-a2-think-discover.html" class="text-slate-400 hover:text-white font-medium transition-colors flex items-center gap-2">
-                <span>⬅</span> Kembali
+
+            <a
+                href="mission-a2-think-discover.html"
+                class="text-slate-400 hover:text-white font-medium transition-colors flex items-center gap-2"
+            >
+                <span>⬅</span>
+                Kembali
             </a>
-            <a href="mission-a2-quest-basic.html" id="btn-next" class="inline-flex items-center justify-center bg-slate-800 text-slate-500 border border-slate-700 font-bold py-3.5 px-8 rounded-full transition-all group pointer-events-none">
-                Masuk Zona Latihan 
+
+
+            <a
+                href="mission-a2-quest-basic.html"
+                id="btn-next"
+                class="inline-flex items-center justify-center bg-slate-800 text-slate-500 border border-slate-700 font-bold py-3.5 px-8 rounded-full transition-all pointer-events-none"
+            >
+                Masuk Zona Latihan
                 <span class="ml-2">➔</span>
             </a>
+
         </div>
+
     </main>
 
+
+    <!-- =========================
+         JAVASCRIPT GAME
+    ========================== -->
+
     <script>
-        // --- LOGIKA MINI QUIZ (TAP TO SELECT) ---
-        let activeCard = null;
-        let matchedCount = 0;
-        
-        const qCards = document.querySelectorAll('.q-card');
-        const buckets = document.querySelectorAll('.bucket');
-        const instruction = document.getElementById('quiz-instruction');
-        const feedback = document.getElementById('quiz-feedback');
-        const btnNext = document.getElementById('btn-next');
 
-        // 1. Event Klik Kartu Soal
-        qCards.forEach(card => {
-            card.addEventListener('click', () => {
-                if(card.classList.contains('matched')) return; // Abaikan jika sudah selesai
-                
-                // Reset styling semua kartu
-                qCards.forEach(c => c.classList.remove('selected'));
-                
-                // Pilih kartu ini
-                activeCard = card;
-                card.classList.add('selected');
-                
-                // Highlight keranjang
-                buckets.forEach(b => {
-                    if(!b.classList.contains('filled')) b.classList.add('highlight');
-                });
-                
-                instruction.textContent = "👇 Sekarang klik keranjang strategi yang paling cocok!";
-                instruction.classList.replace('text-amber-400', 'text-sky-400');
-                instruction.classList.replace('bg-amber-900/20', 'bg-sky-900/20');
-            });
-        });
+        const challenges = [
 
-        // 2. Event Klik Keranjang (Bucket)
-        buckets.forEach(bucket => {
-            bucket.addEventListener('click', () => {
-                if(!activeCard) return; // Harus pilih kartu dulu
-                if(bucket.classList.contains('filled')) return; // Keranjang sudah terisi
+            {
+                number: 1,
+                strategy: "Bar Model",
+                color: "emerald",
+                icon: "🟢",
 
-                const targetAns = activeCard.getAttribute('data-ans');
-                const selectedBucket = bucket.getAttribute('data-target');
-                const qNum = activeCard.getAttribute('data-q');
+                question: `
+                    Perhatikan:
+                    <div class="text-2xl mt-4">
+                        <span class="math-frac">
+                            <span class="math-num">1</span>
+                            <span class="math-den">2</span>
+                        </span>
+                        +
+                        <span class="math-frac">
+                            <span class="math-num">1</span>
+                            <span class="math-den">4</span>
+                        </span>
+                    </div>
 
-                // Hilangkan highlight keranjang
-                buckets.forEach(b => b.classList.remove('highlight'));
+                    <p class="mt-4">
+                        Gunakan ide <strong>Bar Model</strong>.
+                        Berapa hasil penjumlahannya?
+                    </p>
+                `,
 
-                feedback.classList.remove('hidden');
-
-                // CEK JAWABAN
-                if(targetAns === selectedBucket) {
-                    // BENAR
-                    activeCard.classList.add('matched'); // Hilangkan kartu asli
-                    bucket.classList.add('filled');
-                    bucket.querySelector('.bucket-content').innerHTML = activeCard.innerHTML;
-                    bucket.querySelector('.bucket-content').classList.remove('hidden');
-                    
-                    let msg = "";
-                    if(qNum == 1) msg = "✅ Tepat! Angka sekecil ini (1/2 + 1/3) paling enak digambar visualnya untuk mengasah insting.";
-                    if(qNum == 2) msg = "✅ Jenius! KPK dari 4 & 8 adalah 8. Kalau kamu nekat kali silang, penyebutnya jadi 32. Mubazir angka!";
-                    if(qNum == 3) msg = "✅ Mantap! Karena 3 dan 5 tidak punya faktor sekutu, KPK-nya sama persis dengan hasil kali silangnya (15).";
-
-                    feedback.className = 'mt-4 rounded-lg p-4 text-sm font-bold text-center fade-in bg-emerald-900/40 border border-emerald-500 text-emerald-300';
-                    feedback.textContent = msg;
-
-                    activeCard = null;
-                    matchedCount++;
-                    instruction.textContent = "👆 Pilih kartu selanjutnya";
-                    instruction.classList.replace('text-sky-400', 'text-amber-400');
-                    instruction.classList.replace('bg-sky-900/20', 'bg-amber-900/20');
-
-                    // Cek jika semua sudah terisi
-                    if(matchedCount === 3) {
-                        instruction.textContent = "🎉 LUAR BIASA! Insting analisismu sudah tajam!";
-                        instruction.classList.replace('text-amber-400', 'text-emerald-400');
-                        instruction.classList.replace('bg-amber-900/20', 'bg-emerald-900/20');
-                        
-                        // Aktifkan Tombol Next (Glowing)
-                        btnNext.classList.remove('bg-slate-800', 'text-slate-500', 'border-slate-700', 'pointer-events-none');
-                        btnNext.classList.add('bg-gradient-to-r', 'from-emerald-500', 'to-sky-500', 'hover:from-emerald-400', 'hover:to-sky-400', 'text-white', 'shadow-lg', 'shadow-emerald-500/30', 'hover:-translate-y-1');
-                        btnNext.innerHTML = 'Masuk Zona Latihan (Basic Quest) <span class="ml-2">➔</span>';
+                options: [
+                    {
+                        text: "1/2",
+                        value: "1/2"
+                    },
+                    {
+                        text: "2/4",
+                        value: "2/4"
+                    },
+                    {
+                        text: "3/4",
+                        value: "3/4"
+                    },
+                    {
+                        text: "2/6",
+                        value: "2/6"
                     }
+                ],
+
+                answer: "3/4",
+
+                explanation: `
+                    <strong>Periksa dengan Bar Model:</strong>
+
+                    <div class="mt-4 bg-slate-950 rounded-xl p-4">
+
+                        <p>
+                            Satu utuh dibagi menjadi 4 bagian yang sama.
+                        </p>
+
+                        <div class="bar-model my-4">
+
+                            <div class="bar-part highlight">1/4</div>
+                            <div class="bar-part highlight">1/4</div>
+                            <div class="bar-part highlight">1/4</div>
+                            <div class="bar-part bg-slate-700">1/4</div>
+
+                        </div>
+
+                        <p>
+                            <strong>1/2 = 2/4</strong>
+                        </p>
+
+                        <p class="mt-2">
+                            Maka:
+                        </p>
+
+                        <p class="text-center text-xl mt-2">
+
+                            <span class="math-frac">
+                                <span class="math-num">1</span>
+                                <span class="math-den">2</span>
+                            </span>
+
+                            +
+
+                            <span class="math-frac">
+                                <span class="math-num">1</span>
+                                <span class="math-den">4</span>
+                            </span>
+
+                            =
+
+                            <span class="math-frac">
+                                <span class="math-num">2</span>
+                                <span class="math-den">4</span>
+                            </span>
+
+                            +
+
+                            <span class="math-frac">
+                                <span class="math-num">1</span>
+                                <span class="math-den">4</span>
+                            </span>
+
+                            =
+
+                            <strong class="text-emerald-400">
+                                3/4
+                            </strong>
+
+                        </p>
+
+                    </div>
+                `
+            },
+
+
+            {
+                number: 2,
+                strategy: "Pecahan Senilai",
+                color: "violet",
+                icon: "🟣",
+
+                question: `
+                    Ubahlah pecahan
+                    <span class="math-frac">
+                        <span class="math-num">1</span>
+                        <span class="math-den">3</span>
+                    </span>
+                    menjadi pecahan senilai yang penyebutnya 6.
+                `,
+
+                options: [
+                    {
+                        text: "1/6",
+                        value: "1/6"
+                    },
+                    {
+                        text: "2/6",
+                        value: "2/6"
+                    },
+                    {
+                        text: "3/6",
+                        value: "3/6"
+                    },
+                    {
+                        text: "2/3",
+                        value: "2/3"
+                    }
+                ],
+
+                answer: "2/6",
+
+                explanation: `
+                    <strong>Cara lengkap:</strong>
+
+                    <div class="mt-4 bg-slate-950 rounded-xl p-4">
+
+                        <p>
+                            Penyebut 3 harus menjadi 6.
+                        </p>
+
+                        <p class="mt-3">
+                            Karena:
+                        </p>
+
+                        <p class="text-center text-lg mt-2">
+                            3 × 2 = 6
+                        </p>
+
+                        <p class="mt-3">
+                            Maka pembilang juga harus dikali 2.
+                        </p>
+
+                        <p class="text-center text-xl mt-3">
+
+                            <span class="math-frac">
+                                <span class="math-num">1 × 2</span>
+                                <span class="math-den">3 × 2</span>
+                            </span>
+
+                            =
+
+                            <span class="math-frac text-violet-300">
+                                <span class="math-num">2</span>
+                                <span class="math-den">6</span>
+                            </span>
+
+                        </p>
+
+                        <div class="mt-4 bg-violet-950/30 border border-violet-800 rounded-xl p-3">
+                            Jadi,
+                            <strong>1/3 = 2/6</strong>.
+                            Nilainya tetap sama.
+                        </div>
+
+                    </div>
+                `
+            },
+
+
+            {
+                number: 3,
+                strategy: "KPK",
+                color: "sky",
+                icon: "🔵",
+
+                question: `
+                    Hitunglah menggunakan strategi <strong>KPK</strong>:
+
+                    <div class="text-2xl mt-4">
+
+                        <span class="math-frac">
+                            <span class="math-num">1</span>
+                            <span class="math-den">4</span>
+                        </span>
+
+                        +
+
+                        <span class="math-frac">
+                            <span class="math-num">1</span>
+                            <span class="math-den">6</span>
+                        </span>
+
+                    </div>
+                `,
+
+                options: [
+                    {
+                        text: "5/10",
+                        value: "5/10"
+                    },
+                    {
+                        text: "5/12",
+                        value: "5/12"
+                    },
+                    {
+                        text: "2/10",
+                        value: "2/10"
+                    },
+                    {
+                        text: "2/12",
+                        value: "2/12"
+                    }
+                ],
+
+                answer: "5/12",
+
+                explanation: `
+                    <strong>Cara lengkap menggunakan KPK:</strong>
+
+                    <div class="mt-4 bg-slate-950 rounded-xl p-4 space-y-4">
+
+                        <div>
+                            <strong>Langkah 1 — Cari KPK 4 dan 6.</strong>
+
+                            <p class="mt-2">
+                                Kelipatan 4:
+                                <span class="text-sky-300">
+                                    4, 8, 12, 16, ...
+                                </span>
+                            </p>
+
+                            <p>
+                                Kelipatan 6:
+                                <span class="text-sky-300">
+                                    6, 12, 18, ...
+                                </span>
+                            </p>
+
+                            <p class="mt-2">
+                                Jadi:
+                                <strong class="text-sky-300">
+                                    KPK(4,6) = 12
+                                </strong>
+                            </p>
+                        </div>
+
+
+                        <div>
+                            <strong>Langkah 2 — Ubah menjadi pecahan senilai.</strong>
+
+                            <p class="text-center text-lg mt-3">
+
+                                <span class="math-frac">
+                                    <span class="math-num">1</span>
+                                    <span class="math-den">4</span>
+                                </span>
+
+                                =
+
+                                <span class="math-frac">
+                                    <span class="math-num">1 × 3</span>
+                                    <span class="math-den">4 × 3</span>
+                                </span>
+
+                                =
+
+                                <span class="math-frac text-sky-300">
+                                    <span class="math-num">3</span>
+                                    <span class="math-den">12</span>
+                                </span>
+
+                            </p>
+
+                            <p class="text-center text-lg mt-3">
+
+                                <span class="math-frac">
+                                    <span class="math-num">1</span>
+                                    <span class="math-den">6</span>
+                                </span>
+
+                                =
+
+                                <span class="math-frac">
+                                    <span class="math-num">1 × 2</span>
+                                    <span class="math-den">6 × 2</span>
+                                </span>
+
+                                =
+
+                                <span class="math-frac text-sky-300">
+                                    <span class="math-num">2</span>
+                                    <span class="math-den">12</span>
+                                </span>
+
+                            </p>
+                        </div>
+
+
+                        <div>
+                            <strong>Langkah 3 — Jumlahkan.</strong>
+
+                            <p class="text-center text-xl mt-3">
+
+                                <span class="math-frac text-sky-300">
+                                    <span class="math-num">3</span>
+                                    <span class="math-den">12</span>
+                                </span>
+
+                                +
+
+                                <span class="math-frac text-sky-300">
+                                    <span class="math-num">2</span>
+                                    <span class="math-den">12</span>
+                                </span>
+
+                                =
+
+                                <strong class="text-emerald-400">
+                                    5/12
+                                </strong>
+
+                            </p>
+                        </div>
+
+                    </div>
+                `
+            },
+
+
+            {
+                number: 4,
+                strategy: "Kali Silang",
+                color: "amber",
+                icon: "⚡",
+
+                question: `
+                    Hitunglah menggunakan <strong>kali silang</strong>:
+
+                    <div class="text-2xl mt-4">
+
+                        <span class="math-frac">
+                            <span class="math-num">2</span>
+                            <span class="math-den">3</span>
+                        </span>
+
+                        +
+
+                        <span class="math-frac">
+                            <span class="math-num">1</span>
+                            <span class="math-den">5</span>
+                        </span>
+
+                    </div>
+                `,
+
+                options: [
+                    {
+                        text: "3/8",
+                        value: "3/8"
+                    },
+                    {
+                        text: "7/15",
+                        value: "7/15"
+                    },
+                    {
+                        text: "13/15",
+                        value: "13/15"
+                    },
+                    {
+                        text: "3/15",
+                        value: "3/15"
+                    }
+                ],
+
+                answer: "13/15",
+
+                explanation: `
+                    <strong>Cara lengkap dengan kali silang:</strong>
+
+                    <div class="mt-4 bg-slate-950 rounded-xl p-4 space-y-4">
+
+                        <div>
+                            <strong>Langkah 1:</strong>
+                            Kalikan pembilang pertama dengan penyebut kedua.
+
+                            <p class="text-center text-lg mt-2">
+                                2 × 5 = <strong>10</strong>
+                            </p>
+                        </div>
+
+                        <div>
+                            <strong>Langkah 2:</strong>
+                            Kalikan pembilang kedua dengan penyebut pertama.
+
+                            <p class="text-center text-lg mt-2">
+                                1 × 3 = <strong>3</strong>
+                            </p>
+                        </div>
+
+                        <div>
+                            <strong>Langkah 3:</strong>
+                            Jumlahkan hasil tersebut.
+
+                            <p class="text-center text-lg mt-2">
+                                10 + 3 = <strong>13</strong>
+                            </p>
+                        </div>
+
+                        <div>
+                            <strong>Langkah 4:</strong>
+                            Kalikan kedua penyebut.
+
+                            <p class="text-center text-lg mt-2">
+                                3 × 5 = <strong>15</strong>
+                            </p>
+                        </div>
+
+                        <div class="bg-emerald-950/30 border border-emerald-800 rounded-xl p-4 text-center">
+
+                            <p class="text-xl">
+
+                                <span class="math-frac text-emerald-400">
+                                    <span class="math-num">2</span>
+                                    <span class="math-den">3</span>
+                                </span>
+
+                                +
+
+                                <span class="math-frac text-emerald-400">
+                                    <span class="math-num">1</span>
+                                    <span class="math-den">5</span>
+                                </span>
+
+                                =
+
+                                <span class="math-frac text-emerald-400">
+                                    <span class="math-num">13</span>
+                                    <span class="math-den">15</span>
+                                </span>
+
+                            </p>
+
+                        </div>
+
+                    </div>
+                `
+            }
+
+        ];
+
+
+        let currentChallenge = 0;
+        let completed = 0;
+
+        const challengeContainer =
+            document.getElementById("challenge-container");
+
+        const feedback =
+            document.getElementById("game-feedback");
+
+        const nextButton =
+            document.getElementById("next-challenge");
+
+        const progressBar =
+            document.getElementById("game-progress");
+
+        const progressText =
+            document.getElementById("game-progress-text");
+
+        const completionCard =
+            document.getElementById("completion-card");
+
+        const btnNext =
+            document.getElementById("btn-next");
+
+
+        /* =========================
+           RENDER CHALLENGE
+        ========================== */
+
+        function renderChallenge() {
+
+            const challenge = challenges[currentChallenge];
+
+            feedback.className = "hidden";
+            feedback.innerHTML = "";
+
+            nextButton.classList.add("hidden");
+
+            challengeContainer.innerHTML = `
+
+                <div class="fade-in">
+
+                    <div class="flex items-center gap-3 mb-5">
+
+                        <div class="w-12 h-12 rounded-full bg-${challenge.color}-900/50 flex items-center justify-center text-2xl">
+                            ${challenge.icon}
+                        </div>
+
+                        <div>
+
+                            <p class="text-xs text-${challenge.color}-400 font-bold uppercase tracking-wider">
+                                Tantangan ${challenge.number} dari 4
+                            </p>
+
+                            <h3 class="text-2xl font-extrabold text-white">
+                                ${challenge.strategy}
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="bg-slate-950 rounded-2xl p-6 border border-slate-800 mb-6">
+
+                        <p class="text-slate-300 text-base leading-relaxed text-center">
+                            ${challenge.question}
+                        </p>
+
+                    </div>
+
+
+                    <div class="space-y-3">
+
+                        ${challenge.options.map((option, index) => `
+
+                            <button
+                                class="quiz-option"
+                                data-value="${option.value}"
+                            >
+
+                                <div class="flex items-center gap-3">
+
+                                    <span class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center font-bold text-sm">
+                                        ${String.fromCharCode(65 + index)}
+                                    </span>
+
+                                    <span class="font-semibold text-slate-200">
+                                        ${option.text}
+                                    </span>
+
+                                </div>
+
+                            </button>
+
+                        `).join("")}
+
+                    </div>
+
+
+                    <p class="text-center text-xs text-slate-500 mt-5">
+                        💡 Pilih jawaban yang menurutmu benar.
+                        Jika belum tepat, kamu bisa mencoba lagi.
+                    </p>
+
+                </div>
+            `;
+
+
+            document
+                .querySelectorAll(".quiz-option")
+                .forEach(option => {
+
+                    option.addEventListener("click", () => {
+
+                        checkAnswer(option);
+
+                    });
+
+                });
+
+        }
+
+
+        /* =========================
+           CHECK ANSWER
+        ========================== */
+
+        function checkAnswer(selectedOption) {
+
+            const challenge = challenges[currentChallenge];
+
+            const selectedValue =
+                selectedOption.dataset.value;
+
+            const allOptions =
+                document.querySelectorAll(".quiz-option");
+
+
+            allOptions.forEach(option => {
+                option.classList.remove("wrong");
+            });
+
+
+            if (selectedValue === challenge.answer) {
+
+                selectedOption.classList.add("correct");
+
+                allOptions.forEach(option => {
+                    option.disabled = true;
+                });
+
+
+                completed++;
+
+                updateProgress();
+
+
+                feedback.className =
+                    "feedback-box feedback-correct mt-6 fade-in";
+
+
+                feedback.innerHTML = `
+
+                    <div class="flex items-start gap-3">
+
+                        <div class="text-2xl">
+                            🎉
+                        </div>
+
+                        <div>
+
+                            <strong class="text-lg">
+                                Tepat! Kamu berhasil.
+                            </strong>
+
+                            <p class="mt-2">
+                                Kamu tidak hanya mendapatkan jawaban,
+                                tetapi juga menggunakan strategi
+                                <strong>${challenge.strategy}</strong>.
+                            </p>
+
+                            <div class="mt-4 bg-slate-950/70 rounded-xl p-4">
+
+                                ${challenge.explanation}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+
+                if (currentChallenge < challenges.length - 1) {
+
+                    nextButton.classList.remove("hidden");
 
                 } else {
-                    // KURANG TEPAT (Bukan salah total, tapi efisiensi)
-                    let msg = "";
-                    if(selectedBucket === 'silang' && targetAns === 'kpk') {
-                        msg = "❌ Bisa sih, tapi awas LEDAKAN ANGKA! 4x8=32. Padahal kalau pakai KPK cukup 8. Strategi ini kurang efisien di sini. Pilih keranjang lain!";
-                    } else if (selectedBucket === 'kpk' && targetAns === 'silang') {
-                        msg = "❌ Boleh saja, tapi KPK 3 dan 5 itu ya 15 juga (sama dengan dikali). Karena mereka saling prima, langsung jalan pintas (Kali Silang) lebih mantap. Coba lagi!";
-                    } else {
-                        msg = "❌ Strategi ini rasanya kurang cocok untuk angka tersebut. Coba pilih strategi yang lebih pas!";
-                    }
 
-                    feedback.className = 'mt-4 rounded-lg p-4 text-sm font-bold text-center fade-in bg-rose-900/40 border border-rose-500 text-rose-300';
-                    feedback.textContent = msg;
-                    
-                    // Kembalikan highlight keranjang agar user bisa pilih lagi
-                    buckets.forEach(b => {
-                        if(!b.classList.contains('filled')) b.classList.add('highlight');
-                    });
+                    finishGame();
+
                 }
-            });
+
+            } else {
+
+                selectedOption.classList.add("wrong");
+
+
+                feedback.className =
+                    "feedback-box feedback-wrong mt-6 fade-in";
+
+
+                feedback.innerHTML = `
+
+                    <div class="flex items-start gap-3">
+
+                        <div class="text-2xl">
+                            💪
+                        </div>
+
+                        <div>
+
+                            <strong class="text-lg">
+                                Belum tepat — coba lagi!
+                            </strong>
+
+                            <p class="mt-2">
+                                Tidak apa-apa. Kesalahan membantu kita menemukan
+                                bagian yang perlu diperiksa kembali.
+                            </p>
+
+                            <div class="mt-4 bg-slate-950/70 rounded-xl p-4">
+
+                                <p class="font-bold text-amber-300 mb-2">
+                                    🔎 Coba periksa:
+                                </p>
+
+                                <p>
+                                    Untuk strategi
+                                    <strong>${challenge.strategy}</strong>,
+                                    tanyakan pada dirimu:
+                                    apakah langkah yang kamu gunakan
+                                    sudah membuat bagian-bagian pecahan
+                                    memiliki ukuran yang tepat?
+                                </p>
+
+                            </div>
+
+                            <div class="mt-4 bg-slate-950 rounded-xl p-4 border border-slate-700">
+
+                                <p class="text-xs text-slate-400 mb-2">
+                                    📘 Pembahasan lengkap untuk mengecek pemikiranmu:
+                                </p>
+
+                                ${challenge.explanation}
+
+                            </div>
+
+                            <p class="mt-4 text-emerald-300 font-semibold">
+                                🌱 Kamu boleh mencoba lagi.
+                                Fokus pada langkahnya, bukan hanya jawabannya.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        /* =========================
+           UPDATE PROGRESS
+        ========================== */
+
+        function updateProgress() {
+
+            const percentage =
+                (completed / challenges.length) * 100;
+
+            progressBar.style.width =
+                percentage + "%";
+
+            progressText.textContent =
+                `${completed} / ${challenges.length} selesai`;
+
+        }
+
+
+        /* =========================
+           NEXT CHALLENGE
+        ========================== */
+
+        nextButton.addEventListener("click", () => {
+
+            currentChallenge++;
+
+            renderChallenge();
+
+            document
+                .getElementById("game-section")
+                .scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
         });
+
+
+        /* =========================
+           FINISH
+        ========================== */
+
+        function finishGame() {
+
+            challengeContainer.innerHTML = `
+
+                <div class="text-center fade-in py-6">
+
+                    <div class="text-5xl mb-4">
+                        🏆
+                    </div>
+
+                    <h3 class="text-2xl font-extrabold text-emerald-400">
+                        Semua Tantangan Selesai!
+                    </h3>
+
+                    <p class="text-slate-300 mt-3">
+                        Kamu sudah mencoba empat strategi penjumlahan pecahan.
+                    </p>
+
+                </div>
+
+            `;
+
+
+            feedback.classList.add("hidden");
+
+            completionCard.classList.remove("hidden");
+
+
+            btnNext.classList.remove(
+                "bg-slate-800",
+                "text-slate-500",
+                "border-slate-700",
+                "pointer-events-none"
+            );
+
+
+            btnNext.classList.add(
+                "bg-gradient-to-r",
+                "from-emerald-500",
+                "to-sky-500",
+                "hover:from-emerald-400",
+                "hover:to-sky-400",
+                "text-white",
+                "shadow-lg",
+                "shadow-emerald-500/30",
+                "hover:-translate-y-1"
+            );
+
+
+            btnNext.innerHTML =
+                `Masuk Zona Latihan (Basic Quest) <span class="ml-2">➔</span>`;
+
+
+            setTimeout(() => {
+
+                completionCard.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+            }, 300);
+
+        }
+
+
+        /* =========================
+           START GAME
+        ========================== */
+
+        renderChallenge();
+
     </script>
+
 </body>
 </html>
