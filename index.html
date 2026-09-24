@@ -1,234 +1,234 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VisualMath.Lim | Math Mastery - Kelas 6</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            background-color: #0f172a; 
-            color: #f8fafc; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden;
-        }
-        .card-dark {
-            background-color: #1e293b; 
-            border: 1px solid #334155; 
-        }
-        .hover-float {
-            transition: transform 0.3s ease-in-out, border-color 0.3s, box-shadow 0.3s;
-        }
-        .hover-float:hover {
-            transform: translateY(-6px);
-            border-color: #38bdf8;
-            box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.2);
-        }
-        .text-gradient {
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-image: linear-gradient(to right, #38bdf8, #818cf8);
-        }
-        
-        /* --- KUMPULAN ANIMASI --- */
-        /* 1. Animasi Logo Utama (Muncul Membesar & Memantul) */
-        @keyframes logo-bounce {
-            0% { transform: scale(0.1); opacity: 0; }
-            60% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.8)); }
-            80% { transform: scale(0.95); }
-            100% { transform: scale(1); opacity: 1; filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.4)); }
-        }
-        .animate-logo { 
-            animation: logo-bounce 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; 
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisualMath.Lim | Math Mastery - Kelas 6</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+        .card-dark {
+            background-color: #1e293b; 
+            border: 1px solid #334155; 
+        }
+        .hover-float {
+            transition: transform 0.3s ease-in-out, border-color 0.3s, box-shadow 0.3s;
+        }
+        .hover-float:hover {
+            transform: translateY(-6px);
+            border-color: #38bdf8;
+            box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.2);
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #38bdf8, #818cf8);
+        }
+        
+        /* --- KUMPULAN ANIMASI --- */
+        /* 1. Animasi Logo Utama (Muncul Membesar & Memantul) */
+        @keyframes logo-bounce {
+            0% { transform: scale(0.1); opacity: 0; }
+            60% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 30px rgba(56, 189, 248, 0.8)); }
+            80% { transform: scale(0.95); }
+            100% { transform: scale(1); opacity: 1; filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.4)); }
+        }
+        .animate-logo { 
+            animation: logo-bounce 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; 
+        }
 
-        /* 2. Animasi Fade-In dari Bawah */
-        @keyframes fade-in-up {
-            0% { opacity: 0; transform: translateY(30px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in { animation: fade-in-up 0.8s ease-out forwards; opacity: 0; }
-        
-        /* Pengaturan Jeda (Delay) Animasi Kartu */
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-        .delay-400 { animation-delay: 0.4s; }
-        .delay-500 { animation-delay: 0.5s; }
-        .delay-600 { animation-delay: 0.6s; }
-        .delay-700 { animation-delay: 0.7s; }
-        .delay-800 { animation-delay: 0.8s; }
-    </style>
+        /* 2. Animasi Fade-In dari Bawah */
+        @keyframes fade-in-up {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fade-in-up 0.8s ease-out forwards; opacity: 0; }
+        
+        /* Pengaturan Jeda (Delay) Animasi Kartu */
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
+        .delay-700 { animation-delay: 0.7s; }
+        .delay-800 { animation-delay: 0.8s; }
+    </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col relative">
 
-    <!-- Efek Cahaya Latar Belakang (Kosmis) -->
-    <div class="fixed top-[-10%] left-[-10%] w-96 h-96 bg-sky-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
-    <div class="fixed top-[40%] right-[-10%] w-96 h-96 bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+    <!-- Efek Cahaya Latar Belakang (Kosmis) -->
+    <div class="fixed top-[-10%] left-[-10%] w-96 h-96 bg-sky-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+    <div class="fixed top-[40%] right-[-10%] w-96 h-96 bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
 
-    <!-- Header / Navbar -->
-    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
-        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
-            <div class="flex items-center gap-3">
-                <!-- Logo Navbar -->
-                <img src="assets/logo.png" alt="VisualMath.Lim Logo" class="h-10 w-auto">
-                <div>
-                    <h1 class="text-xl font-bold text-gradient leading-tight">VisualMath.Lim</h1>
-                    <p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">Math Mastery • Kelas 6</p>
-                </div>
-            </div>
-            <div class="hidden md:flex gap-4">
-                <span class="px-3 py-1 bg-slate-800/80 border border-slate-700 rounded-full text-xs font-semibold text-slate-300 shadow-inner">
-                    Bab 1: Pecahan & Desimal
-                </span>
-            </div>
-        </div>
-    </header>
+    <!-- Header / Navbar -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-3">
+                <!-- Logo Navbar -->
+                <img src="assets/logo.png" alt="VisualMath.Lim Logo" class="h-10 w-auto">
+                <div>
+                    <h1 class="text-xl font-bold text-gradient leading-tight">VisualMath.Lim</h1>
+                    <p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">Math Mastery • Kelas 6</p>
+                </div>
+            </div>
+            <div class="hidden md:flex gap-4">
+                <span class="px-3 py-1 bg-slate-800/80 border border-slate-700 rounded-full text-xs font-semibold text-slate-300 shadow-inner">
+                    Bab 1: Pecahan & Desimal
+                </span>
+            </div>
+        </div>
+    </header>
 
-    <!-- Konten Utama -->
-    <main class="flex-grow max-w-5xl mx-auto w-full px-4 py-8 space-y-12 relative z-10">
-        
-        <!-- Seksi 1: Selamat Datang & Logo Animasi -->
-        <section class="text-center space-y-6 pt-4">
-            <!-- Animasi Logo Besar di Tengah -->
-            <div class="flex justify-center mb-8">
-                <!-- Pastikan logo.png ada di folder assets -->
-                <img src="assets/logo.png" alt="VisualMath.Lim Main Logo" class="w-32 h-32 md:w-40 md:h-40 object-contain animate-logo">
-            </div>
+    <!-- Konten Utama -->
+    <main class="flex-grow max-w-5xl mx-auto w-full px-4 py-8 space-y-12 relative z-10">
+        
+        <!-- Seksi 1: Selamat Datang & Logo Animasi -->
+        <section class="text-center space-y-6 pt-4">
+            <!-- Animasi Logo Besar di Tengah -->
+            <div class="flex justify-center mb-8">
+                <!-- Pastikan logo.png ada di folder assets -->
+                <img src="assets/logo.png" alt="VisualMath.Lim Main Logo" class="w-32 h-32 md:w-40 md:h-40 object-contain animate-logo">
+            </div>
 
-            <h2 class="text-3xl md:text-5xl font-extrabold mb-4 animate-fade-in delay-100">
-                Selamat Datang di <span class="text-gradient">Math Mastery!</span>
-            </h2>
-            <blockquote class="italic text-slate-300 border-l-4 border-sky-400 pl-4 max-w-2xl mx-auto text-lg text-left animate-fade-in delay-200 bg-slate-900/50 p-4 rounded-r-xl border border-slate-800 border-l-0 shadow-lg">
-                "Setiap misi dimulai dengan melihat. Setiap penemuan dimulai dengan berpikir. Dan setiap solusi lahir dari pemahaman."
-            </blockquote>
-            <p class="text-slate-300 max-w-3xl mx-auto text-lg leading-relaxed animate-fade-in delay-300">
-                Pilih misi di bawah ini secara bebas untuk mulai belajar matematika melalui pengamatan, visualisasi, dan penalaran bersama para agen <strong>VisualMath.Lim</strong>!
-            </p>
-        </section>
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-4 animate-fade-in delay-100">
+                Selamat Datang di <span class="text-gradient">Math Mastery!</span>
+            </h2>
+            <blockquote class="italic text-slate-300 border-l-4 border-sky-400 pl-4 max-w-2xl mx-auto text-lg text-left animate-fade-in delay-200 bg-slate-900/50 p-4 rounded-r-xl border border-slate-800 border-l-0 shadow-lg">
+                "Setiap misi dimulai dengan melihat. Setiap penemuan dimulai dengan berpikir. Dan setiap solusi lahir dari pemahaman."
+            </blockquote>
+            <p class="text-slate-300 max-w-3xl mx-auto text-lg leading-relaxed animate-fade-in delay-300">
+                Pilih misi di bawah ini secara bebas untuk mulai belajar matematika melalui pengamatan, visualisasi, dan penalaran bersama para agen <strong>VisualMath.Lim</strong>!
+            </p>
+        </section>
 
-        <hr class="border-slate-700 w-1/2 mx-auto animate-fade-in delay-300">
+        <hr class="border-slate-700 w-1/2 mx-auto animate-fade-in delay-300">
 
-        <!-- Seksi 2: Peta Materi -->
-        <section class="space-y-8 animate-fade-in delay-300">
-            <div class="text-center mb-8">
-                <span class="text-xs font-bold text-sky-500 uppercase tracking-widest bg-sky-900/30 px-3 py-1 rounded-full border border-sky-500/50">Open Access</span>
-                <h3 class="text-2xl font-bold mt-4 mb-2">🗺️ Peta Materi & Misi Belajar</h3>
-                <p class="text-slate-400">Klik salah satu kartu misi di bawah untuk langsung menuju ke modul materi.</p>
-            </div>
+        <!-- Seksi 2: Peta Materi -->
+        <section class="space-y-8 animate-fade-in delay-300">
+            <div class="text-center mb-8">
+                <span class="text-xs font-bold text-sky-500 uppercase tracking-widest bg-sky-900/30 px-3 py-1 rounded-full border border-sky-500/50">Open Access</span>
+                <h3 class="text-2xl font-bold mt-4 mb-2">🗺️ Peta Materi & Misi Belajar</h3>
+                <p class="text-slate-400">Klik salah satu kartu misi di bawah untuk langsung menuju ke modul materi.</p>
+            </div>
 
-            <!-- Grid Kartu dengan efek stagger (delay bertahap) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <!-- Pra-Mission -->
-                <div class="card-dark p-6 rounded-2xl flex flex-col justify-between hover-float animate-fade-in delay-100">
-                    <div>
-                        <span class="px-2.5 py-1 bg-sky-900/60 text-sky-400 text-xs font-bold rounded border border-sky-700">Fondasi</span>
-                        <h4 class="text-xl font-bold text-white mt-3 mb-2">Pra-Mission</h4>
-                        <p class="text-sm text-slate-300 mb-4">Kalibrasi Logika Pecahan: Memahami arti pembilang, penyebut, dan ukuran potongan.</p>
-                    </div>
-                    <a href="pra-mission.html" class="block text-center bg-sky-600 hover:bg-sky-500 text-white font-semibold py-3 px-4 rounded-xl text-sm transition-all shadow-md">
-                        Buka Misi ➔
-                    </a>
-                </div>
+            <!-- Grid Kartu dengan efek stagger (delay bertahap) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Pra-Mission -->
+                <div class="card-dark p-6 rounded-2xl flex flex-col justify-between hover-float animate-fade-in delay-100">
+                    <div>
+                        <span class="px-2.5 py-1 bg-sky-900/60 text-sky-400 text-xs font-bold rounded border border-sky-700">Fondasi</span>
+                        <h4 class="text-xl font-bold text-white mt-3 mb-2">Pra-Mission</h4>
+                        <p class="text-sm text-slate-300 mb-4">Kalibrasi Logika Pecahan: Memahami arti pembilang, penyebut, dan ukuran potongan.</p>
+                    </div>
+                    <a href="pra-mission.html" class="block text-center bg-sky-600 hover:bg-sky-500 text-white font-semibold py-3 px-4 rounded-xl text-sm transition-all shadow-md">
+                        Buka Misi ➔
+                    </a>
+                </div>
 
-                <!-- Mission A (Dashboard) -->
-                <div class="card-dark p-6 rounded-2xl flex flex-col justify-between hover-float animate-fade-in delay-200 group">
-                    <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none"></div>
-                    <div>
-                        <span class="px-2.5 py-1 bg-blue-900/60 text-blue-400 text-xs font-bold rounded border border-blue-700 shadow-sm">Mission A</span>
-                        <h4 class="text-xl font-bold text-white mt-3 mb-2">Pecahan & Operasi Dasar</h4>
-                        <p class="text-sm text-slate-300 mb-4">Pusat materi Pecahan Senilai (A1), Penjumlahan (A2), dan Pengurangan Pecahan (A3).</p>
-                    </div>
-                    <a href="mission-a.html" class="block text-center bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-4 rounded-xl text-sm transition-all shadow-md relative z-10">
-                        Buka Dashboard A ➔
-                    </a>
-                </div>
+                <!-- Mission A (Dashboard) -->
+                <div class="card-dark p-6 rounded-2xl flex flex-col justify-between hover-float animate-fade-in delay-200 group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none"></div>
+                    <div>
+                        <span class="px-2.5 py-1 bg-blue-900/60 text-blue-400 text-xs font-bold rounded border border-blue-700 shadow-sm">Mission A</span>
+                        <h4 class="text-xl font-bold text-white mt-3 mb-2">Pecahan & Operasi Dasar</h4>
+                        <p class="text-sm text-slate-300 mb-4">Pusat materi Pecahan Senilai (A1), Penjumlahan (A2), dan Pengurangan Pecahan (A3).</p>
+                    </div>
+                    <a href="mission-a.html" class="block text-center bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 px-4 rounded-xl text-sm transition-all shadow-md relative z-10">
+                        Buka Dashboard A ➔
+                    </a>
+                </div>
 
-                <!-- Mission A1 -->
-                <div class="card-dark p-6 rounded-2xl flex flex-col justify-between hover-float animate-fade-in delay-300">
-                    <div>
-                        <span class="px-2.5 py-1 bg-blue-900/40 text-blue-300 text-xs font-bold rounded border border-blue-800">Sub-Mission A1</span>
-                        <h4 class="text-xl font-bold text-white mt-3 mb-2">Pecahan Senilai</h4>
-                        <p class="text-sm text-slate-300 mb-4">Membuktikan pecahan senilai dengan Bar Model, Fraction Strip, dan Number Line.</p>
-                    </div>
-                    <a href="mission-a1-brief.html" class="block text-center bg-slate-800 hover:bg-slate-700 border border-slate-600 text-blue-300 font-semibold py-3 px-4 rounded-xl text-sm transition-all">
-                        Buka A1 ➔
-                    </a>
-                </div>
+                <!-- Mission A1 -->
+                <div class="card-dark p-6 rounded-2xl flex flex-col justify-between hover-float animate-fade-in delay-300">
+                    <div>
+                        <span class="px-2.5 py-1 bg-blue-900/40 text-blue-300 text-xs font-bold rounded border border-blue-800">Sub-Mission A1</span>
+                        <h4 class="text-xl font-bold text-white mt-3 mb-2">Pecahan Senilai</h4>
+                        <p class="text-sm text-slate-300 mb-4">Membuktikan pecahan senilai dengan Bar Model, Fraction Strip, dan Number Line.</p>
+                    </div>
+                    <a href="mission-a1-brief.html" class="block text-center bg-slate-800 hover:bg-slate-700 border border-slate-600 text-blue-300 font-semibold py-3 px-4 rounded-xl text-sm transition-all">
+                        Buka A1 ➔
+                    </a>
+                </div>
 
-                <!-- Mission A2 -->
-                <div class="card-dark p-6 rounded-2xl flex flex-col justify-between hover-float animate-fade-in delay-400">
-                    <div>
-                        <span class="px-2.5 py-1 bg-blue-900/40 text-blue-300 text-xs font-bold rounded border border-blue-800">Sub-Mission A2</span>
-                        <h4 class="text-xl font-bold text-white mt-3 mb-2">Penjumlahan Pecahan</h4>
-                        <p class="text-sm text-slate-300 mb-4">Menjumlahkan pecahan dengan cara konsep, KPK, dan strategi kali silang.</p>
-                    </div>
-                    <a href="mission-a2.html" class="block text-center bg-slate-800 hover:bg-slate-700 border border-slate-600 text-blue-300 font-semibold py-3 px-4 rounded-xl text-sm transition-all">
-                        Buka A2 ➔
-                    </a>
-                </div>
+                <!-- Mission A2 -->
+                <div class="card-dark p-6 rounded-2xl flex flex-col justify-between hover-float animate-fade-in delay-400">
+                    <div>
+                        <span class="px-2.5 py-1 bg-blue-900/40 text-blue-300 text-xs font-bold rounded border border-blue-800">Sub-Mission A2</span>
+                        <h4 class="text-xl font-bold text-white mt-3 mb-2">Penjumlahan Pecahan</h4>
+                        <p class="text-sm text-slate-300 mb-4">Menjumlahkan pecahan dengan cara konsep, KPK, dan strategi kali silang.</p>
+                    </div>
+                    <a href="mission-a2.html" class="block text-center bg-slate-800 hover:bg-slate-700 border border-slate-600 text-blue-300 font-semibold py-3 px-4 rounded-xl text-sm transition-all">
+                        Buka A2 ➔
+                    </a>
+                </div>
 
-                <!-- Mission A3 -->
-                <div class="card-dark p-6 rounded-2xl flex flex-col justify-between hover-float animate-fade-in delay-500">
-                    <div>
-                        <span class="px-2.5 py-1 bg-blue-900/40 text-blue-300 text-xs font-bold rounded border border-blue-800">Sub-Mission A3</span>
-                        <h4 class="text-xl font-bold text-white mt-3 mb-2">Pengurangan Pecahan</h4>
-                        <p class="text-sm text-slate-300 mb-4">Memahami konsep sisa dari keseluruhan dan pengurangan berpenyebut beda.</p>
-                    </div>
-                    <a href="mission-a3.html" class="block text-center bg-slate-800 hover:bg-slate-700 border border-slate-600 text-blue-300 font-semibold py-3 px-4 rounded-xl text-sm transition-all">
-                        Buka A3 ➔
-                    </a>
-                </div>
+                <!-- Mission A3 -->
+                <div class="card-dark p-6 rounded-2xl flex flex-col justify-between hover-float animate-fade-in delay-500">
+                    <div>
+                        <span class="px-2.5 py-1 bg-blue-900/40 text-blue-300 text-xs font-bold rounded border border-blue-800">Sub-Mission A3</span>
+                        <h4 class="text-xl font-bold text-white mt-3 mb-2">Pengurangan Pecahan</h4>
+                        <p class="text-sm text-slate-300 mb-4">Memahami konsep sisa dari keseluruhan dan pengurangan berpenyebut beda.</p>
+                    </div>
+                    <a href="mission-a3.html" class="block text-center bg-slate-800 hover:bg-slate-700 border border-slate-600 text-blue-300 font-semibold py-3 px-4 rounded-xl text-sm transition-all">
+                        Buka A3 ➔
+                    </a>
+                </div>
 
-                <!-- Mission B (Dashboard) -->
-                <div class="card-dark p-6 rounded-2xl flex flex-col justify-between hover-float animate-fade-in delay-600 group">
-                    <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none"></div>
-                    <div>
-                        <span class="px-2.5 py-1 bg-purple-900/60 text-purple-400 text-xs font-bold rounded border border-purple-700 shadow-sm">Mission B</span>
-                        <h4 class="text-xl font-bold text-white mt-3 mb-2">Perkalian Pecahan</h4>
-                        <p class="text-sm text-slate-300 mb-4">Dashboard utama pengantar konsep kelompok berulang dan perkalian pecahan.</p>
-                    </div>
-                    <a href="mission-b.html" class="block text-center bg-purple-600 hover:bg-purple-500 text-white font-semibold py-3 px-4 rounded-xl text-sm transition-all shadow-md relative z-10">
-                        Buka Dashboard B ➔
-                    </a>
-                </div>
+                <!-- Mission B (Dashboard) -->
+                <div class="card-dark p-6 rounded-2xl flex flex-col justify-between hover-float animate-fade-in delay-600 group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl pointer-events-none"></div>
+                    <div>
+                        <span class="px-2.5 py-1 bg-purple-900/60 text-purple-400 text-xs font-bold rounded border border-purple-700 shadow-sm">Mission B</span>
+                        <h4 class="text-xl font-bold text-white mt-3 mb-2">Perkalian Pecahan</h4>
+                        <p class="text-sm text-slate-300 mb-4">Dashboard utama pengantar konsep kelompok berulang dan perkalian pecahan.</p>
+                    </div>
+                    <a href="mission-b.html" class="block text-center bg-purple-600 hover:bg-purple-500 text-white font-semibold py-3 px-4 rounded-xl text-sm transition-all shadow-md relative z-10">
+                        Buka Dashboard B ➔
+                    </a>
+                </div>
 
-                <!-- Mission C -->
-                <div class="card-dark p-6 rounded-2xl flex flex-col justify-between hover-float animate-fade-in delay-700">
-                    <div>
-                        <span class="px-2.5 py-1 bg-amber-900/60 text-amber-400 text-xs font-bold rounded border border-amber-700 shadow-sm">Mission C</span>
-                        <h4 class="text-xl font-bold text-white mt-3 mb-2">Pembagian Pecahan</h4>
-                        <p class="text-sm text-slate-300 mb-4">Memahami konsep pengukuran pembagian dan aturan kebalikan (<em class="text-slate-200">Reciprocal</em>).</p>
-                    </div>
-                    <a href="mission-c.html" class="block text-center bg-amber-600 hover:bg-amber-500 text-white font-semibold py-3 px-4 rounded-xl text-sm transition-all shadow-md">
-                        Buka Misi C ➔
-                    </a>
-                </div>
+                <!-- Mission C -->
+                <div class="card-dark p-6 rounded-2xl flex flex-col justify-between hover-float animate-fade-in delay-700">
+                    <div>
+                        <span class="px-2.5 py-1 bg-amber-900/60 text-amber-400 text-xs font-bold rounded border border-amber-700 shadow-sm">Mission C</span>
+                        <h4 class="text-xl font-bold text-white mt-3 mb-2">Pembagian Pecahan</h4>
+                        <p class="text-sm text-slate-300 mb-4">Memahami konsep pengukuran pembagian dan aturan kebalikan (<em class="text-slate-200">Reciprocal</em>).</p>
+                    </div>
+                    <a href="mission-c.html" class="block text-center bg-amber-600 hover:bg-amber-500 text-white font-semibold py-3 px-4 rounded-xl text-sm transition-all shadow-md">
+                        Buka Misi C ➔
+                    </a>
+                </div>
 
-                <!-- Mission D -->
-                <div class="card-dark p-6 rounded-2xl flex flex-col justify-between hover-float animate-fade-in delay-800">
-                    <div>
-                        <span class="px-2.5 py-1 bg-rose-900/60 text-rose-400 text-xs font-bold rounded border border-rose-700 shadow-sm">Mission D</span>
-                        <h4 class="text-xl font-bold text-white mt-3 mb-2">Bilangan Desimal</h4>
-                        <p class="text-sm text-slate-300 mb-4">Mempelajari nilai tempat desimal, persepuluhan, perseratusan, dan operasinya.</p>
-                    </div>
-                    <a href="mission-d.html" class="block text-center bg-rose-600 hover:bg-rose-500 text-white font-semibold py-3 px-4 rounded-xl text-sm transition-all shadow-md">
-                        Buka Misi D ➔
-                    </a>
-                </div>
+                <!-- Mission D -->
+                <div class="card-dark p-6 rounded-2xl flex flex-col justify-between hover-float animate-fade-in delay-800">
+                    <div>
+                        <span class="px-2.5 py-1 bg-rose-900/60 text-rose-400 text-xs font-bold rounded border border-rose-700 shadow-sm">Mission D</span>
+                        <h4 class="text-xl font-bold text-white mt-3 mb-2">Bilangan Desimal</h4>
+                        <p class="text-sm text-slate-300 mb-4">Mempelajari nilai tempat desimal, persepuluhan, perseratusan, dan operasinya.</p>
+                    </div>
+                    <a href="mission-d.html" class="block text-center bg-rose-600 hover:bg-rose-500 text-white font-semibold py-3 px-4 rounded-xl text-sm transition-all shadow-md">
+                        Buka Misi D ➔
+                    </a>
+                </div>
 
-            </div>
-        </section>
+            </div>
+        </section>
 
-    </main>
+    </main>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 border-t border-slate-800 text-center py-6 mt-12 relative z-10">
-        <p class="text-slate-500 text-sm">© 2026 VisualMath.Lim | Math Mastery - Pendampingan Matematika Sesuai Jenjang</p>
-    </footer>
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 text-center py-6 mt-12 relative z-10">
+        <p class="text-slate-500 text-sm">© 2026 VisualMath.Lim | Math Mastery - Pendampingan Matematika Sesuai Jenjang</p>
+    </footer>
 
 </body>
 </html>
