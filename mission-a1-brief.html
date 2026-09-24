@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission A1 Brief - Pecahan Senilai | VisualMath Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark {
+            background-color: #1e293b; 
+            border: 1px solid #334155; 
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #38bdf8, #818cf8);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="VisualMath Logo" class="h-10 w-auto">
+                <div class="hidden sm:block">
+                    <h1 class="text-lg font-bold text-sky-400">VisualMath Academy</h1>
+                </div>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="index.html" class="text-sm text-slate-400 hover:text-white transition-colors">🏠 Home</a>
+                <span class="px-3 py-1 bg-blue-900/50 border border-blue-700 rounded-full text-xs font-semibold text-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.2)]">
+                    🔵 Mission A1 (1/8): Briefing
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-10">
+        
+        <!-- Judul Misi -->
+        <section class="text-center space-y-4">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-slate-800 rounded-full text-sm text-slate-300 border border-slate-700 mb-2">
+                🏅 Target Reward: Equalizer Badge
+            </div>
+            <h2 class="text-3xl md:text-5xl font-extrabold text-white">
+                MISSION A1 <br> 
+                <span class="text-gradient">Pecahan Senilai</span>
+            </h2>
+            <p class="text-slate-400 text-lg uppercase tracking-widest mt-2">Pusat Pengarahan (Briefing Room)</p>
+        </section>
+
+        <!-- Mission Brief Area -->
+        <section class="card-dark rounded-2xl p-6 md:p-10 relative overflow-hidden border-sky-900 shadow-2xl">
+            <!-- Dekorasi Latar -->
+            <div class="absolute top-0 right-0 w-48 h-48 bg-sky-500/10 rounded-bl-full pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-32 h-32 bg-indigo-500/10 rounded-tr-full pointer-events-none"></div>
+            
+            <div class="flex items-center gap-3 mb-8">
+                <span class="text-3xl">🎯</span>
+                <h3 class="text-2xl font-bold text-white tracking-wide">MISSION BRIEF</h3>
+            </div>
+
+            <!-- Pesan Pixel (Motivation) -->
+            <div class="bg-slate-900 rounded-xl p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start border border-slate-800 mb-8 shadow-lg">
+                <img src="assets/Pixel.png" alt="Pixel" class="w-24 h-24 object-contain bg-slate-800 rounded-full p-2 border-2 border-sky-500 shrink-0">
+                <div class="space-y-3">
+                    <p class="text-sky-400 font-bold text-sm uppercase tracking-wider">🤖 Transmisi dari Pixel:</p>
+                    <p class="text-slate-300 italic text-lg leading-relaxed">
+                        "Math Agent, hari ini kita akan menyelidiki sebuah misteri. Dua pecahan memiliki angka yang benar-benar berbeda, tetapi anehnya... nilainya bisa sama persis! Bagaimana ini bisa terjadi? Ayo kita buktikan menggunakan gambar dan penalaran analitis!"
+                    </p>
+                </div>
+            </div>
+
+            <!-- Big Idea -->
+            <div class="bg-gradient-to-r from-sky-900/50 to-indigo-900/30 p-6 rounded-xl border-l-4 border-l-sky-400 border border-t-sky-800/50 border-r-sky-800/50 border-b-sky-800/50 mb-8">
+                <p class="font-bold text-sky-400 mb-2 text-sm uppercase tracking-widest flex items-center gap-2">
+                    <span class="text-lg">💡</span> Big Idea
+                </p>
+                <p class="text-white text-xl font-medium leading-relaxed">
+                    Bentuk pecahan boleh berubah, tetapi nilainya tetap sama.
+                </p>
+            </div>
+            
+            <!-- Grid Pembagian Tujuan & Alat -->
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Learning Goals -->
+                <div class="space-y-4">
+                    <p class="font-bold text-slate-200 border-b border-slate-700 pb-2 text-lg flex items-center gap-2">
+                        <span>✅</span> Learning Goals
+                    </p>
+                    <ul class="space-y-3 text-slate-300">
+                        <li class="flex items-start gap-3">
+                            <span class="text-sky-500 mt-1">●</span>
+                            <span>Menjelaskan pengertian pecahan senilai.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-sky-500 mt-1">●</span>
+                            <span>Menemukan berbagai bentuk pecahan senilai.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-sky-500 mt-1">●</span>
+                            <span>Membuktikan pecahan senilai menggunakan Bar Model, Fraction Strip, dan Number Line.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-sky-500 mt-1">●</span>
+                            <span>Menggunakan pecahan senilai sebagai dasar untuk menjumlahkan dan mengurangkan pecahan.</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Vocabulary & Tools -->
+                <div class="space-y-6">
+                    <div>
+                        <p class="font-bold text-slate-200 border-b border-slate-700 pb-2 text-lg flex items-center gap-2 mb-4">
+                            <span>📚</span> Mathematical Vocabulary
+                        </p>
+                        <table class="w-full text-left text-slate-300 bg-slate-900 rounded-lg overflow-hidden border border-slate-800">
+                            <thead class="bg-slate-800">
+                                <tr>
+                                    <th class="py-2 px-3 text-slate-400 font-semibold">English</th>
+                                    <th class="py-2 px-3 text-slate-400 font-semibold">Bahasa Indonesia</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-800">
+                                <tr>
+                                    <td class="py-3 px-3">Equivalent Fraction</td>
+                                    <td class="py-3 px-3 font-bold text-sky-300">Pecahan Senilai</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-3 px-3">Unit Fraction</td>
+                                    <td class="py-3 px-3 font-bold text-sky-300">Pecahan Satuan</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div>
+                        <p class="text-sm font-bold text-slate-400 mb-3 uppercase tracking-wider">🛠️ Visual Tools yang Disiapkan:</p>
+                        <div class="flex flex-wrap gap-3 text-sm text-slate-300">
+                            <span class="bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-lg shadow-sm">📦 Bar Model</span>
+                            <span class="bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-lg shadow-sm">📏 Fraction Strip</span>
+                            <span class="bg-slate-800 border border-slate-700 px-3 py-1.5 rounded-lg shadow-sm">📍 Number Line</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tombol Lanjut ke Halaman 2 -->
+        <div class="text-center pt-6 pb-12">
+            <p class="text-slate-400 mb-4 text-sm">Pengarahan selesai. Siap memulai penyelidikan?</p>
+            <a href="mission-a1-see.html" class="inline-flex items-center justify-center bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-sky-500/30 transition-all hover:-translate-y-1 text-lg group">
+                Terima Misi & Lanjut ke Tahap SEE 
+                <span class="ml-2 group-hover:translate-x-1 transition-transform">➔</span>
+            </a>
+        </div>
+
+    </main>
+</body>
+</html>
