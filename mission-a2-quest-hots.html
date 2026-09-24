@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Misi A2 · Tantangan HOTS — VisualMath.Lim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<!-- Kembalikan Tailwind agar selaras, meski kita tetap pakai struktur custom CSS Anda -->
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+/* TEMA KOSMIS MARKAS AGEN (SLATE, SKY, PURPLE, AMBER) */
+:root {
+  --paper: #0F172A; /* Slate 900 */
+  --grid: #1E293B;  /* Slate 800 */
+  --card: #1E293B;  
+  --ink: #F8FAFC;   /* Slate 50 */
+  --muted: #94A3B8; /* Slate 400 */
+  --a: #A855F7;     /* Purple 500 (Luna) */
+  --a-soft: #3B0764; 
+  --b: #F59E0B;     /* Amber 500 (Kian) */
+  --b-soft: #451A03; 
+  --ok: #22C55E;    /* Emerald 500 */
+  --ok-soft: #064E3B; 
+  --bad: #EF4444;   /* Rose 500 */
+  --bad-soft: #4C0519; 
+  --brand: #38BDF8; /* Sky 400 */
+  --line: #334155;  /* Slate 700 */
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Nunito, system-ui, sans-serif; color: var(--ink); line-height: 1.55; font-size: 17px; background-color: var(--paper); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 28px 28px; }
+h1, h2, h3 { font-family: "Baloo 2", Nunito, sans-serif; line-height: 1.15; margin: 0; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 16px 16px 72px; }
+
+/* Header & Brand */
+header.top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 8px 0 16px; border-bottom: 2px solid var(--line); margin-bottom: 20px;}
+.brand { font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 1.25rem; }
+.brand b { color: var(--brand); }
+.brand small { display: block; font: 700 .75rem Nunito; color: var(--muted); text-transform: uppercase; letter-spacing: 1px;}
+.crumb { font-size: .9rem; color: var(--muted); margin-bottom: 10px; }
+.crumb a { color: var(--brand); text-decoration: none; font-weight: bold;}
+
+/* Panels & Cards */
+.hero, .panel, .q { background: var(--card); border: 2px solid var(--line); border-radius: 18px; padding: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);}
+.hero { border-color: var(--brand); box-shadow: 0 10px 30px rgba(56,189,248,0.15); display: flex; gap: 20px; align-items: center;}
+.hero-avatar { width: 80px; height: 80px; background: var(--grid); border-radius: 50%; border: 3px solid var(--brand); padding: 5px; flex-shrink: 0;}
+.hero h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); margin-bottom: 6px; color: var(--brand);}
+.hero p { margin: 0 0 12px; color: var(--muted); }
+
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip { font-size: .85rem; font-weight: 800; padding: 4px 14px; border-radius: 99px; border: 1.5px solid var(--brand); background: rgba(56,189,248,0.1); color: var(--brand);}
+
+.q { margin-top: 18px; transition: border-color 0.3s; }
+.q:hover { border-color: var(--muted); }
+.q h2 { font-size: 1.35rem; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; color: var(--brand);}
+.q .sub { font-size: .85rem; font-weight: 700; color: var(--a); text-transform: uppercase; letter-spacing: 1px; margin-top: 5px;}
+
+/* Story Box */
+.story { margin: 12px 0 16px; padding: 14px 16px; background: var(--b-soft); border-left: 5px solid var(--b); border-radius: 8px; display: flex; gap: 15px; align-items: center; font-size: 0.95rem; color: var(--ink);}
+.story img { width: 50px; height: 50px; object-fit: contain; border-radius: 50%; background: var(--card); border: 2px solid var(--b); padding: 2px;}
+
+.part { margin: 16px 0; background: var(--grid); padding: 16px; border-radius: 12px; border: 1px solid var(--line);}
+.part>p { margin: 0 0 10px; font-weight: 700; color: var(--ink);}
+
+/* Options */
+.opt { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; margin: 8px 0; border: 2px solid var(--line); border-radius: 10px; cursor: pointer; transition: all 0.2s; background: var(--card);}
+.opt:hover { border-color: var(--brand); }
+.opt:has(input:checked) { border-color: var(--brand); background: rgba(56,189,248,0.1); box-shadow: 0 0 10px rgba(56,189,248,0.2);}
+.opt input { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--brand); cursor: pointer;}
+
+/* Equations & Inputs */
+.eq { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font: 800 1.5rem "Baloo 2", sans-serif; }
+.frac { display: inline-flex; flex-direction: column; align-items: center; gap: 5px; }
+.frac input { width: 60px; font: 800 1.3rem "Baloo 2", sans-serif; text-align: center; padding: 5px 4px; border: 2px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--brand); transition: border-color 0.2s;}
+.frac input+input { border-top: 2px solid var(--line); }
+.frac.f { gap: 0; line-height: 1.1; }
+.frac.f i { font-style: normal; padding: 0 6px; }
+.frac.f i:first-child { border-bottom: 3px solid currentColor; }
+input:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px rgba(56,189,248,0.2); }
+
+/* Buttons */
+button, .cta { font: 800 1rem Nunito, sans-serif; cursor: pointer; border-radius: 12px; padding: 12px 24px; border: 2px solid var(--brand); background: var(--brand); color: #fff; text-decoration: none; display: inline-block; transition: transform 0.2s, box-shadow 0.2s;}
+button:hover, .cta:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(56,189,248,0.3);}
+button.alt { background: var(--card); color: var(--brand); border-color: var(--brand);}
+button.alt:hover { background: rgba(56,189,248,0.1); }
+
+/* Results */
+.res { margin-top: 22px; padding: 24px; border-radius: 16px; border: 2px solid var(--line); text-align: center; }
+.res.fail { background: var(--bad-soft); border-color: var(--bad); }
+.res.pass { background: var(--ok-soft); border-color: var(--ok); }
+.score { font: 800 3rem "Baloo 2", sans-serif; margin-bottom: 5px; }
+.score small { color: var(--muted); }
+.kkm { height: 16px; border-radius: 99px; border: 2px solid var(--line); background: var(--card); position: relative; overflow: hidden; margin: 12px 0; }
+.kkm i { display: block; height: 100%; background: var(--brand); transition: width 1s ease-out;}
+.res.fail .kkm i { background: var(--bad); }
+.res.pass .kkm i { background: var(--ok); }
+.kkm b { position: absolute; left: 60%; top: 0; bottom: 0; border-left: 3px dashed var(--ink); }
+
+/* Panels & Reflections */
+.panel { margin-top: 24px; }
+.panel h2 { font-size: 1.5rem; margin-bottom: 12px; color: var(--brand);}
+.grp { margin: 12px 0; padding: 16px; border-radius: 12px; border: 2px solid var(--line); }
+.grp.s { background: var(--ok-soft); border-color: var(--ok); }
+.grp.w { background: var(--b-soft); border-color: var(--b); }
+.grp h3 { font-size: 1.1rem; color: inherit;}
+.grp p { margin: 6px 0 0; color: var(--ink);}
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 14px; }
+@media(max-width:560px) { .two { grid-template-columns: 1fr; } }
+.col { padding: 16px; border-radius: 12px; border: 2px solid var(--line); background: var(--grid);}
+.col h3 { font-size: 1.1rem; margin-bottom: 10px; color: var(--brand);}
+textarea { width: 100%; min-height: 120px; font: 600 1rem Nunito; padding: 12px; border: 2px solid var(--line); border-radius: 10px; background: var(--paper); color: var(--ink); resize: vertical; }
+textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px rgba(56,189,248,0.2); }
+
+.starts { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+.starts button { font-size: .85rem; padding: 6px 12px; border-radius: 99px;}
+
+/* Achievements */
+.ach { list-style: none; padding: 0; margin: 0; }
+.ach li { display: flex; gap: 14px; align-items: center; padding: 12px 16px; margin: 8px 0; border: 2px solid var(--line); border-radius: 12px; background: var(--grid); font-weight: 600; transition: all 0.3s;}
+.ach li.on { border-color: var(--ok); background: rgba(34,197,94,0.1); }
+.tick { width: 32px; height: 32px; border-radius: 8px; border: 2px solid var(--line); display: grid; place-items: center; font-weight: 800; flex-shrink: 0; background: var(--card); color: transparent; transition: all 0.3s;}
+.ach li.on .tick { background: var(--ok); color: var(--card); border-color: var(--ok); }
+
+/* Badge Reveal */
+.badge { display: none; text-align: center; margin-top: 30px; padding: 30px 20px; border: 2px solid var(--brand); border-radius: 20px; background: var(--card); box-shadow: 0 0 30px rgba(56,189,248,0.2); position: relative; overflow: hidden;}
+.badge::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background: conic-gradient(transparent, rgba(56,189,248,0.3), transparent 30%); animation: rotate 4s linear infinite; z-index: 0;}
+@keyframes rotate { 100% { transform: rotate(360deg); } }
+.badge.show { display: block; animation: pop .6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+@keyframes pop { 0% { transform: scale(.8) translateY(30px); opacity: 0; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
+.badge > * { position: relative; z-index: 10; }
+.medal { width: 120px; height: 120px; margin: 0 auto 12px; border-radius: 50%; border: 4px solid var(--brand); background: var(--paper); display: grid; place-items: center; font-size: 3.5rem; box-shadow: 0 0 20px rgba(56,189,248,0.5);}
+.badge h2 { font-size: 1.8rem; color: var(--brand);}
+.xp { display: inline-block; margin: 8px 0 16px; padding: 6px 20px; border-radius: 99px; background: linear-gradient(135deg, var(--brand), var(--a)); color: #fff; font-weight: 800; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(56,189,248,0.4);}
+.cta[aria-disabled=true] { opacity: .4; pointer-events: none; filter: grayscale(1); }
+.hide { display: none !important; }
+.note { color: var(--muted); font-size: .9rem; font-style: italic;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">Visual<b>Math</b>.Lim<small>Math Mastery • Kelas 6</small></div>
+  </header>
+  
+  <div class="crumb"><a href="mission-a-hub.html">Misi A2</a> › <span>Tantangan HOTS</span></div>
+
+  <section class="hero">
+    <img src="assets/sigma.png" alt="Prof. Sigma" class="hero-avatar" onerror="this.outerHTML='<div class=\'hero-avatar\' style=\'display:flex;align-items:center;justify-content:center;font-size:40px\'>🦉</div>'">
+    <div>
+        <h1>Tantangan Tingkat Tinggi</h1>
+        <p>"Agent, ini bukan sekadar berhitung. Kamu harus menganalisis, membongkar jebakan, dan mencipta. Buktikan kamu layak mendapat lencana Equalizer!"</p>
+        <div class="chips">
+            <span class="chip">🎯 4 Tantangan Utama</span>
+            <span class="chip">🏆 Batas Lulus (KKM): 60</span>
+        </div>
+    </div>
+  </section>
+
+  <form id="quiz" onsubmit="return false"></form>
+  <div style="margin-top:24px; text-align:center;">
+      <button id="submit" class="cta">Kirim Laporan Analisis 🚀</button>
+  </div>
+  <div id="result" role="status" aria-live="polite"></div>
+
+  <div id="after" class="hide">
+    <section class="panel" id="analysis"></section>
+
+    <section class="panel">
+      <h2>Logbook Agen: Refleksi Misi</h2>
+      <p class="note" id="reflNote"></p>
+      <div class="two">
+        <div class="col then">
+            <h3>Dulu aku kira…</h3>
+            <div id="then"></div>
+        </div>
+        <div class="col now" style="border-color:var(--brand); background:var(--card);">
+            <h3>Sekarang aku tahu…</h3>
+            <textarea id="now" aria-label="Sekarang aku tahu" placeholder="Tulis laporan intai-mu di sini, Agent. (Minimal 20 karakter)"></textarea>
+        </div>
+      </div>
+      <div class="starts" aria-label="Kalimat pembuka">
+        <button type="button" class="alt" data-s="Ternyata, rahasia penjumlahan pecahan adalah ">Ternyata rahasianya...</button>
+        <button type="button" class="alt" data-s="Yang berubah dari pola pikirku: ">Pola pikirku berubah...</button>
+        <button type="button" class="alt" data-s="Jika aku bertemu soal pecahan lagi, aku akan ">Tindakan selanjutnya...</button>
+      </div>
+      <button id="saveRefl" class="alt" style="margin-top:10px;">💾 Simpan Logbook</button>
+    </section>
+
+    <section class="panel">
+      <h2>Checklist Kelulusan Misi</h2>
+      <ul class="ach" id="ach"></ul>
+    </section>
+
+    <section class="badge" id="badge">
+      <div class="medal" aria-hidden="true">⚖️</div>
+      <h2>Equalizer Badge</h2>
+      <div class="xp">+60 INTEL POINTS</div>
+      <p style="color:var(--muted)">Sistem keamanan tingkat tinggi telah dibobol. Kamu adalah Master Pecahan!</p>
+    </section>
+    
+    <div style="text-align:center; margin-top:30px;">
+      <a class="cta" id="cta" href="mission-a3-intro.html" aria-disabled="true">Buka Kunci Misi A3 ➔</a>
+      <p class="note" id="ctaNote" style="margin-top:10px;">Selesaikan semua checklist untuk mendapatkan akses ke Misi A3.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const KKM=60, PRED_KEY="vm_a2_prediksi"; 
+const $=id=>document.getElementById(id);
+const gcd=(a,b)=>b?gcd(b,a%b):a;
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const F=(n,d)=>`<span class="frac f"><i>${n}</i><i>${d}</i></span>`;
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+// Gambar Avatar Helper
+const getAvatar = (icon) => {
+    if(icon === '🔍') return `<img src="assets/pixel.png" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><text y=\\'50\\' font-size=\\'40\\'>👾</text></svg>'">`;
+    if(icon === '🧠') return `<img src="assets/sigma.png" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 100 100\\'><text y=\\'50\\' font-size=\\'40\\'>🦉</text></svg>'">`;
+    return `<div style="font-size:30px">${icon}</div>`;
+}
+
+/* Bank soal HOTS */
+const BANK={
+ q1:[{name:"Boss Battle",icon:"⚔️",area:"Menerjemahkan cerita jadi model",
+   story:"Boss Kode Merah punya 1 bar energi penuh. Seranganmu yang pertama menghabiskan 1/3 bar, yang kedua menghabiskan 1/4 bar.",
+   parts:[{t:"fr",q:"Berapa bagian bar yang sudah hilang?",a:[7,12]},{t:"fr",q:"Berapa bagian bar yang masih tersisa?",a:[5,12]}]},
+  {name:"Boss Battle",icon:"⚔️",area:"Menerjemahkan cerita jadi model",
+   story:"Boss Naga punya 1 bar energi penuh. Serangan pertamamu menghabiskan 2/5 bar, serangan kedua menghabiskan 1/2 bar.",
+   parts:[{t:"fr",q:"Berapa bagian bar yang sudah hilang?",a:[9,10]},{t:"fr",q:"Berapa bagian bar yang masih tersisa?",a:[1,10]}]}],
+ q2:[{name:"Pixel Investigation",icon:"🔍",area:"Memeriksa jebakan miskonsepsi",
+   story:"Miskonsepsi Riko terdeteksi: "+F(1,3)+" + "+F(1,4)+" = "+F(2,7)+".",
+   parts:[{t:"mc",q:"Sebagai Agen, di mana letak kesalahan fatal Riko?",o:[["Ia menjumlahkan pembilang dengan pembilang, dan penyebut dengan penyebut.",1],["Ia lupa menyederhanakan hasilnya.",0,"Pecahan 2/7 sudah sederhana. Itu bukan letak kesalahannya."],["Ia lupa mencari KPK.",0,"Riko sama sekali tidak berniat memakai KPK."],["Hitungan Riko sudah benar.",0,"Logika: 2/7 lebih kecil dari 1/3. Masa dijumlah hasilnya malah mengecil?"]]},
+   {t:"fr",q:"Perbaiki kodenya! Berapa jawaban yang benar?",a:[7,12]}]},
+  {name:"Pixel Investigation",icon:"🔍",area:"Memeriksa jebakan miskonsepsi",
+   story:"Miskonsepsi Sari terdeteksi: "+F(2,5)+" + "+F(1,3)+" = "+F(3,8)+".",
+   parts:[{t:"mc",q:"Sebagai Agen, di mana letak kesalahan fatal Sari?",o:[["Ia menjumlahkan pembilang dengan pembilang, dan penyebut dengan penyebut.",1],["Ia lupa menyederhanakan hasilnya.",0,"3/8 sudah paling sederhana."],["Ia salah hitung KPK.",0,"Sari tidak pakai KPK sama sekali."],["Hitungan Sari sudah benar.",0,"Logika: 3/8 lebih kecil dari 2/5. Ditambah kok mengecil?"]]},
+   {t:"fr",q:"Perbaiki kodenya! Berapa jawaban yang benar?",a:[11,15]}]}],
+ q3:[{name:"Master Think",icon:"🧠",area:"Merekayasa soal dari jawaban",
+   story:"Prof. Sigma memberimu hasil akhir rahasia: 5/6. Tugasmu menciptakan dua pecahan berbeda penyebut yang jika dijumlahkan menghasilkan 5/6.",
+   parts:[{t:"mk",q:"Masukkan dua pecahan rakitanmu:",s:[5,6]}]},
+  {name:"Master Think",icon:"🧠",area:"Merekayasa soal dari jawaban",
+   story:"Prof. Sigma memberimu hasil akhir rahasia: 3/4. Tugasmu menciptakan dua pecahan berbeda penyebut yang jika dijumlahkan menghasilkan 3/4.",
+   parts:[{t:"mk",q:"Masukkan dua pecahan rakitanmu:",s:[3,4]}]}],
+ q4:[{name:"Agent Challenge",icon:"🕵️",area:"Mengevaluasi strategi efisien",
+   story:"Agen Zero mencoba menghitung "+F(1,2)+" + "+F(1,6)+".",
+   parts:[{t:"mu",q:"Beri centang pada semua cara yang TEPAT dan LOGIS:",o:[["Bar model: bagi bar jadi 6 bagian. 1/2 itu 3 bagian, lalu tambah 1 bagian.",1],["Pakai KPK 6: ubah 1/2 jadi 3/6, lalu jumlahkan 3/6 + 1/6.",1],["Pakai penyebut 12 (Kali silang): 6/12 + 2/12 = 8/12, lalu sederhanakan.",1],["Langsung jumlahkan atas dan bawah jadi 2/8.",0]]},
+   {t:"fr",q:"Berapa hasil akhirnya yang paling sederhana (kode final)?",a:[2,3]}]},
+  {name:"Agent Challenge",icon:"🕵️",area:"Mengevaluasi strategi efisien",
+   story:"Agen Zero mencoba menghitung "+F(1,4)+" + "+F(1,6)+".",
+   parts:[{t:"mu",q:"Beri centang pada semua cara yang TEPAT dan LOGIS:",o:[["Bar model: bagi bar jadi 12. 1/4 itu 3 bagian, 1/6 itu 2 bagian.",1],["Pakai KPK 12: ubah jadi 3/12 + 2/12.",1],["Pakai penyebut 24 (Kali silang): 6/24 + 4/24 = 10/24, sederhanakan.",1],["Langsung jumlahkan atas dan bawah jadi 2/10.",0]]},
+   {t:"fr",q:"Berapa hasil akhirnya yang paling sederhana (kode final)?",a:[5,12]}]}]
+};
+
+const AREAS={
+ q1:{ok:"Kamu berhasil membaca pola cerita dan mengubahnya ke dalam bahasa bar model/matematika. Insting analisismu tajam!",
+     no:"Kamu masih terkecoh dengan bahasa cerita. Ingat, '1 bar energi penuh' itu nilainya 1 utuh (misal 12/12). Kurangkan pelan-pelan."},
+ q2:{ok:"Miskonsepsi Pixel berhasil kamu patahkan! Kamu tahu persis kenapa menjumlahkan penyebut itu haram hukumnya.",
+     no:"Kamu masih tertipu jebakan Pixel. Selalu gunakan logika dasar: Hasil penjumlahan pasti lebih besar dari angka awalnya. Masa kue 1/3 ditambah malah jadi lebih kecil (2/7)?"},
+ q3:{ok:"Kamu sudah di level 'Creator'! Berpikir mundur (*reverse engineering*) membuktikan pemahamanmu sudah sangat dalam.",
+     no:"Berpikir mundur (*reverse engineering*) memang menantang. Tip dari Prof. Sigma: Pecah dulu hasilnya (misal 5/6 = 2/6 + 3/6), lalu sederhanakan masing-masing."},
+ q4:{ok:"Kamu seorang ahli taktik! Kamu sadar bahwa KPK, Bar Model, dan Kali Silang sama-sama bisa digunakan asal logikanya benar.",
+     no:"Kamu belum melihat hubungan antar strategi. Cobalah selesaikan 1 soal menggunakan 3 cara berbeda (Gambar, KPK, Kali Silang) di kertas buram."}
+};
+
+let cur=[],attempt=0,last={q1:1,q2:1,q3:1,q4:1},final=null,ach={hots:false,kkm:false,read:false,refl:false,explain:false};
+
+// Inputmode ditambahkan untuk optimasi HP
+function fracIn(id){return `<span class="frac"><input id="${id}n" inputmode="numeric" pattern="[0-9]*" maxlength="2" aria-label="pembilang"><input id="${id}d" inputmode="numeric" pattern="[0-9]*" maxlength="2" aria-label="penyebut"></span>`}
+
+function start(){
+  const keys=Object.keys(BANK);
+  const order=attempt?shuf(keys):keys;
+  cur=order.map(k=>{const v=attempt?(last[k]+1)%2:0;last[k]=v;const o=JSON.parse(JSON.stringify(BANK[k][v]));o.k=k;
+    o.raw=BANK[k][v];o.parts.forEach(p=>{if(p.o&&attempt)p.o=shuf(p.o)});return o});
+  
+  $("quiz").innerHTML=cur.map((q,i)=>`<section class="q">
+   <h2><span style="font-size:1.5rem">${q.icon}</span> Tantangan ${i+1}: ${q.name}</h2>
+   <div class="sub">${q.area}</div>
+   <div class="story">${getAvatar(q.icon)} <div>${q.story}</div></div>`+
+   q.parts.map((p,j)=>{
+       const id=`p${i}_${j}`;
+       let h=`<div class="part"><p>${p.q}</p>`;
+       if(p.t==="fr")h+=`<div class="eq">${fracIn(id)}</div>`;
+       if(p.t==="mc")h+=p.o.map((o,x)=>`<label class="opt"><input type="radio" name="${id}" value="${x}"><span>${o[0]}</span></label>`).join("");
+       if(p.t==="mu")h+=p.o.map((o,x)=>`<label class="opt"><input type="checkbox" name="${id}" value="${x}"><span>${o[0]}</span></label>`).join("");
+       if(p.t==="mk")h+=`<div class="eq">${fracIn(id+"a")} <span style="color:var(--brand)">+</span> ${fracIn(id+"b")} <span style="color:var(--brand)">=</span> ${F(p.s[0],p.s[1])}</div>`;
+       return h+`</div>`
+   }).join("")+`</section>`).join("");
+  $("result").innerHTML="";$("submit").classList.remove("hide");window.scrollTo({top:0,behavior:"smooth"});
+}
+
+const num=id=>parseInt($(id).value);
+function grade(){
+  return cur.map((q,i)=>{const w=25/q.parts.length;let got=0,flag={};
+    q.parts.forEach((p,j)=>{const id=`p${i}_${j}`;
+      if(p.t==="fr"){const N=num(id+"n"),D=num(id+"d");if(N>0&&D>0&&N*p.a[1]===p.a[0]*D)got+=w}
+      if(p.t==="mc"){const c=document.querySelector(`input[name="${id}"]:checked`);if(c){const o=p.o[c.value];if(o[1])got+=w;else flag.tip=o[2]}}
+      if(p.t==="mu"){const cs=[...document.querySelectorAll(`input[name="${id}"]:checked`)];const good=p.o.filter(o=>o[1]).length;
+        const s=cs.reduce((a,c)=>a+(p.o[c.value][1]?1:-1),0);got+=w*Math.max(0,s)/good;flag.multi=cs.length>=2}
+      if(p.t==="mk"){const n1=num(id+"an"),d1=num(id+"ad"),n2=num(id+"bn"),d2=num(id+"bd");
+        if(n1>0&&n2>0&&d1>1&&d2>1){const sumOk=(n1*d2+n2*d1)*p.s[1]===p.s[0]*d1*d2;if(sumOk&&d1!==d2)got+=w;else if(sumOk)got+=w*.4}}
+    });return{k:q.k,got,max:25,flag}});
+}
+
+function submit(){
+  const r=grade(),score=Math.round(r.reduce((a,x)=>a+x.got,0));
+  $("submit").classList.add("hide");attempt++;
+  const res=$("result");
+  if(score<KKM){
+    const weak=r.filter(x=>x.got/x.max<.6).map(x=>BANK[x.k][0].area);
+    res.innerHTML=`<div class="res fail"><div class="score" style="color:var(--bad)">${score}<small style="font-size:1.2rem"> / 100</small></div>
+      <div class="kkm"><i style="width:${score}%"></i><b></b></div>
+      <h2 style="color:var(--bad)">⚠️ Kritis! Belum mencapai Batas Lulus (${KKM})</h2>
+      <p>Sistem menolak laporanmu. Ini percobaan ke-${attempt}. Sistem akan <b>mengacak</b> kode dan soalnya kembali. Tidak ada tempat untuk menghafal jawaban, gunakan logikamu, Agent!</p>
+      <p style="background:var(--card); padding:10px; border-radius:8px; border:1px solid var(--bad);">Titik lemah yang terdeteksi: <b>${weak.join(" & ")||"Hampir sempurna, teliti lagi"}</b>.</p>
+      <button id="retry" class="cta" style="margin-top:10px;">Retas Ulang Sistem 🔄</button></div>`;
+    $("retry").onclick=start;res.scrollIntoView({behavior:"smooth"});return;
+  }
+  final={score,r,attempt};store.set("vm_a2_hots",JSON.stringify({score,attempt}));
+  res.innerHTML=`<div class="res pass"><div class="score" style="color:var(--ok)">${score}<small style="font-size:1.2rem"> / 100</small></div>
+    <div class="kkm"><i style="width:${score}%"></i><b></b></div>
+    <h2 style="color:var(--ok)">✅ Misi Sukses! Lolos KKM ${KKM}${attempt>1?" (Percobaan ke-"+attempt+")":""}</h2>
+    <p>${attempt>1?"Ketekunanmu membuahkan hasil. Pantang menyerah adalah mental agen sejati!":"Sempurna! Kamu menaklukkan tes ini dalam sekali tebas."} Mari kita analisis laporan akhirmu.</p></div>`;
+  ach.hots=true;ach.kkm=true;showAfter();
+}
+
+function showAfter(){
+  $("after").classList.remove("hide");
+  const strong=[],grow=[];final.r.forEach(x=>{(x.got/x.max>=.8?strong:grow).push(x)});
+  const nm=k=>BANK[k][0].name;
+  let h=`<h2>📡 Laporan Analisis Prof. Sigma</h2>`;
+  h+=`<div class="grp s"><h3>🌟 Sektor Terkuatmu</h3>`+(strong.length?strong.map(x=>`<p><b>[${nm(x.k)}]</b> ${AREAS[x.k].ok}</p>`).join(""):`<p>Lolos KKM berarti fondasimu sudah ada, mari tingkatkan akurasinya.</p>`)+`</div>`;
+  h+=`<div class="grp w"><h3>🌱 Sektor yang Perlu Diasah</h3>`+(grow.length?grow.map(x=>`<p><b>[${nm(x.k)}]</b> ${AREAS[x.k].no}</p>`).join(""):`<p>Tidak ada celah terdeteksi! Kamu siap mengajari agen pemula.</p>`)+`</div>`;
+  $("analysis").innerHTML=h;ach.read=true;
+  
+  const p=store.get(PRED_KEY);
+  if(p){$("then").innerHTML=`<p style="margin:0; font-style:italic;">"${p.replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]))}"</p>`;$("reflNote").textContent="Ini adalah logikamu di awal misi. Bandingkan dengan wawasan barumu.";}
+  else{$("then").innerHTML=`<textarea id="thenTxt" aria-label="Dulu aku kira" placeholder="Ingat-ingat: saat belum belajar misi ini, kamu mengira menjumlahkan pecahan beda penyebut itu caranya bagaimana?"></textarea>`;$("reflNote").textContent="Catatan awalmu tidak ditemukan. Tulis ulang ingatan lamamu di kolom kiri.";}
+  renderAch();$("analysis").scrollIntoView({behavior:"smooth"});
+}
+
+const ACH=[
+  ["hots","Menaklukkan 4 Tantangan HOTS"],
+  ["kkm","Skor melebih Batas Lulus (KKM 60)"],
+  ["read","Membaca Laporan Analisis Prof. Sigma"],
+  ["refl","Menyimpan Logbook Refleksi Akhir"],
+  ["explain","Aku siap menjelaskan strategi Bar Model/KPK kepada temanku!"]
+];
+
+function renderAch(){
+  $("ach").innerHTML=ACH.map(([k,t])=>`<li class="${ach[k]?"on":""}"><span class="tick">${ach[k]?"✓":""}</span>${k==="explain"?`<label style="cursor:pointer; flex:1;"><input type="checkbox" id="exp" ${ach[k]?"checked":""} style="accent-color:var(--ok); transform:scale(1.2); margin-right:8px;"> ${t}</label>`:t}</li>`).join("");
+  const e=$("exp");if(e)e.onchange=()=>{ach.explain=e.checked;renderAch()};
+  const all=Object.values(ach).every(Boolean);
+  $("badge").classList.toggle("show",all);
+  $("cta").setAttribute("aria-disabled",!all);$("ctaNote").classList.toggle("hide",all);
+  if(all&&!store.get("vm_a2_badge")){store.set("vm_a2_badge","1");store.set("vm_xp",String((parseInt(store.get("vm_xp"))||0)+60))}
+}
+
+$("saveRefl").onclick=()=>{
+  const v=$("now").value.trim(),t=$("thenTxt");
+  if(v.length<20){$("now").focus();$("now").placeholder="Agent, laporanmu terlalu pendek. Ceritakan detailnya!";return}
+  if(t&&t.value.trim().length<10){t.focus();return}
+  store.set("vm_a2_refleksi",v);ach.refl=true;renderAch();
+  $("saveRefl").innerHTML = "✅ Logbook Disimpan";
+  $("saveRefl").classList.add("alt");
+};
+
+document.querySelector(".starts").onclick=e=>{const s=e.target.dataset.s;if(s){const n=$("now");n.value+=(n.value&&!/\s$/.test(n.value)?" ":"")+s;n.focus()}};
+
+start();
+</script>
+</body>
+</html>
