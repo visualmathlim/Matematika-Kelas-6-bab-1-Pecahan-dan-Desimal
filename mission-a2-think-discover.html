@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Think & Discover - Mission A2 | VisualMath.Lim</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
         body {
             background-color: #0f172a;
@@ -12,43 +13,201 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
         }
-        .card-dark { background-color: #1e293b; border: 1px solid #334155; }
-        .glass-panel { background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(12px); }
-        .input-dark { background-color: #0f172a; border: 1px solid #475569; color: #f8fafc; }
-        .input-dark:focus { outline: none; border-color: #38bdf8; box-shadow: 0 0 0 2px rgba(56,189,248,0.2); }
-        
+
+        .card-dark {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.85);
+            backdrop-filter: blur(12px);
+        }
+
+        .input-dark {
+            background-color: #0f172a;
+            border: 1px solid #475569;
+            color: #f8fafc;
+        }
+
+        .input-dark:focus {
+            outline: none;
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 2px rgba(56,189,248,0.2);
+        }
+
         /* Typography & Math Formatting */
-        .text-gradient { background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-image: linear-gradient(to right, #38bdf8, #818cf8); }
-        .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.25rem; font-weight: bold; line-height: 1.1; }
-        .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
-        .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
-        
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #38bdf8, #818cf8);
+        }
+
+        .math-frac {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 0.25rem;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+
+        .math-num {
+            border-bottom: 2px solid currentColor;
+            padding: 0 0.3rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .math-den {
+            padding: 0 0.3rem;
+            width: 100%;
+            text-align: center;
+        }
+
         /* Interactive Chips & Buttons */
         .chip {
-            display: inline-flex; align-items: center; justify-content: center; padding: 0.5rem 1rem;
-            border-radius: 9999px; font-size: 0.875rem; font-weight: 600; cursor: pointer;
-            background-color: #0f172a; border: 1px solid #475569; color: #cbd5e1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            background-color: #0f172a;
+            border: 1px solid #475569;
+            color: #cbd5e1;
             transition: all 0.2s ease;
         }
-        .chip:hover { border-color: #38bdf8; background-color: #1e293b; }
-        .chip.active-correct { background-color: rgba(34,197,94,0.15); border-color: #22c55e; color: #4ade80; box-shadow: 0 0 10px rgba(34,197,94,0.2); }
-        .chip.active-wrong { background-color: rgba(239,68,68,0.15); border-color: #ef4444; color: #f87171; }
-        
+
+        .chip:hover {
+            border-color: #38bdf8;
+            background-color: #1e293b;
+        }
+
+        .chip.active-correct {
+            background-color: rgba(34,197,94,0.15);
+            border-color: #22c55e;
+            color: #4ade80;
+            box-shadow: 0 0 10px rgba(34,197,94,0.2);
+        }
+
+        .chip.active-wrong {
+            background-color: rgba(239,68,68,0.15);
+            border-color: #ef4444;
+            color: #f87171;
+        }
+
         /* Animations */
         @keyframes pulse-red {
-            0% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(225, 29, 72, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+            0% {
+                box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(225, 29, 72, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(225, 29, 72, 0);
+            }
         }
-        .pixel-alert-box { border-color: #be123c; animation: pulse-red 2s infinite; }
-        .fade-in { animation: fadeIn 0.4s ease-in; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-        
+
+        .pixel-alert-box {
+            border-color: #be123c;
+            animation: pulse-red 2s infinite;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Hint Boxes */
-        .hint-box { border-left: 3px solid #f59e0b; background: rgba(245,158,11,0.08); }
-        .hint-box.strong { border-left-color: #38bdf8; background: rgba(56,189,248,0.08); }
+        .hint-box {
+            border-left: 3px solid #f59e0b;
+            background: rgba(245,158,11,0.08);
+        }
+
+        .hint-box.strong {
+            border-left-color: #38bdf8;
+            background: rgba(56,189,248,0.08);
+        }
+
+        /* =========================
+           VISUAL PIZZA
+        ========================== */
+
+        .pizza-card {
+            background:
+                radial-gradient(circle at top right, rgba(251,146,60,0.12), transparent 35%),
+                rgba(15,23,42,0.75);
+            border: 1px solid #475569;
+        }
+
+        .pizza-wrapper {
+            position: relative;
+            width: 270px;
+            max-width: 100%;
+            margin: auto;
+        }
+
+        .pizza-svg {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 12px 20px rgba(0,0,0,0.35));
+        }
+
+        .pizza-label {
+            font-weight: 800;
+            letter-spacing: 0.02em;
+        }
+
+        .label-a {
+            color: #fb7185;
+        }
+
+        .label-b {
+            color: #38bdf8;
+        }
+
+        .arrow-line {
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .pizza-legend {
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+        }
+
+        .pizza-legend-a {
+            background: rgba(244,63,94,0.10);
+            border: 1px solid rgba(244,63,94,0.35);
+        }
+
+        .pizza-legend-b {
+            background: rgba(56,189,248,0.10);
+            border: 1px solid rgba(56,189,248,0.35);
+        }
     </style>
 </head>
+
 <body class="antialiased min-h-screen flex flex-col relative">
 
     <!-- Efek Cahaya Background -->
@@ -58,262 +217,1085 @@
     <!-- Header -->
     <header class="card-dark shadow-lg border-b sticky top-0 z-50">
         <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
+
             <div class="flex items-center gap-3">
-                <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto">
+                <img src="assets/logo.png"
+                     alt="VisualMath.Lim"
+                     class="h-10 w-auto">
+
                 <div>
-                    <h1 class="text-lg font-bold text-sky-400 leading-tight">VisualMath.Lim</h1>
-                    <p class="text-[11px] text-slate-400 leading-tight tracking-wider">Math Mastery • Kelas 6</p>
+                    <h1 class="text-lg font-bold text-sky-400 leading-tight">
+                        VisualMath.Lim
+                    </h1>
+
+                    <p class="text-[11px] text-slate-400 leading-tight tracking-wider">
+                        Math Mastery • Kelas 6
+                    </p>
                 </div>
             </div>
+
             <span class="px-3 py-1 bg-indigo-900/50 border border-indigo-700 rounded-full text-xs font-semibold text-indigo-400 shadow-[0_0_10px_rgba(99,102,241,0.2)]">
                 🧠 Pos 4/8: Think & Discover
             </span>
         </div>
+
         <div class="h-1.5 w-full bg-slate-900">
-            <div class="h-full bg-gradient-to-r from-sky-400 to-indigo-500" style="width:50%"></div>
+            <div
+                class="h-full bg-gradient-to-r from-sky-400 to-indigo-500"
+                style="width:50%">
+            </div>
         </div>
     </header>
 
+
     <main class="flex-grow max-w-5xl mx-auto w-full px-4 py-8 space-y-10 relative z-10">
 
+        <!-- INTRO -->
         <section class="text-center space-y-3">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-white">Menemukan Pola di Balik Pecahan</h2>
+
+            <h2 class="text-3xl md:text-4xl font-extrabold text-white">
+                Menemukan Pola di Balik Pecahan
+            </h2>
+
             <p class="max-w-2xl mx-auto text-slate-300 text-sm md:text-base leading-relaxed">
-                Visualisasi cokelat dan pizza di misi sebelumnya telah memberimu petunjuk. Sekarang saatnya merumuskan petunjuk tersebut dengan bahasa matematika!
+                Visualisasi cokelat dan pizza di misi sebelumnya telah memberimu petunjuk.
+                Sekarang saatnya merumuskan petunjuk tersebut dengan bahasa matematika!
             </p>
+
         </section>
 
-        <!-- 2 Kolom: STEP 3 THINK | PIXEL ALERT -->
+
+        <!-- =====================================================
+             VISUAL PENGENALAN PEMBILANG & PENYEBUT
+        ====================================================== -->
+
+        <section class="pizza-card rounded-2xl p-6 md:p-8 shadow-xl">
+
+            <div class="text-center mb-6">
+
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full
+                            bg-orange-500/10 border border-orange-500/30
+                            text-orange-300 text-sm font-bold">
+
+                    🍕 Kenali Pecahan dari Pizza
+                </div>
+
+                <h3 class="text-2xl md:text-3xl font-extrabold text-white mt-4">
+                    Siapa <span class="text-rose-400">a</span> dan siapa <span class="text-sky-400">b</span>?
+                </h3>
+
+                <p class="text-slate-300 text-sm md:text-base mt-2 max-w-2xl mx-auto">
+                    Perhatikan pizza yang dibagi menjadi <strong class="text-white">8 bagian sama besar</strong>.
+                    Tiga bagian diambil sebagai bagian yang kita perhatikan.
+                </p>
+
+            </div>
+
+
+            <!-- Pizza + Penjelasan -->
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+
+                <!-- ILUSTRASI PIZZA -->
+                <div class="pizza-wrapper">
+
+                    <svg
+                        class="pizza-svg"
+                        viewBox="0 0 500 500"
+                        role="img"
+                        aria-label="Pizza dibagi menjadi 8 bagian, 3 bagian ditandai sebagai pembilang dan seluruh 8 bagian sebagai penyebut">
+
+                        <defs>
+
+                            <!-- Pizza Base -->
+                            <radialGradient id="pizzaBase"
+                                            cx="45%"
+                                            cy="40%"
+                                            r="65%">
+
+                                <stop offset="0%"
+                                      stop-color="#fde68a"/>
+
+                                <stop offset="70%"
+                                      stop-color="#f59e0b"/>
+
+                                <stop offset="100%"
+                                      stop-color="#b45309"/>
+
+                            </radialGradient>
+
+                            <!-- Highlight -->
+                            <filter id="pizzaShadow"
+                                    x="-30%"
+                                    y="-30%"
+                                    width="160%"
+                                    height="160%">
+
+                                <feDropShadow
+                                    dx="0"
+                                    dy="8"
+                                    stdDeviation="8"
+                                    flood-color="#000000"
+                                    flood-opacity="0.35"/>
+                            </filter>
+
+                        </defs>
+
+
+                        <!-- Lingkaran Pizza -->
+                        <circle
+                            cx="250"
+                            cy="250"
+                            r="185"
+                            fill="url(#pizzaBase)"
+                            stroke="#78350f"
+                            stroke-width="12"
+                            filter="url(#pizzaShadow)"
+                        />
+
+
+                        <!--
+                            8 garis pembagi.
+                            Pusat = 250,250
+                        -->
+
+                        <g
+                            stroke="#78350f"
+                            stroke-width="6"
+                            opacity="0.95">
+
+                            <line x1="250" y1="65" x2="250" y2="435"/>
+                            <line x1="65" y1="250" x2="435" y2="250"/>
+
+                            <line x1="119" y1="119" x2="381" y2="381"/>
+                            <line x1="381" y1="119" x2="119" y2="381"/>
+
+                        </g>
+
+
+                        <!--
+                            3 bagian diberi highlight.
+                            Mewakili 3/8.
+                        -->
+
+                        <path
+                            d="M250 250 L250 65 A185 185 0 0 1 380.8 119.2 Z"
+                            fill="#fb7185"
+                            fill-opacity="0.88"
+                            stroke="#be123c"
+                            stroke-width="5"
+                        />
+
+                        <path
+                            d="M250 250 L380.8 119.2 A185 185 0 0 1 435 250 Z"
+                            fill="#fb7185"
+                            fill-opacity="0.88"
+                            stroke="#be123c"
+                            stroke-width="5"
+                        />
+
+                        <path
+                            d="M250 250 L435 250 A185 185 0 0 1 380.8 380.8 Z"
+                            fill="#fb7185"
+                            fill-opacity="0.88"
+                            stroke="#be123c"
+                            stroke-width="5"
+                        />
+
+
+                        <!-- Topping sederhana -->
+                        <g fill="#991b1b" opacity="0.9">
+
+                            <circle cx="300" cy="130" r="11"/>
+                            <circle cx="350" cy="180" r="10"/>
+                            <circle cx="400" cy="225" r="10"/>
+
+                            <circle cx="200" cy="150" r="10"/>
+                            <circle cx="150" cy="230" r="11"/>
+
+                            <circle cx="220" cy="350" r="10"/>
+                            <circle cx="320" cy="350" r="11"/>
+
+                        </g>
+
+
+                        <!-- Label A -->
+                        <g>
+
+                            <line
+                                x1="350"
+                                y1="105"
+                                x2="445"
+                                y2="55"
+                                stroke="#fb7185"
+                                stroke-width="6"
+                                class="arrow-line"/>
+
+                            <polygon
+                                points="445,55 426,57 437,72"
+                                fill="#fb7185"/>
+
+                            <rect
+                                x="405"
+                                y="15"
+                                width="80"
+                                height="45"
+                                rx="12"
+                                fill="#4c0519"
+                                stroke="#fb7185"
+                                stroke-width="3"/>
+
+                            <text
+                                x="445"
+                                y="46"
+                                text-anchor="middle"
+                                font-size="25"
+                                font-weight="800"
+                                fill="#fda4af">
+                                a = 3
+                            </text>
+
+                        </g>
+
+
+                        <!-- Label B -->
+                        <g>
+
+                            <line
+                                x1="120"
+                                y1="380"
+                                x2="55"
+                                y2="450"
+                                stroke="#38bdf8"
+                                stroke-width="6"
+                                class="arrow-line"/>
+
+                            <polygon
+                                points="55,450 74,443 62,431"
+                                fill="#38bdf8"/>
+
+                            <rect
+                                x="10"
+                                y="445"
+                                width="95"
+                                height="45"
+                                rx="12"
+                                fill="#082f49"
+                                stroke="#38bdf8"
+                                stroke-width="3"/>
+
+                            <text
+                                x="57"
+                                y="476"
+                                text-anchor="middle"
+                                font-size="25"
+                                font-weight="800"
+                                fill="#7dd3fc">
+                                b = 8
+                            </text>
+
+                        </g>
+
+                    </svg>
+
+                </div>
+
+
+                <!-- PENJELASAN -->
+                <div class="space-y-4">
+
+                    <div class="pizza-legend pizza-legend-a">
+
+                        <div class="flex items-start gap-3">
+
+                            <div class="text-2xl">
+                                🔴
+                            </div>
+
+                            <div>
+
+                                <h4 class="font-extrabold text-rose-400 text-lg">
+                                    a = Pembilang
+                                </h4>
+
+                                <p class="text-sm text-slate-300 mt-1 leading-relaxed">
+                                    <strong class="text-white">Pembilang</strong> adalah angka di bagian atas.
+                                    Pembilang menunjukkan <strong class="text-rose-300">
+                                    berapa bagian yang sedang kita ambil atau perhatikan
+                                    </strong>.
+                                </p>
+
+                                <div class="mt-2 text-sm text-rose-300 font-semibold">
+                                    Pada pizza: 3 bagian ditandai.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="pizza-legend pizza-legend-b">
+
+                        <div class="flex items-start gap-3">
+
+                            <div class="text-2xl">
+                                🔵
+                            </div>
+
+                            <div>
+
+                                <h4 class="font-extrabold text-sky-400 text-lg">
+                                    b = Penyebut
+                                </h4>
+
+                                <p class="text-sm text-slate-300 mt-1 leading-relaxed">
+                                    <strong class="text-white">Penyebut</strong> adalah angka di bagian bawah.
+                                    Penyebut menunjukkan
+                                    <strong class="text-sky-300">
+                                    berapa banyak seluruh bagian yang sama besar
+                                    </strong>.
+                                </p>
+
+                                <div class="mt-2 text-sm text-sky-300 font-semibold">
+                                    Pada pizza: seluruhnya ada 8 bagian.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Pecahan -->
+                    <div class="bg-slate-900 rounded-xl border border-slate-700 p-5 text-center">
+
+                        <p class="text-sm text-slate-400 mb-2">
+                            Jadi pecahan pizza tersebut adalah
+                        </p>
+
+                        <div class="flex items-center justify-center gap-3">
+
+                            <div class="math-frac text-white text-4xl">
+
+                                <span class="math-num text-rose-400">
+                                    3
+                                </span>
+
+                                <span class="math-den text-sky-400">
+                                    8
+                                </span>
+
+                            </div>
+
+                            <span class="text-slate-400">
+                                =
+                            </span>
+
+                            <span class="text-sm text-slate-300">
+                                3 bagian dari 8 bagian keseluruhan
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RUMUS EMAS -->
+            <div class="mt-8 bg-gradient-to-r from-indigo-950/60 to-slate-900
+                        border border-indigo-500/30 rounded-xl p-5">
+
+                <div class="flex items-start gap-3">
+
+                    <span class="text-2xl">
+                        🧠
+                    </span>
+
+                    <div>
+
+                        <h4 class="font-bold text-indigo-300 mb-1">
+                            Ingat Polanya!
+                        </h4>
+
+                        <p class="text-sm text-slate-300 leading-relaxed">
+
+                            Dalam pecahan
+
+                            <span class="math-frac text-white text-lg">
+                                <span class="math-num text-rose-400">a</span>
+                                <span class="math-den text-sky-400">b</span>
+                            </span>
+
+                            <strong class="text-white">a</strong> menunjukkan
+                            <span class="text-rose-300 font-bold">
+                                bagian yang diambil/diperhatikan
+                            </span>,
+
+                            sedangkan <strong class="text-white">b</strong> menunjukkan
+                            <span class="text-sky-300 font-bold">
+                                jumlah seluruh bagian yang sama besar
+                            </span>.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             STEP 3 THINK | PIXEL ALERT
+        ====================================================== -->
+
         <div class="grid lg:grid-cols-2 gap-8 items-stretch">
 
             <!-- STEP 3: THINK -->
             <section class="glass-panel card-dark rounded-2xl p-6 md:p-8 space-y-6 flex flex-col justify-between">
+
                 <div>
+
                     <div class="flex items-center gap-4 mb-4 pb-4 border-b border-slate-700">
-                        <img src="assets/sigma.png" alt="Prof. Sigma" class="w-14 h-14 object-contain bg-slate-800 rounded-full border border-sky-500 p-1 shadow-lg">
+
+                        <img
+                            src="assets/sigma.png"
+                            alt="Prof. Sigma"
+                            class="w-14 h-14 object-contain bg-slate-800 rounded-full border border-sky-500 p-1 shadow-lg">
+
                         <div>
-                            <h3 class="font-bold text-sky-400 text-lg">🧠 Step 3 — Think</h3>
-                            <p class="text-xs text-slate-400">Analisis dari Prof. Sigma</p>
+
+                            <h3 class="font-bold text-sky-400 text-lg">
+                                🧠 Step 3 — Think
+                            </h3>
+
+                            <p class="text-xs text-slate-400">
+                                Analisis dari Prof. Sigma
+                            </p>
+
                         </div>
+
                     </div>
-                    
+
+
                     <p class="text-sm text-slate-300 mb-6">
-                        "Agent, mari kita perhatikan pecahan umum <span class="math-frac text-white text-lg"><span class="math-num">a</span><span class="math-den">b</span></span>. Pilih jawaban yang paling tepat untuk melengkapi logikamu!"
+
+                        "Agent, mari kita perhatikan pecahan umum
+
+                        <span class="math-frac text-white text-lg">
+                            <span class="math-num text-rose-400">a</span>
+                            <span class="math-den text-sky-400">b</span>
+                        </span>.
+
+                        Pilih jawaban yang paling tepat untuk melengkapi logikamu!"
+
                     </p>
 
+
                     <div class="space-y-6 text-sm">
+
                         <!-- Pertanyaan 1 -->
                         <div class="bg-slate-900 p-4 rounded-xl border border-slate-700">
-                            <label class="block text-slate-300 mb-3">Angka bawah (<b class="text-white text-lg">b</b>) alias penyebut menunjukkan...</label>
+
+                            <label class="block text-slate-300 mb-3">
+
+                                Angka bawah
+                                (<b class="text-sky-400 text-lg">b</b>)
+                                alias penyebut menunjukkan...
+
+                            </label>
+
                             <div class="flex flex-wrap gap-2">
-                                <span class="chip btn-q1" data-val="salah">Jumlah yang diwarnai</span>
-                                <span class="chip btn-q1" data-val="benar">Jumlah potongan keseluruhan</span>
+
+                                <span
+                                    class="chip btn-q1"
+                                    data-val="salah">
+
+                                    Jumlah yang diwarnai
+
+                                </span>
+
+                                <span
+                                    class="chip btn-q1"
+                                    data-val="benar">
+
+                                    Jumlah potongan keseluruhan
+
+                                </span>
+
                             </div>
+
                         </div>
+
 
                         <!-- Pertanyaan 2 -->
                         <div class="bg-slate-900 p-4 rounded-xl border border-slate-700">
-                            <label class="block text-slate-300 mb-3">Jika nilai (<b class="text-white text-lg">b</b>) semakin besar, maka ukuran setiap potongannya menjadi...</label>
+
+                            <label class="block text-slate-300 mb-3">
+
+                                Jika nilai
+                                (<b class="text-sky-400 text-lg">b</b>)
+                                semakin besar, maka ukuran setiap potongannya menjadi...
+
+                            </label>
+
                             <div class="flex flex-wrap gap-2">
-                                <span class="chip btn-q2" data-val="salah">Semakin Besar</span>
-                                <span class="chip btn-q2" data-val="benar">Semakin Kecil</span>
+
+                                <span
+                                    class="chip btn-q2"
+                                    data-val="salah">
+
+                                    Semakin Besar
+
+                                </span>
+
+                                <span
+                                    class="chip btn-q2"
+                                    data-val="benar">
+
+                                    Semakin Kecil
+
+                                </span>
+
                             </div>
+
                         </div>
+
                     </div>
+
                 </div>
+
             </section>
+
 
             <!-- PIXEL ALERT -->
-            <section class="card-dark rounded-2xl p-6 md:p-8 pixel-alert-box relative overflow-hidden flex flex-col justify-between bg-rose-950/20">
-                <!-- Watermark Background -->
-                <div class="absolute -bottom-10 -right-10 text-[150px] opacity-10 blur-sm">👾</div>
-                
+            <section
+                class="card-dark rounded-2xl p-6 md:p-8 pixel-alert-box relative overflow-hidden flex flex-col justify-between bg-rose-950/20">
+
+                <!-- Watermark -->
+                <div class="absolute -bottom-10 -right-10 text-[150px] opacity-10 blur-sm">
+                    👾
+                </div>
+
+
                 <div class="relative z-10">
+
                     <div class="flex items-center gap-4 mb-4 pb-4 border-b border-rose-900/50">
-                        <img src="assets/pixel.png" alt="Pixel" class="w-14 h-14 object-contain bg-rose-900 rounded-full border border-rose-500 p-1 shadow-[0_0_15px_rgba(225,29,72,0.5)]">
+
+                        <img
+                            src="assets/pixel.png"
+                            alt="Pixel"
+                            class="w-14 h-14 object-contain bg-rose-900 rounded-full border border-rose-500 p-1 shadow-[0_0_15px_rgba(225,29,72,0.5)]">
+
                         <div>
-                            <h3 class="font-bold text-rose-400 text-lg uppercase tracking-widest">⚠ Pixel Alert</h3>
-                            <p class="text-xs text-rose-300/70">Jebakan Miskonsepsi Terdeteksi</p>
+
+                            <h3 class="font-bold text-rose-400 text-lg uppercase tracking-widest">
+                                ⚠ Pixel Alert
+                            </h3>
+
+                            <p class="text-xs text-rose-300/70">
+                                Jebakan Miskonsepsi Terdeteksi
+                            </p>
+
                         </div>
+
                     </div>
+
 
                     <p class="text-sm text-slate-300 mb-4">
-                        Pixel mencegat sinyal dari agen pemula yang menjawab soal seperti di bawah ini. Menurut insting agenmu, apakah cara ini benar?
+
+                        Pixel mencegat sinyal dari agen pemula yang menjawab soal seperti di bawah ini.
+                        Menurut insting agenmu, apakah cara ini benar?
+
                     </p>
 
+
                     <div class="bg-slate-900/80 rounded-xl p-6 flex items-center justify-center gap-3 text-2xl font-bold border border-rose-900/50 mb-6 shadow-inner">
-                        <div class="math-frac text-purple-400"><span class="math-num">1</span><span class="math-den">2</span></div>
+
+                        <div class="math-frac text-purple-400">
+                            <span class="math-num">1</span>
+                            <span class="math-den">2</span>
+                        </div>
+
                         <span class="text-white">+</span>
-                        <div class="math-frac text-amber-400"><span class="math-num">1</span><span class="math-den">4</span></div>
+
+                        <div class="math-frac text-amber-400">
+                            <span class="math-num">1</span>
+                            <span class="math-den">4</span>
+                        </div>
+
                         <span class="text-white">=</span>
-                        <div class="math-frac text-rose-500"><span class="math-num">2</span><span class="math-den">6</span></div>
+
+                        <div class="math-frac text-rose-500">
+                            <span class="math-num">2</span>
+                            <span class="math-den">6</span>
+                        </div>
+
                     </div>
+
 
                     <div class="flex gap-3">
-                        <button class="flex-1 py-3 rounded-lg border-2 border-slate-600 hover:border-rose-500 hover:bg-rose-950/30 font-bold text-slate-300 transition-all btn-alert" data-ans="salah">
+
+                        <button
+                            class="flex-1 py-3 rounded-lg border-2 border-slate-600 hover:border-rose-500 hover:bg-rose-950/30 font-bold text-slate-300 transition-all btn-alert"
+                            data-ans="salah">
+
                             🤔 Cara Itu BENAR
+
                         </button>
-                        <button class="flex-1 py-3 rounded-lg border-2 border-slate-600 hover:border-emerald-500 hover:bg-emerald-950/30 font-bold text-slate-300 transition-all btn-alert" data-ans="benar">
+
+
+                        <button
+                            class="flex-1 py-3 rounded-lg border-2 border-slate-600 hover:border-emerald-500 hover:bg-emerald-950/30 font-bold text-slate-300 transition-all btn-alert"
+                            data-ans="benar">
+
                             🚨 Cara Itu SALAH!
+
                         </button>
+
                     </div>
 
-                    <div id="alert-feedback" class="hidden mt-4 text-sm rounded-lg p-4 fade-in font-medium leading-relaxed"></div>
+
+                    <div
+                        id="alert-feedback"
+                        class="hidden mt-4 text-sm rounded-lg p-4 fade-in font-medium leading-relaxed">
+                    </div>
+
                 </div>
+
             </section>
+
         </div>
 
-        <!-- STEP 4: DISCOVER -->
-        <section class="glass-panel card-dark rounded-2xl p-6 md:p-8 space-y-5 border-t-4 border-indigo-500 shadow-2xl relative" id="discover-section">
+
+        <!-- =====================================================
+             STEP 4 DISCOVER
+        ====================================================== -->
+
+        <section
+            class="glass-panel card-dark rounded-2xl p-6 md:p-8 space-y-5 border-t-4 border-indigo-500 shadow-2xl relative"
+            id="discover-section">
+
             <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-bl-full pointer-events-none"></div>
-            
+
+
             <h3 class="font-bold text-indigo-400 text-xl flex items-center gap-2">
-                <span class="text-2xl">💡</span> Step 4 — Discover
+
+                <span class="text-2xl">
+                    💡
+                </span>
+
+                Step 4 — Discover
+
             </h3>
+
+
             <p class="text-sm text-slate-300 max-w-3xl">
-                Berdasarkan jebakan Pixel di atas, tuliskan kesimpulanmu! <strong>Mengapa <span class="math-frac text-white"><span class="math-num">1</span><span class="math-den">2</span></span> dan <span class="math-frac text-white"><span class="math-num">1</span><span class="math-den">4</span></span> tidak bisa langsung dijumlahkan?</strong> Apa syarat wajib sebelum kita bisa menambahkan dua pecahan?
+
+                Berdasarkan jebakan Pixel di atas, tuliskan kesimpulanmu!
+
+                <strong>
+                    Mengapa
+
+                    <span class="math-frac text-white">
+                        <span class="math-num">1</span>
+                        <span class="math-den">2</span>
+                    </span>
+
+                    dan
+
+                    <span class="math-frac text-white">
+                        <span class="math-num">1</span>
+                        <span class="math-den">4</span>
+                    </span>
+
+                    tidak bisa langsung dijumlahkan?
+                </strong>
+
+                Apa syarat wajib sebelum kita bisa menambahkan dua pecahan?
+
             </p>
-            
+
+
             <div class="relative">
-                <textarea id="discover-input" class="w-full input-dark rounded-xl p-4 text-sm md:text-base resize-none focus:bg-slate-900 transition-colors shadow-inner" rows="4" placeholder="Ketik kesimpulan rahasiamu di sini, Agent..."></textarea>
+
+                <textarea
+                    id="discover-input"
+                    class="w-full input-dark rounded-xl p-4 text-sm md:text-base resize-none focus:bg-slate-900 transition-colors shadow-inner"
+                    rows="4"
+                    placeholder="Ketik kesimpulan rahasiamu di sini, Agent...">
+                </textarea>
+
             </div>
+
 
             <!-- Hint System -->
-            <div id="hint1" class="hidden hint-box rounded-lg p-4 text-sm text-amber-200 fade-in flex gap-3 items-start">
-                <span class="text-xl">💭</span> 
-                <span><b>Petunjuk halus:</b> Ingat pizza dan cokelat tadi — potongannya harus <i>sama ukuran</i> dulu. Apa istilah matematika untuk "ukuran potongan" di bagian bawah?</span>
+
+            <div
+                id="hint1"
+                class="hidden hint-box rounded-lg p-4 text-sm text-amber-200 fade-in flex gap-3 items-start">
+
+                <span class="text-xl">
+                    💭
+                </span>
+
+                <span>
+
+                    <b>Petunjuk halus:</b>
+                    Ingat pizza dan cokelat tadi — potongannya harus
+                    <i>sama ukuran</i> dulu.
+
+                    Apa istilah matematika untuk "ukuran potongan"
+                    di bagian bawah?
+
+                </span>
+
             </div>
-            <div id="hint2" class="hidden hint-box strong rounded-lg p-4 text-sm text-sky-200 fade-in flex gap-3 items-start">
-                <span class="text-xl">💡</span> 
-                <span><b>Pesan Bantuan:</b> Untuk menjumlahkan, penyebutnya harus <b>disamakan</b> terlebih dahulu (menggunakan konsep pecahan senilai atau KPK).</span>
+
+
+            <div
+                id="hint2"
+                class="hidden hint-box strong rounded-lg p-4 text-sm text-sky-200 fade-in flex gap-3 items-start">
+
+                <span class="text-xl">
+                    💡
+                </span>
+
+                <span>
+
+                    <b>Pesan Bantuan:</b>
+                    Untuk menjumlahkan, penyebutnya harus
+                    <b>disamakan</b> terlebih dahulu
+                    (menggunakan konsep pecahan senilai atau KPK).
+
+                </span>
+
             </div>
+
 
             <!-- Submit Button -->
+
             <div class="flex justify-end pt-2">
-                <button id="btn-submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all flex items-center gap-2">
+
+                <button
+                    id="btn-submit"
+                    class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition-all flex items-center gap-2">
+
                     📡 Kirim ke Markas
+
                 </button>
+
             </div>
-            
+
+
             <!-- Success Banner -->
-            <div id="success-banner" class="hidden bg-emerald-900/40 border border-emerald-500/50 rounded-xl p-4 text-emerald-300 text-sm font-semibold flex items-center gap-3 fade-in justify-center">
-                <span class="text-xl">🎉</span> Laporan diterima! Rumus emas telah dianalisis. Silakan lanjut ke misi berikutnya!
+
+            <div
+                id="success-banner"
+                class="hidden bg-emerald-900/40 border border-emerald-500/50 rounded-xl p-4 text-emerald-300 text-sm font-semibold flex items-center gap-3 fade-in justify-center">
+
+                <span class="text-xl">
+                    🎉
+                </span>
+
+                Laporan diterima!
+                Rumus emas telah dianalisis.
+                Silakan lanjut ke misi berikutnya!
+
             </div>
+
         </section>
 
+
         <!-- Navigasi -->
+
         <div class="flex justify-between items-center pt-2 pb-12">
-            <a href="mission-a2-see.html" class="text-slate-400 hover:text-white font-medium transition-colors flex items-center gap-2">
-                <span>⬅</span> Kembali ke See
+
+            <a
+                href="mission-a2-see.html"
+                class="text-slate-400 hover:text-white font-medium transition-colors flex items-center gap-2">
+
+                <span>⬅</span>
+                Kembali ke See
+
             </a>
-            <a href="mission-a2-unlock.html" id="btn-next" class="inline-flex items-center justify-center bg-slate-800 text-slate-500 border border-slate-700 font-bold py-3.5 px-8 rounded-full transition-all group pointer-events-none">
-                Lanjut ke Skill Unlock 
-                <span class="ml-2">➔</span>
+
+
+            <a
+                href="mission-a2-unlock.html"
+                id="btn-next"
+                class="inline-flex items-center justify-center bg-slate-800 text-slate-500 border border-slate-700 font-bold py-3.5 px-8 rounded-full transition-all group pointer-events-none">
+
+                Lanjut ke Skill Unlock
+
+                <span class="ml-2">
+                    ➔
+                </span>
+
             </a>
+
         </div>
+
     </main>
 
+
     <script>
-        // Logika Interaktif Pertanyaan 1 & 2 (Chips)
+
+        /* =====================================================
+           LOGIKA INTERAKTIF PERTANYAAN 1 & 2
+        ====================================================== */
+
         function setupChips(btnClass) {
+
             const btns = document.querySelectorAll('.' + btnClass);
+
             btns.forEach(btn => {
+
                 btn.addEventListener('click', () => {
-                    // Reset semua button di grup ini
-                    btns.forEach(b => b.className = `chip ${btnClass}`);
-                    // Cek benar salah
+
+                    btns.forEach(b => {
+                        b.className = `chip ${btnClass}`;
+                    });
+
                     if (btn.dataset.val === 'benar') {
+
                         btn.classList.add('active-correct');
+
                     } else {
+
                         btn.classList.add('active-wrong');
+
                     }
+
                 });
+
             });
+
         }
+
         setupChips('btn-q1');
         setupChips('btn-q2');
 
-        // Pixel Alert Logic
-        const alertBtns = document.querySelectorAll('.btn-alert');
-        const alertFeedback = document.getElementById('alert-feedback');
-        
+
+        /* =====================================================
+           PIXEL ALERT LOGIC
+        ====================================================== */
+
+        const alertBtns =
+            document.querySelectorAll('.btn-alert');
+
+        const alertFeedback =
+            document.getElementById('alert-feedback');
+
+
         alertBtns.forEach(btn => {
+
             btn.addEventListener('click', () => {
-                // Reset style
+
                 alertBtns.forEach(b => {
-                    b.classList.remove('bg-emerald-900/50', 'border-emerald-500', 'text-emerald-400');
-                    b.classList.remove('bg-rose-900/50', 'border-rose-500', 'text-rose-400');
+
+                    b.classList.remove(
+                        'bg-emerald-900/50',
+                        'border-emerald-500',
+                        'text-emerald-400'
+                    );
+
+                    b.classList.remove(
+                        'bg-rose-900/50',
+                        'border-rose-500',
+                        'text-rose-400'
+                    );
+
                 });
 
+
                 alertFeedback.classList.remove('hidden');
-                
+
+
                 if (btn.dataset.ans === 'benar') {
-                    btn.classList.add('bg-emerald-900/50', 'border-emerald-500', 'text-emerald-400');
-                    alertFeedback.className = 'mt-4 text-sm rounded-lg p-4 fade-in font-medium leading-relaxed bg-emerald-950/40 border border-emerald-700 text-emerald-300';
-                    alertFeedback.innerHTML = '✅ <strong>Instingmu tajam!</strong> Menjumlahkan pembilang dengan pembilang, dan penyebut dengan penyebut adalah kesalahan fatal. Ingat, penyebut tidak boleh ditambah!';
+
+                    btn.classList.add(
+                        'bg-emerald-900/50',
+                        'border-emerald-500',
+                        'text-emerald-400'
+                    );
+
+
+                    alertFeedback.className =
+                        'mt-4 text-sm rounded-lg p-4 fade-in font-medium leading-relaxed bg-emerald-950/40 border border-emerald-700 text-emerald-300';
+
+
+                    alertFeedback.innerHTML =
+                        '✅ <strong>Instingmu tajam!</strong> Menjumlahkan pembilang dengan pembilang, dan penyebut dengan penyebut adalah kesalahan fatal. Ingat, penyebut tidak boleh ditambah!';
+
                 } else {
-                    btn.classList.add('bg-rose-900/50', 'border-rose-500', 'text-rose-400');
-                    alertFeedback.className = 'mt-4 text-sm rounded-lg p-4 fade-in font-medium leading-relaxed bg-rose-950/40 border border-rose-700 text-rose-300';
-                    alertFeedback.innerHTML = '❌ <strong>Awas jebakan!</strong> Coba lihat lagi angkanya. Jika potongan kue 1/2 ditambah potongan lain, masa hasilnya malah jadi potongan yang lebih kecil (2/6)? Itu tidak logis!';
+
+                    btn.classList.add(
+                        'bg-rose-900/50',
+                        'border-rose-500',
+                        'text-rose-400'
+                    );
+
+
+                    alertFeedback.className =
+                        'mt-4 text-sm rounded-lg p-4 fade-in font-medium leading-relaxed bg-rose-950/40 border border-rose-700 text-rose-300';
+
+
+                    alertFeedback.innerHTML =
+                        '❌ <strong>Awas jebakan!</strong> Coba lihat lagi angkanya. Jika potongan kue 1/2 ditambah potongan lain, masa hasilnya malah jadi potongan yang lebih kecil (2/6)? Itu tidak logis!';
+
                 }
+
             });
+
         });
 
-        // Discover Logic (Textarea & Submit)
-        const input = document.getElementById('discover-input');
-        const btnSubmit = document.getElementById('btn-submit');
-        const successBanner = document.getElementById('success-banner');
-        const btnNext = document.getElementById('btn-next');
-        
+
+        /* =====================================================
+           DISCOVER LOGIC
+        ====================================================== */
+
+        const input =
+            document.getElementById('discover-input');
+
+        const btnSubmit =
+            document.getElementById('btn-submit');
+
+        const successBanner =
+            document.getElementById('success-banner');
+
+        const btnNext =
+            document.getElementById('btn-next');
+
+
         btnSubmit.addEventListener('click', () => {
+
             if (input.value.trim().length < 5) {
-                alert("Agent, laporanmu masih terlalu singkat. Tuliskan kesimpulanmu dulu!");
+
+                alert(
+                    "Agent, laporanmu masih terlalu singkat. Tuliskan kesimpulanmu dulu!"
+                );
+
                 return;
             }
-            // Ubah tombol submit
-            btnSubmit.innerHTML = '✅ Terkirim';
-            btnSubmit.classList.replace('bg-indigo-600', 'bg-emerald-600');
-            btnSubmit.classList.replace('hover:bg-indigo-500', 'hover:bg-emerald-500');
-            
-            // Tampilkan pesan sukses
+
+
+            btnSubmit.innerHTML =
+                '✅ Terkirim';
+
+            btnSubmit.classList.replace(
+                'bg-indigo-600',
+                'bg-emerald-600'
+            );
+
+            btnSubmit.classList.replace(
+                'hover:bg-indigo-500',
+                'hover:bg-emerald-500'
+            );
+
+
             successBanner.classList.remove('hidden');
-            
-            // Aktifkan tombol Next (Glowing effect)
-            btnNext.classList.remove('bg-slate-800', 'text-slate-500', 'border-slate-700', 'pointer-events-none');
-            btnNext.classList.add('bg-gradient-to-r', 'from-sky-500', 'to-indigo-600', 'hover:from-sky-400', 'hover:to-indigo-500', 'text-white', 'shadow-lg', 'shadow-sky-500/30', 'hover:-translate-y-1');
+
+
+            btnNext.classList.remove(
+                'bg-slate-800',
+                'text-slate-500',
+                'border-slate-700',
+                'pointer-events-none'
+            );
+
+
+            btnNext.classList.add(
+                'bg-gradient-to-r',
+                'from-sky-500',
+                'to-indigo-600',
+                'hover:from-sky-400',
+                'hover:to-indigo-500',
+                'text-white',
+                'shadow-lg',
+                'shadow-sky-500/30',
+                'hover:-translate-y-1'
+            );
+
         });
 
-        // Hint System (Timeout)
+
+        /* =====================================================
+           HINT SYSTEM
+        ====================================================== */
+
         (function () {
-            const hint1 = document.getElementById('hint1');
-            const hint2 = document.getElementById('hint2');
+
+            const hint1 =
+                document.getElementById('hint1');
+
+            const hint2 =
+                document.getElementById('hint2');
+
             let typed = false;
+
             let hint1Shown = false;
+
             let hint2Shown = false;
 
-            input.addEventListener('input', () => { typed = input.value.trim().length > 0; });
-
-            const timer1 = setTimeout(() => {
-                if (!typed && !hint1Shown) {
-                    hint1.classList.remove('hidden');
-                    hint1Shown = true;
-                }
-            }, 25000); // Muncul jika diam 25 detik
-
-            const timer2 = setTimeout(() => {
-                if (!typed && !hint2Shown) {
-                    hint2.classList.remove('hidden');
-                    hint2Shown = true;
-                }
-            }, 50000); // Muncul jika diam 50 detik
 
             input.addEventListener('input', () => {
-                if (input.value.trim().length > 15) {
-                    clearTimeout(timer1);
-                    clearTimeout(timer2);
-                }
+
+                typed =
+                    input.value.trim().length > 0;
+
             });
+
+
+            const timer1 = setTimeout(() => {
+
+                if (!typed && !hint1Shown) {
+
+                    hint1.classList.remove('hidden');
+
+                    hint1Shown = true;
+
+                }
+
+            }, 25000);
+
+
+            const timer2 = setTimeout(() => {
+
+                if (!typed && !hint2Shown) {
+
+                    hint2.classList.remove('hidden');
+
+                    hint2Shown = true;
+
+                }
+
+            }, 50000);
+
+
+            input.addEventListener('input', () => {
+
+                if (input.value.trim().length > 15) {
+
+                    clearTimeout(timer1);
+
+                    clearTimeout(timer2);
+
+                }
+
+            });
+
         })();
+
     </script>
+
 </body>
 </html>
+```
