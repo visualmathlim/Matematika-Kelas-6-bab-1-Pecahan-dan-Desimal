@@ -3,584 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mission A2 - Penjumlahan Pecahan | VisualMath Academy</title>
+    <title>Mission A2 - Penjumlahan Pecahan | VisualMath.Lim</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            background-color: #0f172a; 
-            color: #f8fafc; 
+            background-color: #0f172a;
+            color: #f8fafc;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        .card-dark {
-            background-color: #1e293b; 
-            border: 1px solid #334155; 
-        }
+        .card-dark { background-color: #1e293b; border: 1px solid #334155; }
         .text-gradient {
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-image: linear-gradient(to right, #38bdf8, #818cf8);
         }
-        .input-dark {
-            background-color: #0f172a;
-            border: 1px solid #475569;
-            color: #f8fafc;
+        .node-locked { opacity: 0.45; filter: grayscale(60%); }
+        .node-line {
+            position: absolute; left: 27px; top: 56px; bottom: -32px; width: 3px;
+            background: repeating-linear-gradient(to bottom, #334155 0 6px, transparent 6px 12px);
         }
-        .input-dark:focus {
-            outline: none;
-            border-color: #38bdf8;
-            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
-        }
-        /* KHUSUS RUMUS MATEMATIKA PECAHAN (FRACTION) */
-        .math-frac {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            vertical-align: middle;
-            margin: 0 0.25rem;
-            font-weight: bold;
-            line-height: 1.1;
-        }
-        .math-num {
-            border-bottom: 2px solid currentColor;
-            padding: 0 0.3rem;
-            width: 100%;
-            text-align: center;
-        }
-        .math-den {
-            padding: 0 0.3rem;
-            width: 100%;
-            text-align: center;
-        }
+        .node-line.done { background: #38bdf8; }
+        .xp-fill { transition: width 0.6s ease; }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
 
-    <!-- Header / Navbar -->
+    <!-- Header -->
     <header class="card-dark shadow-lg border-b sticky top-0 z-50">
         <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <img src="assets/logo.png" alt="VisualMath Logo" class="h-10 w-auto">
-                <div class="hidden sm:block">
-                    <h1 class="text-lg font-bold text-sky-400">VisualMath Academy</h1>
+                <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto">
+                <div>
+                    <h1 class="text-lg font-bold text-sky-400 leading-tight">VisualMath.Lim</h1>
+                    <p class="text-[11px] text-slate-400 leading-tight">Math Mastery • Kelas 6</p>
                 </div>
             </div>
-            <div class="flex gap-4 items-center">
-                <a href="index.html" class="text-sm text-slate-400 hover:text-white transition-colors">🏠 Home</a>
-                <span class="px-3 py-1 bg-blue-900/50 border border-blue-700 rounded-full text-xs font-semibold text-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.2)]">
-                    🟢 Sedang Berjalan: Mission A2
-                </span>
-            </div>
+            <a href="index.html" class="text-sm text-slate-400 hover:text-white transition-colors">🏠 Home</a>
         </div>
     </header>
 
-    <!-- Konten Utama -->
-    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-12">
-        
-        <!-- Judul Misi -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-10">
+
+        <!-- Hero -->
         <section class="text-center space-y-4">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-slate-800 rounded-full text-sm text-slate-300 border border-slate-700 mb-2">
-                🏅 Equalizer Badge
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-slate-800 rounded-full text-sm text-slate-300 border border-slate-700">
+                🏅 Reward: Equalizer Badge
             </div>
             <h2 class="text-3xl md:text-5xl font-extrabold text-white">
-                MISSION A2 <br> 
+                MISSION A2 <br>
                 <span class="text-gradient">Penjumlahan Pecahan</span>
             </h2>
+            <p class="max-w-xl mx-auto text-slate-300">
+                Hanya bagian yang memiliki <strong class="text-sky-400">ukuran sama</strong> yang dapat dijumlahkan.
+                Ikuti 8 pos misi untuk membuktikannya sendiri.
+            </p>
         </section>
 
-        <!-- Mission Brief -->
-        <section class="card-dark rounded-2xl p-6 md:p-8 relative overflow-hidden border-sky-900">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-sky-500/10 rounded-bl-full"></div>
-            
-            <div class="flex items-center gap-2 mb-6">
-                <span class="text-2xl">🎯</span>
-                <h3 class="text-xl font-bold text-white">MISSION BRIEF</h3>
-            </div>
-
-            <!-- Big Idea -->
-            <div class="bg-gradient-to-r from-sky-900/40 to-slate-800 p-4 rounded-xl border border-sky-800/50 mb-6 border-l-4 border-l-sky-400">
-                <p class="font-bold text-sky-400 mb-1 text-sm uppercase tracking-wider">💡 Big Idea</p>
-                <p class="text-slate-200 text-lg">Hanya bagian yang memiliki <strong>ukuran sama</strong> yang dapat dijumlahkan.</p>
-            </div>
-
-            <!-- Pesan Pixel -->
-            <div class="bg-slate-900 rounded-xl p-5 flex flex-col sm:flex-row gap-6 items-center sm:items-start border border-slate-800 mb-6">
-                <img src="assets/Pixel.png" alt="Pixel" class="w-20 h-20 object-contain bg-slate-800 rounded-full p-2 border-2 border-sky-500 shrink-0">
-                <div class="space-y-2">
-                    <p class="text-sky-400 font-bold text-sm">🤖 Pixel berkata:</p>
-                    <p class="text-slate-300 italic">
-                        "Math Agent, bayangkan kamu memiliki setengah batang cokelat, sedangkan temanmu memiliki seperempat batang cokelat. Bisakah kita langsung menjumlahkannya? Mari kita cari tahu!"
-                    </p>
+        <!-- XP Tracker -->
+        <section class="card-dark rounded-2xl p-5 flex items-center gap-4">
+            <span class="text-2xl">⭐</span>
+            <div class="flex-grow">
+                <div class="flex justify-between text-sm mb-1">
+                    <span class="text-slate-300 font-semibold">Progres Misi</span>
+                    <span class="text-sky-400 font-bold" id="xp-label">0 / 60 XP</span>
                 </div>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-6 mt-6">
-                <!-- Learning Goal -->
-                <div class="space-y-3">
-                    <p class="font-bold text-slate-200 border-b border-slate-700 pb-2">✅ Learning Goals</p>
-                    <ul class="list-disc list-inside space-y-1 text-sm text-slate-400">
-                        <li>Menjelaskan mengapa penyebut harus disamakan sebelum menjumlahkan pecahan.</li>
-                        <li>Menggunakan pecahan senilai untuk memperoleh penyebut yang sama.</li>
-                        <li>Menjumlahkan pecahan berpenyebut sama maupun berbeda.</li>
-                        <li>Memilih strategi yang paling tepat sesuai dengan situasi.</li>
-                    </ul>
-                </div>
-                <!-- Vocabulary & Tools -->
-                <div class="space-y-4">
-                    <p class="font-bold text-slate-200 border-b border-slate-700 pb-2">📚 Vocabulary & Tools</p>
-                    <table class="w-full text-sm text-left text-slate-300">
-                        <tr class="border-b border-slate-700"><th class="py-1 text-slate-400">English</th><th class="py-1 text-slate-400">Indonesia</th></tr>
-                        <tr class="border-b border-slate-800"><td class="py-1">Common Denominator</td><td class="py-1 font-semibold text-sky-300">Penyebut Sama</td></tr>
-                        <tr class="border-b border-slate-800"><td class="py-1">Sum</td><td class="py-1 font-semibold text-sky-300">Hasil Penjumlahan</td></tr>
-                        <tr><td class="py-1">Equivalent Fraction</td><td class="py-1 font-semibold text-sky-300">Pecahan Senilai</td></tr>
-                    </table>
-                    <div class="flex gap-4 text-sm text-slate-400 pt-2 border-t border-slate-800">
-                        <span>📦 Bar Model</span>
-                        <span>📏 Fraction Strip</span>
-                        <span>📍 Number Line</span>
-                    </div>
+                <div class="h-2.5 w-full bg-slate-900 rounded-full overflow-hidden border border-slate-700">
+                    <div class="xp-fill h-full bg-gradient-to-r from-sky-500 to-indigo-500" style="width:0%"></div>
                 </div>
             </div>
         </section>
 
-        <!-- STEP 1: SEE -->
-        <section class="space-y-6">
-            <div class="flex items-center gap-4 border-b border-slate-700 pb-2">
-                <span class="text-3xl">👀</span>
-                <h3 class="text-2xl font-bold text-sky-400">STEP 1 — SEE (Explore)</h3>
-            </div>
-            
-            <div class="card-dark rounded-2xl p-6 md:p-8 space-y-6">
-                <h4 class="text-lg font-bold text-white flex items-center gap-2">🍫 Misi Berbagi Cokelat</h4>
-                <p class="text-slate-300">Luna memiliki <strong>1/2</strong> batang cokelat. Kian memiliki <strong>1/4</strong> batang cokelat. Mereka ingin mengetahui jumlah cokelat yang dimiliki bersama.</p>
-                
-                <div class="flex flex-col gap-4 mt-4 bg-slate-900 p-6 rounded-xl border border-slate-800">
-                    <!-- Cokelat Luna -->
-                    <div class="flex items-center gap-4">
-                        <div class="w-24 text-sm text-slate-400 text-right">Cokelat Luna <br> (1/2)</div>
-                        <div class="h-12 flex-grow flex border-2 border-[#5c3a21] rounded-md overflow-hidden shadow-lg">
-                            <div class="w-1/2 bg-purple-500/80 border-r border-[#5c3a21] flex justify-center items-center text-xs font-bold text-white">1/2</div>
-                            <div class="w-1/2 bg-[#3e2723]"></div>
-                        </div>
-                    </div>
-                    <!-- Cokelat Kian -->
-                    <div class="flex items-center gap-4">
-                        <div class="w-24 text-sm text-slate-400 text-right">Cokelat Kian <br> (1/4)</div>
-                        <div class="h-12 flex-grow flex border-2 border-[#5c3a21] rounded-md overflow-hidden shadow-lg">
-                            <div class="w-1/4 bg-amber-500/80 border-r border-[#5c3a21] flex justify-center items-center text-xs font-bold text-white">1/4</div>
-                            <div class="w-1/4 bg-[#3e2723] border-r border-[#5c3a21]"></div>
-                            <div class="w-1/4 bg-[#3e2723] border-r border-[#5c3a21]"></div>
-                            <div class="w-1/4 bg-[#3e2723]"></div>
-                        </div>
-                    </div>
-                </div>
+        <!-- Peta 8 Pos -->
+        <section class="space-y-1">
+            <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">🗺️ Peta Misi</h3>
 
-                <div class="bg-slate-800/50 rounded-xl p-5 mt-6 border-l-4 border-sky-500">
-                    <h5 class="font-bold text-sky-400 mb-3 flex items-center gap-2">🤔 Thinking Time</h5>
-                    <p class="text-sm text-slate-300 mb-3">Perhatikan gambar. Apakah kita bisa langsung menghitung:</p>
-                    <div class="flex items-center gap-3 text-lg font-bold bg-slate-900 p-3 rounded w-max mb-4">
-                        <div class="math-frac"><span class="math-num text-purple-400">1</span><span class="math-den text-purple-400">2</span></div>
-                        <span class="text-white">+</span>
-                        <div class="math-frac"><span class="math-num text-amber-400">1</span><span class="math-den text-amber-400">4</span></div>
-                        <span class="text-white">=</span>
-                        <div class="math-frac"><span class="math-num text-red-400">2</span><span class="math-den text-red-400">6</span></div>
-                        <span class="text-xl">❓</span>
-                    </div>
-                    <div class="space-y-4">
-                        <label class="block text-sm text-slate-300">Mengapa? Tuliskan pendapatmu.</label>
-                        <textarea class="w-full input-dark rounded-lg p-2.5 text-sm resize-none" rows="2" placeholder="Ketik alasanmu di sini..."></textarea>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- STEP 2: VISUALIZE -->
-        <section class="space-y-6">
-            <div class="flex items-center gap-4 border-b border-slate-700 pb-2">
-                <span class="text-3xl">🎨</span>
-                <h3 class="text-2xl font-bold text-purple-400">STEP 2 — VISUALIZE</h3>
-            </div>
-            
-            <div class="card-dark rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center">
-                <img src="assets/Luna.png" alt="Luna" class="w-28 h-28 object-contain drop-shadow-xl shrink-0">
-                <div class="space-y-4 w-full">
-                    <p class="text-slate-300 italic text-sm">
-                        <strong class="text-purple-400 not-italic">Luna:</strong> "Mari kita ubah kedua cokelat menjadi ukuran yang sama menggunakan Bar Model atau Fraction Strip!"
-                    </p>
-                    
-                    <div class="space-y-4 bg-slate-900 p-5 rounded-xl border border-slate-800 text-sm">
-                        <p class="text-slate-400">Tunjukkan bahwa <span class="math-frac text-white"><span class="math-num">1</span><span class="math-den">2</span></span> senilai dengan <span class="math-frac text-white"><span class="math-num">2</span><span class="math-den">4</span></span>, lalu gabungkan dengan <span class="math-frac text-white"><span class="math-num">1</span><span class="math-den">4</span></span>.</p>
-                        
-                        <!-- Visualisasi 2/4 + 1/4 -->
-                        <div class="h-10 w-full flex border-2 border-slate-600 rounded mt-3">
-                            <div class="w-1/4 bg-purple-500 border-r border-slate-600 flex justify-center items-center text-xs font-bold text-white">1/4</div>
-                            <div class="w-1/4 bg-purple-500 border-r border-slate-600 flex justify-center items-center text-xs font-bold text-white">1/4</div>
-                            <div class="w-1/4 bg-amber-500 border-r border-slate-600 flex justify-center items-center text-xs font-bold text-white">1/4</div>
-                            <div class="w-1/4 bg-slate-800"></div>
-                        </div>
-                        
-                        <div class="pt-4 mt-2 border-t border-slate-700 flex items-center gap-4">
-                            <label class="block text-slate-300 font-bold">Apa hasilnya?</label>
-                            <div class="math-frac text-xl font-bold">
-                                <span class="math-num pb-1"><input type="text" class="w-12 h-8 text-center input-dark rounded text-sky-400"></span>
-                                <span class="math-den pt-1"><input type="text" class="w-12 h-8 text-center input-dark rounded text-sky-400"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- STEP 3 & 4: THINK & DISCOVER -->
-        <section class="grid md:grid-cols-2 gap-6">
-            <!-- THINK -->
-            <div class="card-dark rounded-2xl p-6 border-amber-900/50 space-y-4">
-                <h3 class="text-xl font-bold text-amber-400 flex items-center gap-2">🧠 STEP 3 — THINK</h3>
-                <div class="flex gap-4 items-start">
-                    <img src="assets/Kian.png" alt="Kian" class="w-16 h-16 object-contain shrink-0">
-                    <div class="space-y-4">
-                        <p class="text-sm text-slate-300 italic"><strong class="text-amber-400 not-italic">Kian:</strong> "Sekarang aku mengerti. Kita tidak dapat menjumlahkan bagian yang ukurannya berbeda."</p>
-                        <div class="space-y-4 text-sm text-slate-300 bg-slate-900 p-4 rounded-lg border border-slate-700">
-                            <p>Penyebut menunjukkan <input type="text" class="input-dark border-b border-t-0 border-l-0 border-r-0 rounded-none w-full px-1 py-0.5 text-amber-300 mt-1">.</p>
-                            <p>Agar dapat dijumlahkan, ukuran setiap bagian harus <input type="text" class="input-dark border-b border-t-0 border-l-0 border-r-0 rounded-none w-full px-1 py-0.5 text-amber-300 mt-1">.</p>
-                        </div>
-                    </div>
-                </div>
+            <!-- Pos 1 -->
+            <div class="relative pl-16 pb-8">
+                <div class="node-line done"></div>
+                <div class="absolute left-0 top-0 w-14 h-14 rounded-full bg-sky-500 border-4 border-sky-300 flex items-center justify-center text-2xl shadow-[0_0_15px_rgba(56,189,248,0.5)]">🟡</div>
+                <a href="mission-a2-brief.html" class="block card-dark rounded-xl p-4 hover:border-sky-500 transition-colors">
+                    <p class="text-xs text-sky-400 font-semibold uppercase tracking-wide">Pos 1 · Naratif</p>
+                    <h4 class="font-bold text-white">Mission Brief</h4>
+                    <p class="text-sm text-slate-400">Kenalan dengan misi cokelat Luna & Kian.</p>
+                </a>
             </div>
 
-            <!-- DISCOVER -->
-            <div class="card-dark rounded-2xl p-6 border-emerald-900/50 space-y-4">
-                <h3 class="text-xl font-bold text-emerald-400 flex items-center gap-2">💡 STEP 4 — DISCOVER</h3>
-                <p class="text-sm text-slate-300 font-semibold mb-2">Tuliskan kesimpulanmu.</p>
-                <div class="space-y-2">
-                    <label class="block text-sm text-slate-300 mb-2">Mengapa kita mengubah <span class="math-frac text-white"><span class="math-num">1</span><span class="math-den">2</span></span> menjadi <span class="math-frac text-white"><span class="math-num">2</span><span class="math-den">4</span></span> sebelum menjumlahkannya?</label>
-                    <textarea rows="4" class="w-full input-dark rounded-lg p-3 resize-none text-sm" placeholder="Jelaskan alasanmu di sini..."></textarea>
+            <!-- Pos 2 -->
+            <div class="relative pl-16 pb-8">
+                <div class="node-line"></div>
+                <div class="absolute left-0 top-0 w-14 h-14 rounded-full bg-slate-800 border-4 border-slate-600 flex items-center justify-center text-2xl">🔒</div>
+                <a href="mission-a2-log.html" class="block card-dark rounded-xl p-4 node-locked pointer-events-none">
+                    <p class="text-xs text-slate-500 font-semibold uppercase tracking-wide">Pos 2 · Refleksi Awal</p>
+                    <h4 class="font-bold text-white">Mission Log: Prediksi</h4>
+                    <p class="text-sm text-slate-400">Tebak dulu sebelum belajar — apa yang kamu kira benar?</p>
+                </a>
+            </div>
+
+            <!-- Pos 3 -->
+            <div class="relative pl-16 pb-8">
+                <div class="node-line"></div>
+                <div class="absolute left-0 top-0 w-14 h-14 rounded-full bg-slate-800 border-4 border-slate-600 flex items-center justify-center text-2xl">🔒</div>
+                <a href="mission-a2-see.html" class="block card-dark rounded-xl p-4 node-locked pointer-events-none">
+                    <p class="text-xs text-slate-500 font-semibold uppercase tracking-wide">Pos 3 · Eksplorasi</p>
+                    <h4 class="font-bold text-white">See: Bar Model Cokelat</h4>
+                    <p class="text-sm text-slate-400">Buktikan dengan mata sendiri, bukan hafalan.</p>
+                </a>
+            </div>
+
+            <!-- Pos 4 -->
+            <div class="relative pl-16 pb-8">
+                <div class="node-line"></div>
+                <div class="absolute left-0 top-0 w-14 h-14 rounded-full bg-slate-800 border-4 border-slate-600 flex items-center justify-center text-2xl">🔒</div>
+                <a href="mission-a2-think-discover.html" class="block card-dark rounded-xl p-4 node-locked pointer-events-none">
+                    <p class="text-xs text-slate-500 font-semibold uppercase tracking-wide">Pos 4 · Penemuan Pola</p>
+                    <h4 class="font-bold text-white">Think & Discover</h4>
+                    <p class="text-sm text-slate-400">Kenapa 1/2 + 1/4 bukan 2/6? Pixel Alert!</p>
+                </a>
+            </div>
+
+            <!-- Pos 5 -->
+            <div class="relative pl-16 pb-8">
+                <div class="node-line"></div>
+                <div class="absolute left-0 top-0 w-14 h-14 rounded-full bg-slate-800 border-4 border-slate-600 flex items-center justify-center text-2xl">🔒</div>
+                <a href="mission-a2-unlock.html" class="block card-dark rounded-xl p-4 node-locked pointer-events-none">
+                    <p class="text-xs text-slate-500 font-semibold uppercase tracking-wide">Pos 5 · Aturan Emas</p>
+                    <h4 class="font-bold text-white">Skill Unlock: 3 Strategi</h4>
+                    <p class="text-sm text-slate-400">Konsep, KPK, dan Kali Silang — pilih sesuai situasi.</p>
+                </a>
+            </div>
+
+            <!-- Pos 6 -->
+            <div class="relative pl-16 pb-8">
+                <div class="node-line"></div>
+                <div class="absolute left-0 top-0 w-14 h-14 rounded-full bg-slate-800 border-4 border-slate-600 flex items-center justify-center text-2xl">🔒</div>
+                <a href="mission-a2-quest-basic.html" class="block card-dark rounded-xl p-4 node-locked pointer-events-none">
+                    <p class="text-xs text-slate-500 font-semibold uppercase tracking-wide">Pos 6 · Latihan</p>
+                    <h4 class="font-bold text-white">Easy & Challenge Quest</h4>
+                    <p class="text-sm text-slate-400">Latihan berjenjang dengan umpan balik instan.</p>
+                </a>
+            </div>
+
+            <!-- Pos 7 -->
+            <div class="relative pl-16 pb-8">
+                <div class="node-line"></div>
+                <div class="absolute left-0 top-0 w-14 h-14 rounded-full bg-slate-800 border-4 border-slate-600 flex items-center justify-center text-2xl">🔒</div>
+                <a href="mission-a2-quest-hots.html" class="block card-dark rounded-xl p-4 node-locked pointer-events-none">
+                    <p class="text-xs text-slate-500 font-semibold uppercase tracking-wide">Pos 7 · Penalaran Tinggi</p>
+                    <h4 class="font-bold text-white">Boss Battle & HOTS</h4>
+                    <p class="text-sm text-slate-400">Investigasi kesalahan, soal cerita terbuka.</p>
+                </a>
+            </div>
+
+            <!-- Pos 8 -->
+            <div class="relative pl-16">
+                <div class="absolute left-0 top-0 w-14 h-14 rounded-full bg-slate-800 border-4 border-slate-600 flex items-center justify-center text-2xl">🔒</div>
+                <div class="block card-dark rounded-xl p-4 node-locked border-emerald-900/50">
+                    <p class="text-xs text-slate-500 font-semibold uppercase tracking-wide">Pos 8 · Penutup</p>
+                    <h4 class="font-bold text-white">🏆 Achievement & Badge</h4>
+                    <p class="text-sm text-slate-400">Rangkum apa yang kamu pelajari, raih Equalizer Badge.</p>
                 </div>
             </div>
         </section>
 
-        <!-- STEP 5: SKILL UNLOCK (STRATEGIES) -->
-        <section class="card-dark rounded-2xl p-6 md:p-8 border border-rose-900 relative overflow-hidden space-y-8">
-            <div class="absolute -right-10 -top-10 w-64 h-64 bg-rose-500/5 rounded-full blur-3xl pointer-events-none"></div>
-            
-            <div class="flex items-center gap-4">
-                <img src="assets/Prof.%20Sigma.png" alt="Prof Sigma" class="w-20 h-20 object-contain drop-shadow-lg">
-                <div>
-                    <h3 class="text-2xl font-bold text-rose-400">🔓 STEP 5 — SKILL UNLOCK</h3>
-                    <p class="text-sm text-slate-300 italic">"Math Agent yang hebat tidak hanya mengetahui satu cara. Ia memilih strategi yang paling tepat sesuai dengan situasi."</p>
-                </div>
-            </div>
-
-            <div class="grid lg:grid-cols-3 gap-6">
-                <!-- Strategi 1 -->
-                <div class="bg-slate-900 p-5 rounded-xl border-t-4 border-emerald-500 shadow-lg">
-                    <h4 class="font-bold text-emerald-400 mb-2">🟢 Strategi 1: Cara Konsep (Singapore Math)</h4>
-                    <p class="text-xs text-slate-400 mb-4 h-8">Gunakan saat membangun pemahaman. Cocok dengan Bar Model.</p>
-                    <div class="bg-slate-800 p-3 rounded border border-slate-700 text-sm space-y-3">
-                        <div class="flex justify-center items-center gap-2">
-                            <div class="math-frac"><span class="math-num text-white">1</span><span class="math-den text-white">2</span></div>
-                            <span class="text-slate-400">+</span>
-                            <div class="math-frac"><span class="math-num text-white">1</span><span class="math-den text-white">4</span></div>
-                        </div>
-                        <p class="text-xs text-slate-400 text-center border-b border-slate-700 pb-1">Ubah jadi pecahan senilai</p>
-                        <div class="flex justify-center items-center gap-2 text-emerald-300 font-bold">
-                            <div class="math-frac"><span class="math-num">2</span><span class="math-den">4</span></div>
-                            <span class="text-slate-400">+</span>
-                            <div class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></div>
-                            <span class="text-white">=</span>
-                            <div class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Strategi 2 -->
-                <div class="bg-slate-900 p-5 rounded-xl border-t-4 border-blue-500 shadow-lg">
-                    <h4 class="font-bold text-blue-400 mb-2">🔵 Strategi 2: Menggunakan KPK</h4>
-                    <p class="text-xs text-slate-400 mb-4 h-8">Gunakan jika penyebut tidak sama dan bukan kelipatan.</p>
-                    <div class="bg-slate-800 p-3 rounded border border-slate-700 text-sm space-y-3">
-                        <div class="flex justify-center items-center gap-2">
-                            <div class="math-frac"><span class="math-num text-white">2</span><span class="math-den text-white">3</span></div>
-                            <span class="text-slate-400">+</span>
-                            <div class="math-frac"><span class="math-num text-white">1</span><span class="math-den text-white">5</span></div>
-                        </div>
-                        <p class="text-xs text-slate-400 text-center border-b border-slate-700 pb-1">KPK 3 & 5 adalah 15</p>
-                        <div class="flex justify-center items-center gap-2 text-blue-300 font-bold">
-                            <div class="math-frac"><span class="math-num">10</span><span class="math-den">15</span></div>
-                            <span class="text-slate-400">+</span>
-                            <div class="math-frac"><span class="math-num">3</span><span class="math-den">15</span></div>
-                            <span class="text-white">=</span>
-                            <div class="math-frac"><span class="math-num">13</span><span class="math-den">15</span></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Strategi 3 -->
-                <div class="bg-slate-900 p-5 rounded-xl border-t-4 border-purple-500 shadow-lg">
-                    <h4 class="font-bold text-purple-400 mb-2">🟣 Strategi 3: Kali Silang</h4>
-                    <p class="text-xs text-slate-400 mb-4 h-8">🚀 Smart Strategy untuk agen yang mahir perkalian.</p>
-                    <div class="bg-slate-800 p-3 rounded border border-slate-700 text-sm space-y-2">
-                        <div class="flex justify-center items-center gap-2">
-                            <div class="math-frac"><span class="math-num text-white">2</span><span class="math-den text-white">3</span></div>
-                            <span class="text-slate-400">+</span>
-                            <div class="math-frac"><span class="math-num text-white">1</span><span class="math-den text-white">5</span></div>
-                        </div>
-                        <p class="text-[10px] text-slate-400 text-center border-b border-slate-700 pb-1">(2×5)+(1×3) / (3×5)</p>
-                        <div class="flex justify-center items-center gap-2 text-purple-300 font-bold">
-                            <span class="text-white">=</span>
-                            <div class="math-frac"><span class="math-num">10 + 3</span><span class="math-den">15</span></div>
-                            <span class="text-white">=</span>
-                            <div class="math-frac"><span class="math-num text-emerald-400">13</span><span class="math-den text-emerald-400">15</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Strategy Comparison Table -->
-            <div class="bg-slate-950 rounded-xl overflow-hidden border border-slate-700 mt-6">
-                <table class="w-full text-left text-sm">
-                    <thead class="bg-slate-800 border-b border-slate-700">
-                        <tr>
-                            <th class="p-3 text-slate-200">⚖️ Strategi</th>
-                            <th class="p-3 text-slate-200">Kelebihan</th>
-                            <th class="p-3 text-slate-200">Cocok Digunakan</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-800 text-slate-300">
-                        <tr>
-                            <td class="p-3 font-bold text-emerald-400">🟢 Cara Konsep</td>
-                            <td class="p-3">Memahami alasan penyebut harus sama</td>
-                            <td class="p-3">Saat belajar konsep dasar</td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 font-bold text-blue-400">🔵 KPK</td>
-                            <td class="p-3">Sistematis dan efisien untuk angka besar</td>
-                            <td class="p-3">Latihan umum dan ujian</td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 font-bold text-purple-400">🟣 Kali Silang</td>
-                            <td class="p-3">Cepat bagi yang hafal perkalian</td>
-                            <td class="p-3">Perhitungan cepat (lomba/kuis)</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- PIXEL ALERT -->
-        <section class="bg-red-900/20 border border-red-700/50 rounded-2xl p-6 flex flex-col sm:flex-row gap-6 items-center shadow-[0_0_20px_rgba(220,38,38,0.1)]">
-            <img src="assets/Pixel.png" alt="Pixel Warning" class="w-16 h-16 object-contain drop-shadow-[0_0_15px_rgba(220,38,38,0.5)]">
-            <div class="w-full space-y-3">
-                <h4 class="text-lg font-bold text-red-400 flex items-center gap-2">⚠️ PIXEL ALERT</h4>
-                <div class="bg-slate-900 p-4 rounded-lg border border-red-900/50 text-sm text-slate-300">
-                    <div class="flex items-center gap-3 mb-3">
-                        <p>Seorang agen menghitung:</p>
-                        <div class="math-frac font-bold"><span class="math-num text-white">1</span><span class="math-den text-white">2</span></div>
-                        <span class="font-bold">+</span>
-                        <div class="math-frac font-bold"><span class="math-num text-white">1</span><span class="math-den text-white">4</span></div>
-                        <span class="font-bold">=</span>
-                        <div class="math-frac font-bold"><span class="math-num text-red-400">2</span><span class="math-den text-red-400">6</span></div>
-                    </div>
-                    <label class="block mb-1">Apakah jawaban tersebut benar? Jika salah, jelaskan kesalahannya.</label>
-                    <textarea rows="2" class="w-full input-dark rounded-lg p-2 resize-none"></textarea>
-                </div>
-            </div>
-        </section>
-
-        <!-- STEP 6: SOLVE (QUESTS) -->
-        <section class="space-y-6">
-            <div class="flex items-center gap-4 border-b border-slate-700 pb-2">
-                <span class="text-3xl">✅</span>
-                <h3 class="text-2xl font-bold text-emerald-400">STEP 6 — SOLVE</h3>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-6">
-                <!-- Easy Quest -->
-                <div class="card-dark p-6 rounded-2xl border-t-4 border-sky-500 flex flex-col">
-                    <h4 class="font-bold text-sky-400 mb-4 flex items-center gap-2">🎮 Easy Quest</h4>
-                    <p class="text-sm text-slate-300 mb-4">Hitunglah penjumlahan dengan penyebut sama berikut.</p>
-                    <div class="flex-grow flex flex-col justify-between space-y-4">
-                        <div class="flex justify-between items-center bg-slate-900 p-3 rounded-lg border border-slate-700">
-                            <div class="flex items-center gap-2 text-lg font-bold">
-                                <div class="math-frac"><span class="math-num text-white">1</span><span class="math-den text-white">3</span></div> <span class="text-slate-400">+</span>
-                                <div class="math-frac"><span class="math-num text-white">1</span><span class="math-den text-white">3</span></div> <span class="text-slate-400">=</span>
-                            </div>
-                            <div class="math-frac text-lg font-bold">
-                                <span class="math-num pb-1"><input type="text" class="w-8 h-8 text-center input-dark rounded border-sky-700 text-sky-300"></span>
-                                <span class="math-den pt-1"><input type="text" class="w-8 h-8 text-center input-dark rounded border-sky-700 text-sky-300"></span>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center bg-slate-900 p-3 rounded-lg border border-slate-700">
-                            <div class="flex items-center gap-2 text-lg font-bold">
-                                <div class="math-frac"><span class="math-num text-white">2</span><span class="math-den text-white">5</span></div> <span class="text-slate-400">+</span>
-                                <div class="math-frac"><span class="math-num text-white">1</span><span class="math-den text-white">5</span></div> <span class="text-slate-400">=</span>
-                            </div>
-                            <div class="math-frac text-lg font-bold">
-                                <span class="math-num pb-1"><input type="text" class="w-8 h-8 text-center input-dark rounded border-sky-700 text-sky-300"></span>
-                                <span class="math-den pt-1"><input type="text" class="w-8 h-8 text-center input-dark rounded border-sky-700 text-sky-300"></span>
-                            </div>
-                        </div>
-                        <div class="flex justify-between items-center bg-slate-900 p-3 rounded-lg border border-slate-700">
-                            <div class="flex items-center gap-2 text-lg font-bold">
-                                <div class="math-frac"><span class="math-num text-white">1</span><span class="math-den text-white">4</span></div> <span class="text-slate-400">+</span>
-                                <div class="math-frac"><span class="math-num text-white">2</span><span class="math-den text-white">4</span></div> <span class="text-slate-400">=</span>
-                            </div>
-                            <div class="math-frac text-lg font-bold">
-                                <span class="math-num pb-1"><input type="text" class="w-8 h-8 text-center input-dark rounded border-sky-700 text-sky-300"></span>
-                                <span class="math-den pt-1"><input type="text" class="w-8 h-8 text-center input-dark rounded border-sky-700 text-sky-300"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Challenge Quest -->
-                <div class="card-dark p-6 rounded-2xl border-t-4 border-purple-500">
-                    <h4 class="font-bold text-purple-400 mb-4 flex items-center gap-2">🎯 Challenge Quest</h4>
-                    <p class="text-sm text-slate-300 mb-4">Selesaikan menggunakan Bar Model atau menyamakan penyebut.</p>
-                    <div class="space-y-4">
-                        <div class="bg-slate-900 p-4 rounded-lg border border-slate-700">
-                            <div class="flex items-center gap-2 text-lg font-bold mb-2">
-                                <div class="math-frac"><span class="math-num text-white">1</span><span class="math-den text-white">2</span></div> <span class="text-slate-400">+</span>
-                                <div class="math-frac"><span class="math-num text-white">1</span><span class="math-den text-white">4</span></div> <span class="text-slate-400">=</span>
-                            </div>
-                            <textarea class="w-full input-dark rounded p-2 text-sm resize-none" rows="2" placeholder="Tulis langkahmu di sini..."></textarea>
-                        </div>
-                        <div class="bg-slate-900 p-4 rounded-lg border border-slate-700">
-                            <div class="flex items-center gap-2 text-lg font-bold mb-2">
-                                <div class="math-frac"><span class="math-num text-white">2</span><span class="math-den text-white">3</span></div> <span class="text-slate-400">+</span>
-                                <div class="math-frac"><span class="math-num text-white">1</span><span class="math-den text-white">6</span></div> <span class="text-slate-400">=</span>
-                            </div>
-                            <textarea class="w-full input-dark rounded p-2 text-sm resize-none" rows="2" placeholder="Tulis langkahmu di sini..."></textarea>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- HOTS Section -->
-            <div class="grid md:grid-cols-2 gap-6 mt-6">
-                <!-- Boss Battle -->
-                <div class="bg-gradient-to-br from-slate-900 to-rose-950 p-6 rounded-2xl border border-rose-900/50 shadow-xl">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="text-2xl">👾</span>
-                        <h4 class="font-bold text-lg text-rose-400">Boss Battle (HOTS)</h4>
-                    </div>
-                    <p class="text-sm text-slate-300 mb-4">
-                        Luna memakan <span class="math-frac font-bold"><span class="math-num text-white">3</span><span class="math-den text-white">8</span></span> batang cokelat. Kian memakan <span class="math-frac font-bold"><span class="math-num text-white">1</span><span class="math-den text-white">4</span></span> batang cokelat.
-                    </p>
-                    <label class="block text-sm text-amber-300 font-semibold mb-2">Berapa bagian cokelat yang mereka makan seluruhnya? Buktikan jawabanmu.</label>
-                    <textarea class="input-dark w-full p-3 rounded-lg resize-none text-sm" rows="3" placeholder="Gunakan Bar Model/Fraction Strip (tuliskan logikanya)..."></textarea>
-                </div>
-
-                <!-- Pixel Investigation -->
-                <div class="bg-gradient-to-br from-slate-900 to-sky-950 p-6 rounded-2xl border border-sky-900/50 shadow-xl">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span class="text-2xl">🕵️</span>
-                        <h4 class="font-bold text-lg text-sky-400">Pixel Investigation (HOTS)</h4>
-                    </div>
-                    <p class="text-sm text-slate-300 mb-3">Pixel menemukan dua jawaban:</p>
-                    
-                    <div class="flex flex-col gap-2 mb-4">
-                        <div class="bg-slate-800 p-2 rounded text-sm flex items-center gap-2">
-                            <span class="font-bold text-red-400 w-14">Cara A:</span>
-                            <div class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></div> + 
-                            <div class="math-frac"><span class="math-num">1</span><span class="math-den">6</span></div> =
-                            <div class="math-frac text-red-300 font-bold"><span class="math-num">2</span><span class="math-den">9</span></div>
-                        </div>
-                        <div class="bg-slate-800 p-2 rounded text-sm flex items-center gap-2 flex-wrap">
-                            <span class="font-bold text-emerald-400 w-14">Cara B:</span>
-                            <div class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></div> = 
-                            <div class="math-frac"><span class="math-num">2</span><span class="math-den">6</span></div> ➔ 
-                            <div class="math-frac"><span class="math-num">2</span><span class="math-den">6</span></div> + 
-                            <div class="math-frac"><span class="math-num">1</span><span class="math-den">6</span></div> = 
-                            <div class="math-frac text-emerald-300 font-bold"><span class="math-num">3</span><span class="math-den">6</span></div> = 
-                            <div class="math-frac text-emerald-300 font-bold"><span class="math-num">1</span><span class="math-den">2</span></div>
-                        </div>
-                    </div>
-                    
-                    <label class="block text-sm text-slate-300 mb-1">Siapa yang benar? Jelaskan alasanmu.</label>
-                    <textarea class="input-dark w-full p-2 rounded-lg resize-none text-sm" rows="2"></textarea>
-                </div>
-            </div>
-
-            <!-- Master Think & Agent Challenge -->
-            <div class="grid md:grid-cols-2 gap-6 mt-6">
-                <!-- Master Think -->
-                <div class="card-dark p-6 rounded-2xl border-t-4 border-amber-500">
-                    <h4 class="font-bold text-amber-400 mb-4 flex items-center gap-2">🧠 Master Think (Open-Ended)</h4>
-                    <p class="text-sm text-slate-300 mb-3">Buatlah <strong>dua soal cerita</strong> yang menggunakan pecahan berbeda, namun hasil akhirnya adalah:</p>
-                    <div class="flex justify-center mb-4">
-                        <div class="math-frac text-2xl font-bold bg-slate-900 p-3 rounded-lg border border-amber-900 text-amber-400">
-                            <span class="math-num">3</span><span class="math-den">4</span>
-                        </div>
-                    </div>
-                    <textarea class="input-dark w-full p-3 rounded-lg resize-none text-sm" rows="3" placeholder="Tuliskan soal ceritamu di sini..."></textarea>
-                </div>
-
-                <!-- Agent Challenge -->
-                <div class="card-dark p-6 rounded-2xl border-t-4 border-emerald-500">
-                    <h4 class="font-bold text-emerald-400 mb-4 flex items-center gap-2">⭐ Agent Challenge</h4>
-                    <div class="flex items-center gap-3 mb-3 text-sm text-slate-300">
-                        <p>Selesaikan soal berikut menggunakan <strong>dua strategi</strong> yang berbeda:</p>
-                        <div class="math-frac text-lg font-bold text-white"><span class="math-num">3</span><span class="math-den">4</span></div> + <div class="math-frac text-lg font-bold text-white"><span class="math-num">2</span><span class="math-den">5</span></div>
-                    </div>
-                    <div class="space-y-3 text-sm text-slate-300">
-                        <textarea class="input-dark w-full p-2 rounded-lg resize-none" rows="2" placeholder="Tulis cara/hasil strategi 1 dan 2..."></textarea>
-                        <label class="block text-emerald-300 font-semibold">Strategi mana yang lebih efisien bagimu? Mengapa?</label>
-                        <textarea class="input-dark w-full p-2 rounded-lg resize-none" rows="2"></textarea>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Akhir Misi (Log & Badge) -->
-        <section class="border-t border-slate-700 pt-10">
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Mission Log -->
-                <div class="space-y-4">
-                    <h4 class="font-bold text-lg flex items-center gap-2">📝 MISSION LOG</h4>
-                    <div class="space-y-4 text-sm text-slate-300">
-                        <div class="bg-sky-900/20 border border-sky-800 p-4 rounded-xl">
-                            <p class="italic text-sky-300">"Hari ini aku belajar bahwa penjumlahan pecahan dimulai dengan menyamakan ukuran setiap bagian, bukan menjumlahkan semua angka."</p>
-                        </div>
-                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700">
-                            <p class="mb-3 font-semibold text-white">Strategi yang paling membantuku:</p>
-                            <div class="flex flex-col sm:flex-row gap-4 mb-4">
-                                <label class="flex items-center gap-2 cursor-pointer p-2 bg-slate-800 rounded hover:bg-slate-700 border border-slate-600"><input type="radio" name="strategi" class="accent-sky-500 w-4 h-4"> Cara Konsep</label>
-                                <label class="flex items-center gap-2 cursor-pointer p-2 bg-slate-800 rounded hover:bg-slate-700 border border-slate-600"><input type="radio" name="strategi" class="accent-sky-500 w-4 h-4"> KPK</label>
-                                <label class="flex items-center gap-2 cursor-pointer p-2 bg-slate-800 rounded hover:bg-slate-700 border border-slate-600"><input type="radio" name="strategi" class="accent-sky-500 w-4 h-4"> Kali Silang</label>
-                            </div>
-                            <label class="block mb-2 font-semibold">Alasanku:</label>
-                            <input type="text" class="w-full input-dark rounded-lg p-2.5">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Achievement -->
-                <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700 relative">
-                    <div class="absolute top-4 right-4 text-4xl opacity-20">🏅</div>
-                    <h4 class="font-bold text-lg text-emerald-400 mb-4 flex items-center gap-2">🏆 ACHIEVEMENT</h4>
-                    <div class="space-y-2 text-sm text-slate-300">
-                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" class="w-4 h-4 accent-emerald-500 shrink-0"> Aku dapat menjumlahkan pecahan berpenyebut sama.</label>
-                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" class="w-4 h-4 accent-emerald-500 shrink-0"> Aku dapat menyamakan penyebut menggunakan pecahan senilai.</label>
-                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" class="w-4 h-4 accent-emerald-500 shrink-0"> Aku dapat menggunakan strategi KPK & Kali Silang.</label>
-                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" class="w-4 h-4 accent-emerald-500 shrink-0"> Aku dapat menjelaskan alasan mengapa penyebut tidak dijumlahkan.</label>
-                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" class="w-4 h-4 accent-emerald-500 shrink-0 font-bold"> Aku dapat menemukan dan memperbaiki kesalahan konsep.</label>
-                    </div>
-                    <div class="mt-6 pt-4 border-t border-slate-700 text-center flex justify-center">
-                        <span class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full text-white font-bold text-sm shadow-[0_0_15px_rgba(59,130,246,0.4)] border border-blue-400/50">
-                            <span class="text-lg">⭐</span> Reward: Equalizer Badge (+60 XP)
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tombol Lanjut -->
-        <div class="text-center pt-8 pb-12">
-            <a href="mission-a3.html" class="inline-block bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-sky-500/30 transition-all hover:-translate-y-1 text-lg">
-                Misi Selesai! Lanjut ke Mission A3 (Pengurangan) ➔
+        <div class="text-center pt-6">
+            <a href="mission-a2-brief.html" class="inline-block bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-sky-500/30 transition-all hover:-translate-y-1 text-lg">
+                Mulai Misi ➔
             </a>
         </div>
-
     </main>
 </body>
 </html>
