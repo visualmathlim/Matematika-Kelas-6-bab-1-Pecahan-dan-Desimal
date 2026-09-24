@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission A1 (See & Visualize) | VisualMath.Lim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark {
+            background-color: #1e293b; 
+            border: 1px solid #334155; 
+        }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #38bdf8, #818cf8);
+        }
+        .math-frac {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 0.25rem;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+        .math-num {
+            border-bottom: 2px solid currentColor;
+            padding: 0 0.3rem;
+            width: 100%;
+            text-align: center;
+        }
+        .math-den {
+            padding: 0 0.3rem;
+            width: 100%;
+            text-align: center;
+        }
+        /* Animasi Transisi untuk Kotak Interaktif */
+        .interactive-box {
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            cursor: pointer;
+        }
+        .interactive-box:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header / Navbar -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <!-- Pastikan logo.png sudah ada di folder assets -->
+                <img src="assets/logo.png" alt="VisualMath.Lim Logo" class="h-10 w-auto">
+                <div class="hidden sm:block">
+                    <h1 class="text-xl font-bold text-sky-400 leading-tight">VisualMath.Lim</h1>
+                    <p class="text-[10px] text-slate-400 uppercase tracking-widest font-semibold">Math Mastery • Kelas 6</p>
+                </div>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="index.html" class="text-sm text-slate-400 hover:text-white transition-colors">🏠 Home</a>
+                <span class="px-3 py-1 bg-blue-900/50 border border-blue-700 rounded-full text-xs font-semibold text-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.2)]">
+                    🔵 Mission A1 (2/8): See & Visualize
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-12">
+        
+        <!-- STEP 1: SEE -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-4 border-b border-slate-700 pb-2">
+                <span class="text-3xl">👀</span>
+                <h3 class="text-2xl font-bold text-sky-400">STEP 1 — SEE (Explore)</h3>
+            </div>
+            
+            <div class="card-dark rounded-2xl p-6 md:p-8 space-y-6">
+                <h4 class="text-xl font-bold text-white flex items-center gap-2">🍫 Kasus Cokelat Ajaib</h4>
+                <p class="text-slate-300 text-lg">Coach Lim membawa dua batang cokelat yang ukuran panjangnya sama persis.</p>
+                
+                <div class="grid md:grid-cols-2 gap-8 mt-4 bg-slate-900 p-6 rounded-xl border border-slate-800">
+                    <!-- Batang 1 -->
+                    <div class="space-y-4">
+                        <p class="text-sm text-slate-300">Batang pertama dipotong <strong class="text-white">2 bagian</strong>. Coach Lim mengambil <strong class="text-sky-400">1 bagian</strong>.</p>
+                        <div class="h-16 w-full flex border-2 border-[#5c3a21] rounded-md overflow-hidden shadow-lg">
+                            <div class="w-1/2 bg-[#8b5a2b] border-r border-[#5c3a21] flex justify-center items-center font-bold text-white/50 text-sm">Diambil</div>
+                            <div class="w-1/2 bg-[#3e2723]"></div>
+                        </div>
+                    </div>
+
+                    <!-- Batang 2 -->
+                    <div class="space-y-4">
+                        <p class="text-sm text-slate-300">Batang kedua dipotong <strong class="text-white">4 bagian</strong>. Coach Lim mengambil <strong class="text-sky-400">2 bagian</strong>.</p>
+                        <div class="h-16 w-full flex border-2 border-[#5c3a21] rounded-md overflow-hidden shadow-lg">
+                            <div class="w-1/4 bg-[#8b5a2b] border-r border-[#5c3a21] flex justify-center items-center font-bold text-white/50 text-xs text-center">Diambil</div>
+                            <div class="w-1/4 bg-[#8b5a2b] border-r border-[#5c3a21] flex justify-center items-center font-bold text-white/50 text-xs text-center">Diambil</div>
+                            <div class="w-1/4 bg-[#3e2723] border-r border-[#5c3a21]"></div>
+                            <div class="w-1/4 bg-[#3e2723]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-sky-900/20 rounded-xl p-5 mt-6 border-l-4 border-sky-500">
+                    <h5 class="font-bold text-sky-400 mb-3 flex items-center gap-2">🤔 Thinking Time</h5>
+                    <div class="space-y-4">
+                        <label class="block text-sm text-slate-300">1. Batang cokelat mana yang dipotong menjadi lebih banyak bagian?</label>
+                        <input type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white focus:border-sky-500 focus:outline-none" placeholder="Ketik jawabanmu di sini...">
+                        
+                        <label class="block text-sm text-slate-300">2. Menurutmu, apakah jumlah cokelat yang diambil dari kedua batang tersebut besarnya sama? Mengapa?</label>
+                        <textarea class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 text-sm text-white resize-none focus:border-sky-500 focus:outline-none" rows="2" placeholder="Ketik alasanmu di sini..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 2: VISUALIZE (CONTOH) -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-4 border-b border-slate-700 pb-2">
+                <span class="text-3xl">🎨</span>
+                <h3 class="text-2xl font-bold text-purple-400">STEP 2 — VISUALIZE (Contoh Visualisasi)</h3>
+            </div>
+            
+            <div class="card-dark rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center">
+                <!-- Pastikan Luna.png sudah ada di folder assets -->
+                <img src="assets/Luna.png" alt="Luna" class="w-28 h-28 object-contain drop-shadow-xl shrink-0">
+                <div class="space-y-4 w-full">
+                    <p class="text-slate-300 italic text-lg leading-relaxed">
+                        <strong class="text-purple-400 not-italic">Luna:</strong> "Tebakanmu benar! Jumlah cokelatnya sama. Mari kita ubah gambar cokelat tadi menjadi <strong>Bar Model</strong> (Model Batang) agar lebih mudah dipahami secara matematika."
+                    </p>
+                    
+                    <div class="bg-slate-900 p-5 rounded-xl border border-slate-800 space-y-4">
+                        <!-- Contoh Visual 1/2 vs 2/4 -->
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-4">
+                                <div class="math-frac text-xl text-white w-8"><span class="math-num">1</span><span class="math-den">2</span></div>
+                                <div class="h-10 w-full flex border-2 border-slate-600 rounded">
+                                    <div class="w-1/2 bg-purple-500 border-r border-slate-600 flex justify-center items-center text-sm font-bold text-white shadow-[inset_0_0_10px_rgba(0,0,0,0.2)]">Diarsir (1 bagian)</div>
+                                    <div class="w-1/2 bg-slate-800"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-center py-1">
+                                <span class="text-slate-500 font-bold text-xl">=</span>
+                            </div>
+
+                            <div class="flex items-center gap-4">
+                                <div class="math-frac text-xl text-white w-8"><span class="math-num">2</span><span class="math-den">4</span></div>
+                                <div class="h-10 w-full flex border-2 border-slate-600 rounded">
+                                    <div class="w-1/4 bg-sky-500 border-r border-slate-600 flex justify-center items-center text-sm font-bold text-white shadow-[inset_0_0_10px_rgba(0,0,0,0.2)]">1</div>
+                                    <div class="w-1/4 bg-sky-500 border-r border-slate-600 flex justify-center items-center text-sm font-bold text-white shadow-[inset_0_0_10px_rgba(0,0,0,0.2)]">2</div>
+                                    <div class="w-1/4 bg-slate-800 border-r border-slate-600"></div>
+                                    <div class="w-1/4 bg-slate-800"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEKSI INTERAKTIF: SISWA MENCOBA -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 border-t-4 border-emerald-500 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="flex items-center gap-3 mb-4">
+                <span class="text-3xl">🎮</span>
+                <h3 class="text-2xl font-bold text-emerald-400">Giliranmu Melakukan Visualisasi!</h3>
+            </div>
+            
+            <p class="text-slate-300 text-lg mb-6 leading-relaxed">
+                Sekarang, buktikan sendiri bahwa <div class="math-frac font-bold text-white mx-1"><span class="math-num">1</span><span class="math-den">3</span></div> senilai dengan <div class="math-frac font-bold text-white mx-1"><span class="math-num">2</span><span class="math-den">6</span></div>.<br>
+                <span class="text-emerald-400 font-bold">Instruksi:</span> Klik pada kotak-kotak kosong di bawah ini untuk mengarsirnya sesuai dengan nilai pecahan!
+            </p>
+
+            <div class="bg-slate-900 p-6 rounded-xl border border-slate-700 space-y-8">
+                
+                <!-- Interaktif 1/3 -->
+                <div class="flex items-center gap-4">
+                    <div class="math-frac text-2xl text-white w-10"><span class="math-num">1</span><span class="math-den">3</span></div>
+                    <div class="h-14 w-full flex border-2 border-slate-600 rounded overflow-hidden" id="bar1">
+                        <!-- Kotak 1 -->
+                        <div class="w-1/3 bg-slate-800 border-r border-slate-600 interactive-box flex justify-center items-center text-white/0 hover:bg-slate-700 font-bold" onclick="toggleShade(this, 'bar1')">✓</div>
+                        <!-- Kotak 2 -->
+                        <div class="w-1/3 bg-slate-800 border-r border-slate-600 interactive-box flex justify-center items-center text-white/0 hover:bg-slate-700 font-bold" onclick="toggleShade(this, 'bar1')">✓</div>
+                        <!-- Kotak 3 -->
+                        <div class="w-1/3 bg-slate-800 interactive-box flex justify-center items-center text-white/0 hover:bg-slate-700 font-bold" onclick="toggleShade(this, 'bar1')">✓</div>
+                    </div>
+                </div>
+
+                <!-- Interaktif 2/6 -->
+                <div class="flex items-center gap-4">
+                    <div class="math-frac text-2xl text-white w-10"><span class="math-num">2</span><span class="math-den">6</span></div>
+                    <div class="h-14 w-full flex border-2 border-slate-600 rounded overflow-hidden" id="bar2">
+                        <!-- Kotak 1-6 -->
+                        <div class="w-1/6 bg-slate-800 border-r border-slate-600 interactive-box flex justify-center items-center text-white/0 hover:bg-slate-700 font-bold" onclick="toggleShade(this, 'bar2')">✓</div>
+                        <div class="w-1/6 bg-slate-800 border-r border-slate-600 interactive-box flex justify-center items-center text-white/0 hover:bg-slate-700 font-bold" onclick="toggleShade(this, 'bar2')">✓</div>
+                        <div class="w-1/6 bg-slate-800 border-r border-slate-600 interactive-box flex justify-center items-center text-white/0 hover:bg-slate-700 font-bold" onclick="toggleShade(this, 'bar2')">✓</div>
+                        <div class="w-1/6 bg-slate-800 border-r border-slate-600 interactive-box flex justify-center items-center text-white/0 hover:bg-slate-700 font-bold" onclick="toggleShade(this, 'bar2')">✓</div>
+                        <div class="w-1/6 bg-slate-800 border-r border-slate-600 interactive-box flex justify-center items-center text-white/0 hover:bg-slate-700 font-bold" onclick="toggleShade(this, 'bar2')">✓</div>
+                        <div class="w-1/6 bg-slate-800 interactive-box flex justify-center items-center text-white/0 hover:bg-slate-700 font-bold" onclick="toggleShade(this, 'bar2')">✓</div>
+                    </div>
+                </div>
+
+                <!-- Pesan Sukses (Tersembunyi secara default) -->
+                <div id="success-message" class="hidden mt-6 bg-emerald-900/40 border border-emerald-500 rounded-lg p-4 text-center">
+                    <span class="text-3xl mb-2 block">🎉</span>
+                    <p class="text-emerald-400 font-bold text-lg">Kerja Bagus, Agent!</p>
+                    <p class="text-slate-300">Kamu baru saja membuktikan sendiri secara visual bahwa <span class="font-bold text-white">1/3 senilai dengan 2/6</span> karena ukuran area yang diarsir sama besar.</p>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <button onclick="resetBars()" class="text-sm text-slate-400 hover:text-white underline decoration-slate-600 underline-offset-4">Reset Gambar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tombol Lanjut -->
+        <div class="text-center pt-8 pb-12">
+            <a href="mission-a1-think-discover.html" class="inline-flex items-center justify-center bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-sky-500/30 transition-all hover:-translate-y-1 text-lg group">
+                Lanjut ke Tahap THINK & DISCOVER
+                <span class="ml-2 group-hover:translate-x-1 transition-transform">➔</span>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 text-center py-6 mt-auto">
+        <p class="text-slate-500 text-sm">© 2026 VisualMath.Lim | Math Mastery - Pendampingan Matematika Sesuai Jenjang</p>
+    </footer>
+
+    <!-- Script untuk Fitur Interaktif -->
+    <script>
+        // Fungsi untuk memberi/menghapus arsiran warna biru saat kotak diklik
+        function toggleShade(element, barId) {
+            // Cek apakah sudah diarsir
+            if (element.classList.contains('bg-sky-500')) {
+                // Hapus arsiran
+                element.classList.remove('bg-sky-500', 'text-white/100');
+                element.classList.add('bg-slate-800', 'text-white/0');
+            } else {
+                // Tambah arsiran
+                element.classList.remove('bg-slate-800', 'text-white/0', 'hover:bg-slate-700');
+                element.classList.add('bg-sky-500', 'text-white/100');
+            }
+            checkSuccess();
+        }
+
+        // Fungsi mengecek apakah siswa sudah mengarsir 1 kotak di bar1 dan 2 kotak di bar2
+        function checkSuccess() {
+            const bar1Shaded = document.querySelectorAll('#bar1 .bg-sky-500').length;
+            const bar2Shaded = document.querySelectorAll('#bar2 .bg-sky-500').length;
+            const messageBox = document.getElementById('success-message');
+
+            if (bar1Shaded === 1 && bar2Shaded === 2) {
+                messageBox.classList.remove('hidden');
+                // Beri efek animasi pop-in
+                messageBox.animate([
+                    { transform: 'scale(0.8)', opacity: 0 },
+                    { transform: 'scale(1)', opacity: 1 }
+                ], { duration: 300, easing: 'ease-out' });
+            } else {
+                messageBox.classList.add('hidden');
+            }
+        }
+
+        // Fungsi reset
+        function resetBars() {
+            const allBoxes = document.querySelectorAll('.interactive-box');
+            allBoxes.forEach(box => {
+                box.classList.remove('bg-sky-500', 'text-white/100');
+                box.classList.add('bg-slate-800', 'text-white/0', 'hover:bg-slate-700');
+            });
+            document.getElementById('success-message').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
