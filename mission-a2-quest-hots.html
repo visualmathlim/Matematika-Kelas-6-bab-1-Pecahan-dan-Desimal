@@ -166,6 +166,8 @@ textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3p
   <div id="after" class="hide">
     <section class="panel" id="analysis"></section>
 
+    <section class="panel" id="solutions"></section>
+
     <section class="panel">
       <h2>Logbook Agen: Refleksi Misi</h2>
       <p class="note" id="reflNote"></p>
@@ -264,6 +266,53 @@ const AREAS={
      no:"Kamu belum melihat hubungan antar strategi. Cobalah selesaikan 1 soal menggunakan 3 cara berbeda (Gambar, KPK, Kali Silang) di kertas buram."}
 };
 
+const SOLUTIONS={
+ q1:[
+  ["KPK dari 3 dan 4 adalah 12.",
+   "1/3 diubah menjadi 4/12, dan 1/4 diubah menjadi 3/12 (kalikan pembilang & penyebut dengan angka yang sama).",
+   "Bagian yang hilang = 4/12 + 3/12 = 7/12.",
+   "Bagian yang tersisa = 1 utuh (12/12) − 7/12 = 5/12."],
+  ["KPK dari 5 dan 2 adalah 10.",
+   "2/5 diubah menjadi 4/10, dan 1/2 diubah menjadi 5/10.",
+   "Bagian yang hilang = 4/10 + 5/10 = 9/10.",
+   "Bagian yang tersisa = 1 utuh (10/10) − 9/10 = 1/10."]
+ ],
+ q2:[
+  ["Kesalahan Riko: ia menjumlahkan pembilang dengan pembilang (1+1=2) dan penyebut dengan penyebut (3+4=7), sehingga menjadi 2/7. Ini keliru — 2/7 malah lebih kecil dari 1/3, padahal hasil penjumlahan seharusnya lebih besar.",
+   "Cara yang benar: samakan dulu penyebutnya memakai KPK. KPK dari 3 dan 4 adalah 12.",
+   "1/3 = 4/12, dan 1/4 = 3/12.",
+   "Baru jumlahkan pembilangnya saja (penyebut tetap 12): 4/12 + 3/12 = 7/12.",
+   "7/12 sudah pecahan paling sederhana, karena FPB dari 7 dan 12 adalah 1."],
+  ["Kesalahan Sari: ia menjumlahkan pembilang dengan pembilang (2+1=3) dan penyebut dengan penyebut (5+3=8), sehingga menjadi 3/8. Ini keliru karena 3/8 lebih kecil dari 2/5.",
+   "Cara yang benar: samakan dulu penyebutnya. KPK dari 5 dan 3 adalah 15.",
+   "2/5 = 6/15, dan 1/3 = 5/15.",
+   "Jumlahkan pembilangnya saja: 6/15 + 5/15 = 11/15.",
+   "11/15 sudah pecahan paling sederhana."]
+ ],
+ q3:[
+  ["Salah satu cara membongkar 5/6 adalah mencari dua pecahan berbeda penyebut yang setelah disamakan penyebutnya, jumlahnya 5/6.",
+   "Contoh: 1/2 + 1/3. KPK dari 2 dan 3 adalah 6.",
+   "1/2 = 3/6, dan 1/3 = 2/6.",
+   "3/6 + 2/6 = 5/6 ✓ Terbukti benar! (Masih banyak pasangan pecahan lain yang juga benar, ini hanya salah satu contohnya.)"],
+  ["Salah satu cara membongkar 3/4 adalah mencari dua pecahan berbeda penyebut yang setelah disamakan penyebutnya, jumlahnya 3/4.",
+   "Contoh: 1/2 + 1/4. KPK dari 2 dan 4 adalah 4.",
+   "1/2 = 2/4, dan 1/4 tetap 1/4.",
+   "2/4 + 1/4 = 3/4 ✓ Terbukti benar! (Ada banyak pasangan pecahan lain yang juga benar, ini hanya salah satu contohnya.)"]
+ ],
+ q4:[
+  ["Cara 1 — Bar Model: bagi bar menjadi 6 bagian sama besar. 1/2 sama dengan 3 bagian, dan 1/6 sama dengan 1 bagian. Total = 4 bagian dari 6, ditulis 4/6.",
+   "Cara 2 — KPK: KPK dari 2 dan 6 adalah 6. 1/2 = 3/6, dan 1/6 tetap 1/6. Jumlah = 3/6 + 1/6 = 4/6.",
+   "Cara 3 — Kali Silang (penyebut 12): 1/2 = 6/12, dan 1/6 = 2/12. Jumlah = 6/12 + 2/12 = 8/12.",
+   "Ketiganya menghasilkan pecahan yang senilai: 4/6 = 8/12. Sederhanakan dengan membagi pembilang & penyebut dengan FPB-nya (2) → 2/3.",
+   "Kode final: 2/3."],
+  ["Cara 1 — Bar Model: bagi bar menjadi 12 bagian sama besar. 1/4 sama dengan 3 bagian, dan 1/6 sama dengan 2 bagian. Total = 5 bagian dari 12, ditulis 5/12.",
+   "Cara 2 — KPK: KPK dari 4 dan 6 adalah 12. 1/4 = 3/12, dan 1/6 = 2/12. Jumlah = 3/12 + 2/12 = 5/12.",
+   "Cara 3 — Kali Silang (penyebut 24): 1/4 = 6/24, dan 1/6 = 4/24. Jumlah = 6/24 + 4/24 = 10/24.",
+   "Sederhanakan 10/24 dengan membagi pembilang & penyebut dengan FPB-nya (2) → 5/12. Sama persis dengan cara 1 dan 2!",
+   "Kode final: 5/12."]
+ ]
+};
+
 let cur=[],attempt=0,last={q1:1,q2:1,q3:1,q4:1},final=null,ach={hots:false,kkm:false,read:false,refl:false,explain:false};
 
 // Inputmode ditambahkan untuk optimasi HP
@@ -272,7 +321,7 @@ function fracIn(id){return `<span class="frac"><input id="${id}n" inputmode="num
 function start(){
   const keys=Object.keys(BANK);
   const order=attempt?shuf(keys):keys;
-  cur=order.map(k=>{const v=attempt?(last[k]+1)%2:0;last[k]=v;const o=JSON.parse(JSON.stringify(BANK[k][v]));o.k=k;
+  cur=order.map(k=>{const v=attempt?(last[k]+1)%2:0;last[k]=v;const o=JSON.parse(JSON.stringify(BANK[k][v]));o.k=k;o.v=v;
     o.raw=BANK[k][v];o.parts.forEach(p=>{if(p.o&&attempt)p.o=shuf(p.o)});return o});
   
   $("quiz").innerHTML=cur.map((q,i)=>`<section class="q">
@@ -319,12 +368,18 @@ function submit(){
     $("retry").onclick=start;res.scrollIntoView({behavior:"smooth"});return;
   }
   final={score,r,attempt};
+  ach.hots=true;ach.kkm=true;
   store.set("vm_a2_hots",JSON.stringify({score,attempt,kkm:KKM,passed:true,completedAt:new Date().toISOString()}));
   store.set("vm_a2_hots_passed","1");
-  // Lolos KKM = langsung kembali ke dashboard utama.
-  window.location.replace(DASHBOARD_URL);
-  return;
+  res.innerHTML=`<div class="res pass"><div class="score" style="color:var(--ok)">${score}<small style="font-size:1.2rem"> / 100</small></div>
+    <div class="kkm"><i style="width:${score}%"></i><b></b></div>
+    <h2 style="color:var(--ok)">✅ Lolos! Kamu melampaui Batas Lulus (${KKM})</h2>
+    <p>Laporanmu diterima, Agent! Yuk simak dulu pembahasan lengkap tiap soal di bawah ini supaya makin paham.</p>
+    <p class="note"><a href="${DASHBOARD_URL}" style="color:var(--brand); font-weight:800;">🏠 Kembali ke Dashboard</a></p></div>`;
+  res.scrollIntoView({behavior:"smooth"});
+  showAfter();
 }
+$("submit").onclick=submit;
 
 function showAfter(){
   $("after").classList.remove("hide");
@@ -334,6 +389,14 @@ function showAfter(){
   h+=`<div class="grp s"><h3>🌟 Sektor Terkuatmu</h3>`+(strong.length?strong.map(x=>`<p><b>[${nm(x.k)}]</b> ${AREAS[x.k].ok}</p>`).join(""):`<p>Lolos KKM berarti fondasimu sudah ada, mari tingkatkan akurasinya.</p>`)+`</div>`;
   h+=`<div class="grp w"><h3>🌱 Sektor yang Perlu Diasah</h3>`+(grow.length?grow.map(x=>`<p><b>[${nm(x.k)}]</b> ${AREAS[x.k].no}</p>`).join(""):`<p>Tidak ada celah terdeteksi! Kamu siap mengajari agen pemula.</p>`)+`</div>`;
   $("analysis").innerHTML=h;ach.read=true;
+
+  let s=`<h2>📘 Cara Pengerjaan Lengkap</h2><p class="note">Pelajari langkah-langkahnya biar makin jago, Agent — ini penting walau jawabanmu sudah benar!</p>`;
+  cur.forEach((q,i)=>{
+    const steps=SOLUTIONS[q.k][q.v];
+    s+=`<div class="part"><p>${q.icon} Tantangan ${i+1}: ${q.name}</p>
+      <ol style="margin:0; padding-left:22px;">${steps.map(st=>`<li style="margin:6px 0;">${st}</li>`).join("")}</ol></div>`;
+  });
+  $("solutions").innerHTML=s;
   
   const p=store.get(PRED_KEY);
   if(p){$("then").innerHTML=`<p style="margin:0; font-style:italic;">"${p.replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]))}"</p>`;$("reflNote").textContent="Ini adalah logikamu di awal misi. Bandingkan dengan wawasan barumu.";}
