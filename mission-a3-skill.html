@@ -22,6 +22,23 @@
         }
         .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
         .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+        /* Smaller fraction style for use inline inside step paragraphs */
+        .mini-frac {
+            display: inline-flex; flex-direction: column; align-items: center;
+            vertical-align: middle; margin: 0 0.2rem; font-weight: bold; line-height: 1.05;
+            font-size: 0.85em;
+        }
+        .mini-frac .math-num { border-bottom: 1.5px solid currentColor; padding: 0 0.25rem; }
+        .mini-frac .math-den { padding: 0 0.25rem; }
+        /* Segmented bar model: each box = 1 bagian dari penyebut */
+        .frac-bar { display: flex; width: 100%; height: 1.75rem; border-radius: 0.375rem; overflow: hidden; border: 1px solid #475569; }
+        .frac-box {
+            flex: 1 1 0%; display: flex; align-items: center; justify-content: center;
+            font-size: 9px; font-weight: 700; color: #cbd5e1;
+            border-right: 2px solid #0f172a;
+        }
+        .frac-box:last-child { border-right: none; }
+        .frac-box.filled { color: #0f172a; }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
@@ -60,7 +77,7 @@
             <div class="card-dark rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-6 shadow-xl border-t-4 border-t-rose-500 relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-rose-500/5 rounded-bl-full pointer-events-none"></div>
                 
-                <img src="./assets/Prof. Sigma.png" alt="Prof Sigma" class="w-24 h-24 object-contain drop-shadow-xl shrink-0" onerror="this.outerHTML='<div class=\'w-24 h-24 rounded-full border-2 border-rose-500 bg-slate-800 flex items-center justify-center text-4xl shrink-0\'>👨‍🏫</div>'">
+                <img src="./assets/Sigma.png" alt="Prof Sigma" class="w-24 h-24 object-contain drop-shadow-xl shrink-0" onerror="this.outerHTML='<div class=\'w-24 h-24 rounded-full border-2 border-rose-500 bg-slate-800 flex items-center justify-center text-4xl shrink-0\'>👨‍🏫</div>'">
                 
                 <div class="space-y-2 text-center md:text-left">
                     <p class="text-rose-400 font-bold text-sm tracking-widest uppercase">Pesan Profesor Sigma:</p>
@@ -88,25 +105,62 @@
                         <p class="text-xs text-slate-400 mb-4">Paling bagus untuk membangun pemahaman visual di otak.</p>
                         
                         <!-- Visual Steps -->
-                        <div class="space-y-3 bg-slate-800/60 p-4 rounded-xl border border-slate-700 text-xs text-slate-300">
-                            <p><strong>Langkah 1:</strong> Cari penyebut bersama (KPK dari 6 & 4) yaitu <strong>12</strong>.</p>
-                            <div class="my-2 space-y-1">
-                                <div class="flex items-center justify-between text-[10px]">
-                                    <span>5/6 menjadi 10/12</span>
+                        <div class="space-y-4 bg-slate-800/60 p-4 rounded-xl border border-slate-700 text-xs text-slate-300">
+                            <p><strong>Langkah 1:</strong> Bagi setiap bar menjadi sebanyak <em>penyebutnya</em>, lalu warnai sebanyak <em>pembilangnya</em>.</p>
+
+                            <!-- 5/6 asli: 6 kotak, 5 terisi -->
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-[10px] font-semibold text-sky-300">
+                                    <span>5/6 &nbsp;→&nbsp; 6 kotak (penyebut), 5 diwarnai (pembilang)</span>
                                 </div>
-                                <div class="h-4 w-full flex border border-slate-600 rounded">
-                                    <div class="w-5/6 bg-sky-500 flex"></div><div class="w-1/6 bg-slate-800"></div>
-                                </div>
-                            </div>
-                            <div class="my-2 space-y-1">
-                                <div class="flex items-center justify-between text-[10px]">
-                                    <span>1/4 menjadi 3/12</span>
-                                </div>
-                                <div class="h-4 w-full flex border border-slate-600 rounded">
-                                    <div class="w-3/4 bg-amber-500 flex"></div><div class="w-1/4 bg-slate-800"></div>
+                                <div class="frac-bar">
+                                    <div class="frac-box filled bg-sky-500">1</div><div class="frac-box filled bg-sky-500">2</div><div class="frac-box filled bg-sky-500">3</div><div class="frac-box filled bg-sky-500">4</div><div class="frac-box filled bg-sky-500">5</div><div class="frac-box bg-slate-800">6</div>
                                 </div>
                             </div>
-                            <p><strong>Langkah 2:</strong> Kurangkan pembilangnya: <br>10 − 3 = 7.</p>
+
+                            <!-- 1/4 asli: 4 kotak, 1 terisi -->
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-[10px] font-semibold text-amber-300">
+                                    <span>1/4 &nbsp;→&nbsp; 4 kotak (penyebut), 1 diwarnai (pembilang)</span>
+                                </div>
+                                <div class="frac-bar">
+                                    <div class="frac-box filled bg-amber-500">1</div><div class="frac-box bg-slate-800">2</div><div class="frac-box bg-slate-800">3</div><div class="frac-box bg-slate-800">4</div>
+                                </div>
+                            </div>
+
+                            <p class="pt-1"><strong>Langkah 2:</strong> Pecah ulang kedua bar jadi <strong>12 kotak</strong> (KPK dari 6 &amp; 4), supaya jumlah kotaknya sama dan bisa dibandingkan.</p>
+
+                            <!-- 5/6 = 10/12 -->
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-[10px] font-semibold text-sky-300">
+                                    <span>5/6 = 10/12 &nbsp;→&nbsp; 12 kotak, 10 diwarnai</span>
+                                </div>
+                                <div class="frac-bar">
+                                    <div class="frac-box filled bg-sky-500"></div><div class="frac-box filled bg-sky-500"></div><div class="frac-box filled bg-sky-500"></div><div class="frac-box filled bg-sky-500"></div><div class="frac-box filled bg-sky-500"></div><div class="frac-box filled bg-sky-500"></div><div class="frac-box filled bg-sky-500"></div><div class="frac-box filled bg-sky-500"></div><div class="frac-box filled bg-sky-500"></div><div class="frac-box filled bg-sky-500"></div><div class="frac-box bg-slate-800"></div><div class="frac-box bg-slate-800"></div>
+                                </div>
+                            </div>
+
+                            <!-- 1/4 = 3/12 -->
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-[10px] font-semibold text-amber-300">
+                                    <span>1/4 = 3/12 &nbsp;→&nbsp; 12 kotak, 3 diwarnai</span>
+                                </div>
+                                <div class="frac-bar">
+                                    <div class="frac-box filled bg-amber-500"></div><div class="frac-box filled bg-amber-500"></div><div class="frac-box filled bg-amber-500"></div><div class="frac-box bg-slate-800"></div><div class="frac-box bg-slate-800"></div><div class="frac-box bg-slate-800"></div><div class="frac-box bg-slate-800"></div><div class="frac-box bg-slate-800"></div><div class="frac-box bg-slate-800"></div><div class="frac-box bg-slate-800"></div><div class="frac-box bg-slate-800"></div><div class="frac-box bg-slate-800"></div>
+                                </div>
+                            </div>
+
+                            <p class="pt-1"><strong>Langkah 3:</strong> Ambil 10 kotak biru, sisihkan 3 kotak (seperti kotak amber), sisa kotak yang masih terwarnai itulah jawabannya: 10 − 3 = 7.</p>
+
+                            <!-- hasil 7/12 -->
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-[10px] font-semibold text-emerald-300">
+                                    <span>Hasil: 7/12 &nbsp;→&nbsp; 12 kotak, 7 diwarnai</span>
+                                </div>
+                                <div class="frac-bar">
+                                    <div class="frac-box filled bg-emerald-500"></div><div class="frac-box filled bg-emerald-500"></div><div class="frac-box filled bg-emerald-500"></div><div class="frac-box filled bg-emerald-500"></div><div class="frac-box filled bg-emerald-500"></div><div class="frac-box filled bg-emerald-500"></div><div class="frac-box filled bg-emerald-500"></div><div class="frac-box bg-slate-800"></div><div class="frac-box bg-slate-800"></div><div class="frac-box bg-slate-800"></div><div class="frac-box bg-slate-800"></div><div class="frac-box bg-slate-800"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -130,11 +184,30 @@
                             • Kelipatan 4: 4, 8, <strong>12</strong>, 16<br>
                             ➔ KPK = <strong>12</strong></p>
                             
-                            <p><strong>Langkah 2:</strong> Sesuaikan pembilang:<br>
-                            • $\frac{5 \times 2}{6 \times 2} = \frac{10}{12}$<br>
-                            • $\frac{1 \times 3}{4 \times 3} = \frac{3}{12}$</p>
+                            <p><strong>Langkah 2:</strong> Sesuaikan pembilang:</p>
+                            <p class="flex items-center flex-wrap gap-1">
+                                <span class="mini-frac"><span class="math-num">5</span><span class="math-den">6</span></span>
+                                <span>=</span>
+                                <span class="mini-frac"><span class="math-num">5 × 2</span><span class="math-den">6 × 2</span></span>
+                                <span>=</span>
+                                <span class="mini-frac"><span class="math-num">10</span><span class="math-den">12</span></span>
+                            </p>
+                            <p class="flex items-center flex-wrap gap-1">
+                                <span class="mini-frac"><span class="math-num">1</span><span class="math-den">4</span></span>
+                                <span>=</span>
+                                <span class="mini-frac"><span class="math-num">1 × 3</span><span class="math-den">4 × 3</span></span>
+                                <span>=</span>
+                                <span class="mini-frac"><span class="math-num">3</span><span class="math-den">12</span></span>
+                            </p>
 
-                            <p><strong>Langkah 3:</strong> Kurangkan: $\frac{10 - 3}{12}$</p>
+                            <p class="flex items-center flex-wrap gap-1">
+                                <strong>Langkah 3:</strong> Kurangkan:
+                                <span class="mini-frac"><span class="math-num">10</span><span class="math-den">12</span></span>
+                                <span>−</span>
+                                <span class="mini-frac"><span class="math-num">3</span><span class="math-den">12</span></span>
+                                <span>=</span>
+                                <span class="mini-frac"><span class="math-num">7</span><span class="math-den">12</span></span>
+                            </p>
                         </div>
                     </div>
 
@@ -153,14 +226,24 @@
                         
                         <!-- Shortcut Steps -->
                         <div class="space-y-3 bg-slate-800/60 p-4 rounded-xl border border-slate-700 text-xs text-slate-300 leading-relaxed">
-                            <p><strong>Langkah 1:</strong> Kalikan silang pembilang & penyebut, lalu kalikan penyebutnya.<br>
-                            $\frac{(5 \times 4) - (1 \times 6)}{6 \times 4}$</p>
-                            
-                            <p><strong>Langkah 2:</strong> Hitung hasilnya:<br>
-                            $\frac{20 - 6}{24} = \frac{14}{24}$</p>
+                            <p><strong>Langkah 1:</strong> Kalikan silang pembilang & penyebut, lalu kalikan penyebutnya:</p>
+                            <p class="flex items-center justify-center">
+                                <span class="mini-frac"><span class="math-num">(5 × 4) − (1 × 6)</span><span class="math-den">6 × 4</span></span>
+                            </p>
 
-                            <p><strong>Langkah 3:</strong> Sederhanakan (bagi 2):<br>
-                            $\frac{14 \div 2}{24 \div 2} = \frac{7}{12}$</p>
+                            <p class="flex items-center flex-wrap gap-1">
+                                <strong>Langkah 2:</strong> Hitung hasilnya:
+                                <span class="mini-frac"><span class="math-num">20 − 6</span><span class="math-den">24</span></span>
+                                <span>=</span>
+                                <span class="mini-frac"><span class="math-num">14</span><span class="math-den">24</span></span>
+                            </p>
+
+                            <p class="flex items-center flex-wrap gap-1">
+                                <strong>Langkah 3:</strong> Sederhanakan (bagi 2):
+                                <span class="mini-frac"><span class="math-num">14 ÷ 2</span><span class="math-den">24 ÷ 2</span></span>
+                                <span>=</span>
+                                <span class="mini-frac"><span class="math-num">7</span><span class="math-den">12</span></span>
+                            </p>
                         </div>
                     </div>
 
