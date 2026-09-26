@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Think & Discover - Mission A3 | VisualMath.Lim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark { background-color: #1e293b; border: 1px solid #334155; }
+        .text-gradient {
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #f59e0b, #fbbf24);
+        }
+        .input-dark { background-color: #0f172a; border: 1px solid #475569; color: #f8fafc; }
+        .input-dark:focus { outline: none; border-color: #fbbf24; box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); }
+        
+        .math-frac {
+            display: inline-flex; flex-direction: column; align-items: center;
+            vertical-align: middle; margin: 0 0.5rem; font-weight: bold; line-height: 1.1;
+        }
+        .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
+        .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+
+        /* Khusus untuk Dropdown interaktif */
+        .rule-select {
+            appearance: none;
+            background-color: #1e293b;
+            border: 2px dashed #64748b;
+            color: #fbbf24;
+            padding: 0.2rem 1.5rem 0.2rem 0.5rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23fbbf24'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.2rem center;
+            background-size: 1rem;
+        }
+        .rule-select:focus { outline: none; border-color: #fbbf24; background-color: #0f172a; }
+        .rule-select.correct { border-style: solid; border-color: #10b981; color: #10b981; background-image: none; padding-right: 0.5rem; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- Efek Cahaya Background -->
+    <div class="fixed top-[-10%] right-[-10%] w-96 h-96 bg-amber-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+    <!-- Header -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-3">
+                <img src="./assets/logo.png" alt="Logo" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-sky-400\'>VM</div>'">
+                <div>
+                    <h1 class="text-lg font-bold text-sky-400 leading-tight">VisualMath.Lim</h1>
+                    <p class="text-[11px] text-slate-400 leading-tight uppercase tracking-wider">Math Mastery • Kelas 6</p>
+                </div>
+            </div>
+            <span class="px-3 py-1 bg-amber-900/40 border border-amber-700/50 rounded-full text-xs font-bold text-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.2)]">
+                🟢 Pos 4/8: Think & Discover
+            </span>
+        </div>
+        <div class="h-1.5 w-full bg-slate-900">
+            <div class="h-full bg-gradient-to-r from-sky-500 via-indigo-500 to-amber-500" style="width: 50%"></div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-10 relative z-10">
+
+        <!-- STEP 1: Kian's Analysis -->
+        <section class="space-y-4">
+            <div class="flex items-center gap-3 border-b border-slate-700 pb-2">
+                <span class="text-3xl">🧠</span>
+                <h3 class="text-2xl font-bold text-white">Think & <span class="text-gradient">Discover</span></h3>
+            </div>
+
+            <div class="bg-slate-900/60 p-5 md:p-6 rounded-2xl border border-slate-700 flex flex-col md:flex-row items-start md:items-center gap-5 shadow-lg">
+                <img src="./assets/Kian.png" alt="Kian" class="w-20 h-20 object-contain drop-shadow-xl shrink-0 border-2 border-amber-500 bg-slate-800 rounded-full" onerror="this.outerHTML='<div class=\'w-20 h-20 rounded-full border-2 border-amber-500 bg-slate-800 flex items-center justify-center text-4xl shrink-0\'>👦🏻</div>'">
+                <div class="space-y-2">
+                    <p class="text-amber-400 font-bold text-sm uppercase tracking-widest">Analisis Kian:</p>
+                    <p class="text-slate-300 text-sm md:text-base leading-relaxed italic">
+                        "Agen, dari simulasi visual tadi aku menyadari sebuah pola penting! Saat kita memotong dan mengambil cokelat, <strong class="text-white">ukuran potongannya tidak boleh mengecil atau membesar</strong>. Yang berkurang hanyalah <strong class="text-white">jumlah</strong> potongan yang kita miliki."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 2: Interactive Rule Builder -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 space-y-6 shadow-[0_0_20px_rgba(245,158,11,0.05)] border-t-4 border-t-amber-500 relative overflow-hidden" id="rule-builder-section">
+            
+            <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-bl-full pointer-events-none"></div>
+
+            <h4 class="font-bold text-white text-lg flex items-center gap-2">
+                <span>🧩</span> Rangkai Kesimpulanmu
+            </h4>
+            <p class="text-sm text-slate-400 mb-4">Pilih kata yang tepat pada kotak garis putus-putus untuk membentuk rumus rahasia pengurangan pecahan!</p>
+
+            <div class="bg-slate-900 p-6 md:p-8 rounded-xl border border-slate-700 text-slate-300 text-sm md:text-base leading-loose shadow-inner relative z-10 space-y-4">
+                
+                <p>
+                    1. Angka di bawah (Penyebut) menunjukkan 
+                    <select id="select1" class="rule-select" onchange="checkRules()">
+                        <option value="none" disabled selected>Pilih...</option>
+                        <option value="jumlah">jumlah</option>
+                        <option value="ukuran">ukuran</option>
+                    </select> 
+                    potongan cokelat.
+                </p>
+                
+                <p>
+                    2. Oleh karena itu, saat kita mengurangkan pecahan, ukurannya harus dipastikan 
+                    <select id="select2" class="rule-select" onchange="checkRules()">
+                        <option value="none" disabled selected>Pilih...</option>
+                        <option value="berubah">berubah / berbeda</option>
+                        <option value="tetap">tetap sama</option>
+                    </select>
+                    .
+                </p>
+                
+                <p>
+                    3. Kesimpulannya, angka yang boleh kita kurangkan hanyalah 
+                    <select id="select3" class="rule-select" onchange="checkRules()">
+                        <option value="none" disabled selected>Pilih...</option>
+                        <option value="pembilang">pembilangnya saja</option>
+                        <option value="penyebut">penyebutnya saja</option>
+                    </select>
+                    .
+                </p>
+
+                <!-- Success Stamp -->
+                <div id="success-stamp" class="hidden absolute right-4 bottom-4 md:right-8 md:bottom-8 transform rotate-[-15deg] border-4 border-emerald-500 text-emerald-500 font-black text-2xl md:text-4xl px-4 py-2 rounded-lg opacity-80 uppercase tracking-widest pointer-events-none">
+                    Discovered!
+                </div>
+            </div>
+        </section>
+
+        <!-- STEP 3: Translation (Visual -> Abstract) -->
+        <section id="abstract-section" class="space-y-6 hidden opacity-0 transition-opacity duration-1000">
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Visual Box -->
+                <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 flex flex-col items-center justify-center gap-4 relative">
+                    <span class="absolute top-3 left-4 text-xs font-bold text-slate-500 uppercase">Bahasa Visual</span>
+                    
+                    <div class="flex items-center gap-3 mt-4">
+                        <div class="h-8 w-24 flex border-2 border-slate-600 rounded">
+                            <div class="w-1/4 bg-sky-500 border-r border-slate-600"></div>
+                            <div class="w-1/4 bg-sky-500 border-r border-slate-600"></div>
+                            <div class="w-1/4 bg-sky-500 border-r border-slate-600"></div>
+                            <div class="w-1/4 bg-slate-800"></div>
+                        </div>
+                        <span class="text-slate-400 font-bold">−</span>
+                        <div class="h-8 w-24 flex border-2 border-slate-600 rounded">
+                            <div class="w-1/4 bg-red-500/80 border-r border-slate-600 flex items-center justify-center text-xs font-bold text-white">✗</div>
+                            <div class="w-1/4 bg-red-500/80 border-r border-slate-600 flex items-center justify-center text-xs font-bold text-white">✗</div>
+                            <div class="w-1/4 bg-slate-800 border-r border-slate-600"></div>
+                            <div class="w-1/4 bg-slate-800"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Abstract (Math) Box -->
+                <div class="bg-slate-900 p-6 rounded-2xl border border-sky-900/50 flex flex-col items-center justify-center gap-4 relative shadow-[inset_0_0_20px_rgba(56,189,248,0.05)]">
+                    <span class="absolute top-3 left-4 text-xs font-bold text-sky-500 uppercase">Bahasa Matematika</span>
+                    
+                    <div class="flex items-center text-3xl font-bold mt-4">
+                        <div class="math-frac text-white"><span class="math-num">3</span><span class="math-den">4</span></div>
+                        <span class="text-slate-500 mx-2">−</span>
+                        <div class="math-frac text-white"><span class="math-num">2</span><span class="math-den">4</span></div>
+                        <span class="text-sky-400 mx-3">=</span>
+                        <!-- Abstract Translation -->
+                        <div class="flex flex-col items-center mx-2 text-sky-200">
+                            <span class="border-b-2 border-sky-400 pb-1 px-3">3 − 2</span>
+                            <span class="pt-1 px-3 text-sky-400">4</span>
+                        </div>
+                        <span class="text-sky-400 mx-3">=</span>
+                        <div class="math-frac text-emerald-400"><span class="math-num">1</span><span class="math-den">4</span></div>
+                    </div>
+                    <p class="text-[10px] text-slate-400 text-center mt-2">Perhatikan: Angka penyebut (4) hanya ditulis sekali karena ia berfungsi sebagai label/ukuran.</p>
+                </div>
+            </div>
+
+            <!-- Golden Rule Card -->
+            <div class="bg-gradient-to-r from-amber-900/40 to-amber-800/20 border-2 border-amber-500/50 rounded-2xl p-6 text-center shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+                <h4 class="text-amber-400 font-extrabold text-xl mb-2 flex justify-center items-center gap-2">
+                    <span>👑</span> THE GOLDEN RULE
+                </h4>
+                <p class="text-amber-100 md:text-lg">
+                    "Untuk mengurangkan pecahan, pastikan <strong>Penyebutnya Sama</strong> (ukuran potongannya seragam), lalu cukup <strong>kurangkan Pembilangnya</strong>."
+                </p>
+            </div>
+
+            <!-- Refleksi Miskonsepsi -->
+            <div class="bg-slate-800/50 rounded-xl p-5 md:p-6 border border-slate-700">
+                <p class="font-bold text-slate-200 mb-3 flex items-center gap-2">
+                    <span class="text-xl">🕵️</span> Refleksi Agen
+                </p>
+                <p class="text-sm text-slate-300 mb-4">
+                    Di awal (Pos 2), banyak agen yang keliru menjawab bahwa <strong>3/4 − 1/4 = 2/0</strong>. 
+                    Sekarang setelah kamu paham "Aturan Emas" di atas, jelaskan dengan bahasamu sendiri mengapa hasil penyebutnya <strong>bukan 0</strong>!
+                </p>
+                <textarea class="w-full input-dark rounded-xl p-4 text-sm resize-none focus:bg-slate-900 transition-colors" rows="3" placeholder="Karena penyebut itu menunjukkan ukuran potongan, jadi kalau 4 - 4 artinya..."></textarea>
+            </div>
+
+            <!-- Navigasi -->
+            <div class="flex justify-between items-center pt-6 pb-4">
+                <a href="mission-a3-see.html" class="text-slate-400 hover:text-white font-medium transition-colors flex items-center gap-2">
+                    <span>⬅</span> Kembali ke Pos 3
+                </a>
+                <a href="mission-a3-skill.html" class="inline-flex items-center justify-center bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold py-3.5 px-8 rounded-full shadow-lg shadow-emerald-500/30 transition-all hover:-translate-y-1 group">
+                    Buka Skill Baru (Pos 5) 
+                    <span class="ml-2 group-hover:translate-x-1 transition-transform">➔</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JavaScript Logic -->
+    <script>
+        function checkRules() {
+            const s1 = document.getElementById('select1');
+            const s2 = document.getElementById('select2');
+            const s3 = document.getElementById('select3');
+            
+            const stamp = document.getElementById('success-stamp');
+            const ruleSection = document.getElementById('rule-builder-section');
+            const abstractSection = document.getElementById('abstract-section');
+
+            // Reset correct classes
+            s1.classList.remove('correct');
+            s2.classList.remove('correct');
+            s3.classList.remove('correct');
+
+            let isCorrect = true;
+
+            // Check 1: Penyebut = Ukuran
+            if (s1.value === 'ukuran') {
+                s1.classList.add('correct');
+            } else if (s1.value !== 'none') {
+                isCorrect = false;
+            } else { isCorrect = false; }
+
+            // Check 2: Ukuran = Tetap sama
+            if (s2.value === 'tetap') {
+                s2.classList.add('correct');
+            } else if (s2.value !== 'none') {
+                isCorrect = false;
+            } else { isCorrect = false; }
+
+            // Check 3: Dikurangkan = Pembilang
+            if (s3.value === 'pembilang') {
+                s3.classList.add('correct');
+            } else if (s3.value !== 'none') {
+                isCorrect = false;
+            } else { isCorrect = false; }
+
+            // Kemenangan! Jika semua benar
+            if (isCorrect && s1.value !== 'none' && s2.value !== 'none' && s3.value !== 'none') {
+                // Tampilkan Stempel
+                stamp.classList.remove('hidden');
+                ruleSection.classList.replace('border-t-amber-500', 'border-t-emerald-500');
+                ruleSection.classList.add('shadow-[0_0_30px_rgba(16,185,129,0.1)]');
+                
+                // Kunci select agar tidak bisa diganti lagi
+                s1.disabled = true; s2.disabled = true; s3.disabled = true;
+                
+                // Munculkan bagian Abstrak & Golden Rule secara perlahan
+                abstractSection.classList.remove('hidden');
+                setTimeout(() => {
+                    abstractSection.classList.remove('opacity-0');
+                    // Auto scroll smooth
+                    abstractSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 200);
+            }
+        }
+    </script>
+</body>
+</html>
