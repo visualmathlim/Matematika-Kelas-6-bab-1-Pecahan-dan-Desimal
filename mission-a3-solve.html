@@ -56,13 +56,13 @@
     <!-- Header -->
     <header class="card-dark shadow-lg border-b sticky top-0 z-50">
         <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
-            <div class="flex items-center gap-3">
+            <a href="index.html" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
                 <img src="./assets/logo.png" alt="Logo" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-sky-400\'>VM</div>'">
                 <div>
                     <h1 class="text-lg font-bold text-sky-400 leading-tight">VisualMath.Lim</h1>
                     <p class="text-[11px] text-slate-400 leading-tight uppercase tracking-wider">Math Mastery • Kelas 6</p>
                 </div>
-            </div>
+            </a>
             <span class="px-3 py-1 bg-amber-900/40 border border-amber-700/50 rounded-full text-xs font-bold text-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.2)]">
                 🟡 Pos 6/8: Easy Quest
             </span>
@@ -110,9 +110,9 @@
             <a href="mission-a3-skill-unlock.html" class="text-slate-400 hover:text-white font-medium transition-colors flex items-center gap-2">
                 <span>⬅</span> Kembali ke Pos 5
             </a>
-            <span id="nextLinkArea" class="opacity-30 pointer-events-none inline-flex items-center justify-center bg-slate-700 text-slate-400 font-bold py-3.5 px-8 rounded-full">
-                Lanjut ke Pos 7 (Challenge Quest) ➔
-            </span>
+            <button id="nextLinkArea" onclick="alert('Selesaikan dan lulus Easy Quest ini dulu untuk membuka Pos 7, Agen! 🔒')" class="opacity-60 inline-flex items-center justify-center bg-slate-700 hover:bg-slate-600 text-slate-300 font-bold py-3.5 px-8 rounded-full transition-colors cursor-pointer">
+                Pos 7 (Challenge Quest) — Terkunci 🔒
+            </button>
         </div>
 
     </main>
@@ -375,10 +375,15 @@ function showResultSummary(score, correctCount){
     el.classList.remove('hidden');
     el.scrollIntoView({behavior: 'smooth', block: 'center'});
 
+    try {
+        localStorage.setItem('missionA3_pos6', JSON.stringify({
+            score, correctCount, total: TOTAL, attempts: attempt,
+            passed, updatedAt: new Date().toISOString()
+        }));
+    } catch(e) { /* storage unavailable, ignore */ }
+
     if(!passed){
         document.getElementById('retryBtn').addEventListener('click', retryQuiz);
-    } else {
-        document.getElementById('nextLinkArea').outerHTML = `<a href="mission-a3-challenge.html" class="inline-flex items-center justify-center bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white font-bold py-3.5 px-8 rounded-full shadow-lg shadow-rose-500/30 transition-all hover:-translate-y-1 group">Lanjut ke Pos 7 (Challenge Quest) <span class="ml-2 group-hover:translate-x-1 transition-transform">➔</span></a>`;
     }
 }
 
