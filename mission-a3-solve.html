@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Easy Quest - Mission A3 | VisualMath.Lim</title>
+    <title>Easy & Challenge Quest - Mission A3 | VisualMath.Lim</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -12,393 +12,274 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .card-dark { background-color: #1e293b; border: 1px solid #334155; }
+        .input-dark { background-color: #0f172a; border: 1px solid #475569; color: #f8fafc; text-align: center; font-weight: bold; }
+        .input-dark:focus { outline: none; border-color: #38bdf8; box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
         .math-frac {
             display: inline-flex; flex-direction: column; align-items: center;
             vertical-align: middle; margin: 0 0.25rem; font-weight: bold; line-height: 1.1;
         }
         .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
         .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
-        .mini-frac {
-            display: inline-flex; flex-direction: column; align-items: center;
-            vertical-align: middle; margin: 0 0.2rem; font-weight: bold; line-height: 1.05;
-            font-size: 0.85em;
-        }
-        .mini-frac .math-num { border-bottom: 1.5px solid currentColor; padding: 0 0.25rem; }
-        .mini-frac .math-den { padding: 0 0.25rem; }
-        .frac-bar { display: flex; width: 100%; height: 1.5rem; border-radius: 0.375rem; overflow: hidden; border: 1px solid #475569; }
-        .frac-box { flex: 1 1 0%; border-right: 2px solid #0f172a; }
-        .frac-box:last-child { border-right: none; }
-
-        .frac-input {
-            width: 3.25rem; height: 2.5rem; text-align: center; font-size: 1.1rem; font-weight: 700;
-            background-color: #0f172a; border: 2px solid #475569; border-radius: 0.5rem; color: #f8fafc;
-        }
-        .frac-input:focus { outline: none; border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56,189,248,0.2); }
-        .frac-input::-webkit-outer-spin-button, .frac-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-        .frac-input[type=number] { -moz-appearance: textfield; }
-        .input-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; text-align: center; margin-bottom: 2px; }
-        .answer-frac { display: inline-flex; flex-direction: column; align-items: center; gap: 0.25rem; }
-        .frac-divider { width: 3.25rem; height: 2px; background-color: #94a3b8; border-radius: 1px; }
-
-        .question-card { transition: box-shadow 0.2s; }
-        .verdict-correct { color: #34d399; }
-        .verdict-warn { color: #fbbf24; }
-        .verdict-wrong { color: #fb7185; }
-        .tab-btn.active { background-color: #334155; color: #fff; }
-        details > summary { list-style: none; cursor: pointer; }
-        details > summary::-webkit-details-marker { display: none; }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
 
-    <div class="fixed top-[-10%] left-[-10%] w-96 h-96 bg-amber-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+    <!-- Efek Cahaya Background -->
+    <div class="fixed top-[-10%] right-[-10%] w-96 h-96 bg-emerald-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
 
     <!-- Header -->
     <header class="card-dark shadow-lg border-b sticky top-0 z-50">
         <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
-            <a href="index.html" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+            <div class="flex items-center gap-3">
                 <img src="./assets/logo.png" alt="Logo" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-sky-400\'>VM</div>'">
                 <div>
                     <h1 class="text-lg font-bold text-sky-400 leading-tight">VisualMath.Lim</h1>
                     <p class="text-[11px] text-slate-400 leading-tight uppercase tracking-wider">Math Mastery • Kelas 6</p>
                 </div>
-            </a>
-            <span class="px-3 py-1 bg-amber-900/40 border border-amber-700/50 rounded-full text-xs font-bold text-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.2)]">
-                🟡 Pos 6/8: Easy Quest
+            </div>
+            <span class="px-3 py-1 bg-emerald-900/40 border border-emerald-700/50 rounded-full text-xs font-bold text-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+                🟢 Pos 6/8: Easy & Challenge Quest
             </span>
         </div>
         <div class="h-1.5 w-full bg-slate-900">
-            <div class="h-full bg-gradient-to-r from-sky-500 via-amber-500 to-rose-500" style="width: 75%"></div>
+            <div class="h-full bg-gradient-to-r from-sky-500 via-emerald-500 to-indigo-500" style="width: 75%"></div>
         </div>
     </header>
 
-    <main class="flex-grow max-w-3xl mx-auto w-full px-4 py-8 space-y-8 relative z-10">
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-10 relative z-10">
 
-        <!-- INTRO -->
-        <section class="card-dark rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-6 shadow-xl border-t-4 border-t-amber-500">
-            <img src="./assets/Sigma.png" alt="Prof Sigma" class="w-20 h-20 object-contain drop-shadow-xl shrink-0" onerror="this.outerHTML='<div class=\'w-20 h-20 rounded-full border-2 border-amber-500 bg-slate-800 flex items-center justify-center text-3xl shrink-0\'>👨‍🏫</div>'">
-            <div class="space-y-1 text-center md:text-left">
-                <p class="text-amber-400 font-bold text-sm tracking-widest uppercase">Misi Pos 6: Easy Quest</p>
-                <h2 class="text-xl font-extrabold text-white">Buktikan 3 Senjatamu Sudah Siap Tempur!</h2>
-                <p class="text-slate-300 text-sm leading-relaxed">
-                    Kerjakan <strong>6 soal</strong> di bawah ini. Isi pembilang &amp; penyebut hasil pengurangannya, lalu tekan <strong>Kumpulkan Jawaban</strong> di akhir. Pembahasan lengkap baru akan muncul setelah semua soal terjawab. Nilai minimal (KKM) untuk lulus adalah <strong>70</strong>.
-                </p>
+        <!-- TITLE -->
+        <section class="space-y-3 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-slate-800 rounded-full text-sm font-semibold text-slate-300 border border-slate-700">
+                ⚔️ Arena Latihan Agen
             </div>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-white">
+                POS 6 — <span class="text-emerald-400">Easy & Challenge Quest</span>
+            </h2>
+            <p class="max-w-xl mx-auto text-slate-400 text-sm">
+                Selesaikan misi pengurangan pecahan berikut. Nilaimu akan otomatis tercatat di Log Perjalanan untuk dibawa ke Pos 7 dan 8!
+            </p>
         </section>
 
-        <!-- STATUS BAR -->
-        <section class="flex items-center justify-between text-sm text-slate-300 px-1">
-            <span>Percobaan ke-<span id="attemptCount">1</span></span>
-            <span id="progressCount">0 / 6 soal terisi</span>
-        </section>
+        <!-- FORM KUIS POS 6 -->
+        <form id="pos6Form" onsubmit="submitPos6(event)" class="space-y-8">
 
-        <!-- QUESTIONS -->
-        <section id="questionsContainer" class="space-y-5"></section>
+            <!-- BAGIAN 1: EASY QUEST (Penyebut Sama) -->
+            <section class="card-dark rounded-2xl p-6 md:p-8 space-y-6 shadow-xl border-t-4 border-t-sky-500">
+                <div class="flex items-center gap-3 border-b border-slate-700 pb-3">
+                    <span class="text-2xl">🎮</span>
+                    <div>
+                        <h3 class="font-bold text-sky-400 text-lg">Easy Quest (Penyebut Sama)</h3>
+                        <p class="text-xs text-slate-400">Gunakan aturan emas: kurangkan pembilangnya, penyebut tetap.</p>
+                    </div>
+                </div>
 
-        <!-- SUBMIT -->
-        <div id="submitArea" class="flex justify-center pt-2">
-            <button id="submitBtn" class="inline-flex items-center justify-center bg-gradient-to-r from-sky-500 to-emerald-500 hover:from-sky-400 hover:to-emerald-400 text-slate-900 font-bold py-3.5 px-10 rounded-full shadow-lg shadow-sky-500/30 transition-all hover:-translate-y-1">
-                Kumpulkan Jawaban ✅
-            </button>
-        </div>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <!-- Soal 1 -->
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 space-y-3 flex flex-col justify-between">
+                        <div class="flex items-center justify-center gap-2 text-lg font-bold">
+                            <div class="math-frac"><span class="math-num">5</span><span class="math-den">6</span></div>
+                            <span>−</span>
+                            <div class="math-frac"><span class="math-num">1</span><span class="math-den">6</span></div>
+                            <span>=</span>
+                        </div>
+                        <div class="flex justify-center items-center gap-2">
+                            <div class="math-frac">
+                                <input type="number" id="q1_num" class="input-dark w-12 h-10 rounded text-lg text-sky-300" placeholder="?" required>
+                                <div class="w-12 h-0.5 bg-slate-600 my-1"></div>
+                                <input type="number" id="q1_den" class="input-dark w-12 h-10 rounded text-lg text-sky-300" placeholder="?" required>
+                            </div>
+                        </div>
+                    </div>
 
-        <!-- RESULT SUMMARY (hidden until submit) -->
-        <section id="resultSummary" class="hidden card-dark rounded-2xl p-6 md:p-8 text-center space-y-4 border-t-4"></section>
+                    <!-- Soal 2 -->
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 space-y-3 flex flex-col justify-between">
+                        <div class="flex items-center justify-center gap-2 text-lg font-bold">
+                            <div class="math-frac"><span class="math-num">7</span><span class="math-den">8</span></div>
+                            <span>−</span>
+                            <div class="math-frac"><span class="math-num">2</span><span class="math-den">8</span></div>
+                            <span>=</span>
+                        </div>
+                        <div class="flex justify-center items-center gap-2">
+                            <div class="math-frac">
+                                <input type="number" id="q2_num" class="input-dark w-12 h-10 rounded text-lg text-sky-300" placeholder="?" required>
+                                <div class="w-12 h-0.5 bg-slate-600 my-1"></div>
+                                <input type="number" id="q2_den" class="input-dark w-12 h-10 rounded text-lg text-sky-300" placeholder="?" required>
+                            </div>
+                        </div>
+                    </div>
 
-        <!-- NAVIGASI -->
-        <div id="navArea" class="flex justify-between items-center pt-4 pb-12">
-            <a href="mission-a3-skill-unlock.html" class="text-slate-400 hover:text-white font-medium transition-colors flex items-center gap-2">
+                    <!-- Soal 3 -->
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-700 space-y-3 flex flex-col justify-between">
+                        <div class="flex items-center justify-center gap-2 text-lg font-bold">
+                            <div class="math-frac"><span class="math-num">10</span><span class="math-den">12</span></div>
+                            <span>−</span>
+                            <div class="math-frac"><span class="math-num">5</span><span class="math-den">12</span></div>
+                            <span>=</span>
+                        </div>
+                        <div class="flex justify-center items-center gap-2">
+                            <div class="math-frac">
+                                <input type="number" id="q3_num" class="input-dark w-12 h-10 rounded text-lg text-sky-300" placeholder="?" required>
+                                <div class="w-12 h-0.5 bg-slate-600 my-1"></div>
+                                <input type="number" id="q3_den" class="input-dark w-12 h-10 rounded text-lg text-sky-300" placeholder="?" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BAGIAN 2: CHALLENGE QUEST (Penyebut Beda) -->
+            <section class="card-dark rounded-2xl p-6 md:p-8 space-y-6 shadow-xl border-t-4 border-t-purple-500">
+                <div class="flex items-center gap-3 border-b border-slate-700 pb-3">
+                    <span class="text-2xl">🎯</span>
+                    <div>
+                        <h3 class="font-bold text-purple-400 text-lg">Challenge Quest (Penyebut Berbeda)</h3>
+                        <p class="text-xs text-slate-400">Samakan penyebutnya terlebih dahulu menggunakan KPK atau Kali Silang.</p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Soal 4 -->
+                    <div class="bg-slate-900 p-5 rounded-xl border border-slate-700 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-400 uppercase">Soal 4</span>
+                            <div class="flex items-center gap-2 text-lg font-bold">
+                                <div class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></div>
+                                <span>−</span>
+                                <div class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></div>
+                                <span>=</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center gap-3 pt-2">
+                            <span class="text-xs text-slate-400">Hasil:</span>
+                            <div class="math-frac">
+                                <input type="number" id="q4_num" class="input-dark w-12 h-10 rounded text-lg text-purple-300" placeholder="?" required>
+                                <div class="w-12 h-0.5 bg-slate-600 my-1"></div>
+                                <input type="number" id="q4_den" class="input-dark w-12 h-10 rounded text-lg text-purple-300" placeholder="?" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Soal 5 -->
+                    <div class="bg-slate-900 p-5 rounded-xl border border-slate-700 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-400 uppercase">Soal 5</span>
+                            <div class="flex items-center gap-2 text-lg font-bold">
+                                <div class="math-frac"><span class="math-num">5</span><span class="math-den">6</span></div>
+                                <span>−</span>
+                                <div class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></div>
+                                <span>=</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center gap-3 pt-2">
+                            <span class="text-xs text-slate-400">Hasil:</span>
+                            <div class="math-frac">
+                                <input type="number" id="q5_num" class="input-dark w-12 h-10 rounded text-lg text-purple-300" placeholder="?" required>
+                                <div class="w-12 h-0.5 bg-slate-600 my-1"></div>
+                                <input type="number" id="q5_den" class="input-dark w-12 h-10 rounded text-lg text-purple-300" placeholder="?" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SUBMIT & FEEDBACK -->
+            <div class="text-center space-y-4">
+                <button type="submit" class="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-emerald-500/30 transition-all hover:scale-105 text-lg">
+                    💾 Periksa Jawaban & Simpan Nilai
+                </button>
+                <div id="feedbackBox" class="hidden max-w-md mx-auto p-4 rounded-xl border text-center font-bold"></div>
+            </div>
+
+        </form>
+
+        <!-- NAVIGASI LANJUT -->
+        <div class="flex justify-between items-center pt-6 border-t border-slate-800 pb-12">
+            <a href="mission-a3-skill.html" class="text-slate-400 hover:text-white font-medium transition-colors flex items-center gap-2">
                 <span>⬅</span> Kembali ke Pos 5
             </a>
-            <button id="nextLinkArea" onclick="alert('Selesaikan dan lulus Easy Quest ini dulu untuk membuka Pos 7, Agen! 🔒')" class="opacity-60 inline-flex items-center justify-center bg-slate-700 hover:bg-slate-600 text-slate-300 font-bold py-3.5 px-8 rounded-full transition-colors cursor-pointer">
-                Pos 7 (Challenge Quest) — Terkunci 🔒
-            </button>
+            <a href="mission-a3-challenge.html" id="btnNextPos" class="inline-flex items-center justify-center bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold py-3.5 px-8 rounded-full shadow-lg shadow-sky-500/30 transition-all hover:-translate-y-1 group">
+                Lanjut ke Pos 7 (Challenge & Boss Battle) 
+                <span class="ml-2 group-hover:translate-x-1 transition-transform">➔</span>
+            </a>
         </div>
 
     </main>
 
-<script>
-// ===================== DATA SOAL =====================
-const BASE_QUESTIONS = [
-    { a:3, b:4, c:1, d:6 },   // 3/4 - 1/6 = 7/12
-    { a:5, b:6, c:2, d:3 },   // 5/6 - 2/3 = 1/6
-    { a:7, b:8, c:3, d:4 },   // 7/8 - 3/4 = 1/8
-    { a:4, b:5, c:2, d:3 },   // 4/5 - 2/3 = 2/15
-    { a:9, b:10, c:3, d:5 },  // 9/10 - 3/5 = 3/10
-    { a:7, b:10, c:1, d:5 },  // 7/10 - 1/5 = 1/2 (unsimplified case: 5/10)
-];
-const KKM = 70;
-const TOTAL = BASE_QUESTIONS.length;
+    <!-- Script Logika Penilaian & LocalStorage -->
+    <script>
+        function submitPos6(e) {
+            e.preventDefault();
 
-let order = [0,1,2,3,4,5];
-let attempt = 1;
+            // Kunci Jawaban Benar
+            // Soal 1: 5/6 - 1/6 = 4/6 (atau disederhanakan 2/3, tapi kita terima 4/6 atau 2/3)
+            // Soal 2: 7/8 - 2/8 = 5/8
+            // Soal 3: 10/12 - 5/12 = 5/12
+            // Soal 4: 3/4 - 1/2 = 3/4 - 2/4 = 1/4
+            // Soal 5: 5/6 - 1/3 = 5/6 - 2/6 = 3/6 (atau 1/2)
 
-// ===================== MATH HELPERS =====================
-function gcd(x,y){ x=Math.abs(x); y=Math.abs(y); while(y){ [x,y]=[y,x%y]; } return x || 1; }
-function lcm(x,y){ return Math.abs(x*y)/gcd(x,y); }
-function simplify(n,d){ const g = gcd(n,d); return {n: n/g, d: d/g}; }
+            let correctCount = 0;
+            const total = 5;
 
-function shuffleArray(arr){
-    const a = arr.slice();
-    for(let i=a.length-1;i>0;i--){
-        const j = Math.floor(Math.random()*(i+1));
-        [a[i],a[j]] = [a[j],a[i]];
-    }
-    return a;
-}
+            // Cek Soal 1 (4/6 atau 2/3)
+            const n1 = parseInt(document.getElementById('q1_num').value);
+            const d1 = parseInt(document.getElementById('q1_den').value);
+            if ((n1 === 4 && d1 === 6) || (n1 === 2 && d1 === 3)) correctCount++;
 
-// ===================== RENDER SOAL =====================
-function renderQuestions(){
-    const container = document.getElementById('questionsContainer');
-    container.innerHTML = '';
-    order.forEach((qIdx, pos) => {
-        const q = BASE_QUESTIONS[qIdx];
-        const card = document.createElement('div');
-        card.className = 'question-card card-dark rounded-2xl p-5 md:p-6';
-        card.dataset.qid = qIdx;
+            // Cek Soal 2 (5/8)
+            const n2 = parseInt(document.getElementById('q2_num').value);
+            const d2 = parseInt(document.getElementById('q2_den').value);
+            if (n2 === 5 && d2 === 8) correctCount++;
 
-        card.innerHTML = `
-            <div class="flex items-center gap-2 text-xs text-slate-400 mb-3">
-                <span class="bg-slate-800 border border-slate-600 rounded-full px-3 py-1 font-bold">Soal ${pos+1}</span>
-            </div>
-            <div class="flex items-center justify-center flex-wrap gap-3">
-                <span class="math-frac text-sky-400 text-2xl"><span class="math-num">${q.a}</span><span class="math-den">${q.b}</span></span>
-                <span class="text-2xl font-bold text-slate-400">−</span>
-                <span class="math-frac text-amber-400 text-2xl"><span class="math-num">${q.c}</span><span class="math-den">${q.d}</span></span>
-                <span class="text-2xl font-bold text-slate-400">=</span>
-                <div class="answer-frac">
-                    <span class="input-label">Pembilang</span>
-                    <input type="number" min="0" class="frac-input" data-role="num" data-qid="${qIdx}">
-                    <div class="frac-divider"></div>
-                    <input type="number" min="1" class="frac-input" data-role="den" data-qid="${qIdx}">
-                    <span class="input-label">Penyebut</span>
-                </div>
-            </div>
-            <div class="verdict hidden mt-4 text-sm font-semibold text-center"></div>
-            <div class="text-center">
-                <button class="explain-toggle hidden mt-2 text-xs text-sky-400 underline underline-offset-2" data-qid="${qIdx}">Lihat Pembahasan (3 Cara)</button>
-            </div>
-            <div class="explanation-panel hidden mt-4"></div>
-        `;
-        container.appendChild(card);
-    });
-    updateProgressCount();
-}
+            // Cek Soal 3 (5/12)
+            const n3 = parseInt(document.getElementById('q3_num').value);
+            const d3 = parseInt(document.getElementById('q3_den').value);
+            if (n3 === 5 && d3 === 12) correctCount++;
 
-function updateProgressCount(){
-    const inputs = document.querySelectorAll('.frac-input');
-    let filled = 0;
-    const seen = new Set();
-    inputs.forEach(inp => {
-        if(inp.value !== '') {
-            const key = inp.dataset.qid + '-' + inp.dataset.role;
-            seen.add(key);
+            // Cek Soal 4 (1/4)
+            const n4 = parseInt(document.getElementById('q4_num').value);
+            const d4 = parseInt(document.getElementById('q4_den').value);
+            if (n4 === 1 && d4 === 4) correctCount++;
+
+            // Cek Soal 5 (3/6 atau 1/2)
+            const n5 = parseInt(document.getElementById('q5_num').value);
+            const d5 = parseInt(document.getElementById('q5_den').value);
+            if ((n5 === 3 && d5 === 6) || (n5 === 1 && d5 === 2)) correctCount++;
+
+            // Hitung Skor (Skala 0-100)
+            const score = Math.round((correctCount / total) * 100);
+            const passed = score >= 60; // Lulus jika benar 3 dari 5 (60%)
+
+            // Ambil data percobaan sebelumnya dari localStorage (jika ada)
+            let prevData = JSON.parse(localStorage.getItem('missionA3_pos6')) || { attempts: 0 };
+            let attempts = prevData.attempts + 1;
+
+            // Paket Data untuk disimpan
+            const resultData = {
+                score: score + "/100",
+                correctCount: correctCount,
+                total: total,
+                passed: passed,
+                attempts: attempts
+            };
+
+            // SIMPAN KE LOCALSTORAGE (Agar bisa dibaca Pos 7 & Pos 8)
+            localStorage.setItem('missionA3_pos6', JSON.stringify(resultData));
+
+            // Tampilkan Feedback UI
+            const box = document.getElementById('feedbackBox');
+            box.classList.remove('hidden');
+            if (passed) {
+                box.className = "max-w-md mx-auto p-4 rounded-xl border bg-emerald-950/60 border-emerald-500 text-emerald-300 text-center font-bold";
+                box.innerHTML = `🎉 Luar Biasa, Agen!<br>Skor Kamu: <strong>${score}/100</strong> (${correctCount}/${total} Benar). Data nilai berhasil disimpan!`;
+            } else {
+                box.className = "max-w-md mx-auto p-4 rounded-xl border bg-rose-950/60 border-rose-500 text-rose-300 text-center font-bold";
+                box.innerHTML = `⚠️ Perlu Perbaikan.<br>Skor Kamu: <strong>${score}/100</strong> (${correctCount}/${total} Benar). Coba cek kembali jawabanmu yang keliru!`;
+            }
+
+            // Scroll mulus ke bawah melihat hasil
+            box.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
-    });
-    // count questions where both num and den filled
-    const qids = new Set(BASE_QUESTIONS.map((_,i)=>i));
-    let count = 0;
-    qids.forEach(qid => {
-        if(seen.has(qid+'-num') && seen.has(qid+'-den')) count++;
-    });
-    document.getElementById('progressCount').textContent = `${count} / ${TOTAL} soal terisi`;
-}
-
-document.addEventListener('input', (e) => {
-    if(e.target.classList.contains('frac-input')) updateProgressCount();
-});
-
-// ===================== EXPLANATION GENERATOR =====================
-function barModelHTML(numAtL, L, colorClass){
-    let boxes = '';
-    for(let i=0;i<L;i++){
-        boxes += `<div class="frac-box ${i < numAtL ? colorClass : 'bg-slate-800'}"></div>`;
-    }
-    return `<div class="frac-bar">${boxes}</div>`;
-}
-
-function generateExplanation(q, qid){
-    const L = lcm(q.b, q.d);
-    const numA = q.a * (L / q.b);
-    const numC = q.c * (L / q.d);
-    const diff = numA - numC;
-    const simp = simplify(diff, L);
-    const crossNum = q.a*q.d - q.c*q.b;
-    const crossDen = q.b*q.d;
-    const crossSimp = simplify(crossNum, crossDen);
-
-    return `
-    <div class="bg-slate-950/60 border border-slate-700 rounded-xl p-4 space-y-4 text-xs text-slate-300">
-        <div class="flex gap-2 justify-center flex-wrap">
-            <button class="tab-btn active px-3 py-1.5 rounded-full border border-slate-600 font-bold" data-tab="bar" data-qid="${qid}">🟢 Bar Model</button>
-            <button class="tab-btn px-3 py-1.5 rounded-full border border-slate-600 font-bold" data-tab="kpk" data-qid="${qid}">🔵 KPK</button>
-            <button class="tab-btn px-3 py-1.5 rounded-full border border-slate-600 font-bold" data-tab="cross" data-qid="${qid}">🟣 Kali Silang</button>
-        </div>
-
-        <div class="tab-content" data-tab-content="bar" data-qid="${qid}">
-            <p class="mb-2"><strong>Langkah 1:</strong> Samakan penyebut jadi ${L} kotak (KPK dari ${q.b} &amp; ${q.d}).</p>
-            <p class="text-[10px] text-sky-300 mb-1">${q.a}/${q.b} = ${numA}/${L}</p>
-            ${barModelHTML(numA, L, 'bg-sky-500')}
-            <p class="text-[10px] text-amber-300 mb-1 mt-3">${q.c}/${q.d} = ${numC}/${L}</p>
-            ${barModelHTML(numC, L, 'bg-amber-500')}
-            <p class="mt-3 mb-1"><strong>Langkah 2:</strong> ${numA} − ${numC} = ${diff}, jadi hasilnya ${diff}/${L}.</p>
-            <p class="text-[10px] text-emerald-300 mb-1">Hasil: ${diff}/${L}${(simp.n!==diff||simp.d!==L) ? ' = '+simp.n+'/'+simp.d+' (disederhanakan)' : ''}</p>
-            ${barModelHTML(diff, L, 'bg-emerald-500')}
-        </div>
-
-        <div class="tab-content hidden" data-tab-content="kpk" data-qid="${qid}">
-            <p><strong>Langkah 1:</strong> Cari KPK dari ${q.b} dan ${q.d} ➔ KPK = ${L}.</p>
-            <p class="mt-2"><strong>Langkah 2:</strong> Sesuaikan pembilang:</p>
-            <p class="flex items-center flex-wrap gap-1">
-                <span class="mini-frac"><span class="math-num">${q.a}</span><span class="math-den">${q.b}</span></span> = 
-                <span class="mini-frac"><span class="math-num">${q.a}×${L/q.b}</span><span class="math-den">${q.b}×${L/q.b}</span></span> = 
-                <span class="mini-frac"><span class="math-num">${numA}</span><span class="math-den">${L}</span></span>
-            </p>
-            <p class="flex items-center flex-wrap gap-1 mt-1">
-                <span class="mini-frac"><span class="math-num">${q.c}</span><span class="math-den">${q.d}</span></span> = 
-                <span class="mini-frac"><span class="math-num">${q.c}×${L/q.d}</span><span class="math-den">${q.d}×${L/q.d}</span></span> = 
-                <span class="mini-frac"><span class="math-num">${numC}</span><span class="math-den">${L}</span></span>
-            </p>
-            <p class="flex items-center flex-wrap gap-1 mt-2">
-                <strong>Langkah 3:</strong> Kurangkan:
-                <span class="mini-frac"><span class="math-num">${numA}</span><span class="math-den">${L}</span></span> − 
-                <span class="mini-frac"><span class="math-num">${numC}</span><span class="math-den">${L}</span></span> = 
-                <span class="mini-frac"><span class="math-num">${diff}</span><span class="math-den">${L}</span></span>
-                ${(simp.n!==diff||simp.d!==L) ? '= <span class="mini-frac"><span class="math-num">'+simp.n+'</span><span class="math-den">'+simp.d+'</span></span> (sederhana)' : ''}
-            </p>
-        </div>
-
-        <div class="tab-content hidden" data-tab-content="cross" data-qid="${qid}">
-            <p><strong>Langkah 1:</strong> Kalikan silang lalu kalikan penyebutnya:</p>
-            <p class="flex justify-center my-2">
-                <span class="mini-frac"><span class="math-num">(${q.a}×${q.d}) − (${q.c}×${q.b})</span><span class="math-den">${q.b}×${q.d}</span></span>
-            </p>
-            <p class="flex items-center flex-wrap gap-1">
-                <strong>Langkah 2:</strong> Hitung:
-                <span class="mini-frac"><span class="math-num">${crossNum}</span><span class="math-den">${crossDen}</span></span>
-            </p>
-            ${(crossSimp.n!==crossNum || crossSimp.d!==crossDen) ? `
-            <p class="flex items-center flex-wrap gap-1 mt-1">
-                <strong>Langkah 3:</strong> Sederhanakan:
-                <span class="mini-frac"><span class="math-num">${crossNum}÷${gcd(crossNum,crossDen)}</span><span class="math-den">${crossDen}÷${gcd(crossNum,crossDen)}</span></span> = 
-                <span class="mini-frac"><span class="math-num">${crossSimp.n}</span><span class="math-den">${crossSimp.d}</span></span>
-            </p>` : ''}
-        </div>
-    </div>
-    `;
-}
-
-document.addEventListener('click', (e) => {
-    if(e.target.classList.contains('explain-toggle')){
-        const panel = e.target.closest('.question-card').querySelector('.explanation-panel');
-        panel.classList.toggle('hidden');
-    }
-    if(e.target.classList.contains('tab-btn')){
-        const qid = e.target.dataset.qid;
-        const panel = e.target.closest('.explanation-panel');
-        panel.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        e.target.classList.add('active');
-        panel.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-        panel.querySelector(`.tab-content[data-tab-content="${e.target.dataset.tab}"]`).classList.remove('hidden');
-    }
-});
-
-// ===================== SUBMIT & SCORING =====================
-document.getElementById('submitBtn').addEventListener('click', () => {
-    let correctCount = 0;
-
-    order.forEach((qIdx) => {
-        const q = BASE_QUESTIONS[qIdx];
-        const card = document.querySelector(`.question-card[data-qid="${qIdx}"]`);
-        const numInput = card.querySelector('[data-role="num"]');
-        const denInput = card.querySelector('[data-role="den"]');
-        const userNum = parseInt(numInput.value, 10);
-        const userDen = parseInt(denInput.value, 10);
-
-        const L = lcm(q.b, q.d);
-        const correctNum = q.a*(L/q.b) - q.c*(L/q.d);
-        const correctDen = L;
-
-        const verdict = card.querySelector('.verdict');
-        const explainBtn = card.querySelector('.explain-toggle');
-        const explainPanel = card.querySelector('.explanation-panel');
-        explainBtn.classList.remove('hidden');
-        explainPanel.innerHTML = generateExplanation(q, qIdx);
-        explainPanel.classList.add('hidden');
-        verdict.classList.remove('hidden');
-
-        if(isNaN(userNum) || isNaN(userDen) || userDen === 0){
-            verdict.innerHTML = '❌ Belum diisi / tidak valid.';
-            verdict.className = 'verdict mt-4 text-sm font-semibold text-center verdict-wrong';
-            return;
-        }
-
-        const isEquivalent = (userNum * correctDen) === (correctNum * userDen);
-        if(!isEquivalent){
-            verdict.innerHTML = `❌ Belum tepat. Jawaban yang benar: ${simplify(correctNum,correctDen).n}/${simplify(correctNum,correctDen).d}`;
-            verdict.className = 'verdict mt-4 text-sm font-semibold text-center verdict-wrong';
-            return;
-        }
-
-        correctCount++;
-        const userSimplified = simplify(userNum, userDen);
-        const isSimplestForm = (userSimplified.n === userNum && userSimplified.d === userDen);
-        if(isSimplestForm){
-            verdict.innerHTML = '✅ Benar!';
-            verdict.className = 'verdict mt-4 text-sm font-semibold text-center verdict-correct';
-        } else {
-            verdict.innerHTML = `⚠️ Benar, tapi belum bentuk paling sederhana. ${userNum}/${userDen} = ${userSimplified.n}/${userSimplified.d}`;
-            verdict.className = 'verdict mt-4 text-sm font-semibold text-center verdict-warn';
-        }
-    });
-
-    const score = Math.round((correctCount / TOTAL) * 100);
-    showResultSummary(score, correctCount);
-
-    document.getElementById('submitArea').classList.add('hidden');
-    document.querySelectorAll('.frac-input').forEach(inp => inp.disabled = true);
-});
-
-function showResultSummary(score, correctCount){
-    const el = document.getElementById('resultSummary');
-    const passed = score >= KKM;
-    el.className = `card-dark rounded-2xl p-6 md:p-8 text-center space-y-4 border-t-4 ${passed ? 'border-t-emerald-500' : 'border-t-rose-500'}`;
-    el.innerHTML = `
-        <p class="text-sm uppercase tracking-widest text-slate-400 font-bold">Hasil Percobaan ke-${attempt}</p>
-        <p class="text-4xl font-extrabold ${passed ? 'text-emerald-400' : 'text-rose-400'}">${correctCount}/${TOTAL} Benar (${score})</p>
-        <p class="text-slate-300 text-sm">KKM: ${KKM} — ${passed ? 'Selamat, kamu LULUS! 🎉' : 'Belum mencapai KKM. Yuk coba lagi!'}</p>
-        ${passed
-            ? `<a href="mission-a3-challenge.html" class="inline-flex items-center justify-center bg-gradient-to-r from-emerald-500 to-sky-500 hover:from-emerald-400 hover:to-sky-400 text-slate-900 font-bold py-3 px-8 rounded-full shadow-lg transition-all hover:-translate-y-1">Lanjut ke Pos 7 (Challenge Quest) ➔</a>`
-            : `<button id="retryBtn" class="inline-flex items-center justify-center bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all hover:-translate-y-1">🔀 Coba Lagi (Soal Diacak)</button>`
-        }
-    `;
-    el.classList.remove('hidden');
-    el.scrollIntoView({behavior: 'smooth', block: 'center'});
-
-    try {
-        localStorage.setItem('missionA3_pos6', JSON.stringify({
-            score, correctCount, total: TOTAL, attempts: attempt,
-            passed, updatedAt: new Date().toISOString()
-        }));
-    } catch(e) { /* storage unavailable, ignore */ }
-
-    if(!passed){
-        document.getElementById('retryBtn').addEventListener('click', retryQuiz);
-    }
-}
-
-function retryQuiz(){
-    attempt++;
-    document.getElementById('attemptCount').textContent = attempt;
-    order = shuffleArray([0,1,2,3,4,5]);
-    document.getElementById('resultSummary').classList.add('hidden');
-    document.getElementById('submitArea').classList.remove('hidden');
-    renderQuestions();
-    window.scrollTo({top: 0, behavior: 'smooth'});
-}
-
-// ===================== INIT =====================
-renderQuestions();
-</script>
+    </script>
 </body>
 </html>
