@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission Complete - Mission A3 | VisualMath.Lim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark { background-color: #1e293b; border: 1px solid #334155; }
+        .badge-glow {
+            box-shadow: 0 0 40px rgba(250,204,21,0.35), 0 0 80px rgba(250,204,21,0.15);
+        }
+        @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        .float-anim { animation: floaty 3.5s ease-in-out infinite; }
+        .log-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; border-radius: 0.75rem; background-color: #0f172a; border: 1px solid #334155; }
+
+        #confettiLayer { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 40; }
+        .confetti-piece {
+            position: absolute; top: -20px; border-radius: 2px;
+            animation-name: confetti-fall; animation-timing-function: linear; animation-fill-mode: forwards;
+        }
+        @keyframes confetti-fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(540deg); opacity: 0.9; }
+        }
+        .growth-quote { border-left: 4px solid #fbbf24; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <div id="confettiLayer"></div>
+
+    <div class="fixed top-[-15%] left-1/2 -translate-x-1/2 w-[36rem] h-[36rem] bg-amber-400/10 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
+    <!-- Header -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
+            <a href="index.html" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                <img src="./assets/logo.png" alt="Logo" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-sky-400\'>VM</div>'">
+                <div>
+                    <h1 class="text-lg font-bold text-sky-400 leading-tight">VisualMath.Lim</h1>
+                    <p class="text-[11px] text-slate-400 leading-tight uppercase tracking-wider">Math Mastery • Kelas 6</p>
+                </div>
+            </a>
+            <span class="px-3 py-1 bg-amber-900/40 border border-amber-700/50 rounded-full text-xs font-bold text-amber-300 shadow-[0_0_10px_rgba(250,204,21,0.2)]">
+                🏆 Pos 8/8: Mission Complete
+            </span>
+        </div>
+        <div class="h-1.5 w-full bg-slate-900">
+            <div class="h-full bg-gradient-to-r from-sky-500 via-amber-500 to-purple-500" style="width: 100%"></div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-2xl mx-auto w-full px-4 py-10 space-y-8 relative z-10 text-center">
+
+        <!-- BADGE HERO -->
+        <section class="space-y-3">
+            <div class="float-anim inline-block">
+                <div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-amber-300 via-yellow-400 to-amber-600 badge-glow flex items-center justify-center text-6xl border-4 border-amber-200/50">
+                    ⚖️
+                </div>
+            </div>
+            <h2 class="text-2xl font-extrabold text-amber-300">Equalizer Badge Diperoleh!</h2>
+            <p class="text-slate-300 text-sm max-w-md mx-auto leading-relaxed">
+                Kamu telah membuktikan penguasaan penuh atas pengurangan pecahan berpenyebut beda — mulai dari konsep, hitungan sistematis, cara cepat, sampai penalaran dan soal cerita. Misi A3 selesai, Agen!
+            </p>
+        </section>
+
+        <!-- UCAPAN SELAMAT DARI PROF SIGMA / BIMBEL -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-6 shadow-xl border-t-4 border-t-amber-400 text-left">
+            <img src="./assets/Sigma.png" alt="Prof Sigma" class="w-20 h-20 object-contain drop-shadow-xl shrink-0" onerror="this.outerHTML='<div class=\'w-20 h-20 rounded-full border-2 border-amber-400 bg-slate-800 flex items-center justify-center text-3xl shrink-0\'>👨‍🏫</div>'">
+            <div class="space-y-1">
+                <p class="text-amber-300 font-bold text-sm tracking-widest uppercase">Pesan dari Prof Sigma &amp; Tim VisualMath.Lim</p>
+                <p class="text-slate-200 text-sm leading-relaxed">
+                    "Selamat, Agen! Prof Sigma dan seluruh tim bimbel <strong>VisualMath.Lim</strong> bangga sekali padamu. Kamu tidak cuma menghafal rumus — kamu memahami <em>kenapa</em> caranya begitu, dan berani mencoba lagi saat belum berhasil. Itu jauh lebih berharga daripada nilai sempurna."
+                </p>
+            </div>
+        </section>
+
+        <!-- GROWTH MINDSET -->
+        <section class="card-dark growth-quote rounded-2xl p-6 md:p-8 text-left space-y-3">
+            <p class="text-xs uppercase tracking-widest text-amber-400 font-bold">🌱 Sebelum lanjut ke misi berikutnya, ingat ini...</p>
+            <p class="text-slate-200 text-sm leading-relaxed">
+                Kemampuan matematikamu <strong>bukan bakat bawaan yang tetap</strong> — ia tumbuh setiap kali kamu berlatih, mencoba cara baru, dan mengulang soal yang tadinya salah.
+            </p>
+            <p class="text-slate-200 text-sm leading-relaxed">
+                Kalau tadi ada soal yang harus kamu ulang, itu bukan tanda kamu kurang pintar. Itu tandanya otakmu sedang bekerja keras membentuk koneksi baru — persis seperti otot yang menjadi kuat setelah dilatih.
+            </p>
+            <p class="text-amber-300 text-sm font-semibold leading-relaxed">
+                Teruslah berkata pada dirimu sendiri: "Aku belum bisa — <em>untuk saat ini</em>." Bukan "aku tidak bisa."
+            </p>
+        </section>
+
+        <!-- LOG MISI -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 space-y-4 text-left">
+            <h3 class="font-bold text-white text-lg flex items-center gap-2 justify-center md:justify-start">
+                <span>📋</span> Log Perjalanan Misimu
+            </h3>
+            <div id="logContainer" class="space-y-3"></div>
+            <p id="logFallbackNote" class="hidden text-xs text-slate-500 italic text-center pt-1">
+                Catatan: sebagian log tidak ditemukan di perangkat ini (mungkin kamu membuka pos ini di perangkat/browser berbeda). Badge tetap sah jika kamu sudah lulus kedua pos sebelumnya.
+            </p>
+        </section>
+
+        <!-- NAVIGASI -->
+        <div class="flex flex-col md:flex-row justify-center items-center gap-4 pt-4 pb-12">
+            <a href="mission-a3-challenge.html" class="text-slate-400 hover:text-white font-medium transition-colors flex items-center gap-2">
+                <span>⬅</span> Kembali ke Pos 7
+            </a>
+            <a href="index.html" class="inline-flex items-center justify-center bg-gradient-to-r from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-900 font-bold py-3.5 px-8 rounded-full shadow-lg shadow-amber-500/30 transition-all hover:-translate-y-1">
+                🏠 Kembali ke Beranda
+            </a>
+        </div>
+
+    </main>
+
+<script>
+// ===================== CONFETTI =====================
+function launchConfetti(){
+    const layer = document.getElementById('confettiLayer');
+    const colors = ['#fbbf24', '#38bdf8', '#fb7185', '#34d399', '#a78bfa'];
+    const pieceCount = 60;
+    for(let i=0;i<pieceCount;i++){
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        const size = 6 + Math.random()*6;
+        piece.style.width = size + 'px';
+        piece.style.height = (size*0.4) + 'px';
+        piece.style.left = Math.random()*100 + 'vw';
+        piece.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+        const duration = 2.5 + Math.random()*2;
+        const delay = Math.random()*1.2;
+        piece.style.animationDuration = duration + 's';
+        piece.style.animationDelay = delay + 's';
+        layer.appendChild(piece);
+        setTimeout(() => piece.remove(), (duration+delay)*1000 + 200);
+    }
+}
+launchConfetti();
+setTimeout(launchConfetti, 1800);
+
+// ===================== LOG =====================
+function loadLog(key){
+    try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : null;
+    } catch(e) { return null; }
+}
+
+function renderLogRow(title, data){
+    if(!data){
+        return `<div class="log-row">
+            <span class="text-sm text-slate-400">${title}</span>
+            <span class="text-xs text-slate-500 italic">Tidak ada data</span>
+        </div>`;
+    }
+    const statusColor = data.passed ? 'text-emerald-400' : 'text-rose-400';
+    const statusText = data.passed ? 'Lulus ✅' : 'Belum Lulus';
+    return `<div class="log-row">
+        <div>
+            <p class="text-sm font-semibold text-white">${title}</p>
+            <p class="text-xs text-slate-400">Percobaan ke-${data.attempts} • ${data.correctCount}/${data.total} benar</p>
+        </div>
+        <div class="text-right">
+            <p class="text-lg font-extrabold ${statusColor}">${data.score}</p>
+            <p class="text-[10px] ${statusColor} font-bold">${statusText}</p>
+        </div>
+    </div>`;
+}
+
+const pos6 = loadLog('missionA3_pos6');
+const pos7 = loadLog('missionA3_pos7');
+
+document.getElementById('logContainer').innerHTML =
+    renderLogRow('Pos 6 — Easy Quest', pos6) +
+    renderLogRow('Pos 7 — Challenge Quest', pos7);
+
+if(!pos6 || !pos7 || !pos6.passed || !pos7.passed){
+    document.getElementById('logFallbackNote').classList.remove('hidden');
+}
+</script>
+</body>
+</html>
