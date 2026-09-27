@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pos 6: Easy Quest - Mission B1 | VisualMath.Lim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark { background-color: #1e293b; border: 1px solid #334155; }
+        .input-dark { background-color: #0f172a; border: 1px solid #475569; color: #f8fafc; text-align: center; font-weight: bold; }
+        .input-dark:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); }
+        .input-dark.correct { border-color: #10b981; box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25); }
+        .input-dark.wrong { border-color: #f43f5e; box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.25); }
+
+        /* ===== FRAKSI: format penulisan pecahan konsisten & rapi ===== */
+        .math-frac {
+            display: inline-flex; flex-direction: column; align-items: stretch;
+            vertical-align: middle; margin: 0 0.3rem; font-weight: bold; line-height: 1.25;
+            min-width: 1.6em;
+        }
+        .math-num { border-bottom: 2px solid currentColor; padding: 0 0.35rem 0.12rem; width: 100%; text-align: center; white-space: nowrap; }
+        .math-den { padding: 0.12rem 0.35rem 0; width: 100%; text-align: center; white-space: nowrap; }
+        .mixed-num { display: inline-flex; align-items: center; gap: 0.35rem; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- Efek Cahaya Background -->
+    <div class="fixed top-[-10%] right-[-10%] w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+    <!-- Header -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="Logo" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-blue-400\'>VM</div>'">
+                <div>
+                    <h1 class="text-lg font-bold text-blue-400 leading-tight">VisualMath.Lim</h1>
+                    <p class="text-[11px] text-slate-400 leading-tight uppercase tracking-wider">Misi B1 • Perkalian</p>
+                </div>
+            </div>
+            <span class="px-3 py-1 bg-blue-900/40 border border-blue-700/50 rounded-full text-xs font-bold text-blue-300 shadow-[0_0_10px_rgba(59,130,246,0.2)]">
+                🔵 Pos 6/8: Easy Quest
+            </span>
+        </div>
+        <!-- Progress Bar (75%) -->
+        <div class="h-1.5 w-full bg-slate-900">
+            <div class="h-full bg-gradient-to-r from-amber-500 via-blue-500 to-cyan-500" style="width: 75%"></div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-8 relative z-10">
+
+        <!-- TITLE -->
+        <section class="text-center space-y-3">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-slate-800 rounded-full text-sm font-semibold text-slate-300 border border-slate-700">
+                ⚔️ Arena Latihan Dasar
+            </div>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-white">
+                POS 6 — <span class="text-blue-400">Easy Quest</span>
+            </h2>
+            <p class="max-w-xl mx-auto text-slate-400 text-sm">
+                Selesaikan 6 soal perkalian berikut menggunakan Rumus Emas Prof. Sigma. Setelah diperiksa, cara penyelesaian lengkap tiap soal akan muncul supaya kamu makin paham!
+            </p>
+        </section>
+
+        <!-- PENGINGAT RUMUS & ATURAN KKM -->
+        <section class="max-w-xl mx-auto space-y-3">
+            <div class="bg-blue-950/30 border border-blue-800 rounded-xl p-4 flex items-center justify-center gap-4 text-sm text-blue-200">
+                <span class="text-2xl">💡</span>
+                <p><strong>Ingat:</strong> Kalikan bilangan asli dengan pembilang (atas). Biarkan penyebut (bawah) tetap sama.</p>
+            </div>
+            <div class="bg-amber-950/30 border border-amber-700 rounded-xl p-4 flex items-center justify-center gap-4 text-sm text-amber-200">
+                <span class="text-2xl">🎯</span>
+                <p><strong>KKM (Nilai Minimal Lulus): 70.</strong> Kalau nilaimu di bawah 70, soal akan <strong>diacak ulang</strong> dan kamu harus coba lagi sampai lulus, baru bisa masuk ke Pos 7 (Boss Battle - soal HOTS).</p>
+            </div>
+        </section>
+
+        <!-- KUIS POS 6 (bukan <form>, supaya penilaian tidak bergantung pada validasi bawaan browser yang bisa diam-diam gagal) -->
+        <div id="pos6Form" class="space-y-8 max-w-3xl mx-auto">
+
+            <section class="card-dark rounded-2xl p-6 md:p-8 space-y-6 shadow-xl border-t-4 border-t-blue-500">
+                <div id="quizContainer" class="grid md:grid-cols-2 gap-6">
+                    <!-- 6 kartu soal dirender otomatis oleh JS (renderQuestions) -->
+                </div>
+            </section>
+
+            <!-- SUBMIT & FEEDBACK -->
+            <div class="text-center space-y-4">
+                <button type="button" id="btnCheck" data-mode="check" onclick="checkAnswers()" class="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-blue-500/30 transition-all hover:scale-105 text-lg">
+                    💾 Periksa Jawaban & Simpan
+                </button>
+                <div id="feedbackBox" class="hidden w-full p-5 rounded-xl border text-center font-bold"></div>
+            </div>
+
+        </div>
+
+        <!-- NAVIGASI LANJUT -->
+        <div class="flex justify-between items-center pt-6 border-t border-slate-800 pb-12 max-w-3xl mx-auto">
+            <a href="mission-b1-pos5.html" class="text-slate-400 hover:text-white font-medium transition-colors flex items-center gap-2">
+                <span>⬅</span> Kembali Pos 5
+            </a>
+            <a href="mission-b1-pos7.html" id="btnNextPos" class="hidden items-center justify-center bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-bold py-3.5 px-8 rounded-full shadow-lg shadow-rose-500/30 transition-all hover:-translate-y-1 group">
+                Lanjut Pos 7 (Boss Battle) 
+                <span class="ml-2 group-hover:translate-x-1 transition-transform">➔</span>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- SCRIPT SOAL DINAMIS + AUTO-CHECKER -->
+    <script>
+        const TOTAL_Q = 6;
+        const KKM = 70;
+        let currentBank = [];
+
+        function gcd(x, y) {
+            x = Math.abs(x); y = Math.abs(y);
+            while (y) { [x, y] = [y, x % y]; }
+            return x;
+        }
+
+        // Bangkitkan 6 soal acak "a x b/c" (rentang ramah pemula) yang hasilnya sudah paling sederhana
+        function generateBank(n) {
+            const bank = [];
+            const used = new Set();
+            let guard = 0;
+            while (bank.length < n && guard < 800) {
+                guard++;
+                const a = 2 + Math.floor(Math.random() * 5);   // 2..6
+                const c = 4 + Math.floor(Math.random() * 6);   // 4..9
+                const b = 1 + Math.floor(Math.random() * (c - 1)); // 1..c-1
+                const key = a + '-' + b + '-' + c;
+                if (used.has(key)) continue;
+                const num = a * b;
+                if (gcd(num, c) !== 1) continue; // pastikan hasil sudah paling sederhana
+                used.add(key);
+                bank.push({ a, b, c, correctNum: num, correctDen: c, improper: num >= c });
+            }
+            return bank;
+        }
+
+        function renderQuestions(bank) {
+            const container = document.getElementById('quizContainer');
+            container.innerHTML = bank.map((q, idx) => `
+                <div class="bg-slate-900 p-5 rounded-xl border border-slate-700 space-y-3 shadow-inner">
+                    <div class="flex justify-between items-center text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        <span>Soal ${idx + 1}</span>
+                        ${q.improper ? '<span class="text-amber-400 normal-case">⭐ Ekstra</span>' : ''}
+                    </div>
+                    <div class="flex items-center justify-center gap-3 text-xl font-bold">
+                        <span class="text-white">${q.a}</span>
+                        <span class="text-slate-500">×</span>
+                        <div class="math-frac text-white"><span class="math-num">${q.b}</span><span class="math-den">${q.c}</span></div>
+                        <span class="text-blue-400 mx-2">=</span>
+                        <div class="math-frac">
+                            <input type="number" inputmode="numeric" id="q${idx}_num" class="input-dark w-12 h-10 rounded text-lg text-blue-300" placeholder="?">
+                            <div class="w-12 h-0.5 bg-slate-600 my-1"></div>
+                            <input type="number" inputmode="numeric" id="q${idx}_den" class="input-dark w-12 h-10 rounded text-lg text-blue-300" placeholder="?">
+                        </div>
+                    </div>
+                    <div id="q${idx}_explain" class="hidden pt-3 border-t border-slate-700 text-xs space-y-2"></div>
+                </div>
+            `).join('');
+        }
+
+        // Susun pembahasan lengkap + visualisasi pecahan untuk satu soal
+        function buildExplanation(q, sNum, sDen) {
+            const isCorrect = (sNum === q.correctNum && sDen === q.correctDen);
+
+            let mixedTip = '';
+            if (q.improper) {
+                const whole = Math.floor(q.correctNum / q.correctDen);
+                const rem = q.correctNum % q.correctDen;
+                mixedTip = `
+                    <div class="text-slate-400 text-[11px] flex flex-wrap items-center justify-center gap-1">
+                        <span>Karena atas ≥ bawah, ini bisa jadi pecahan campuran:</span>
+                        <span>${q.correctNum} ÷ ${q.correctDen} = ${whole} sisa ${rem} ➔</span>
+                        <span class="mixed-num">
+                            <span class="text-emerald-300 font-bold">${whole}</span>
+                            <div class="math-frac text-emerald-300 text-[11px]"><span class="math-num">${rem}</span><span class="math-den">${q.correctDen}</span></div>
+                        </span>
+                    </div>`;
+            }
+
+            return `
+                <p class="text-slate-400">Cara Lengkap (Rumus Emas):</p>
+                <div class="flex items-center justify-center gap-1.5 font-bold flex-wrap">
+                    <span class="text-white">${q.a}</span>
+                    <span class="text-slate-500 text-xs">×</span>
+                    <div class="math-frac text-white text-xs"><span class="math-num">${q.b}</span><span class="math-den">${q.c}</span></div>
+                    <span class="text-slate-500 text-xs">=</span>
+                    <div class="math-frac text-xs"><span class="math-num">${q.a}×${q.b}</span><span class="math-den">${q.c}</span></div>
+                    <span class="text-slate-500 text-xs">=</span>
+                    <div class="math-frac text-emerald-300 text-xs"><span class="math-num">${q.correctNum}</span><span class="math-den">${q.correctDen}</span></div>
+                </div>
+                ${mixedTip}
+                <p class="${isCorrect ? 'text-emerald-400' : 'text-rose-400'} font-semibold text-center pt-1">
+                    ${isCorrect
+                        ? '✅ Jawabanmu sudah benar!'
+                        : `❌ Jawabanmu ${sNum === '' || isNaN(sNum) ? '(kosong)' : sNum}/${sDen === '' || isNaN(sDen) ? '(kosong)' : sDen}, yang benar ${q.correctNum}/${q.correctDen}.`}
+                </p>`;
+        }
+
+        function showFeedback(message, tone) {
+            // tone: 'amber' | 'emerald'
+            const box = document.getElementById('feedbackBox');
+            const styles = {
+                amber: "w-full p-5 rounded-xl border bg-amber-950/60 border-amber-500 text-amber-300 text-center font-bold",
+                emerald: "w-full p-5 rounded-xl border bg-emerald-950/60 border-emerald-500 text-emerald-300 text-center font-bold shadow-[0_0_20px_rgba(16,185,129,0.2)]"
+            };
+            box.className = styles[tone];
+            box.innerHTML = message;
+            box.classList.remove('hidden');
+            box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function checkAnswers() {
+            const btn = document.getElementById('btnCheck');
+
+            // Jika tombol sedang dalam mode "coba lagi", acak soal baru dan hentikan (tidak menilai)
+            if (btn.dataset.mode === 'retry') {
+                resetQuiz();
+                return;
+            }
+
+            // Validasi manual (BUKAN validasi bawaan browser) supaya selalu ada feedback yang terlihat,
+            // bahkan di browser/tampilan yang menyembunyikan pesan validasi native.
+            let hasEmpty = false;
+            currentBank.forEach((q, idx) => {
+                const numVal = document.getElementById(`q${idx}_num`).value.trim();
+                const denVal = document.getElementById(`q${idx}_den`).value.trim();
+                if (numVal === '' || denVal === '') hasEmpty = true;
+            });
+            if (hasEmpty) {
+                showFeedback('⚠️ Masih ada kotak yang kosong, Agen! Isi dulu semua jawaban (angka atas & bawah) di 6 soal di atas, baru klik "Periksa Jawaban" lagi.', 'amber');
+                return;
+            }
+
+            let correctCount = 0;
+
+            currentBank.forEach((q, idx) => {
+                const numInput = document.getElementById(`q${idx}_num`);
+                const denInput = document.getElementById(`q${idx}_den`);
+                const sNum = parseInt(numInput.value);
+                const sDen = parseInt(denInput.value);
+                const isCorrect = (sNum === q.correctNum && sDen === q.correctDen);
+                if (isCorrect) correctCount++;
+
+                numInput.classList.remove('correct', 'wrong');
+                denInput.classList.remove('correct', 'wrong');
+                numInput.classList.add(isCorrect ? 'correct' : 'wrong');
+                denInput.classList.add(isCorrect ? 'correct' : 'wrong');
+
+                const explainEl = document.getElementById(`q${idx}_explain`);
+                explainEl.innerHTML = buildExplanation(q, sNum, sDen);
+                explainEl.classList.remove('hidden');
+            });
+
+            const total = currentBank.length;
+            const score = Math.round((correctCount / total) * 100);
+            const passed = score >= KKM;
+
+            // Ambil data lama (untuk mencatat jumlah percobaan)
+            let prevData = JSON.parse(localStorage.getItem('missionB1_pos6')) || { attempts: 0 };
+            const attempts = prevData.attempts + 1;
+
+            // Simpan ke Local Storage untuk Pos 8
+            const resultData = { score: score + "/100", correctCount, total, passed, kkm: KKM, attempts };
+            localStorage.setItem('missionB1_pos6', JSON.stringify(resultData));
+
+            if (passed) {
+                showFeedback(
+                    `🎉 Kerja Bagus, Agen! Kamu Lulus KKM!<br><span class="text-white text-2xl inline-block mt-2 font-black">Skor: ${score} (${correctCount}/${total} benar)</span><br><span class="text-sm font-normal text-slate-300 block mt-2">Cek pembahasan lengkap di tiap soal di atas ya. Kamu sekarang siap menghadapi Boss Battle!</span>`,
+                    'emerald'
+                );
+
+                document.getElementById('btnNextPos').classList.remove('hidden');
+                document.getElementById('btnNextPos').classList.add('inline-flex');
+
+                btn.innerText = "✅ Kuis Selesai";
+                btn.disabled = true;
+                btn.classList.add('opacity-60', 'cursor-not-allowed');
+            } else {
+                showFeedback(
+                    `⚠️ Belum Lulus KKM (${KKM})<br><span class="text-white text-2xl inline-block mt-2 font-black">Skor: ${score} (${correctCount}/${total} benar)</span><br><span class="text-sm font-normal text-slate-300 block mt-2">Baca dulu pembahasan lengkap di tiap soal di atas. Soal akan diacak ulang — klik tombol di bawah untuk coba lagi!</span>`,
+                    'amber'
+                );
+
+                btn.innerText = "🔄 Acak Soal Baru & Coba Lagi";
+                btn.dataset.mode = "retry";
+                btn.classList.replace('from-blue-600', 'from-amber-600');
+                btn.classList.replace('to-cyan-600', 'to-amber-700');
+            }
+        }
+
+        function resetQuiz() {
+            currentBank = generateBank(TOTAL_Q);
+            renderQuestions(currentBank);
+
+            document.getElementById('feedbackBox').classList.add('hidden');
+
+            const btn = document.getElementById('btnCheck');
+            btn.innerText = "💾 Periksa Jawaban & Simpan";
+            btn.dataset.mode = "check";
+            btn.disabled = false;
+            btn.classList.remove('opacity-60', 'cursor-not-allowed');
+            btn.classList.replace('from-amber-600', 'from-blue-600');
+            btn.classList.replace('to-amber-700', 'to-cyan-600');
+
+            document.getElementById('pos6Form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Izinkan tekan Enter di kotak jawaban untuk langsung memeriksa (kemudahan tanpa <form>)
+        document.getElementById('quizContainer') && document.getElementById('quizContainer').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.target.tagName === 'INPUT') {
+                e.preventDefault();
+                checkAnswers();
+            }
+        });
+
+        // Inisialisasi: buat 6 soal acak begitu halaman dibuka
+        document.addEventListener('DOMContentLoaded', () => {
+            currentBank = generateBank(TOTAL_Q);
+            renderQuestions(currentBank);
+        });
+    </script>
+</body>
+</html>
