@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pos 2: Visualize - Mission B2 | VisualMath.Lim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark { background-color: #1e293b; border: 1px solid #334155; }
+        
+        /* Tema Warna B2 Pos 2: Ungu/Indigo */
+        .text-gradient {
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #8b5cf6, #d946ef);
+        }
+        
+        /* Pecahan Vertikal */
+        .math-frac {
+            display: inline-flex; flex-direction: column; align-items: center;
+            vertical-align: middle; margin: 0 0.3rem; font-weight: bold; line-height: 1.2;
+        }
+        .math-num { border-bottom: 2px solid currentColor; padding: 0 0.2rem; width: 100%; text-align: center; }
+        .math-den { padding: 0 0.2rem; width: 100%; text-align: center; }
+
+        .input-dark { background-color: #0f172a; border: 1px solid #475569; color: #f8fafc; text-align: center; font-weight: bold; }
+        .input-dark:focus { outline: none; border-color: #a855f7; box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.3); }
+        .input-correct { border-color: #10b981 !important; color: #10b981; background-color: rgba(16, 185, 129, 0.1); }
+
+        /* Transisi Balok */
+        .bar-slice { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .bar-highlight { background-color: #a855f7; box-shadow: inset 0 0 15px rgba(255,255,255,0.3); color: white !important; font-size: 1.25rem !important; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- Efek Cahaya Background -->
+    <div class="fixed top-[-10%] right-[-10%] w-96 h-96 bg-purple-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+    <div class="fixed bottom-[-10%] left-[-10%] w-96 h-96 bg-indigo-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+    <!-- Header -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="Logo" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-purple-400\'>VM</div>'">
+                <div>
+                    <h1 class="text-lg font-bold text-purple-400 leading-tight">VisualMath.Lim</h1>
+                    <p class="text-[11px] text-slate-400 leading-tight uppercase tracking-wider">Misi B2 • Fraction of Quantity</p>
+                </div>
+            </div>
+            <span class="px-3 py-1 bg-purple-900/40 border border-purple-700/50 rounded-full text-xs font-bold text-purple-300 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+                🟣 Pos 2/8: Visualize
+            </span>
+        </div>
+        <!-- Progress Bar (25%) -->
+        <div class="h-1.5 w-full bg-slate-900">
+            <div class="h-full bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500" style="width: 25%"></div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-8 relative z-10">
+
+        <!-- LUNA MESSAGE -->
+        <section class="flex flex-col sm:flex-row items-center gap-6 border-b border-slate-700 pb-6">
+            <img src="assets/Luna.png" alt="Luna" class="w-24 h-24 object-contain drop-shadow-xl" onerror="this.outerHTML='<div class=\'w-24 h-24 rounded-full border-2 border-purple-500 bg-slate-800 flex items-center justify-center text-4xl shrink-0\'>👩🏻‍🎨</div>'">
+            <div>
+                <h3 class="text-3xl font-bold text-white mb-2">VISUALIZE: <span class="text-gradient">Bar Model</span></h3>
+                <p class="text-slate-300 italic">"Gudang dan kotak dari Pos 1 bentuknya terlalu memakan tempat. Mari kita sederhanakan menjadi bentuk <strong class="text-purple-400 font-bold not-italic">Gambar Balok (Bar Model)</strong>. Ini adalah senjata rahasia pemecah masalah matematika yang hebat!"</p>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE ZONE: BAR SLICER -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 space-y-8 shadow-xl border-t-4 border-t-purple-500">
+            
+            <div class="text-center space-y-3">
+                <h4 class="font-bold text-white text-xl">Potong Balok Keseluruhan</h4>
+                <p class="text-sm text-slate-300">
+                    Balok panjang di bawah ini mewakili <strong class="text-white">12 Cokelat (Keseluruhan)</strong>.<br>
+                    Kita ingin mencari nilai dari <div class="math-frac text-purple-400 text-lg"><span class="math-num">1</span><span class="math-den">4</span></div> bagian.
+                </p>
+                <p class="text-sm text-amber-300 font-semibold mt-2">Menjadi berapa potongan balok ini harus kita iris?</p>
+            </div>
+
+            <!-- Tombol Pemotong (Slicer) -->
+            <div class="flex justify-center gap-4 py-2" id="slicerButtons">
+                <button onclick="sliceBar(2)" class="px-6 py-2 rounded-lg font-bold text-slate-300 bg-slate-800 border border-slate-600 hover:bg-slate-700 transition-colors">Bagi 2</button>
+                <button onclick="sliceBar(3)" class="px-6 py-2 rounded-lg font-bold text-slate-300 bg-slate-800 border border-slate-600 hover:bg-slate-700 transition-colors">Bagi 3</button>
+                <button onclick="sliceBar(4)" class="px-6 py-2 rounded-lg font-bold text-purple-100 bg-gradient-to-r from-purple-700 to-indigo-700 border border-purple-500 hover:shadow-[0_0_15px_rgba(168,85,247,0.5)] transition-all">Bagi 4</button>
+            </div>
+            
+            <!-- Error Message untuk Slicer -->
+            <div id="slicerError" class="hidden text-center text-rose-400 text-sm font-bold animate-pulse">
+                ❌ Coba lagi! Perhatikan angka penyebut pada pecahan <div class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></div>.
+            </div>
+
+            <!-- Visual Bar Model Area -->
+            <div class="max-w-lg mx-auto mt-8 relative pt-8 pb-4">
+                <!-- Bracket (Garis Atas) Keseluruhan -->
+                <div class="absolute top-0 left-0 w-full h-4 border-t-2 border-l-2 border-r-2 border-slate-400 text-center">
+                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#1e293b] px-3 text-slate-300 font-bold text-sm">Total Keseluruhan = 12</span>
+                </div>
+                
+                <!-- Batang Model -->
+                <div id="theBar" class="w-full h-16 bg-slate-800 border-2 border-slate-500 rounded flex overflow-hidden transition-all duration-500 shadow-inner">
+                    <div class="w-full h-full flex items-center justify-center text-slate-500 font-bold text-xl opacity-50 bar-slice">12</div>
+                </div>
+                
+                <!-- Label Bawah (Muncul setelah dipotong) -->
+                <div id="bottomLabels" class="hidden flex justify-between w-full px-2 mt-2 text-xs font-bold text-purple-400">
+                    <div class="w-1/4 text-center">1/4 Bagian</div>
+                    <div class="w-1/4 text-center text-slate-500">1/4 Bagian</div>
+                    <div class="w-1/4 text-center text-slate-500">1/4 Bagian</div>
+                    <div class="w-1/4 text-center text-slate-500">1/4 Bagian</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUESTION SECTION (Muncul setelah Slicer = 4) -->
+        <section id="questionSection" class="hidden bg-gradient-to-br from-indigo-950 to-purple-950 rounded-2xl p-6 md:p-8 border border-purple-900/50 shadow-xl space-y-6 animate-fade-in-up">
+            <div class="flex items-center gap-3 border-b border-purple-800/50 pb-3">
+                <span class="text-2xl">✨</span>
+                <h4 class="font-bold text-white text-lg">Luar Biasa!</h4>
+            </div>
+            
+            <p class="text-slate-300 text-sm leading-relaxed">
+                Kamu telah membagi batang utuh (12) menjadi 4 potongan yang sama besar. Kotak yang menyala mewakili 
+                <div class="math-frac text-purple-300 font-bold"><span class="math-num">1</span><span class="math-den">4</span></div> bagian.
+            </p>
+            
+            <div class="bg-slate-900/60 p-5 rounded-lg border border-slate-700 flex flex-col md:flex-row items-center justify-center gap-4 text-center md:text-left">
+                <div class="text-slate-300 font-semibold flex items-center gap-2 text-lg">
+                    Berapa nilai 1 kotak ini? <br class="md:hidden"> (12 ÷ 4) = 
+                </div>
+                <input type="number" id="ansVal" class="input-dark w-20 h-12 text-2xl rounded-lg text-purple-300 font-bold" oninput="checkValue()">
+            </div>
+            
+            <!-- Kesimpulan Matematis -->
+            <div id="conclusionBox" class="hidden bg-purple-900/30 p-5 rounded-lg border border-purple-500 mt-4 relative overflow-hidden">
+                <div class="absolute left-0 top-0 h-full w-1 bg-purple-500"></div>
+                <p class="font-bold text-purple-300 mb-2 flex items-center gap-2"><span>🎯</span> Konsep Terkunci!</p>
+                <p class="text-slate-200 text-sm leading-relaxed">
+                    Benar! Nilainya adalah <strong class="text-white text-lg bg-purple-800 px-2 rounded">3</strong>.
+                </p>
+                <p class="text-amber-300 text-sm mt-3 font-semibold bg-slate-900/50 p-3 rounded border border-amber-900/50">
+                    "Penyebut (angka bawah) bertugas sebagai <strong class="text-white">PISAU PEMOTONG</strong> benda utuh!"
+                </p>
+            </div>
+        </section>
+
+        <!-- NAVIGASI BAWAH -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-4 pb-12">
+            <a href="mission-b2-pos1.html" class="text-slate-400 hover:text-white font-medium transition-colors flex items-center gap-2">
+                <span>⬅</span> Kembali Pos 1
+            </a>
+            <a href="mission-b2-pos3.html" id="btnNextPos" class="opacity-50 cursor-not-allowed inline-flex items-center justify-center bg-slate-700 text-slate-400 font-bold py-3.5 px-8 rounded-full transition-all group pointer-events-none">
+                Pecahkan Balok Dulu
+                <span class="ml-2">➔</span>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- SCRIPT LOGIKA SIMULASI BALOK -->
+    <script>
+        function sliceBar(pieces) {
+            const errorMsg = document.getElementById('slicerError');
+            
+            if (pieces !== 4) {
+                // Jawaban salah
+                errorMsg.classList.remove('hidden');
+                setTimeout(() => errorMsg.classList.add('hidden'), 3000);
+                return;
+            }
+
+            // Jawaban benar: Bagi 4
+            errorMsg.classList.add('hidden');
+            document.getElementById('slicerButtons').style.pointerEvents = 'none'; // Kunci tombol slicer
+
+            const bar = document.getElementById('theBar');
+            bar.classList.replace('bg-slate-800', 'bg-slate-900');
+            bar.classList.replace('border-slate-500', 'border-purple-600');
+            
+            // Generate 4 potongan
+            bar.innerHTML = '';
+            for (let i = 0; i < 4; i++) {
+                const slice = document.createElement('div');
+                // Slice pertama akan di-highlight
+                if (i === 0) {
+                    slice.className = 'w-1/4 h-full border-r-2 border-slate-700 flex items-center justify-center font-bold text-slate-600 bar-slice bar-highlight';
+                    slice.innerHTML = '?';
+                } else {
+                    slice.className = 'w-1/4 h-full border-r-2 border-slate-700 flex items-center justify-center font-bold text-slate-600 bar-slice';
+                    if (i === 3) slice.classList.remove('border-r-2'); // hapus border kanan blok terakhir
+                }
+                bar.appendChild(slice);
+            }
+
+            // Tampilkan Label Bawah & Pertanyaan
+            document.getElementById('bottomLabels').classList.remove('hidden');
+            
+            setTimeout(() => {
+                const qSec = document.getElementById('questionSection');
+                qSec.classList.remove('hidden');
+                qSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 800);
+        }
+
+        function checkValue() {
+            const input = document.getElementById('ansVal');
+            const val = input.value.trim();
+
+            if (val === "3") {
+                // Input Sukses
+                input.classList.add('input-correct');
+                input.setAttribute('readonly', true);
+                
+                // Ganti tanda '?' di balok menjadi '3'
+                document.querySelector('.bar-highlight').innerHTML = '3';
+                
+                // Tampilkan Kotak Kesimpulan
+                document.getElementById('conclusionBox').classList.remove('hidden');
+
+                // Buka Kunci Tombol Lanjut Pos 3
+                const btnNext = document.getElementById('btnNextPos');
+                btnNext.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-slate-700', 'text-slate-400', 'pointer-events-none');
+                btnNext.classList.add('bg-gradient-to-r', 'from-purple-600', 'to-pink-600', 'hover:from-purple-500', 'hover:to-pink-500', 'text-white', 'shadow-lg', 'shadow-purple-500/30', 'hover:-translate-y-1', 'animate-pulse');
+                btnNext.innerHTML = 'Lanjut Pos 3 (Temukan Polanya) <span class="ml-2 group-hover:translate-x-1 transition-transform">➔</span>';
+            } else {
+                input.classList.remove('input-correct');
+            }
+        }
+    </script>
+</body>
+</html>
