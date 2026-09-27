@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pos 1: Mission Brief - Mission B1 | VisualMath.Lim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark { background-color: #1e293b; border: 1px solid #334155; }
+        .text-gradient {
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #a855f7, #ec4899);
+        }
+        
+        /* CSS Khusus Pecahan agar sejajar di tengah */
+        .math-frac {
+            display: inline-flex; flex-direction: column; align-items: center;
+            vertical-align: middle; margin: 0 0.25rem; font-weight: bold; line-height: 1.1;
+        }
+        .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
+        .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- Efek Cahaya Ambient Background -->
+    <div class="fixed top-[-10%] right-[-10%] w-96 h-96 bg-purple-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+    <div class="fixed bottom-[-10%] left-[-10%] w-96 h-96 bg-pink-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+    <!-- Header -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="Logo" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-purple-400\'>VM</div>'">
+                <div>
+                    <h1 class="text-lg font-bold text-purple-400 leading-tight">VisualMath.Lim</h1>
+                    <p class="text-[11px] text-slate-400 leading-tight uppercase tracking-wider">Misi B1 • Perkalian</p>
+                </div>
+            </div>
+            <span class="px-3 py-1 bg-purple-900/40 border border-purple-700/50 rounded-full text-xs font-bold text-purple-300 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+                🟣 Pos 1/8: Mission Brief
+            </span>
+        </div>
+        <!-- Progress Bar -->
+        <div class="h-1.5 w-full bg-slate-900">
+            <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500" style="width: 12.5%"></div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-10 relative z-10">
+
+        <!-- TITLE -->
+        <section class="space-y-3">
+            <div class="flex items-center gap-3 border-b border-slate-700 pb-2">
+                <span class="text-3xl">🎯</span>
+                <h3 class="text-2xl font-bold text-white">Mission <span class="text-gradient">Brief</span></h3>
+            </div>
+        </section>
+
+        <!-- BAGIAN 1: THE HOOK (Kasus Sinta) -->
+        <section class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 md:p-8 border border-slate-700 shadow-xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-10">
+                <span class="text-9xl">🍫</span>
+            </div>
+            <div class="relative z-10 space-y-4 max-w-2xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-amber-900/40 border border-amber-700/50 rounded-md text-xs font-bold text-amber-400 uppercase tracking-widest">
+                    Kasus Agen
+                </div>
+                <h4 class="text-xl md:text-2xl font-bold text-white leading-snug">
+                    Berapa banyak cokelat yang dikumpulkan Sinta?
+                </h4>
+                <p class="text-slate-300 md:text-lg leading-relaxed">
+                    Setiap hari, Sinta menerima <strong class="text-purple-300 bg-purple-900/30 px-2 py-0.5 rounded">1/4 batang cokelat</strong> dari ibunya. 
+                    Ia terus menerima jatah yang sama persis selama <strong class="text-pink-300 bg-pink-900/30 px-2 py-0.5 rounded">3 hari</strong> berturut-turut.
+                </p>
+                <p class="text-slate-400 italic text-sm">
+                    "Jika kita kumpulkan semua potongan cokelat Sinta dari hari pertama sampai ketiga, berapa bagian cokelat yang ia miliki sekarang?"
+                </p>
+            </div>
+        </section>
+
+        <!-- BAGIAN 2: THE BIG IDEA -->
+        <section class="card-dark p-1 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 shadow-[0_0_20px_rgba(168,85,247,0.15)]">
+            <div class="bg-slate-900 rounded-xl p-6 md:p-8 h-full space-y-4">
+                <h4 class="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400 flex items-center gap-2 uppercase tracking-widest text-sm">
+                    <span>💡</span> THE BIG IDEA
+                </h4>
+                <h5 class="text-xl font-bold text-white">Repeated Groups (Kelompok Berulang)</h5>
+                <p class="text-slate-300 leading-relaxed">
+                    Kamu sudah tahu bahwa <strong class="text-white">3 × 4</strong> berarti ada 3 kelompok yang masing-masing isinya 4 benda. 
+                    Nah, di misi ini konsepnya sama! <strong class="text-white">3 × 1/4</strong> artinya ada <strong>3 kelompok</strong> yang masing-masing isinya adalah <strong>1/4 bagian</strong>.
+                </p>
+            </div>
+        </section>
+
+        <!-- BAGIAN 3: KONEKSI DARI PIXEL (Modul A -> Modul B) -->
+        <section class="bg-indigo-950/40 border border-indigo-900/60 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start md:items-center shadow-lg">
+            <img src="assets/Pixel.png" alt="Pixel" class="w-24 h-24 object-contain bg-slate-800 rounded-full p-2 border-2 border-indigo-500 shrink-0 drop-shadow-xl" onerror="this.outerHTML='<div class=\'w-24 h-24 rounded-full border-2 border-indigo-500 bg-slate-800 flex items-center justify-center text-4xl shrink-0\'>🤖</div>'">
+            <div class="w-full space-y-4">
+                <p class="text-indigo-400 font-bold text-sm tracking-widest uppercase">Koneksi Database:</p>
+                <p class="text-slate-300 text-sm md:text-base leading-relaxed italic">
+                    "Bip Bop! Di Misi A, kamu sudah pandai menjumlahkan pecahan. Jika kamu menjumlahkan pecahan yang ukurannya <strong>SAMA</strong> secara berulang-ulang, kamu bisa menuliskannya dengan cara rahasia yang jauh lebih cepat, yaitu <strong>Perkalian!</strong>"
+                </p>
+                
+                <!-- Visual Equation -->
+                <div class="flex flex-wrap justify-center items-center gap-3 bg-slate-900/80 py-4 px-6 rounded-xl border border-indigo-800/50 text-lg md:text-xl font-bold w-max shadow-inner">
+                    <div class="math-frac text-white"><span class="math-num">1</span><span class="math-den">4</span></div>
+                    <span class="text-slate-500">+</span>
+                    <div class="math-frac text-white"><span class="math-num">1</span><span class="math-den">4</span></div>
+                    <span class="text-slate-500">+</span>
+                    <div class="math-frac text-white"><span class="math-num">1</span><span class="math-den">4</span></div>
+                    
+                    <span class="text-sky-400 mx-2 text-2xl">➔</span>
+                    
+                    <span class="text-purple-400">3</span>
+                    <span class="text-slate-400 text-base">×</span>
+                    <div class="math-frac text-white"><span class="math-num">1</span><span class="math-den">4</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAGIAN 4: VOCABULARY & TARGET -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 space-y-4">
+            <h4 class="font-bold text-white text-lg flex items-center gap-2 border-b border-slate-700 pb-2">
+                <span>📚</span> Persenjataan Kata (Vocabulary)
+            </h4>
+            <div class="grid md:grid-cols-2 gap-8 pt-2">
+                <!-- Tabel Kosakata -->
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-slate-300">
+                        <thead class="text-slate-500 text-xs uppercase tracking-wider">
+                            <tr>
+                                <th class="pb-3 font-semibold">Istilah Global (English)</th>
+                                <th class="pb-3 font-semibold">Bahasa Indonesia</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800">
+                            <tr>
+                                <td class="py-2">Repeated Addition</td>
+                                <td class="py-2 font-bold text-purple-300">Penjumlahan Berulang</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2">Repeated Groups</td>
+                                <td class="py-2 font-bold text-purple-300">Kelompok Berulang</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2">Whole Number</td>
+                                <td class="py-2 font-bold text-purple-300">Bilangan Asli</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2">Product</td>
+                                <td class="py-2 font-bold text-purple-300">Hasil Perkalian</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Learning Target -->
+                <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                    <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Target Misi Ini:</p>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-500">✔</span>
+                            Mampu menyederhanakan penjumlahan berulang menjadi operasi perkalian.
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-500">✔</span>
+                            Bisa menggambar <em>Repeated Bar Model</em> dan <em>Number Line</em> untuk mengalikan pecahan.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- NAVIGASI -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-6 pb-12">
+            <a href="mission-b1.html" class="text-slate-400 hover:text-white font-medium transition-colors flex items-center gap-2">
+                <span>⬅</span> Peta Misi
+            </a>
+            <a href="mission-b1-pos2.html" class="inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-3.5 px-8 rounded-full shadow-lg shadow-purple-500/30 transition-all hover:-translate-y-1 group">
+                Lanjut ke Pos 2 (Mission Log) 
+                <span class="ml-2 group-hover:translate-x-1 transition-transform">➔</span>
+            </a>
+        </div>
+
+    </main>
+
+</body>
+</html>
