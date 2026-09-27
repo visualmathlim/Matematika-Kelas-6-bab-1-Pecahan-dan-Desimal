@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 1: Mission Brief - Mission B3 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --navy:#0d1b4c; --navy-card:#16214f; --teal:#14a89a; --gold:#f4b400; --green-dk:#0d766b; --ink:#f1f5f9; --line:#2a3868; }
+  body{ background-color:var(--navy); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card-dark{ background-color:var(--navy-card); border:1px solid var(--line); }
+  
+  /* PENGATURAN PECAHAN VERTIKAL ATAS-BAWAH */
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .25rem; font-weight:bold; line-height:1.1; }
+  .math-num{ border-bottom:2px solid currentColor; padding:0 .3rem; width:100%; text-align:center; }
+  .math-den{ padding:0 .3rem; width:100%; text-align:center; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card-dark border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+      <div><h1 class="text-lg font-bold" style="color:var(--gold)">VisualMath.Lim</h1><p class="text-[11px] text-slate-300">Mission B3 • Kelas 6</p></div>
+    </div>
+    <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(20,168,154,.15); border:1px solid var(--teal); color:var(--teal)">🎯 Pos 1/8: Brief</span>
+  </div>
+  <div class="h-1.5 w-full" style="background:#0a1338"><div class="h-full" style="width:12.5%; background:linear-gradient(to right,var(--teal),var(--gold))"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border" style="border-color:var(--line); background:var(--navy-card)">🎯 Mission Brief</div>
+    <h2 class="text-3xl font-extrabold">Kue Ibu dan Bagian yang Kamu Ambil</h2>
+  </section>
+
+  <section class="card-dark rounded-2xl p-6 flex flex-col md:flex-row gap-6 items-center">
+    <svg viewBox="0 0 200 120" class="w-52 shrink-0">
+      <rect x="5" y="5" width="190" height="110" rx="10" fill="#0a1338" stroke="var(--line)" stroke-width="2"/>
+      <rect x="5" y="5" width="95" height="110" rx="10" fill="var(--teal)" opacity="0.85"/>
+      <line x1="100" y1="5" x2="100" y2="115" stroke="var(--gold)" stroke-width="2" stroke-dasharray="4"/>
+      <text x="52" y="65" text-anchor="middle" fill="#fff" font-size="16" font-weight="bold">1/2</text>
+    </svg>
+    <div class="space-y-3 text-sm text-slate-200">
+      <p>Ibu punya satu loyang kue. Ibu mengambil
+        <span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span>
+        loyang untuk dibagikan (bagian teal di gambar).</p>
+      <p>Kamu ingin makan
+        <span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span>
+        dari bagian ibu itu — bukan dari loyang utuh, tapi dari <b>1/2 yang sudah dipisah</b>.</p>
+      <p class="font-bold" style="color:var(--gold)">Pertanyaan misi: berapa bagian dari SELURUH loyang yang kamu makan?</p>
+    </div>
+  </section>
+
+  <section class="card-dark rounded-2xl p-6 flex gap-4 items-start">
+    <img src="assets/Pixel.png" alt="Pixel" class="w-16 h-16 rounded-full border-2 shrink-0 object-cover" style="border-color:var(--gold)" onerror="this.outerHTML='<div class=\'w-16 h-16 rounded-full border-2 border-amber-400 bg-slate-800 flex items-center justify-center text-3xl shrink-0\'>🤖</div>'">
+    <div class="text-sm text-slate-200 space-y-3">
+      <p><b style="color:var(--teal)">Pixel:</b> "Selamat datang di Mission B3! Kali ini kita belajar mengalikan pecahan dengan pecahan — 'bagian dari bagian'. Ini beda dari menjumlahkan pecahan yang sudah kamu kuasai di Mission A2."</p>
+      <div>
+        <p class="font-bold mb-2">🎯 Target Misi — setelah misi ini kamu dapat:</p>
+        <ul class="space-y-1 text-slate-300">
+          <li>✅ Menjelaskan makna perkalian pecahan sebagai "bagian dari bagian".</li>
+          <li>✅ Menggunakan Area Model untuk memvisualisasikan perkalian pecahan.</li>
+          <li>✅ Menemukan dan menggunakan rumus 
+            <span class="math-frac"><span class="math-num">a</span><span class="math-den">b</span></span> × 
+            <span class="math-frac"><span class="math-num">c</span><span class="math-den">d</span></span> = 
+            <span class="math-frac"><span class="math-num">a × c</span><span class="math-den">b × d</span></span>.
+          </li>
+          <li>✅ Menggunakan <i>cross-cancelling</i> sebagai cara cepat menyederhanakan.</li>
+          <li>✅ Menyelesaikan soal cerita perkalian pecahan dengan Singapore Math Heuristics.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="flex justify-between items-center pt-2">
+    <a href="mission-b3.html" class="text-slate-400 hover:text-white text-sm">⬅ Dashboard B3</a>
+    <a href="mission-b3-pos2-see.html" class="inline-block font-bold py-3 px-8 rounded-full text-white shadow-lg transition-transform hover:-translate-y-0.5" style="background:linear-gradient(to right,var(--teal),var(--green-dk))">Lanjut ke See ➔</a>
+  </div>
+
+</main>
+</body>
+</html>
