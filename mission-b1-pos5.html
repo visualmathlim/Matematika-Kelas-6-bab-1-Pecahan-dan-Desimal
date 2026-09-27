@@ -17,12 +17,16 @@
             background-image: linear-gradient(to right, #a855f7, #ec4899);
         }
         
+        /* ===== FRAKSI: format penulisan pecahan yang konsisten & rapi ===== */
         .math-frac {
-            display: inline-flex; flex-direction: column; align-items: center;
-            vertical-align: middle; margin: 0 0.25rem; font-weight: bold; line-height: 1.1;
+            display: inline-flex; flex-direction: column; align-items: stretch;
+            vertical-align: middle; margin: 0 0.3rem; font-weight: bold; line-height: 1.25;
+            min-width: 1.6em;
         }
-        .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
-        .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+        .math-num { border-bottom: 2px solid currentColor; padding: 0 0.35rem 0.12rem; width: 100%; text-align: center; white-space: nowrap; }
+        .math-den { padding: 0.12rem 0.35rem 0; width: 100%; text-align: center; white-space: nowrap; }
+        /* pecahan campuran: bilangan bulat + pecahan sejajar tengah */
+        .mixed-num { display: inline-flex; align-items: center; gap: 0.35rem; }
 
         .input-dark { background-color: #0f172a; border: 1px solid #475569; color: #f8fafc; text-align: center; font-weight: bold; }
         .input-dark:focus { outline: none; border-color: #a855f7; box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2); }
@@ -81,6 +85,78 @@
             </p>
         </section>
 
+        <!-- BAGIAN 1B: KONVERSI PECAHAN CAMPURAN <-> PECAHAN BIASA -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 space-y-6 border-t-4 border-t-sky-500 shadow-xl">
+            <h4 class="font-bold text-sky-400 text-xl flex items-center gap-2 border-b border-slate-700 pb-2">
+                <span>🔄</span> Cara Ubah Pecahan Campuran ↔ Pecahan Biasa
+            </h4>
+            <p class="text-sm text-slate-300">Sebelum lanjut, Agen wajib menguasai dua trik konversi ini — dipakai terus di sepanjang misi!</p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- A: Campuran -> Biasa -->
+                <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                    <h5 class="font-bold text-white mb-1 flex items-center gap-2"><span class="text-sky-400">A</span> Campuran ➔ Biasa</h5>
+                    <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+                        <strong>(Bilangan Bulat × Penyebut) + Pembilang</strong>, lalu letakkan di atas Penyebut yang sama.
+                    </p>
+
+                    <!-- Rumus umum -->
+                    <div class="flex flex-wrap items-center justify-center gap-2 bg-slate-800 py-4 px-3 rounded-lg border border-slate-600 text-lg font-bold">
+                        <span class="mixed-num">
+                            <span class="text-white">A</span>
+                            <div class="math-frac text-sky-300 text-sm"><span class="math-num">B</span><span class="math-den">C</span></div>
+                        </span>
+                        <span class="text-slate-500">=</span>
+                        <div class="math-frac text-sm">
+                            <span class="math-num text-emerald-300">(A × C) + B</span>
+                            <span class="math-den text-sky-300">C</span>
+                        </div>
+                    </div>
+
+                    <!-- Contoh angka -->
+                    <div class="mt-4 flex flex-wrap items-center justify-center gap-2 text-base font-bold text-slate-200">
+                        <span class="mixed-num">
+                            <span>2</span>
+                            <div class="math-frac text-sky-300 text-xs"><span class="math-num">3</span><span class="math-den">4</span></div>
+                        </span>
+                        <span class="text-slate-500">=</span>
+                        <div class="math-frac text-xs"><span class="math-num">(2×4)+3</span><span class="math-den text-sky-300">4</span></div>
+                        <span class="text-slate-500">=</span>
+                        <div class="math-frac text-emerald-300 text-xs"><span class="math-num">11</span><span class="math-den">4</span></div>
+                    </div>
+                </div>
+
+                <!-- B: Biasa -> Campuran -->
+                <div class="bg-slate-900 rounded-xl p-5 border border-slate-700">
+                    <h5 class="font-bold text-white mb-1 flex items-center gap-2"><span class="text-rose-400">B</span> Biasa ➔ Campuran</h5>
+                    <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+                        Bagi <strong>Pembilang ÷ Penyebut</strong>. Hasil bagi jadi bilangan bulat, sisanya jadi pembilang baru.
+                    </p>
+
+                    <!-- Rumus umum -->
+                    <div class="flex flex-wrap items-center justify-center gap-2 bg-slate-800 py-4 px-3 rounded-lg border border-slate-600 text-lg font-bold">
+                        <div class="math-frac text-rose-300 text-sm"><span class="math-num">P</span><span class="math-den">Q</span></div>
+                        <span class="text-slate-500">=</span>
+                        <span class="mixed-num">
+                            <span class="text-white">(P ÷ Q)</span>
+                            <div class="math-frac text-sm"><span class="math-num">sisa</span><span class="math-den text-sky-300">Q</span></div>
+                        </span>
+                    </div>
+
+                    <!-- Contoh angka -->
+                    <div class="mt-4 flex flex-wrap items-center justify-center gap-2 text-base font-bold text-slate-200">
+                        <div class="math-frac text-rose-300 text-xs"><span class="math-num">11</span><span class="math-den">4</span></div>
+                        <span class="text-slate-500">=</span>
+                        <span class="mixed-num">
+                            <span>2</span>
+                            <div class="math-frac text-emerald-300 text-xs"><span class="math-num">3</span><span class="math-den">4</span></div>
+                        </span>
+                        <span class="text-slate-400 text-[11px] font-normal">(11 ÷ 4 = 2 sisa 3)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- BAGIAN 2: SMART TIPS & PECAHAN CAMPURAN -->
         <section class="space-y-6">
             <h4 class="font-bold text-white text-xl flex items-center gap-2 border-b border-slate-700 pb-2">
@@ -93,8 +169,8 @@
                     <div class="text-sky-400 text-2xl mb-2">1️⃣</div>
                     <h5 class="font-bold text-white mb-2">Hukum Angka 1</h5>
                     <p class="text-xs text-slate-400 mb-3">Jika dikalikan 1, nilai pecahan tidak berubah.</p>
-                    <div class="bg-slate-800 py-1.5 px-3 rounded font-bold text-center border border-slate-600">
-                        1 <span class="text-slate-500 text-xs">×</span> <div class="math-frac text-white text-sm"><span class="math-num">3</span><span class="math-den">5</span></div> <span class="text-slate-500 text-xs">=</span> <div class="math-frac text-sky-300 text-sm"><span class="math-num">3</span><span class="math-den">5</span></div>
+                    <div class="bg-slate-800 py-1.5 px-3 rounded font-bold text-center border border-slate-600 flex items-center justify-center gap-1">
+                        <span>1</span> <span class="text-slate-500 text-xs">×</span> <div class="math-frac text-white text-sm"><span class="math-num">3</span><span class="math-den">5</span></div> <span class="text-slate-500 text-xs">=</span> <div class="math-frac text-sky-300 text-sm"><span class="math-num">3</span><span class="math-den">5</span></div>
                     </div>
                 </div>
 
@@ -103,8 +179,8 @@
                     <div class="text-slate-400 text-2xl mb-2">0️⃣</div>
                     <h5 class="font-bold text-white mb-2">Hukum Angka 0</h5>
                     <p class="text-xs text-slate-400 mb-3">Jika dikalikan 0, hasilnya selalu habis (Nol).</p>
-                    <div class="bg-slate-800 py-1.5 px-3 rounded font-bold text-center border border-slate-600">
-                        0 <span class="text-slate-500 text-xs">×</span> <div class="math-frac text-white text-sm"><span class="math-num">4</span><span class="math-den">7</span></div> <span class="text-slate-500 text-xs">=</span> <span class="text-slate-300 text-sm">0</span>
+                    <div class="bg-slate-800 py-1.5 px-3 rounded font-bold text-center border border-slate-600 flex items-center justify-center gap-1">
+                        <span>0</span> <span class="text-slate-500 text-xs">×</span> <div class="math-frac text-white text-sm"><span class="math-num">4</span><span class="math-den">7</span></div> <span class="text-slate-500 text-xs">=</span> <span class="text-slate-300 text-sm">0</span>
                     </div>
                 </div>
 
@@ -114,11 +190,14 @@
                         <span>⭐</span> <span class="text-xs bg-amber-900/50 px-2 py-1 rounded border border-amber-700 uppercase tracking-widest text-amber-300">Skill Penting</span>
                     </div>
                     <h5 class="font-bold text-white mb-2">Ubah ke Pecahan Campuran</h5>
-                    <p class="text-xs text-slate-300 mb-3 leading-relaxed">Jika hasil <strong>Atas > Bawah</strong>, ubahlah menjadi pecahan campuran (Batang Utuh + Sisa).</p>
+                    <p class="text-xs text-slate-300 mb-3 leading-relaxed">Jika hasil <strong>Atas > Bawah</strong>, ubahlah menjadi pecahan campuran (lihat trik B di atas!).</p>
                     <div class="bg-slate-800 py-2 px-3 rounded font-bold text-center border border-slate-600 flex items-center justify-center gap-2">
                         <div class="math-frac text-rose-400 text-sm"><span class="math-num">5</span><span class="math-den text-sky-300">4</span></div> 
                         <span class="text-slate-400 text-xs">➔</span> 
-                        <span class="text-white text-sm">1</span><div class="math-frac text-emerald-400 text-xs"><span class="math-num">1</span><span class="math-den text-sky-300">4</span></div>
+                        <span class="mixed-num">
+                            <span class="text-white text-sm">1</span>
+                            <div class="math-frac text-emerald-400 text-xs"><span class="math-num">1</span><span class="math-den text-sky-300">4</span></div>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -159,7 +238,7 @@
                     </div>
                     
                     <button onclick="checkSandbox1()" class="w-full mt-4 bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold py-2 rounded transition-colors">Uji Eksperimen</button>
-                    <div id="sb1_res" class="text-center text-xs mt-3 h-4"></div>
+                    <div id="sb1_res" class="text-center text-xs mt-3 min-h-[2rem]"></div>
                 </div>
 
                 <!-- Kreasi 2: Mesin Pecahan Campuran -->
@@ -177,7 +256,7 @@
                     </div>
                     
                     <button onclick="calculateSandbox2()" class="w-full mt-4 bg-pink-700 hover:bg-pink-600 text-white text-xs font-bold py-2 rounded transition-colors">Jalankan Mesin</button>
-                    <div id="sb2_res" class="text-center text-sm mt-3 h-6"></div>
+                    <div id="sb2_res" class="text-center text-sm mt-3 min-h-[3.5rem]"></div>
                 </div>
 
             </div>
@@ -198,58 +277,103 @@
 
     <!-- SCRIPT LAB KREASI (SANDBOX) -->
     <script>
-        // Misi 1: Membuat 1 Cokelat Utuh (a == b)
+        // Misi 1: Membuat 1 Cokelat Utuh (a === b), dengan penjelasan rumus + visualisasi pecahan
         function checkSandbox1() {
             let a = parseInt(document.getElementById('sb1_a').value);
             let b = parseInt(document.getElementById('sb1_b').value);
             let res = document.getElementById('sb1_res');
-            
+
             if (isNaN(a) || isNaN(b)) {
                 res.innerHTML = "Masukkan kedua angkanya dulu, Agen!";
-                res.className = "text-amber-400 font-bold mt-3 text-xs";
+                res.className = "text-amber-400 font-bold mt-3 text-xs min-h-[2rem]";
                 return;
             }
 
-            if(a === b && a !== 0) {
-                res.innerHTML = `🔥 Keren! ${a} × 1/${b} = ${a}/${b} = 1 utuh!`;
-                res.className = "text-emerald-400 font-bold mt-3 text-xs";
-            } else if (b === 0) {
+            if (b === 0) {
                 res.innerHTML = `⚠️ Penyebut tidak boleh 0!`;
-                res.className = "text-red-400 font-bold mt-3 text-xs";
+                res.className = "text-red-400 font-bold mt-3 text-xs min-h-[2rem]";
+                return;
+            }
+
+            // Visualisasi rumus: a x 1/b = a/b
+            const formulaHTML = `
+                <div class="flex items-center justify-center gap-1.5 text-sm">
+                    <span class="text-emerald-300">${a}</span>
+                    <span class="text-slate-500 text-xs">×</span>
+                    <div class="math-frac text-xs"><span class="math-num">1</span><span class="math-den">${b}</span></div>
+                    <span class="text-slate-500 text-xs">=</span>
+                    <div class="math-frac text-xs"><span class="math-num">${a}</span><span class="math-den">${b}</span></div>
+                </div>
+            `;
+
+            if (a === b) {
+                res.innerHTML = `
+                    <div class="space-y-1.5">
+                        <p>🔥 Keren, jadi 1 utuh!</p>
+                        ${formulaHTML}
+                        <p class="text-emerald-300 font-normal">Karena pembilang (${a}) sama dengan penyebut (${b}), nilainya persis 1.</p>
+                    </div>`;
+                res.className = "text-emerald-400 font-bold mt-3 text-xs min-h-[2rem]";
             } else {
-                res.innerHTML = `Hmm, ${a} × 1/${b} = ${a}/${b}. Belum jadi 1 utuh. Coba angka lain!`;
-                res.className = "text-slate-400 mt-3 text-xs";
+                res.innerHTML = `
+                    <div class="space-y-1.5">
+                        <p>Belum jadi 1 utuh.</p>
+                        ${formulaHTML}
+                        <p class="text-slate-400 font-normal">Syaratnya: pembilang harus SAMA dengan penyebut. Coba ganti angkanya!</p>
+                    </div>`;
+                res.className = "text-slate-300 mt-3 text-xs min-h-[2rem]";
             }
         }
 
-        // Misi 2: Mesin Pecahan Campuran
+        // Misi 2: Mesin Pecahan Campuran, dengan penjelasan rumus lengkap tiap langkah
         function calculateSandbox2() {
             let n = parseInt(document.getElementById('sb2_n').value);
             let res = document.getElementById('sb2_res');
-            
+
             if (isNaN(n) || n === 0) {
                 res.innerHTML = "Masukkan angka selain 0!";
-                res.className = "text-amber-400 font-bold mt-3 text-xs";
+                res.className = "text-amber-400 font-bold mt-3 text-sm min-h-[3.5rem]";
                 return;
             }
 
-            let totalNum = n * 2;
-            let den = 3;
-            
-            let whole = Math.floor(totalNum / den);
-            let remainder = totalNum % den;
-            
+            const den = 3;
+            const totalNum = n * 2;
+            const whole = Math.floor(totalNum / den);
+            const remainder = totalNum % den;
+
             let mixedHTML = "";
             if (whole > 0 && remainder > 0) {
-                mixedHTML = `${whole} <div class="math-frac text-emerald-300 text-sm"><span class="math-num">${remainder}</span><span class="math-den">${den}</span></div>`;
+                mixedHTML = `<span class="mixed-num"><span>${whole}</span><div class="math-frac text-emerald-300 text-sm"><span class="math-num">${remainder}</span><span class="math-den">${den}</span></div></span>`;
             } else if (whole > 0 && remainder === 0) {
                 mixedHTML = `<span class="text-emerald-300">${whole} utuh</span>`;
             } else {
                 mixedHTML = `<div class="math-frac text-emerald-300 text-sm"><span class="math-num">${remainder}</span><span class="math-den">${den}</span></div>`;
             }
 
-            res.innerHTML = `Hasil: <div class="math-frac text-white"><span class="math-num">${totalNum}</span><span class="math-den">${den}</span></div> ➔ <strong>${mixedHTML}</strong>`;
-            res.className = "text-pink-300 font-bold mt-3 flex items-center justify-center gap-2 text-sm";
+            // Langkah 1: rumus emas perkalian
+            const step1 = `
+                <div class="flex items-center justify-center gap-1.5 font-bold">
+                    <span class="text-pink-300">${n}</span>
+                    <span class="text-slate-500 text-xs">×</span>
+                    <div class="math-frac text-white text-xs"><span class="math-num">2</span><span class="math-den">3</span></div>
+                    <span class="text-slate-500 text-xs">=</span>
+                    <div class="math-frac text-xs"><span class="math-num">${n}×2</span><span class="math-den">${den}</span></div>
+                    <span class="text-slate-500 text-xs">=</span>
+                    <div class="math-frac text-white text-xs"><span class="math-num">${totalNum}</span><span class="math-den">${den}</span></div>
+                </div>`;
+
+            // Langkah 2: konversi ke pecahan campuran (kalau perlu)
+            const step2 = (totalNum >= den)
+                ? `<div class="text-slate-400 font-normal text-[11px] mt-1">${totalNum} ÷ ${den} = ${whole} sisa ${remainder} ➔ pecahan campuran</div>`
+                : `<div class="text-slate-400 font-normal text-[11px] mt-1">${totalNum} < ${den}, jadi tetap pecahan biasa (belum campuran)</div>`;
+
+            res.innerHTML = `
+                <div class="space-y-1">
+                    ${step1}
+                    ${step2}
+                    <div class="pt-1">Hasil Akhir: <strong>${mixedHTML}</strong></div>
+                </div>`;
+            res.className = "text-pink-300 font-bold mt-3 flex flex-col items-center justify-center text-sm min-h-[3.5rem]";
         }
     </script>
 </body>
