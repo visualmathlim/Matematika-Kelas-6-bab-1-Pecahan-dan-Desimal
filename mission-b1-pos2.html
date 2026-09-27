@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pos 2: Mission Log - Mission B1 | VisualMath.Lim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark { background-color: #1e293b; border: 1px solid #334155; }
+        .text-gradient {
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #a855f7, #ec4899);
+        }
+        
+        /* CSS Khusus Pecahan */
+        .math-frac {
+            display: inline-flex; flex-direction: column; align-items: center;
+            vertical-align: middle; margin: 0 0.25rem; font-weight: bold; line-height: 1.1;
+        }
+        .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
+        .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+
+        /* Style untuk Opsi Pilihan */
+        .option-card {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .option-card:hover {
+            border-color: #a855f7;
+            background-color: rgba(30, 41, 59, 0.8);
+            transform: translateY(-2px);
+        }
+        /* State saat opsi dipilih */
+        .option-card.selected {
+            border-color: #ec4899;
+            background: linear-gradient(to bottom right, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);
+            transform: scale(1.02);
+        }
+        .option-card.selected .radio-circle {
+            border-color: #ec4899;
+            background-color: #ec4899;
+        }
+        .radio-circle::after {
+            content: '';
+            display: block;
+            width: 8px; height: 8px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .option-card.selected .radio-circle::after {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- Efek Cahaya Ambient Background -->
+    <div class="fixed top-[-10%] left-[-10%] w-96 h-96 bg-purple-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+    <!-- Header -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="Logo" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-purple-400\'>VM</div>'">
+                <div>
+                    <h1 class="text-lg font-bold text-purple-400 leading-tight">VisualMath.Lim</h1>
+                    <p class="text-[11px] text-slate-400 leading-tight uppercase tracking-wider">Misi B1 • Perkalian</p>
+                </div>
+            </div>
+            <span class="px-3 py-1 bg-purple-900/40 border border-purple-700/50 rounded-full text-xs font-bold text-purple-300 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+                🟣 Pos 2/8: Mission Log
+            </span>
+        </div>
+        <!-- Progress Bar (25%) -->
+        <div class="h-1.5 w-full bg-slate-900">
+            <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500" style="width: 25%"></div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-8 relative z-10">
+
+        <!-- TITLE -->
+        <section class="space-y-3">
+            <div class="flex items-center gap-3 border-b border-slate-700 pb-2">
+                <span class="text-3xl">📝</span>
+                <h3 class="text-2xl font-bold text-white">Mission <span class="text-gradient">Log (Uji Insting)</span></h3>
+            </div>
+        </section>
+
+        <!-- KIAN MESSAGE -->
+        <section class="bg-amber-950/20 border border-amber-900/50 rounded-2xl p-6 flex flex-col sm:flex-row gap-6 items-center shadow-lg">
+            <div class="relative shrink-0">
+                <div class="absolute inset-0 bg-amber-500/20 blur-xl rounded-full"></div>
+                <img src="assets/Kian.png" alt="Kian" class="w-24 h-24 object-contain relative z-10 drop-shadow-lg" onerror="this.outerHTML='<div class=\'w-24 h-24 rounded-full bg-slate-800 flex items-center justify-center text-4xl border-2 border-amber-500 relative z-10\'>👦🏻</div>'">
+            </div>
+            <div class="w-full space-y-3">
+                <h4 class="font-bold text-amber-400 text-sm tracking-widest uppercase">Pesan dari Kian:</h4>
+                <p class="text-slate-300 md:text-lg leading-relaxed italic">
+                    "Agen, sebelum kita membuka data rahasia dari Prof. Sigma, mari kita uji insting matematikamu! Jangan takut salah, di tahap ini kita hanya membuat hipotesis (tebakan sementara)."
+                </p>
+            </div>
+        </section>
+
+        <!-- HYPOTHESIS QUESTION -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 space-y-8 border-t-4 border-t-purple-500 shadow-xl">
+            
+            <div class="text-center space-y-4">
+                <p class="text-slate-400 text-sm uppercase tracking-wider font-bold">Pertanyaan Hipotesis</p>
+                <p class="text-lg text-white">
+                    Berdasarkan kasus Sinta, ia menerima <strong class="text-purple-300">1/4</strong> batang cokelat setiap hari selama <strong class="text-pink-300">3 hari</strong>.
+                </p>
+                <div class="inline-flex items-center justify-center gap-3 bg-slate-900 py-4 px-8 rounded-xl border border-slate-700 text-2xl font-bold shadow-inner">
+                    <span class="text-white">3</span>
+                    <span class="text-slate-500">×</span>
+                    <div class="math-frac text-white"><span class="math-num">1</span><span class="math-den">4</span></div>
+                    <span class="text-slate-500">=</span>
+                    <span class="text-pink-400 animate-pulse">?</span>
+                </div>
+                <p class="text-slate-300">Menurut instingmu, berapakah hasilnya?</p>
+            </div>
+
+            <!-- OPSI JAWABAN -->
+            <div class="grid md:grid-cols-3 gap-4" id="optionsContainer">
+                
+                <!-- Opsi A -->
+                <div class="option-card bg-slate-900 border-2 border-slate-700 rounded-xl p-5 flex items-center gap-4" onclick="selectOption('A')">
+                    <div class="radio-circle w-6 h-6 rounded-full border-2 border-slate-500 flex items-center justify-center shrink-0"></div>
+                    <div class="flex-grow text-center text-xl font-bold text-white">
+                        <div class="math-frac"><span class="math-num">3</span><span class="math-den">12</span></div>
+                    </div>
+                </div>
+
+                <!-- Opsi B -->
+                <div class="option-card bg-slate-900 border-2 border-slate-700 rounded-xl p-5 flex items-center gap-4" onclick="selectOption('B')">
+                    <div class="radio-circle w-6 h-6 rounded-full border-2 border-slate-500 flex items-center justify-center shrink-0"></div>
+                    <div class="flex-grow text-center text-xl font-bold text-white">
+                        <div class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></div>
+                    </div>
+                </div>
+
+                <!-- Opsi C -->
+                <div class="option-card bg-slate-900 border-2 border-slate-700 rounded-xl p-5 flex items-center gap-4" onclick="selectOption('C')">
+                    <div class="radio-circle w-6 h-6 rounded-full border-2 border-slate-500 flex items-center justify-center shrink-0"></div>
+                    <div class="flex-grow text-center text-xl font-bold text-white">
+                        <div class="math-frac"><span class="math-num">4</span><span class="math-den">4</span></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- TOMBOL SIMPAN -->
+            <div class="text-center pt-4">
+                <button id="btnSubmit" onclick="saveHypothesis()" disabled class="bg-slate-700 text-slate-400 font-bold py-3.5 px-8 rounded-full transition-all text-lg cursor-not-allowed">
+                    Pilih Jawaban Terlebih Dahulu
+                </button>
+            </div>
+
+            <!-- CLIFFHANGER FEEDBACK (Disembunyikan di awal) -->
+            <div id="feedbackBox" class="hidden mt-6 bg-gradient-to-r from-purple-900/50 to-pink-900/50 border border-pink-500/50 rounded-xl p-6 text-center space-y-4 shadow-[0_0_20px_rgba(236,72,153,0.2)]">
+                <div class="text-4xl mb-2">🔒</div>
+                <h4 class="text-xl font-bold text-white">Hipotesis Terkunci!</h4>
+                <p class="text-slate-300">
+                    Data instingmu sudah masuk ke memori sistem. Apakah tebakanmu tadi tepat, atau kamu malah masuk ke dalam jebakan ilusi?
+                </p>
+                <p class="text-pink-300 font-semibold italic">
+                    "Mari kita buktikan bentuk aslinya menggunakan mesin visualisasi di Pos 3!"
+                </p>
+            </div>
+
+        </section>
+
+        <!-- NAVIGASI -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-4 pb-12">
+            <a href="mission-b1-pos1.html" class="text-slate-400 hover:text-white font-medium transition-colors flex items-center gap-2">
+                <span>⬅</span> Kembali ke Pos 1
+            </a>
+            <!-- Tombol Lanjut (Awalnya tersembunyi, muncul setelah submit) -->
+            <a href="mission-b1-pos3.html" id="btnNext" class="hidden items-center justify-center bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-3.5 px-8 rounded-full shadow-lg shadow-pink-500/30 transition-all hover:-translate-y-1 group">
+                Buktikan di Pos 3 (Visualize) 
+                <span class="ml-2 group-hover:translate-x-1 transition-transform">➔</span>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Script Logika UI -->
+    <script>
+        let selected = null;
+
+        function selectOption(optionId) {
+            // Jika sudah disubmit, tidak bisa ubah jawaban lagi (opsional)
+            if(document.getElementById('feedbackBox').classList.contains('hidden') === false) return;
+
+            selected = optionId;
+            
+            // Hapus class 'selected' dari semua kartu
+            const cards = document.querySelectorAll('.option-card');
+            cards.forEach(card => card.classList.remove('selected'));
+            
+            // Tambahkan class 'selected' ke kartu yang diklik
+            event.currentTarget.classList.add('selected');
+
+            // Aktifkan tombol submit
+            const btn = document.getElementById('btnSubmit');
+            btn.disabled = false;
+            btn.className = "bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-400 hover:to-indigo-500 text-white font-bold py-3.5 px-8 rounded-full shadow-lg shadow-sky-500/30 transition-all hover:scale-105 text-lg cursor-pointer";
+            btn.innerText = "💾 Simpan Tebakan";
+        }
+
+        function saveHypothesis() {
+            if (!selected) return;
+
+            // Simpan ke local storage (Opsional, untuk dibahas Kian di akhir misi jika mau)
+            localStorage.setItem('missionB1_hypothesis', selected);
+
+            // Sembunyikan tombol submit
+            document.getElementById('btnSubmit').style.display = 'none';
+
+            // Munculkan Feedback Box (Cliffhanger)
+            const feedback = document.getElementById('feedbackBox');
+            feedback.classList.remove('hidden');
+            feedback.classList.add('animate-fade-in-up'); // Efek muncul ringan
+
+            // Munculkan tombol Next
+            const btnNext = document.getElementById('btnNext');
+            btnNext.classList.remove('hidden');
+            btnNext.classList.add('inline-flex');
+
+            // Scroll perlahan ke arah feedback
+            feedback.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>
