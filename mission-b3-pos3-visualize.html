@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 3: Visualize - Mission B3 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --navy:#0d1b4c; --navy-card:#16214f; --teal:#14a89a; --gold:#f4b400; --green-dk:#0d766b; --ink:#f1f5f9; --line:#2a3868; }
+  body{ background-color:var(--navy); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card-dark{ background-color:var(--navy-card); border:1px solid var(--line); }
+  
+  /* PENGATURAN PECAHAN VERTIKAL ATAS-BAWAH */
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .25rem; font-weight:bold; line-height:1.1; }
+  .math-num{ border-bottom:2px solid currentColor; padding:0 .3rem; width:100%; text-align:center; }
+  .math-den{ padding:0 .3rem; width:100%; text-align:center; }
+
+  /* GRID GAMBAR YANG JELAS DAN TEGAS */
+  .cell{ border:2px solid rgba(255,255,255,0.3); background:#0a1338; transition:background-color .2s; border-radius:4px; }
+  .cell.teal{ background:var(--teal); }
+  .cell.gold{ background:var(--gold); }
+  .cell.overlap{ background:var(--green-dk); box-shadow: inset 0 0 8px rgba(255,255,255,0.4); }
+
+  .btn{ padding:.55rem 1.1rem; border-radius:9999px; font-weight:bold; color:#fff; transition: all 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+  .btn:hover{ transform: translateY(-2px); }
+  input[type=range]{ accent-color:var(--gold); width:100%; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card-dark border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+      <div><h1 class="text-lg font-bold" style="color:var(--gold)">VisualMath.Lim</h1><p class="text-[11px] text-slate-300">Mission B3 • Kelas 6</p></div>
+    </div>
+    <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(20,168,154,.15); border:1px solid var(--teal); color:var(--teal)">🎨 Pos 3/8: Visualize</span>
+  </div>
+  <div class="h-1.5 w-full" style="background:#0a1338"><div class="h-full" style="width:37.5%; background:linear-gradient(to right,var(--teal),var(--gold))"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border" style="border-color:var(--line); background:var(--navy-card)">🎨 Visualize — Area Model</div>
+    <h2 class="text-3xl font-extrabold">Kotak Bertumpuk = Perkalian Pecahan</h2>
+    <p class="max-w-md mx-auto text-sm text-slate-300">Arsir kolom untuk pecahan Luna, arsir baris untuk pecahan Kian. Bagian yang tertimpa dua warna adalah hasilnya.</p>
+  </section>
+
+  <!-- Latihan terpandu -->
+  <section class="card-dark rounded-2xl p-6 space-y-5 border-2 border-slate-700 shadow-xl">
+    <div class="flex flex-wrap justify-center gap-3">
+      <button id="btn-luna" class="btn" style="background:var(--teal)">Arsir 
+        <span class="math-frac" style="margin:0 0 0 2px;"><span class="math-num" style="border-bottom-width:1px; padding:0 2px;">1</span><span class="math-den" style="padding:0 2px;">2</span></span> (Luna)
+      </button>
+      <button id="btn-kian" class="btn" style="background:var(--gold)">Arsir 
+        <span class="math-frac" style="margin:0 0 0 2px;"><span class="math-num" style="border-bottom-width:1px; padding:0 2px;">1</span><span class="math-den" style="padding:0 2px;">3</span></span> (Kian)
+      </button>
+      <button id="btn-reset1" class="btn bg-slate-600 hover:bg-slate-500">↺ Ulangi</button>
+    </div>
+    
+    <!-- Grid Gambar dengan Kotak Pembatas Jelas -->
+    <div id="grid1" class="grid mx-auto gap-1 p-3 bg-slate-900/80 rounded-xl border-2 border-slate-700 shadow-inner" style="grid-template-columns:repeat(2,1fr); max-width:220px; aspect-ratio:2/3;"></div>
+    
+    <p class="text-center text-sm font-semibold text-slate-300" id="count1">Sel tertimpa: 0 dari 6</p>
+    <p class="text-center text-lg font-bold min-h-[2rem]" id="result1"></p>
+  </section>
+
+  <!-- Mode Eksperimen -->
+  <section class="card-dark rounded-2xl p-6 space-y-5 border-2 border-slate-700 shadow-xl">
+    <button id="toggle-exp" class="w-full text-left font-bold flex items-center justify-between text-base" style="color:var(--gold)">
+      <span>🔬 Mode Eksperimen — coba pecahanmu sendiri</span>
+      <span id="toggle-icon">▼</span>
+    </button>
+
+    <div id="exp-panel" class="hidden space-y-5 pt-3 border-t border-slate-700">
+      <div class="grid grid-cols-2 gap-4 text-sm bg-slate-900/60 p-4 rounded-xl border border-slate-700">
+        <div>
+          <label class="block text-slate-300 mb-1">Pembilang Luna (a): <span id="val-a" class="font-bold text-teal-400">1</span></label>
+          <input type="range" id="a" min="1" max="7" value="1">
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1">Penyebut Luna (b): <span id="val-b" class="font-bold text-teal-400">2</span></label>
+          <input type="range" id="b" min="2" max="8" value="2">
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1">Pembilang Kian (c): <span id="val-c" class="font-bold text-amber-400">1</span></label>
+          <input type="range" id="c" min="1" max="7" value="1">
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1">Penyebut Kian (d): <span id="val-d" class="font-bold text-amber-400">3</span></label>
+          <input type="range" id="d" min="2" max="8" value="3">
+        </div>
+      </div>
+
+      <!-- Grid Eksperimen dengan Pembatas Jelas -->
+      <div id="grid2" class="grid mx-auto gap-1 p-3 bg-slate-900/80 rounded-xl border-2 border-slate-700 shadow-inner" style="max-width:260px;"></div>
+
+      <div class="flex flex-col items-center justify-center space-y-2 bg-slate-900/40 p-4 rounded-xl border border-slate-700">
+        <div class="text-lg flex items-center justify-center flex-wrap gap-2">
+          <span class="math-frac"><span class="math-num" id="fa">1</span><span class="math-den" id="fb">2</span></span>
+          <span>×</span>
+          <span class="math-frac"><span class="math-num" id="fc">1</span><span class="math-den" id="fd">3</span></span>
+          <span>=</span>
+          <span class="math-frac" style="color:var(--gold)"><span class="math-num" id="fac">1</span><span class="math-den" id="fbd">6</span></span>
+        </div>
+        <div id="simplification-note" class="text-xs text-amber-300 italic"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="flex justify-between items-center pt-2">
+    <a href="mission-b3-pos2-see.html" class="text-slate-400 hover:text-white text-sm">⬅ See</a>
+    <a href="mission-b3-dashboard.html" class="inline-block font-bold py-3 px-8 rounded-full text-white shadow-lg transition-transform hover:-translate-y-0.5" style="background:linear-gradient(to right,var(--teal),var(--green-dk))">Kembali ke Dashboard ➔</a>
+  </div>
+
+</main>
+
+<script>
+// ---- Latihan terpandu: grid tetap 2 x 3 (1/2 x 1/3) ----
+const grid1 = document.getElementById('grid1');
+let lunaOn = false, kianOn = false;
+function renderGrid1(){
+  grid1.innerHTML = '';
+  const cols = 2, rows = 3;
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      const cell = document.createElement('div');
+      cell.className = 'cell aspect-square';
+      const isLuna = c === 0;   // kolom pertama = 1/2 milik Luna
+      const isKian = r === 0;   // baris pertama = 1/3 milik Kian
+      if(lunaOn && isLuna && kianOn && isKian) cell.classList.add('overlap');
+      else if(lunaOn && isLuna) cell.classList.add('teal');
+      else if(kianOn && isKian) cell.classList.add('gold');
+      grid1.appendChild(cell);
+    }
+  }
+  const overlapCount = (lunaOn && kianOn) ? 1 : 0;
+  document.getElementById('count1').textContent = `Sel tertimpa: ${overlapCount} dari 6`;
+  
+  if(lunaOn && kianOn){
+    document.getElementById('result1').innerHTML = `
+      <span style="color:var(--gold); display:inline-flex; align-items:center; gap:6px;">
+        <span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span>
+        <span>×</span>
+        <span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span>
+        <span>=</span>
+        <span class="math-frac"><span class="math-num">1</span><span class="math-den">6</span></span>
+        <span class="text-sm font-normal text-slate-300">dari seluruh kotak</span>
+      </span>
+    `;
+  } else {
+    document.getElementById('result1').innerHTML = '';
+  }
+}
+document.getElementById('btn-luna').addEventListener('click', () => { lunaOn = true; renderGrid1(); });
+document.getElementById('btn-kian').addEventListener('click', () => { kianOn = true; renderGrid1(); });
+document.getElementById('btn-reset1').addEventListener('click', () => { lunaOn=false; kianOn=false; renderGrid1(); });
+renderGrid1();
+
+// ---- Mode Eksperimen ----
+const togBtn = document.getElementById('toggle-exp');
+const expPanel = document.getElementById('exp-panel');
+togBtn.addEventListener('click', () => {
+  expPanel.classList.toggle('hidden');
+  document.getElementById('toggle-icon').textContent = expPanel.classList.contains('hidden') ? '▼' : '▲';
+});
+
+function gcd(x,y){ return y===0 ? x : gcd(y, x%y); }
+
+function renderGrid2(){
+  const a = +document.getElementById('a').value;
+  const b = +document.getElementById('b').value;
+  const c = +document.getElementById('c').value;
+  const d = +document.getElementById('d').value;
+  document.getElementById('val-a').textContent=a;
+  document.getElementById('val-b').textContent=b;
+  document.getElementById('val-c').textContent=c;
+  document.getElementById('val-d').textContent=d;
+
+  const grid2 = document.getElementById('grid2');
+  grid2.style.gridTemplateColumns = `repeat(${b},1fr)`;
+  grid2.style.aspectRatio = `${b}/${d}`;
+  grid2.innerHTML = '';
+  for(let r=0;r<d;r++){
+    for(let col=0;col<b;col++){
+      const cell = document.createElement('div');
+      cell.className = 'cell aspect-square';
+      const isLuna = col < a;
+      const isKian = r < c;
+      if(isLuna && isKian) cell.classList.add('overlap');
+      else if(isLuna) cell.classList.add('teal');
+      else if(isKian) cell.classList.add('gold');
+      grid2.appendChild(cell);
+    }
+  }
+
+  const num = a*c, den = b*d;
+  const g = gcd(num,den);
+  document.getElementById('fa').textContent=a;
+  document.getElementById('fb').textContent=b;
+  document.getElementById('fc').textContent=c;
+  document.getElementById('fd').textContent=d;
+  
+  document.getElementById('fac').textContent = num;
+  document.getElementById('fbd').textContent = den;
+
+  const note = document.getElementById('simplification-note');
+  if(g > 1){
+    note.textContent = `(Dapat disederhanakan menjadi bentuk vertikal: ${num/g} / ${den/g} dengan membagi ${g})`;
+  } else {
+    note.textContent = '(Sudah bentuk paling sederhana)';
+  }
+}
+['a','b','c','d'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => {
+    const a = document.getElementById('a'), b = document.getElementById('b');
+    const c = document.getElementById('c'), d = document.getElementById('d');
+    if(+a.value >= +b.value) a.value = +b.value - 1;
+    if(+c.value >= +d.value) c.value = +d.value - 1;
+    renderGrid2();
+  });
+});
+renderGrid2();
+</script>
+</body>
+</html>
