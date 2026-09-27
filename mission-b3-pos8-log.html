@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 8: Mission Log & Achievement - Mission B3 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --navy:#0d1b4c; --navy-card:#16214f; --teal:#14a89a; --gold:#f4b400; --green-dk:#0d766b; --ink:#f1f5f9; --line:#2a3868; }
+  body{ background-color:var(--navy); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; overflow-x:hidden; }
+  .card-dark{ background-color:var(--navy-card); border:1px solid var(--line); }
+  .btn{ padding:.7rem 1.6rem; border-radius:9999px; font-weight:bold; color:#fff; cursor:pointer; transition: transform 0.2s, box-shadow 0.2s; }
+  .btn:hover{ transform: translateY(-2px); shadow: 0 6px 15px rgba(0,0,0,0.3); }
+  
+  @keyframes popIn { 0%{ transform:scale(0) rotate(-20deg); opacity:0; } 60%{ transform:scale(1.15) rotate(8deg); opacity:1; } 100%{ transform:scale(1) rotate(0); } }
+  @keyframes glow { 0%,100%{ box-shadow:0 0 20px 4px rgba(244,180,0,.4);} 50%{ box-shadow:0 0 36px 10px rgba(244,180,0,.7);} }
+  .badge-anim{ animation: popIn .8s cubic-bezier(.34,1.56,.64,1) both, glow 2s ease-in-out .8s infinite; }
+  
+  .confetti{ position:fixed; top:-10px; width:9px; height:15px; opacity:.9; animation: fall linear forwards; z-index:99; }
+  @keyframes fall { to { transform: translateY(105vh) rotate(360deg); opacity:.2; } }
+  table.log td, table.log th{ padding:.5rem .7rem; border-bottom:1px solid var(--line); font-size:.85rem; }
+  
+  .growth-box{ background: linear-gradient(135deg, rgba(20,168,154,0.1), rgba(244,180,0,0.1)); border: 1px dashed var(--teal); }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card-dark border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+      <div><h1 class="text-lg font-bold" style="color:var(--gold)">VisualMath.Lim</h1><p class="text-[11px] text-slate-300">Mission B3 • Kelas 6</p></div>
+    </div>
+    <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(20,168,154,.15); border:1px solid var(--teal); color:var(--teal)">📖 Pos 8/8: Mission Log</span>
+  </div>
+  <div class="h-1.5 w-full" style="background:#0a1338"><div class="h-full" style="width:100%; background:linear-gradient(to right,var(--teal),var(--gold))"></div></div>
+</header>
+
+<main class="flex-grow max-w-2xl mx-auto w-full px-4 py-10 space-y-8 relative z-10">
+  <div id="content"></div>
+</main>
+
+<script>
+function getLog(key){ try{ return JSON.parse(localStorage.getItem(key)) || {attempts:[], bestScore:0, passed:false}; }catch(e){ return {attempts:[], bestScore:0, passed:false}; } }
+const log6 = getLog('vm_b3_pos6');
+const log7 = getLog('vm_b3_pos7');
+const content = document.getElementById('content');
+
+function logRows(log){
+  if(log.attempts.length===0) return '<tr><td colspan="2" class="text-slate-500">Belum ada percobaan</td></tr>';
+  return log.attempts.map((a,i)=>`<tr><td>Percobaan ${i+1} — ${a.date}</td><td class="font-bold" style="color:${a.score>=70?'var(--teal)':'#ef4444'}">${a.score}</td></tr>`).join('');
+}
+
+function triggerCelebration(){
+  const claimContainer = document.getElementById('claim-container');
+  claimContainer.innerHTML = `
+    <div class="text-center space-y-4 py-4">
+      <div class="text-8xl badge-anim inline-block">🏅</div>
+      <h2 class="text-3xl font-extrabold" style="color:var(--gold)">Fraction Multiplier Badge Terbuka!</h2>
+      <p class="text-slate-200 text-sm">Hebat! Kamu resmi menaklukkan misi perkalian pecahan.</p>
+      <p class="text-2xl font-extrabold text-teal-400">+100 XP Ditambahkan!</p>
+    </div>
+  `;
+
+  // Hujan confetti seru
+  const colors = ['#14a89a','#f4b400','#0d766b','#ffffff','#38bdf8'];
+  for(let i=0; i<60; i++){
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random()*100 + 'vw';
+    c.style.background = colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDuration = (2 + Math.random()*2.5) + 's';
+    c.style.animationDelay = (Math.random()*0.8) + 's';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(), 6000);
+  }
+}
+
+if(log6.passed && log7.passed){
+  content.innerHTML = `
+    <!-- KOTAK KLAIM BADGE DENGAN TOMBOL ANIMASI -->
+    <div id="claim-container" class="card-dark rounded-2xl p-8 text-center space-y-4 border-2 border-amber-500/50 shadow-2xl">
+      <div class="text-6xl animate-bounce">🎁</div>
+      <h3 class="text-2xl font-bold text-amber-300">Selamat, Agen! Misi Selesai!</h3>
+      <p class="text-sm text-slate-300">Kamu telah lulus KKM di Pos Quest dan Boss Battle. Saatnya ambil penghargaanmu!</p>
+      <button onclick="triggerCelebration()" class="btn py-3 px-8 text-lg shadow-lg" style="background:linear-gradient(to right,var(--gold),#d97706); color:var(--navy)">
+        Klaim Badge Sekarang 🏆
+      </button>
+    </div>
+
+    <!-- KATA-KATA MOTIVASI / GROWTH MINDSET DARI BIMBEL -->
+    <section class="growth-box rounded-2xl p-6 space-y-3 shadow-lg">
+      <h4 class="font-bold text-teal-300 text-base flex items-center gap-2">
+        <span>🌱 Catatan Pertumbuhan dari VisualMath.Lim</span>
+      </h4>
+      <p class="text-sm text-slate-200 leading-relaxed">
+        "Ingatlah, Agen: <b>Matematika bukan tentang seberapa cepat kamu tahu jawabannya, tapi tentang bagaimana otakmu bertumbuh setiap kali kamu mencoba dan keliru.</b> Setiap kesalahan kecil saat mencoret pecahan atau menghitung area model adalah bukti nyata bahwa sel-sel otakmu sedang membangun jalur baru yang lebih kuat. Jangan pernah takut salah, karena di sinilah tempat para pemikir hebat dibentuk!"
+      </p>
+    </section>
+
+    <!-- LOG MISI -->
+    <section class="card-dark rounded-2xl p-6 space-y-4 border border-slate-700 shadow-md">
+      <h3 class="font-bold text-base text-amber-300">📖 Rekam Jejak Mission B3</h3>
+      
+      <div>
+        <p class="text-sm font-semibold text-teal-300 mb-1">Pos 6 — Quest Kuis (Skor Terbaik: ${log6.bestScore})</p>
+        <table class="log w-full bg-slate-900/50 rounded-lg overflow-hidden">${logRows(log6)}</table>
+      </div>
+
+      <div class="pt-2">
+        <p class="text-sm font-semibold text-amber-300 mb-1">Pos 7 — Boss Battle HOTS (Skor Terbaik: ${log7.bestScore})</p>
+        <table class="log w-full bg-slate-900/50 rounded-lg overflow-hidden">${logRows(log7)}</table>
+      </div>
+    </section>
+
+    <section class="text-center pt-2">
+      <a href="index.html" class="btn inline-block shadow-lg" style="background:linear-gradient(to right,var(--teal),var(--green-dk))">🏠 Kembali ke Home / Dashboard Utama</a>
+    </section>`;
+
+} else {
+  const needPos6 = !log6.passed, needPos7 = !log7.passed;
+  content.innerHTML = `
+    <section class="text-center space-y-3">
+      <div class="text-6xl opacity-40">🔒</div>
+      <h2 class="text-2xl font-extrabold">Mission Belum Selesai</h2>
+      <p class="text-slate-300 text-sm">Badge dan pesan spesial akan terbuka setelah kamu menuntaskan tantangan berikut (minimal KKM 70):</p>
+    </section>
+
+    <section class="card-dark rounded-2xl p-6 space-y-4 border border-slate-700 shadow-xl">
+      <div class="flex items-center justify-between p-3 bg-slate-900/50 rounded-xl">
+        <span class="text-sm font-medium">Pos 6 — Quest Kuis ${log6.attempts.length? '(Best: '+log6.bestScore+')' : '(Belum dicoba)'}</span>
+        ${needPos6 ? '<a href="mission-b3-pos6-quiz.html" class="btn text-xs py-2 px-4" style="background:var(--gold); color:var(--navy)">Kerjakan Pos 6</a>' : '<span class="font-bold" style="color:var(--teal)">✅ Lulus</span>'}
+      </div>
+      <div class="flex items-center justify-between p-3 bg-slate-900/50 rounded-xl">
+        <span class="text-sm font-medium">Pos 7 — Boss Battle ${log7.attempts.length? '(Best: '+log7.bestScore+')' : '(Belum dicoba)'}</span>
+        ${needPos7 ? '<a href="mission-b3-pos7-boss.html" class="btn text-xs py-2 px-4" style="background:var(--gold); color:var(--navy)">Kerjakan Pos 7</a>' : '<span class="font-bold" style="color:var(--teal)">✅ Lulus</span>'}
+      </div>
+    </section>
+
+    <!-- MOTIVASI PENGINGAT BAGI YANG BELUM LULUS -->
+    <section class="growth-box rounded-2xl p-5 space-y-2 text-center shadow-md">
+      <p class="text-sm font-bold text-amber-300">💡 Jangan Menyerah, Agen!</p>
+      <p class="text-xs text-slate-300 leading-relaxed">
+        Di VisualMath.Lim, kegagalan hanyalah awal dari pemahaman yang lebih dalam. Cek kembali pembahasan di Pos 6 dan Pos 7, lalu coba lagi. Kamu pasti bisa!
+      </p>
+    </section>
+
+    <section class="text-center">
+      <a href="index.html" class="text-slate-400 hover:text-white text-sm">🏠 Kembali ke Home Dulu</a>
+    </section>`;
+}
+</script>
+</body>
+</html>
