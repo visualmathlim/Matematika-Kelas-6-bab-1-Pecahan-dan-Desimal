@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pos 4: Think & Discover - Mission B1 | VisualMath.Lim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark { background-color: #1e293b; border: 1px solid #334155; }
+        .text-gradient {
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #fbbf24, #f59e0b);
+        }
+        
+        .math-frac {
+            display: inline-flex; flex-direction: column; align-items: center;
+            vertical-align: middle; margin: 0 0.25rem; font-weight: bold; line-height: 1.1;
+        }
+        .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
+        .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+
+        .input-discover {
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px dashed #fbbf24;
+            color: #fbbf24;
+            text-align: center;
+            font-weight: bold;
+            width: 120px;
+            padding: 0 5px;
+            transition: all 0.3s ease;
+        }
+        .input-discover:focus {
+            outline: none;
+            border-bottom: 2px solid #f59e0b;
+            background-color: rgba(251, 191, 36, 0.1);
+        }
+        .input-discover.correct {
+            border-bottom: 2px solid #34d399; /* Emerald */
+            color: #34d399;
+            background-color: rgba(52, 211, 153, 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- Efek Cahaya Background -->
+    <div class="fixed top-[-10%] right-[-10%] w-96 h-96 bg-amber-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+    <!-- Header -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="Logo" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+                <div>
+                    <h1 class="text-lg font-bold text-amber-400 leading-tight">VisualMath.Lim</h1>
+                    <p class="text-[11px] text-slate-400 leading-tight uppercase tracking-wider">Misi B1 • Perkalian</p>
+                </div>
+            </div>
+            <span class="px-3 py-1 bg-amber-900/40 border border-amber-700/50 rounded-full text-xs font-bold text-amber-300 shadow-[0_0_10px_rgba(251,191,36,0.2)]">
+                🟡 Pos 4/8: Think & Discover
+            </span>
+        </div>
+        <!-- Progress Bar (50%) -->
+        <div class="h-1.5 w-full bg-slate-900">
+            <div class="h-full bg-gradient-to-r from-purple-500 via-sky-500 to-amber-500" style="width: 50%"></div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-10 relative z-10">
+
+        <!-- KIAN MESSAGE -->
+        <section class="flex flex-col sm:flex-row items-center gap-6 border-b border-slate-700 pb-6">
+            <img src="assets/Kian.png" alt="Kian" class="w-24 h-24 object-contain drop-shadow-xl" onerror="this.outerHTML='<div class=\'w-24 h-24 rounded-full border-2 border-amber-500 bg-slate-800 flex items-center justify-center text-4xl shrink-0\'>👦🏻</div>'">
+            <div>
+                <h3 class="text-3xl font-bold text-white mb-2">THINK & <span class="text-gradient">DISCOVER</span></h3>
+                <p class="text-slate-300 italic">"Visualisasi tadi sangat keren! Tapi Agen yang cerdas tidak selalu harus menggambar. Ada pola rahasia yang tersembunyi di balik angka-angka itu. Mari kita pecahkan polanya!"</p>
+            </div>
+        </section>
+
+        <!-- BAGIAN 1: PENGAMATAN POLA -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 space-y-6 shadow-xl border-t-4 border-t-amber-500">
+            
+            <div class="flex items-center gap-3 mb-2">
+                <span class="text-2xl">🔍</span>
+                <h4 class="font-bold text-amber-400 text-lg">Amati Pola Berikut</h4>
+            </div>
+
+            <p class="text-slate-300 text-sm">Berdasarkan visualisasi yang kamu buat di Pos 3, kita mendapatkan hasil perhitungan seperti ini:</p>
+
+            <div class="bg-slate-900 p-6 rounded-xl border border-slate-700 flex flex-col items-center gap-4 text-xl font-bold max-w-md mx-auto shadow-inner">
+                <div class="flex items-center gap-2">
+                    <span class="text-white">1</span> <span class="text-slate-500 text-sm">×</span> <div class="math-frac text-white"><span class="math-num">1</span><span class="math-den">4</span></div>
+                    <span class="text-slate-500 mx-2">=</span>
+                    <div class="math-frac text-amber-400"><span class="math-num">1</span><span class="math-den">4</span></div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-white">2</span> <span class="text-slate-500 text-sm">×</span> <div class="math-frac text-white"><span class="math-num">1</span><span class="math-den">4</span></div>
+                    <span class="text-slate-500 mx-2">=</span>
+                    <div class="math-frac text-amber-400"><span class="math-num">2</span><span class="math-den">4</span></div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-white">3</span> <span class="text-slate-500 text-sm">×</span> <div class="math-frac text-white"><span class="math-num">1</span><span class="math-den">4</span></div>
+                    <span class="text-slate-500 mx-2">=</span>
+                    <div class="math-frac text-amber-400"><span class="math-num">3</span><span class="math-den">4</span></div>
+                </div>
+                <div class="flex items-center gap-2 bg-slate-800/50 py-2 px-6 rounded-lg border border-amber-900/30">
+                    <span class="text-white">4</span> <span class="text-slate-500 text-sm">×</span> <div class="math-frac text-white"><span class="math-num">1</span><span class="math-den">4</span></div>
+                    <span class="text-slate-500 mx-2">=</span>
+                    <div class="math-frac text-amber-400"><span class="math-num">4</span><span class="math-den">4</span></div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- BAGIAN 2: MELENGKAPI KESIMPULAN (Interactive) -->
+        <section class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 md:p-8 border border-slate-700 shadow-xl space-y-6">
+            
+            <h4 class="font-bold text-white text-lg flex items-center gap-2 border-b border-slate-700 pb-2">
+                <span>🧠</span> Uji Analisa Agen
+            </h4>
+            <p class="text-sm text-slate-400">Lengkapi kalimat rahasia di bawah ini berdasarkan pola yang kamu amati di atas! <em>(Ketikkan jawabanmu, sistem akan mengeceknya otomatis)</em></p>
+
+            <div class="space-y-6 text-slate-300 md:text-lg leading-loose pt-4">
+                
+                <!-- Soal 1 -->
+                <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                    <p>
+                        1. Saat kita mengalikan bilangan asli dengan pecahan, ternyata angka yang ikut membesar/berubah hanyalah angka atas, yaitu 
+                        <input type="text" id="ans1" class="input-discover" placeholder="p _ _ b i _ _ n _" oninput="checkAnswers()" autocomplete="off">.
+                    </p>
+                </div>
+
+                <!-- Soal 2 -->
+                <div class="bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                    <p>
+                        2. Sebaliknya, ukuran potongannya tetap sama. Artinya angka bawah, yaitu 
+                        <input type="text" id="ans2" class="input-discover" placeholder="p _ _ y e _ _ _" oninput="checkAnswers()" autocomplete="off"> nilainya tidak boleh berubah.
+                    </p>
+                </div>
+
+                <!-- Soal 3 (Kesimpulan Final) -->
+                <div class="bg-amber-950/20 p-5 rounded-lg border border-amber-900/50 font-semibold mt-6 relative overflow-hidden">
+                    <div class="absolute left-0 top-0 h-full w-1 bg-amber-500"></div>
+                    <p class="flex items-center gap-2 mb-2 text-amber-400"><span class="text-xl">💡</span> Kesimpulan Rahasia:</p>
+                    <p>
+                        "Untuk mengalikan bilangan asli dengan pecahan, kita cukup mengalikan bilangan asli tersebut dengan 
+                        <span id="final-word1" class="text-white border-b border-dashed border-slate-600 px-2 inline-block min-w-[80px] text-center">...</span> 
+                        -nya saja, sedangkan 
+                        <span id="final-word2" class="text-white border-b border-dashed border-slate-600 px-2 inline-block min-w-[80px] text-center">...</span> 
+                        -nya dibiarkan tetap."
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Pesan Sukses -->
+            <div id="success-message" class="hidden mt-6 bg-emerald-900/30 border border-emerald-500 text-emerald-300 p-4 rounded-xl text-center font-bold animate-fade-in-up">
+                🎉 Analisa Tepat! Kamu telah menemukan Pola Rahasia Perkalian Pecahan.
+            </div>
+
+        </section>
+
+        <!-- NAVIGASI BAWAH -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-4 pb-12">
+            <a href="mission-b1-pos3.html" class="text-slate-400 hover:text-white font-medium transition-colors flex items-center gap-2">
+                <span>⬅</span> Kembali ke Pos 3
+            </a>
+            <a href="mission-b1-pos5.html" id="btnNextPos" class="opacity-50 cursor-not-allowed inline-flex items-center justify-center bg-slate-700 text-slate-400 font-bold py-3.5 px-8 rounded-full transition-all group pointer-events-none">
+                Kunci Jawaban untuk Lanjut 
+                <span class="ml-2">➔</span>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- SCRIPT AUTO-CHECK -->
+    <script>
+        function checkAnswers() {
+            const ans1 = document.getElementById('ans1').value.trim().toLowerCase();
+            const ans2 = document.getElementById('ans2').value.trim().toLowerCase();
+            
+            const ans1Input = document.getElementById('ans1');
+            const ans2Input = document.getElementById('ans2');
+
+            // Variasi jawaban benar yang ditoleransi
+            const correctAns1 = ["pembilang", "atas", "angka atas"];
+            const correctAns2 = ["penyebut", "bawah", "angka bawah"];
+
+            let isAns1Correct = correctAns1.includes(ans1);
+            let isAns2Correct = correctAns2.includes(ans2);
+
+            // Update UI Input 1
+            if (isAns1Correct) {
+                ans1Input.classList.add('correct');
+                document.getElementById('final-word1').innerText = "pembilang";
+                document.getElementById('final-word1').classList.replace('text-white', 'text-amber-400');
+            } else {
+                ans1Input.classList.remove('correct');
+                document.getElementById('final-word1').innerText = "...";
+                document.getElementById('final-word1').classList.replace('text-amber-400', 'text-white');
+            }
+
+            // Update UI Input 2
+            if (isAns2Correct) {
+                ans2Input.classList.add('correct');
+                document.getElementById('final-word2').innerText = "penyebut";
+                document.getElementById('final-word2').classList.replace('text-white', 'text-amber-400');
+            } else {
+                ans2Input.classList.remove('correct');
+                document.getElementById('final-word2').innerText = "...";
+                document.getElementById('final-word2').classList.replace('text-amber-400', 'text-white');
+            }
+
+            // Jika keduanya benar, buka tombol lanjut
+            if (isAns1Correct && isAns2Correct) {
+                document.getElementById('success-message').classList.remove('hidden');
+                
+                const btnNext = document.getElementById('btnNextPos');
+                btnNext.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-slate-700', 'text-slate-400', 'pointer-events-none');
+                btnNext.classList.add('bg-gradient-to-r', 'from-amber-500', 'to-orange-500', 'hover:from-amber-400', 'hover:to-orange-400', 'text-white', 'shadow-lg', 'shadow-amber-500/30', 'hover:-translate-y-1', 'animate-pulse');
+                btnNext.innerHTML = 'Lanjut Pos 5 (Skill Unlock) <span class="ml-2 group-hover:translate-x-1 transition-transform">➔</span>';
+            }
+        }
+    </script>
+</body>
+</html>
