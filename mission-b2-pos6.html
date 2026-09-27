@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pos 6: Quest (Latihan) - Mission B2 | VisualMath.Lim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark { background-color: #1e293b; border: 1px solid #334155; }
+        
+        /* Tema Warna B6: Emerald/Hijau (Quest/Latihan) */
+        .text-gradient {
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #10b981, #34d399);
+        }
+        
+        /* Pecahan Vertikal */
+        .math-frac {
+            display: inline-flex; flex-direction: column; align-items: center;
+            vertical-align: middle; margin: 0 0.3rem; font-weight: bold; line-height: 1.2;
+        }
+        .math-num { border-bottom: 2px solid currentColor; padding: 0 0.2rem; width: 100%; text-align: center; }
+        .math-den { padding: 0 0.2rem; width: 100%; text-align: center; }
+
+        .input-dark { background-color: #0f172a; border: 1px solid #475569; color: #f8fafc; text-align: center; font-weight: bold; }
+        .input-dark:focus { outline: none; border-color: #10b981; box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.4); }
+
+        /* Animasi */
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Bar Model Dinamis */
+        .bar-slice-dynamic { border-right: 2px solid #0f172a; }
+        .bar-slice-dynamic:last-child { border-right: none; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- Efek Cahaya Background -->
+    <div class="fixed top-[-10%] right-[-10%] w-96 h-96 bg-emerald-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+    <!-- Header -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="Logo" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-emerald-400\'>VM</div>'">
+                <div>
+                    <h1 class="text-lg font-bold text-emerald-400 leading-tight">VisualMath.Lim</h1>
+                    <p class="text-[11px] text-slate-400 leading-tight uppercase tracking-wider">Misi B2 • Fraction of Quantity</p>
+                </div>
+            </div>
+            <span class="px-3 py-1 bg-emerald-900/40 border border-emerald-700/50 rounded-full text-xs font-bold text-emerald-300 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+                🟢 Pos 6/8: Easy Quest
+            </span>
+        </div>
+        <!-- Progress Bar (75%) -->
+        <div class="h-1.5 w-full bg-slate-900">
+            <div class="h-full bg-gradient-to-r from-purple-400 via-rose-400 to-emerald-500" style="width: 75%"></div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-8 relative z-10">
+
+        <!-- INTRO -->
+        <section class="flex flex-col sm:flex-row items-center gap-6 border-b border-slate-700 pb-6">
+            <div class="w-20 h-20 rounded-full border-2 border-emerald-500 bg-slate-800 flex items-center justify-center text-4xl shrink-0 shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+                🎮
+            </div>
+            <div>
+                <h3 class="text-3xl font-bold text-white mb-2">EASY <span class="text-gradient">QUEST</span></h3>
+                <p class="text-slate-300 italic">"Selesaikan 6 soal ini untuk membuktikan kemampuanmu. Jika nilaimu kurang dari KKM (5 benar), soal akan diacak ulang! Tapi tenang, setiap selesai menjawab, penjelasan lengkap akan terbuka."</p>
+            </div>
+        </section>
+
+        <!-- KONTENER KUIS -->
+        <section id="quizContainer" class="card-dark rounded-2xl p-6 md:p-8 shadow-xl border-t-4 border-t-emerald-500">
+            
+            <div class="flex justify-between items-center mb-6 border-b border-slate-700 pb-4">
+                <h4 class="font-bold text-emerald-400 tracking-widest uppercase text-sm" id="questionCounter">SOAL 1 / 6</h4>
+                <div class="text-sm font-bold text-slate-400 bg-slate-900 px-3 py-1 rounded-full border border-slate-700">
+                    Target KKM: 5 Benar
+                </div>
+            </div>
+
+            <!-- AREA SOAL -->
+            <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-700 text-center mb-6 shadow-inner">
+                <p class="text-slate-400 text-sm font-bold mb-4">Hitunglah nilai pecahan berikut:</p>
+                <div class="text-4xl font-black text-white flex justify-center items-center gap-4 flex-wrap">
+                    <div class="math-frac text-emerald-400"><span class="math-num" id="qNum">2</span><span class="math-den" id="qDen">3</span></div> 
+                    <span class="text-slate-500 text-2xl">×</span> 
+                    <span id="qTotal">15</span>
+                    <span class="text-slate-500 text-2xl">=</span>
+                    <input type="number" id="userAnswer" class="input-dark w-24 h-16 rounded-lg text-3xl text-emerald-300" placeholder="...">
+                </div>
+                <div class="mt-8">
+                    <button id="btnCheck" onclick="checkAnswer()" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold py-3 px-10 rounded-full shadow-lg transition-all hover:-translate-y-1">
+                        Cek Jawaban ➔
+                    </button>
+                </div>
+            </div>
+
+            <!-- AREA PENJELASAN (Muncul setelah klik Cek) -->
+            <div id="explanationBox" class="hidden animate-fade-in bg-slate-800 border-2 border-slate-600 rounded-xl p-5 md:p-6 space-y-6 relative overflow-hidden">
+                <!-- Status Jawaban -->
+                <div id="statusBanner" class="absolute top-0 left-0 w-full py-1 text-center font-bold text-sm text-white uppercase tracking-widest z-0"></div>
+                
+                <h5 class="font-bold text-white text-center pt-4 mb-2 z-10 relative border-b border-slate-700 pb-2">PEMBAHASAN VISUAL</h5>
+                
+                <!-- Visual Bar Model (Dibuat lewat JS) -->
+                <div class="max-w-xl mx-auto pt-4 relative z-10">
+                    <div class="flex justify-center text-xs font-bold text-white border-b border-slate-500 w-full relative h-4 mb-2">
+                        <span class="absolute -top-3 bg-slate-900 px-3 py-0.5 text-slate-300 rounded-full border border-slate-600" id="expTotal">Total = 15</span>
+                    </div>
+                    <div id="expBar" class="h-14 w-full flex rounded-lg overflow-hidden border-2 border-slate-600 shadow-lg bg-slate-900">
+                        <!-- Bar slices akan diisi via JS -->
+                    </div>
+                </div>
+
+                <!-- Penjelasan Teks 2 Langkah -->
+                <div class="grid sm:grid-cols-2 gap-4 text-sm z-10 relative pt-2">
+                    <div class="bg-slate-900/80 p-3 rounded border border-slate-700">
+                        <span class="text-emerald-400 font-bold block mb-1">Langkah 1: Bagi Bawah</span>
+                        <p class="text-slate-300 mb-1">Cari nilai 1 kotak (Total ÷ Penyebut).</p>
+                        <p class="font-bold text-white" id="expStep1">15 ÷ 3 = 5</p>
+                    </div>
+                    <div class="bg-slate-900/80 p-3 rounded border border-slate-700">
+                        <span class="text-rose-400 font-bold block mb-1">Langkah 2: Kali Atas</span>
+                        <p class="text-slate-300 mb-1">Ambil sebanyak pembilang.</p>
+                        <p class="font-bold text-white" id="expStep2">5 × 2 = 10</p>
+                    </div>
+                </div>
+
+                <div class="text-center pt-4 z-10 relative">
+                    <p class="text-lg font-bold text-slate-300 mb-4">Jawaban Benar: <span class="text-emerald-400 text-2xl" id="expFinal">10</span></p>
+                    <button id="btnNextQ" onclick="nextQuestion()" class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-2.5 px-8 rounded-full transition-colors border border-slate-500">
+                        Lanjut Soal Berikutnya ➔
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- KONTENER HASIL (Muncul di akhir) -->
+        <section id="resultContainer" class="hidden card-dark rounded-2xl p-8 shadow-xl text-center space-y-6 border-t-4 relative overflow-hidden">
+            <h3 class="text-3xl font-black text-white" id="resultTitle">KUIS SELESAI!</h3>
+            
+            <div class="bg-slate-900 inline-block p-6 rounded-full border-4 border-slate-700 mb-2 shadow-inner">
+                <p class="text-slate-400 font-bold uppercase tracking-widest text-sm mb-1">Skor Kamu</p>
+                <p class="text-5xl font-black" id="resultScore">0/6</p>
+            </div>
+            
+            <p class="text-slate-300 text-lg leading-relaxed max-w-md mx-auto" id="resultMessage"></p>
+            
+            <div class="pt-6" id="resultAction">
+                <!-- Tombol dinamis via JS -->
+            </div>
+        </section>
+
+        <!-- NAVIGASI BAWAH -->
+        <div class="flex justify-between items-center pt-4 pb-12">
+            <a href="mission-b2-pos5.html" class="text-slate-400 hover:text-white font-medium transition-colors flex items-center gap-2">
+                <span>⬅</span> Kembali Pos 5
+            </a>
+        </div>
+
+    </main>
+
+    <script>
+        // BANK SOAL (12 Soal)
+        const questionPool = [
+            {n: 2, d: 3, t: 15, a: 10},
+            {n: 3, d: 4, t: 24, a: 18},
+            {n: 2, d: 5, t: 20, a: 8},
+            {n: 5, d: 6, t: 18, a: 15},
+            {n: 3, d: 8, t: 32, a: 12},
+            {n: 4, d: 5, t: 25, a: 20},
+            {n: 5, d: 8, t: 16, a: 10},
+            {n: 2, d: 7, t: 21, a: 6},
+            {n: 7, d: 10, t: 30, a: 21},
+            {n: 3, d: 5, t: 35, a: 21},
+            {n: 5, d: 7, t: 14, a: 10},
+            {n: 3, d: 10, t: 40, a: 12}
+        ];
+
+        let selectedQuestions = [];
+        let currentIndex = 0;
+        let correctCount = 0;
+
+        // Fungsi Mengacak Soal (Fisher-Yates Shuffle)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Inisialisasi Kuis
+        function startQuiz() {
+            // Sembunyikan hasil, tampilkan kuis
+            document.getElementById('resultContainer').classList.add('hidden');
+            document.getElementById('quizContainer').classList.remove('hidden');
+            
+            // Reset state
+            currentIndex = 0;
+            correctCount = 0;
+            
+            // Acak bank soal dan ambil 6 teratas
+            let poolCopy = [...questionPool];
+            shuffleArray(poolCopy);
+            selectedQuestions = poolCopy.slice(0, 6);
+            
+            loadQuestionUI();
+        }
+
+        function loadQuestionUI() {
+            const q = selectedQuestions[currentIndex];
+            
+            // Update Teks Soal
+            document.getElementById('questionCounter').innerText = `SOAL ${currentIndex + 1} / 6`;
+            document.getElementById('qNum').innerText = q.n;
+            document.getElementById('qDen').innerText = q.d;
+            document.getElementById('qTotal').innerText = q.t;
+            
+            // Reset Input
+            const input = document.getElementById('userAnswer');
+            input.value = '';
+            input.disabled = false;
+            input.focus();
+            
+            // Reset UI State
+            document.getElementById('btnCheck').classList.remove('hidden');
+            document.getElementById('explanationBox').classList.add('hidden');
+        }
+
+        function checkAnswer() {
+            const input = document.getElementById('userAnswer');
+            const val = parseInt(input.value);
+            const q = selectedQuestions[currentIndex];
+            
+            if (isNaN(val)) {
+                alert("Masukkan angka terlebih dahulu!");
+                return;
+            }
+
+            input.disabled = true;
+            document.getElementById('btnCheck').classList.add('hidden');
+            
+            const isCorrect = (val === q.a);
+            if (isCorrect) correctCount++;
+
+            showExplanation(q, isCorrect);
+        }
+
+        function showExplanation(q, isCorrect) {
+            const expBox = document.getElementById('explanationBox');
+            const statusBanner = document.getElementById('statusBanner');
+            
+            expBox.classList.remove('hidden');
+            
+            // Styling Status
+            if (isCorrect) {
+                statusBanner.className = 'absolute top-0 left-0 w-full py-1 text-center font-bold text-sm text-white uppercase tracking-widest z-0 bg-emerald-600';
+                statusBanner.innerText = '✅ JAWABAN BENAR!';
+                expBox.classList.replace('border-slate-600', 'border-emerald-600');
+            } else {
+                statusBanner.className = 'absolute top-0 left-0 w-full py-1 text-center font-bold text-sm text-white uppercase tracking-widest z-0 bg-rose-600';
+                statusBanner.innerText = '❌ JAWABAN SALAH';
+                expBox.classList.replace('border-slate-600', 'border-rose-600');
+                expBox.classList.replace('border-emerald-600', 'border-rose-600'); // fail-safe replace
+            }
+
+            // Bangun Penjelasan Teks
+            const valPerBox = q.t / q.d;
+            document.getElementById('expTotal').innerText = `Total = ${q.t}`;
+            document.getElementById('expStep1').innerText = `${q.t} ÷ ${q.d} = ${valPerBox}`;
+            document.getElementById('expStep2').innerText = `${valPerBox} × ${q.n} = ${q.a}`;
+            document.getElementById('expFinal').innerText = q.a;
+
+            // Bangun Bar Model Dinamis
+            const barContainer = document.getElementById('expBar');
+            barContainer.innerHTML = ''; // Bersihkan
+            
+            for (let i = 0; i < q.d; i++) {
+                const slice = document.createElement('div');
+                // Jika termasuk bagian yang diambil (pembilang), beri warna hijau
+                if (i < q.n) {
+                    slice.className = 'flex-1 bar-slice-dynamic flex items-center justify-center font-bold text-white bg-emerald-600 shadow-[inset_0_0_10px_rgba(255,255,255,0.2)]';
+                    slice.innerText = valPerBox;
+                } else {
+                    slice.className = 'flex-1 bar-slice-dynamic flex items-center justify-center font-bold text-slate-500 bg-slate-800';
+                    slice.innerText = valPerBox;
+                }
+                barContainer.appendChild(slice);
+            }
+        }
+
+        function nextQuestion() {
+            // Kembalikan border warna expBox ke asalnya untuk soal berikutnya
+            document.getElementById('explanationBox').classList.remove('border-emerald-600', 'border-rose-600');
+            document.getElementById('explanationBox').classList.add('border-slate-600');
+
+            currentIndex++;
+            if (currentIndex < 6) {
+                loadQuestionUI();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            document.getElementById('quizContainer').classList.add('hidden');
+            const resultCon = document.getElementById('resultContainer');
+            resultCon.classList.remove('hidden');
+
+            const passed = correctCount >= 5; // KKM = 5
+            
+            // Tampilan Hasil
+            document.getElementById('resultScore').innerText = `${correctCount}/6`;
+            
+            const title = document.getElementById('resultTitle');
+            const msg = document.getElementById('resultMessage');
+            const action = document.getElementById('resultAction');
+            
+            if (passed) {
+                resultCon.className = "card-dark rounded-2xl p-8 shadow-[0_0_40px_rgba(16,185,129,0.2)] text-center space-y-6 border-t-4 border-emerald-500 relative overflow-hidden";
+                title.innerText = "KUIS LULUS! 🎉";
+                title.className = "text-3xl font-black text-emerald-400";
+                document.getElementById('resultScore').className = "text-5xl font-black text-emerald-400";
+                msg.innerText = "Luar biasa! Pemahamanmu tentang pecahan dan kuantitas sudah sangat solid. Kamu siap menghadapi Boss Battle di Pos 7!";
+                
+                action.innerHTML = `
+                    <a href="mission-b2-pos7.html" class="inline-block bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold py-4 px-10 rounded-full shadow-lg transition-all hover:scale-105 animate-bounce">
+                        Lanjut ke Pos 7 (Boss Battle) ➔
+                    </a>
+                `;
+            } else {
+                resultCon.className = "card-dark rounded-2xl p-8 shadow-[0_0_40px_rgba(244,63,94,0.2)] text-center space-y-6 border-t-4 border-rose-500 relative overflow-hidden";
+                title.innerText = "BELUM MENCAPAI KKM ⚠️";
+                title.className = "text-3xl font-black text-rose-400";
+                document.getElementById('resultScore').className = "text-5xl font-black text-rose-400";
+                msg.innerText = "Kamu butuh minimal 5 benar untuk lulus dari pabrik ini. Jangan menyerah, ayo coba lagi! (Soal akan diacak ulang).";
+                
+                action.innerHTML = `
+                    <button onclick="startQuiz()" class="inline-block bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 px-10 rounded-full shadow-lg transition-all hover:-translate-y-1">
+                        🔄 Coba Lagi (Acak Soal)
+                    </button>
+                `;
+            }
+
+            // LOGGING KE LOCALSTORAGE
+            saveData(correctCount, passed);
+        }
+
+        function saveData(score, isPassed) {
+            // Ambil data lama jika ada (untuk menghitung attempts)
+            let logData = JSON.parse(localStorage.getItem('missionB2_pos6')) || { attempts: 0 };
+            
+            logData.attempts += 1;
+            logData.correct = score;
+            logData.total = 6;
+            logData.passed = isPassed;
+            
+            // Hitung persentase nilai (opsional)
+            logData.scorePercent = Math.round((score / 6) * 100);
+
+            // Simpan kembali
+            localStorage.setItem('missionB2_pos6', JSON.stringify(logData));
+            console.log("Data Pos 6 Tersimpan: ", logData);
+        }
+
+        // Jalankan saat halaman dibuka
+        window.onload = startQuiz;
+
+    </script>
+</body>
+</html>
