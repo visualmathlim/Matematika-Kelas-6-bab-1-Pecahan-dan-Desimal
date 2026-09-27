@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pos 1: See & Explore - Mission B2 | VisualMath.Lim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark { background-color: #1e293b; border: 1px solid #334155; }
+        
+        /* Tema Warna B2: Biru (Blue/Cyan) */
+        .text-gradient {
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #3b82f6, #06b6d4);
+        }
+        
+        /* Pecahan Vertikal */
+        .math-frac {
+            display: inline-flex; flex-direction: column; align-items: center;
+            vertical-align: middle; margin: 0 0.3rem; font-weight: bold; line-height: 1.2;
+        }
+        .math-num { border-bottom: 2px solid currentColor; padding: 0 0.2rem; width: 100%; text-align: center; }
+        .math-den { padding: 0 0.2rem; width: 100%; text-align: center; }
+
+        .input-dark { background-color: #0f172a; border: 1px solid #475569; color: #f8fafc; text-align: center; font-weight: bold; }
+        .input-dark:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3); }
+        .input-correct { border-color: #10b981 !important; color: #10b981; background-color: rgba(16, 185, 129, 0.1); }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- Efek Cahaya Background -->
+    <div class="fixed top-[-10%] right-[-10%] w-96 h-96 bg-blue-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+    <!-- Header -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="Logo" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-blue-400\'>VM</div>'">
+                <div>
+                    <h1 class="text-lg font-bold text-blue-400 leading-tight">VisualMath.Lim</h1>
+                    <p class="text-[11px] text-slate-400 leading-tight uppercase tracking-wider">Misi B2 • Fraction of Quantity</p>
+                </div>
+            </div>
+            <span class="px-3 py-1 bg-blue-900/40 border border-blue-700/50 rounded-full text-xs font-bold text-blue-300 shadow-[0_0_10px_rgba(59,130,246,0.2)]">
+                🔵 Pos 1/8: See & Explore
+            </span>
+        </div>
+        <!-- Progress Bar (12.5%) -->
+        <div class="h-1.5 w-full bg-slate-900">
+            <div class="h-full bg-gradient-to-r from-blue-400 to-cyan-400" style="width: 12.5%"></div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-8 relative z-10">
+
+        <!-- KIAN MESSAGE -->
+        <section class="flex flex-col sm:flex-row items-center gap-6 border-b border-slate-700 pb-6">
+            <img src="assets/Kian.png" alt="Kian" class="w-24 h-24 object-contain drop-shadow-xl" onerror="this.outerHTML='<div class=\'w-24 h-24 rounded-full border-2 border-blue-500 bg-slate-800 flex items-center justify-center text-4xl shrink-0\'>👦🏻</div>'">
+            <div>
+                <h3 class="text-3xl font-bold text-white mb-2">SEE & <span class="text-gradient">EXPLORE</span></h3>
+                <p class="text-slate-300 italic">"Halo Agen! Di misiku kali ini, kita harus mengirim pasokan cokelat ke 4 pos terdepan secara adil. Mari kita pecahkan masalah ini secara visual sebelum menggunakan rumus!"</p>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE ZONE: BAGIKAN COKELAT -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 space-y-6 shadow-xl border-t-4 border-t-blue-500">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h4 class="font-bold text-blue-400 text-lg flex items-center gap-2">
+                        <span>📦</span> Simulasi Pembagian
+                    </h4>
+                    <p class="text-slate-300 text-sm mt-1">Gudang kita memiliki <strong class="text-white">12 batang cokelat</strong>. Kita ingin mengambil tepat <div class="math-frac text-cyan-300"><span class="math-num">1</span><span class="math-den">4</span></div> bagian.</p>
+                </div>
+            </div>
+
+            <!-- Gudang Cokelat -->
+            <div class="bg-slate-900 p-5 rounded-xl border border-slate-700 shadow-inner">
+                <p class="text-xs text-slate-500 font-bold uppercase tracking-widest mb-3">Gudang Utama (12 Cokelat)</p>
+                <div id="pool" class="flex flex-wrap gap-3 min-h-[3rem] transition-all duration-500">
+                    <span class="text-3xl">🍫</span><span class="text-3xl">🍫</span><span class="text-3xl">🍫</span>
+                    <span class="text-3xl">🍫</span><span class="text-3xl">🍫</span><span class="text-3xl">🍫</span>
+                    <span class="text-3xl">🍫</span><span class="text-3xl">🍫</span><span class="text-3xl">🍫</span>
+                    <span class="text-3xl">🍫</span><span class="text-3xl">🍫</span><span class="text-3xl">🍫</span>
+                </div>
+            </div>
+
+            <!-- Tombol Aksi -->
+            <div class="text-center py-2">
+                <button id="btnDistribute" onclick="distributeChoco()" class="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-blue-500/30 transition-all hover:scale-105 animate-pulse">
+                    Bagi Rata ke 4 Kotak ➔
+                </button>
+            </div>
+
+            <!-- Kotak Penerima -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-2">
+                <div id="box1" class="h-20 bg-slate-800 rounded-xl border-2 border-dashed border-slate-600 flex items-center justify-center transition-all duration-500 relative">
+                    <span class="absolute bottom-1 right-2 text-[10px] text-slate-500 font-bold">1/4 Bagian</span>
+                </div>
+                <div id="box2" class="h-20 bg-slate-800 rounded-xl border-2 border-dashed border-slate-600 flex items-center justify-center transition-all duration-500 relative">
+                    <span class="absolute bottom-1 right-2 text-[10px] text-slate-500 font-bold">1/4 Bagian</span>
+                </div>
+                <div id="box3" class="h-20 bg-slate-800 rounded-xl border-2 border-dashed border-slate-600 flex items-center justify-center transition-all duration-500 relative">
+                    <span class="absolute bottom-1 right-2 text-[10px] text-slate-500 font-bold">1/4 Bagian</span>
+                </div>
+                <div id="box4" class="h-20 bg-slate-800 rounded-xl border-2 border-dashed border-slate-600 flex items-center justify-center transition-all duration-500 relative">
+                    <span class="absolute bottom-1 right-2 text-[10px] text-slate-500 font-bold">1/4 Bagian</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUESTION SECTION (Hidden by default, shown after simulation) -->
+        <section id="questionSection" class="hidden bg-gradient-to-br from-slate-900 to-blue-950/40 rounded-2xl p-6 md:p-8 border border-blue-900/50 shadow-xl space-y-6">
+            <h4 class="font-bold text-white text-lg flex items-center gap-2 border-b border-slate-700 pb-2">
+                <span>🧠</span> Analisa Hasil Visual
+            </h4>
+            
+            <p class="text-slate-300 text-sm mb-4">Setelah kamu membagi rata 12 cokelat ke dalam 4 kotak (mencari <div class="math-frac text-cyan-300"><span class="math-num">1</span><span class="math-den">4</span></div> bagian), jawablah pertanyaan di bawah ini:</p>
+
+            <div class="space-y-4">
+                <div class="flex items-center gap-4 bg-slate-800/50 p-4 rounded-lg border border-slate-700 w-max mx-auto md:mx-0">
+                    <span class="text-slate-300 font-semibold">12 dibagi 4 =</span>
+                    <input type="number" id="ansDiv" class="input-dark w-16 h-12 text-xl rounded-lg text-cyan-300" oninput="checkAnswer()">
+                </div>
+                
+                <!-- Kesimpulan Rahasia -->
+                <div id="conclusionBox" class="hidden bg-emerald-950/40 p-5 rounded-lg border border-emerald-800/50 mt-6 relative overflow-hidden animate-fade-in-up">
+                    <div class="absolute left-0 top-0 h-full w-1 bg-emerald-500"></div>
+                    <p class="font-bold text-emerald-400 mb-2">✅ Analisa Tepat!</p>
+                    <p class="text-slate-200 leading-relaxed text-sm">
+                        Satu kotak berisi <strong class="text-white">3 cokelat</strong>. <br>
+                        Ini berarti, <div class="math-frac text-cyan-300 font-bold"><span class="math-num">1</span><span class="math-den">4</span></div> dari <strong class="text-white">12</strong> adalah <strong class="text-emerald-400 text-lg">3</strong>.
+                    </p>
+                    <p class="text-slate-400 text-xs mt-3 border-t border-emerald-900/50 pt-2">
+                        <em>Pola yang ditemukan: Pecahan dengan pembilang 1 (seperti 1/4) artinya kita hanya perlu membagi bilangan asli (12) dengan penyebutnya (4).</em>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NAVIGASI BAWAH -->
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 pt-4 pb-12">
+            <a href="mission-b2.html" class="text-slate-400 hover:text-white font-medium transition-colors flex items-center gap-2">
+                <span>⬅</span> Kembali ke Dashboard
+            </a>
+            <a href="mission-b2-pos2.html" id="btnNextPos" class="opacity-50 cursor-not-allowed inline-flex items-center justify-center bg-slate-700 text-slate-400 font-bold py-3.5 px-8 rounded-full transition-all group pointer-events-none">
+                Selesaikan Analisa Dulu
+                <span class="ml-2">➔</span>
+            </a>
+        </div>
+
+    </main>
+
+    <!-- SCRIPT LOGIKA SIMULASI & CHECKER -->
+    <script>
+        function distributeChoco() {
+            // Sembunyikan Tombol
+            document.getElementById('btnDistribute').classList.add('hidden');
+            
+            // Kosongkan Gudang
+            const pool = document.getElementById('pool');
+            pool.innerHTML = '<span class="text-slate-500 italic text-sm py-3 block w-full text-center">Gudang kosong, cokelat telah didistribusikan...</span>';
+            pool.classList.remove('min-h-[3rem]');
+            
+            // Isi ke dalam 4 kotak
+            const boxes = [
+                document.getElementById('box1'),
+                document.getElementById('box2'),
+                document.getElementById('box3'),
+                document.getElementById('box4')
+            ];
+            
+            boxes.forEach((box, index) => {
+                box.classList.remove('border-dashed', 'border-slate-600');
+                box.classList.add('border-solid', 'border-blue-500', 'bg-blue-900/30', 'shadow-[0_0_15px_rgba(59,130,246,0.2)]');
+                
+                // Animasi drop cokelat
+                setTimeout(() => {
+                    box.innerHTML = `
+                        <div class="flex gap-1 justify-center z-10">
+                            <span class="text-2xl animate-bounce" style="animation-delay: 0s">🍫</span>
+                            <span class="text-2xl animate-bounce" style="animation-delay: 0.1s">🍫</span>
+                            <span class="text-2xl animate-bounce" style="animation-delay: 0.2s">🍫</span>
+                        </div>
+                        <span class="absolute bottom-1 right-2 text-[10px] text-blue-300 font-bold z-0 opacity-50">1/4 Bagian</span>
+                    `;
+                }, index * 200); // Muncul bergantian tiap kotak
+            });
+
+            // Munculkan Pertanyaan setelah animasi selesai
+            setTimeout(() => {
+                const qSec = document.getElementById('questionSection');
+                qSec.classList.remove('hidden');
+                qSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 1200);
+        }
+
+        function checkAnswer() {
+            const input = document.getElementById('ansDiv');
+            const val = input.value.trim();
+
+            if (val === "3") {
+                // UI Input sukses
+                input.classList.add('input-correct');
+                input.setAttribute('readonly', true);
+                
+                // Tampilkan Kotak Kesimpulan
+                document.getElementById('conclusionBox').classList.remove('hidden');
+
+                // Buka Kunci Tombol Lanjut Pos 2
+                const btnNext = document.getElementById('btnNextPos');
+                btnNext.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-slate-700', 'text-slate-400', 'pointer-events-none');
+                btnNext.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-cyan-600', 'hover:from-blue-500', 'hover:to-cyan-500', 'text-white', 'shadow-lg', 'shadow-blue-500/30', 'hover:-translate-y-1', 'animate-pulse');
+                btnNext.innerHTML = 'Lanjut Pos 2 (Visual Bar Model) <span class="ml-2 group-hover:translate-x-1 transition-transform">➔</span>';
+            } else {
+                input.classList.remove('input-correct');
+            }
+        }
+    </script>
+</body>
+</html>
