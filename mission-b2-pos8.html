@@ -14,7 +14,7 @@
         }
         .card-dark { background-color: #1e293b; border: 1px solid #334155; }
         
-        /* Tema Warna B8: Gradient Emas / Ungu Meriah (Selebrasi) */
+        /* Tema Warna B8: Gradient Emas / Ungu Meriah */
         .text-gradient {
             background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-image: linear-gradient(to right, #fbbf24, #f43f5e, #a78bfa);
@@ -30,6 +30,15 @@
 
         .input-dark { background-color: #0f172a; border: 1px solid #475569; color: #f8fafc; }
         .input-dark:focus { outline: none; border-color: #a78bfa; box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.3); }
+
+        /* Animasi Badge Menyala */
+        @keyframes badgeGlow {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.4)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 30px rgba(251, 191, 36, 0.8)); }
+        }
+        .badge-anim {
+            animation: badgeGlow 3s infinite ease-in-out;
+        }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
@@ -48,9 +57,14 @@
                     <p class="text-[11px] text-slate-400 leading-tight uppercase tracking-wider">Misi B2 • Fraction of Quantity</p>
                 </div>
             </div>
-            <span class="px-3 py-1 bg-amber-900/40 border border-amber-700/50 rounded-full text-xs font-bold text-amber-300 shadow-[0_0_10px_rgba(251,191,36,0.2)]">
-                ⭐ Pos 8/8: Mission Complete
-            </span>
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-full text-xs font-bold text-slate-300 transition-colors flex items-center gap-1">
+                    <span>🏠</span> Menu Utama
+                </a>
+                <span class="px-3 py-1 bg-amber-900/40 border border-amber-700/50 rounded-full text-xs font-bold text-amber-300 shadow-[0_0_10px_rgba(251,191,36,0.2)]">
+                    ⭐ Pos 8/8: Selesai
+                </span>
+            </div>
         </div>
         <!-- Progress Bar (100%) -->
         <div class="h-1.5 w-full bg-slate-900">
@@ -60,26 +74,38 @@
 
     <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-12 relative z-10">
 
-        <!-- JUDUL SELEBRASI -->
-        <section class="text-center space-y-4 bg-slate-900/60 p-8 rounded-3xl border border-slate-800 shadow-2xl relative overflow-hidden">
-            <div class="inline-flex items-center gap-2 px-5 py-2 bg-amber-950/50 rounded-full text-sm font-bold text-amber-300 border border-amber-700/50 mb-2 shadow-[0_0_15px_rgba(251,191,36,0.2)]">
-                🏆 Misi Selesai Sepenuhnya!
+        <!-- JUDUL SELEBRASI & UCAPAN TIM BIMBEL -->
+        <section class="text-center space-y-6 bg-slate-900/80 p-8 md:p-10 rounded-3xl border border-slate-800 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-48 h-48 bg-amber-500/10 rounded-bl-full pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/10 rounded-tr-full pointer-events-none"></div>
+
+            <div class="inline-flex items-center gap-2 px-5 py-2 bg-amber-950/50 rounded-full text-sm font-bold text-amber-300 border border-amber-700/50 shadow-[0_0_15px_rgba(251,191,36,0.2)]">
+                🏆 Selamat, Agen Terbaik!
             </div>
+            
             <h2 class="text-3xl md:text-5xl font-extrabold text-white">
                 MISSION B2 <br>
                 <span class="text-gradient">COMPLETED</span>
             </h2>
-            <p class="text-lg text-slate-300 max-w-lg mx-auto">"Kamu telah menaklukkan konsep pecahan dari suatu kuantitas dan menguasai Bar Model tingkat lanjut!"</p>
+            
+            <!-- Ucapan Spesial dari Tim Bimbel -->
+            <div class="max-w-xl mx-auto bg-slate-800/80 p-5 rounded-2xl border border-slate-700 shadow-inner space-y-2">
+                <p class="text-xs uppercase tracking-widest text-amber-400 font-bold">Pesan Khusus dari Tim VisualMath.Lim</p>
+                <p class="text-slate-200 text-sm md:text-base italic leading-relaxed">
+                    "Keren banget, Agen! Kami bangga melihat ketekunanmu menyusuri setiap pos dari awal hingga Boss Battle. Teruslah asah logika matematikamu, karena kamu ditakdirkan menjadi pemecah masalah yang hebat!"
+                </p>
+                <p class="text-xs text-slate-400 pt-1">— Coach & Tim Pengembang Kurikulum 🎓</p>
+            </div>
         </section>
 
-        <!-- LAPORAN DATA AGEN (Diambil dari LocalStorage Pos 6 & Pos 7) -->
-        <section class="card-dark rounded-2xl p-6 md:p-8 space-y-6 shadow-xl border-t-4 border-t-purple-500">
+        <!-- LAPORAN DATA AGEN (Pos 6 & Pos 7) -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 space-y-6 shadow-xl border-t-4 border-t-amber-500">
             <div class="flex items-center gap-3 border-b border-slate-700 pb-4">
                 <span class="text-2xl">📊</span>
-                <h3 class="text-xl font-bold text-white">LAPORAN DATA AGEN</h3>
+                <h3 class="text-xl font-bold text-white">REKAPITULASI LAPORAN POS</h3>
             </div>
 
-            <div class="space-y-4">
+            <div class="grid md:grid-cols-2 gap-4">
                 <!-- Log Pos 6 -->
                 <div id="pos6Log"></div>
                 <!-- Log Pos 7 -->
@@ -87,7 +113,7 @@
             </div>
         </section>
 
-        <!-- MISSION LOG & ACHIEVEMENT -->
+        <!-- MISSION LOG & ACHIEVEMENT (ANIMASI BADGE) -->
         <section class="grid md:grid-cols-2 gap-8">
             <!-- Mission Log -->
             <div class="card-dark rounded-2xl p-6 md:p-8 space-y-4 shadow-xl">
@@ -105,53 +131,56 @@
                             <label class="flex items-center gap-2 cursor-pointer p-2 bg-slate-800 rounded hover:bg-slate-700 border border-slate-600"><input type="checkbox" class="accent-indigo-500 w-4 h-4"> Cara Lengkap</label>
                             <label class="flex items-center gap-2 cursor-pointer p-2 bg-slate-800 rounded hover:bg-slate-700 border border-slate-600"><input type="checkbox" class="accent-indigo-500 w-4 h-4"> Cara Cepat</label>
                         </div>
-                        <label class="block mb-2 font-semibold">Bagian yang masih ingin aku latih:</label>
-                        <input type="text" class="w-full input-dark rounded-lg p-2.5" placeholder="Tulis catatan kecil...">
                     </div>
                 </div>
             </div>
 
-            <!-- Achievement & Reward -->
-            <div class="card-dark rounded-2xl p-6 md:p-8 relative shadow-xl flex flex-col justify-between">
-                <div class="absolute top-4 right-4 text-4xl opacity-10">🏅</div>
-                <div>
-                    <h4 class="font-bold text-lg text-emerald-400 mb-4 flex items-center gap-2"><span>🏆</span> ACHIEVEMENT CHECKLIST</h4>
-                    <div class="space-y-2 text-sm text-slate-300">
-                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" checked class="w-4 h-4 accent-emerald-500 shrink-0"> Memahami arti pecahan dari suatu kuantitas.</label>
-                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" checked class="w-4 h-4 accent-emerald-500 shrink-0"> Menggunakan Bar Model tingkat lanjut.</label>
-                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" checked class="w-4 h-4 accent-emerald-500 shrink-0"> Menghitung pecahan satuan dari suatu jumlah.</label>
-                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" checked class="w-4 h-4 accent-emerald-500 shrink-0"> Menguasai cara lengkap & cara cepat.</label>
-                        <label class="flex items-center gap-3 cursor-pointer p-2 hover:bg-slate-700 rounded transition-colors"><input type="checkbox" checked class="w-4 h-4 accent-emerald-500 shrink-0 font-bold text-emerald-300"> Menaklukkan Boss Battle HOTS.</label>
-                    </div>
+            <!-- Achievement & Animated Badge -->
+            <div class="card-dark rounded-2xl p-6 md:p-8 relative shadow-xl flex flex-col justify-between items-center text-center">
+                <div class="w-full text-left mb-4">
+                    <h4 class="font-bold text-lg text-emerald-400 flex items-center gap-2"><span>🏆</span> REWARD BADGE</h4>
+                    <p class="text-xs text-slate-400">Lencana resmi kelulusan modul.</p>
                 </div>
 
-                <div class="mt-6 pt-4 border-t border-slate-700 text-center flex justify-center">
-                    <span class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500 to-orange-600 rounded-full text-white font-black text-base shadow-[0_0_20px_rgba(251,191,36,0.4)] border border-amber-300/50 animate-pulse">
-                        <span class="text-xl">⭐</span> REWARD: Multiplier Badge Part 2 (+70 XP)
+                <!-- Animasi Badge Visual -->
+                <div class="py-4 flex flex-col items-center justify-center">
+                    <div class="w-28 h-28 rounded-full bg-gradient-to-tr from-amber-500 via-yellow-400 to-orange-500 flex items-center justify-center text-5xl shadow-[0_0_30px_rgba(251,191,36,0.6)] badge-anim border-4 border-amber-200">
+                        ⭐
+                    </div>
+                    <p class="font-black text-amber-300 text-base mt-3 tracking-wide">Multiplier Badge Part 2</p>
+                    <p class="text-xs text-slate-400">+70 XP Ditambahkan ke Akun Agen</p>
+                </div>
+
+                <div class="w-full mt-6 pt-4 border-t border-slate-700 text-center">
+                    <span class="inline-flex items-center gap-2 px-5 py-2 bg-emerald-950/60 rounded-full text-emerald-400 font-bold text-xs border border-emerald-700/50">
+                        ✔ Status: Koleksi Lencana Diperbarui
                     </span>
                 </div>
             </div>
         </section>
 
-        <!-- TOMBOL MENUJU MISI B3 -->
-        <section class="text-center pt-8 pb-12 border-t border-slate-800">
-            <p class="text-purple-400 font-bold mb-2 tracking-widest text-sm uppercase">Next Mission</p>
-            <h3 class="text-3xl font-extrabold text-white mb-3">MISSION B3 — Pecahan × Pecahan</h3>
-            <p class="text-slate-400 italic max-w-md mx-auto mb-6">"Sekarang kita tidak hanya mencari bagian dari keseluruhan. Kita akan naik tingkat mencari... sebagian dari sebagian." 🤖</p>
-            <a href="mission-b3.html" class="inline-block bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold py-4 px-12 rounded-full shadow-lg shadow-purple-500/30 transition-all hover:-translate-y-1 text-lg">
-                Misi B2 Selesai! Lanjut ke Mission B3 ➔
-            </a>
+        <!-- TOMBOL KEMBALI KE HOME (INDEX.HTML) -->
+        <section class="text-center pt-8 pb-12 border-t border-slate-800 space-y-4">
+            <p class="text-slate-400 italic text-sm">"Semua data misi telah disimpan dengan aman di perangkatmu."</p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="index.html" class="inline-flex items-center justify-center bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-4 px-10 rounded-full shadow-lg shadow-blue-500/30 transition-all hover:-translate-y-1 text-base">
+                    🏠 Kembali ke Menu Utama (Home)
+                </a>
+                <a href="mission-b3.html" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-700 text-purple-300 border border-purple-500/50 font-bold py-4 px-10 rounded-full transition-all hover:-translate-y-1 text-base">
+                    Lanjut ke Mission B3 ➔
+                </a>
+            </div>
         </section>
 
     </main>
 
-    <!-- SCRIPT TARIK DATA & KONFETI -->
+    <!-- SCRIPT TARIK LAPORAN & KONFETI -->
     <script>
-        // Jalankan Efek Confetti saat halaman dimuat
         window.onload = function() {
+            // Letupan Konfeti Perayaan
             confetti({
-                particleCount: 120,
-                spread: 80,
+                particleCount: 150,
+                spread: 90,
                 origin: { y: 0.6 }
             });
 
@@ -169,19 +198,22 @@
                 const statusText = p6.passed ? '✔ LULUS (KKM Tercapai)' : '❌ BELUM LULUS';
                 
                 pos6Container.innerHTML = `
-                    <div class="p-4 rounded-xl border ${statusColor} flex justify-between items-center">
+                    <div class="p-4 rounded-xl border ${statusColor} flex flex-col justify-between h-full">
                         <div>
-                            <p class="font-bold text-white">Pos 6: Easy Quest (Latihan)</p>
-                            <p class="text-xs text-slate-300 mt-1">Skor Benar: <strong class="text-white">${p6.correct}</strong> / ${p6.total} (${p6.scorePercent}%) | Percobaan: ${p6.attempts}x</p>
+                            <div class="flex justify-between items-start mb-2">
+                                <p class="font-bold text-white">Pos 6: Easy Quest</p>
+                                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full border ${statusColor}">${statusText}</span>
+                            </div>
+                            <p class="text-xs text-slate-300">Skor Benar: <strong class="text-white">${p6.correct}</strong> / ${p6.total} (${p6.scorePercent}%)</p>
+                            <p class="text-xs text-slate-400 mt-0.5">Jumlah Percobaan: ${p6.attempts}x</p>
                         </div>
-                        <span class="text-xs font-bold px-3 py-1 rounded-full border ${statusColor}">${statusText}</span>
                     </div>
                 `;
             } else {
                 pos6Container.innerHTML = `
-                    <div class="p-4 rounded-xl border border-slate-700 bg-slate-900/50 text-slate-400 text-sm flex justify-between items-center">
-                        <span>Pos 6: Easy Quest (Latihan)</span>
-                        <span class="text-xs text-amber-400 font-semibold italic">Belum dikerjakan</span>
+                    <div class="p-4 rounded-xl border border-slate-700 bg-slate-900/50 text-slate-400 text-sm flex flex-col justify-between h-full">
+                        <p class="font-bold text-slate-300">Pos 6: Easy Quest</p>
+                        <p class="text-xs text-amber-400 font-semibold italic mt-2">⚠️ Belum dikerjakan / Data kosong</p>
                     </div>
                 `;
             }
@@ -193,19 +225,22 @@
             if (pos7Raw) {
                 const p7 = JSON.parse(pos7Raw);
                 pos7Container.innerHTML = `
-                    <div class="p-4 rounded-xl border border-emerald-500/50 bg-emerald-950/40 flex justify-between items-center">
+                    <div class="p-4 rounded-xl border border-emerald-500/50 bg-emerald-950/40 flex flex-col justify-between h-full">
                         <div>
-                            <p class="font-bold text-white">Pos 7: Boss Battle (HOTS)</p>
-                            <p class="text-xs text-slate-300 mt-1">Jb. A: ${p7.scoreA} | Jb. B: ${p7.scoreB} | Status: <strong class="text-emerald-400">SELESAI</strong></p>
+                            <div class="flex justify-between items-start mb-2">
+                                <p class="font-bold text-white">Pos 7: Boss Battle (HOTS)</p>
+                                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-emerald-500/50 text-emerald-400 bg-emerald-900/40">✔ SELESAI</span>
+                            </div>
+                            <p class="text-xs text-slate-300">Jawaban A (Klub): <strong class="text-white">${p7.scoreA} murid</strong></p>
+                            <p class="text-xs text-slate-300 mt-0.5">Jawaban B (Lomba): <strong class="text-white">${p7.scoreB} murid</strong></p>
                         </div>
-                        <span class="text-xs font-bold px-3 py-1 rounded-full border border-emerald-500/50 text-emerald-400 bg-emerald-900/40">✔ 100%</span>
                     </div>
                 `;
             } else {
                 pos7Container.innerHTML = `
-                    <div class="p-4 rounded-xl border border-slate-700 bg-slate-900/50 text-slate-400 text-sm flex justify-between items-center">
-                        <span>Pos 7: Boss Battle (HOTS)</span>
-                        <span class="text-xs text-amber-400 font-semibold italic">Belum dikerjakan</span>
+                    <div class="p-4 rounded-xl border border-slate-700 bg-slate-900/50 text-slate-400 text-sm flex flex-col justify-between h-full">
+                        <p class="font-bold text-slate-300">Pos 7: Boss Battle (HOTS)</p>
+                        <p class="text-xs text-amber-400 font-semibold italic mt-2">⚠️ Belum dikerjakan / Data kosong</p>
                     </div>
                 `;
             }
