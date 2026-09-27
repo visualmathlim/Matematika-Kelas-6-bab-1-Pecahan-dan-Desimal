@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pos 7: Boss Battle - Mission B1 | VisualMath.Lim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card-dark { background-color: #1e293b; border: 1px solid #334155; }
+        .text-gradient {
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #f43f5e, #fb7185);
+        }
+        
+        .math-frac {
+            display: inline-flex; flex-direction: column; align-items: center;
+            vertical-align: middle; margin: 0 0.25rem; font-weight: bold; line-height: 1.1;
+        }
+        .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
+        .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+
+        .input-dark { background-color: #0f172a; border: 1px solid #475569; color: #f8fafc; text-align: center; font-weight: bold; }
+        .input-dark:focus { outline: none; border-color: #f43f5e; box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.3); }
+        
+        /* Bar Visualisasi CSS */
+        .vis-bar-container { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+        .vis-bar { display: flex; height: 1.25rem; width: 4rem; border: 1px solid #f43f5e; border-radius: 0.25rem; overflow: hidden; }
+        .vis-slice-filled { flex: 1; background-color: #f43f5e; border-right: 1px solid #9f1239; }
+        .vis-slice-empty { flex: 1; background-color: #1e293b; border-right: 1px solid #334155; }
+        .vis-slice-filled:last-child, .vis-slice-empty:last-child { border-right: none; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative overflow-x-hidden">
+
+    <!-- Efek Cahaya Background -->
+    <div class="fixed top-[-10%] left-[-10%] w-96 h-96 bg-rose-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-96 h-96 bg-pink-600/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+    <!-- Header -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="Logo" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-rose-400\'>VM</div>'">
+                <div>
+                    <h1 class="text-lg font-bold text-rose-400 leading-tight">VisualMath.Lim</h1>
+                    <p class="text-[11px] text-slate-400 leading-tight uppercase tracking-wider">Misi B1 • Perkalian</p>
+                </div>
+            </div>
+            <span class="px-3 py-1 bg-rose-900/40 border border-rose-700/50 rounded-full text-xs font-bold text-rose-300 shadow-[0_0_10px_rgba(244,63,94,0.2)] animate-pulse">
+                🔴 Pos 7/8: Boss Battle (HOTS)
+            </span>
+        </div>
+        <!-- Progress Bar (87.5%) -->
+        <div class="h-1.5 w-full bg-slate-900">
+            <div class="h-full bg-gradient-to-r from-blue-500 via-rose-500 to-pink-500" style="width: 87.5%"></div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-5xl mx-auto w-full px-4 py-8 space-y-8 relative z-10">
+
+        <!-- TITLE & PROF SIGMA -->
+        <section class="flex flex-col md:flex-row items-center gap-6 border-b border-slate-700 pb-6">
+            <div class="relative shrink-0">
+                <div class="absolute inset-0 bg-rose-500/20 blur-xl rounded-full"></div>
+                <img src="assets/Sigma.png" alt="Prof Sigma" class="w-24 h-24 object-contain relative z-10 drop-shadow-xl" onerror="this.outerHTML='<div class=\'w-24 h-24 rounded-full border-2 border-rose-500 bg-slate-800 flex items-center justify-center text-4xl shrink-0 relative z-10\'>👨‍🏫</div>'">
+            </div>
+            <div class="w-full">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-rose-900/40 border border-rose-700/50 rounded-md text-xs font-bold text-rose-300 uppercase tracking-widest mb-2">
+                    Ujian Akhir Agen
+                </div>
+                <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-3">BOSS BATTLE <span class="text-gradient">(HOTS)</span></h3>
+                <p class="text-slate-300 italic text-sm md:text-base leading-relaxed bg-slate-900/50 p-4 rounded-xl border border-slate-700 shadow-inner">
+                    "Buktikan ketajaman logikamu di sini! Selesaikan 6 masalah dunia nyata di bawah ini. <strong class="text-rose-400">Peringatan:</strong> Tulis jawabanmu dalam bentuk <u>paling sederhana</u>, utuh, atau pecahan campuran. Jika nilaimu di bawah 70, kamu harus mengulang dengan soal yang diacak!"
+                </p>
+            </div>
+        </section>
+
+        <!-- CONTAINER SOAL DINAMIS -->
+        <form id="bossForm" onsubmit="submitBossBattle(event)" class="space-y-6">
+            <div id="questContainer" class="grid lg:grid-cols-2 gap-6">
+                <!-- Soal akan di-render di sini oleh JavaScript -->
+            </div>
+
+            <!-- SUBMIT BUTTON & FEEDBACK -->
+            <div class="text-center space-y-4 pt-6 border-t border-slate-700">
+                <button type="submit" id="btnCheck" class="bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-extrabold py-4 px-12 rounded-full shadow-[0_0_20px_rgba(244,63,94,0.4)] transition-all hover:scale-105 text-lg">
+                    🛡️ Serahkan Jawaban Akhir
+                </button>
+                <div id="feedbackBox" class="hidden w-full max-w-2xl mx-auto p-6 rounded-2xl border text-center font-bold"></div>
+                
+                <!-- Tombol Navigasi Pasca-Submit -->
+                <div id="actionButtons" class="hidden flex flex-col md:flex-row justify-center items-center gap-4 mt-4">
+                    <button type="button" id="btnRetry" onclick="initQuest()" class="hidden bg-slate-700 hover:bg-slate-600 text-white font-bold py-3.5 px-8 rounded-full transition-colors border border-slate-500">
+                        🔀 Acak Soal & Ulangi Misi
+                    </button>
+                    <a href="mission-b1-pos8.html" id="btnNextPos" class="hidden items-center justify-center bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold py-3.5 px-8 rounded-full shadow-lg shadow-emerald-500/30 transition-all hover:-translate-y-1">
+                        Lanjut ke Pos 8 (Klaim Badge) ➔
+                    </a>
+                </div>
+            </div>
+        </form>
+
+    </main>
+
+    <!-- JAVASCRIPT: DATA, RENDER, SHUFFLE, & CHECK LOGIC -->
+    <script>
+        // Data Bank Soal (HOTS & Kontekstual)
+        const questionBank = [
+            {
+                id: 1,
+                icon: "🧁",
+                title: "Misi Koki Akademi",
+                text: "Chef membuat <strong>6 loyang</strong> kue. Setiap loyang membutuhkan tepung sebanyak <strong class='text-white'>3/4 kg</strong>. Berapa total tepung yang dibutuhkan?",
+                a: 6, b: 3, c: 4,
+                ans_w: 4, ans_n: 1, ans_d: 2, // 18/4 -> 4 2/4 -> 4 1/2
+                step1: "6 × 3/4 = 18/4",
+                step2: "18 dibagi 4 dapat 4 (sisa 2) ➔ 4 2/4",
+                step3: "Sederhanakan 2/4 (dibagi 2) ➔ 4 1/2"
+            },
+            {
+                id: 2,
+                icon: "🎀",
+                title: "Dekorasi Pita",
+                text: "Sinta merangkai <strong>5 buah pita</strong> hias. Setiap pita panjangnya <strong class='text-white'>2/3 meter</strong>. Berapa meter pita yang digunakan Sinta seluruhnya?",
+                a: 5, b: 2, c: 3,
+                ans_w: 3, ans_n: 1, ans_d: 3, // 10/3 -> 3 1/3
+                step1: "5 × 2/3 = 10/3",
+                step2: "10 dibagi 3 dapat 3 (sisa 1) ➔ 3 1/3",
+                step3: "Pecahan 1/3 sudah paling sederhana."
+            },
+            {
+                id: 3,
+                icon: "🏃",
+                title: "Latihan Fisik Agen",
+                text: "Kian berlari sejauh <strong class='text-white'>5/8 km</strong> setiap hari. Jika ia berlatih selama <strong>4 hari</strong> berturut-turut, berapa km total jarak yang ia tempuh?",
+                a: 4, b: 5, c: 8,
+                ans_w: 2, ans_n: 1, ans_d: 2, // 20/8 -> 2 4/8 -> 2 1/2
+                step1: "4 × 5/8 = 20/8",
+                step2: "20 dibagi 8 dapat 2 (sisa 4) ➔ 2 4/8",
+                step3: "Sederhanakan 4/8 (dibagi 4) ➔ 2 1/2"
+            },
+            {
+                id: 4,
+                icon: "💧",
+                title: "Persediaan Air",
+                text: "Sebuah meja rapat disiapkan <strong>8 gelas</strong> air. Masing-masing gelas berisi <strong class='text-white'>3/5 liter</strong> air. Berapa liter total air di meja tersebut?",
+                a: 8, b: 3, c: 5,
+                ans_w: 4, ans_n: 4, ans_d: 5, // 24/5 -> 4 4/5
+                step1: "8 × 3/5 = 24/5",
+                step2: "24 dibagi 5 dapat 4 (sisa 4) ➔ 4 4/5",
+                step3: "Pecahan 4/5 sudah paling sederhana."
+            },
+            {
+                id: 5,
+                icon: "🎨",
+                title: "Mengecat Tembok",
+                text: "Pak Tukang menghabiskan <strong>10 kaleng</strong> cat. Jika 1 kaleng bisa mengecat <strong class='text-white'>3/10 bagian</strong> tembok, berapa tembok yang berhasil dicat seluruhnya?",
+                a: 10, b: 3, c: 10,
+                ans_w: 3, ans_n: 0, ans_d: 0, // 30/10 -> 3 (utuh)
+                step1: "10 × 3/10 = 30/10",
+                step2: "30 dibagi 10 = 3",
+                step3: "Hasilnya adalah bilangan bulat utuh tanpa sisa (3)."
+            },
+            {
+                id: 6,
+                icon: "🤖",
+                title: "Investigasi Pixel",
+                text: "Pixel sedang memindahkan <strong>4 kotak</strong> memori. Tiap kotak beratnya tepat <strong class='text-white'>5/6 kg</strong>. Berapa kg berat total kotak yang dibawa Pixel?",
+                a: 4, b: 5, c: 6,
+                ans_w: 3, ans_n: 1, ans_d: 3, // 20/6 -> 3 2/6 -> 3 1/3
+                step1: "4 × 5/6 = 20/6",
+                step2: "20 dibagi 6 dapat 3 (sisa 2) ➔ 3 2/6",
+                step3: "Sederhanakan 2/6 (dibagi 2) ➔ 3 1/3"
+            }
+        ];
+
+        let activeQuestions = [];
+
+        // Fungsi mengacak array (Fisher-Yates)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        // Fungsi membuat visualisasi balok
+        function buildVisualBar(a, b, c) {
+            let totalSlices = a * b;
+            let wholeBars = Math.floor(totalSlices / c);
+            let rem = totalSlices % c;
+            
+            let html = `<div class="vis-bar-container">`;
+            // Bikin bar utuh
+            for(let i=0; i<wholeBars; i++) {
+                html += `<div class="vis-bar">`;
+                for(let j=0; j<c; j++) html += `<div class="vis-slice-filled"></div>`;
+                html += `</div>`;
+            }
+            // Bikin bar sisa
+            if (rem > 0) {
+                html += `<div class="vis-bar">`;
+                for(let j=0; j<rem; j++) html += `<div class="vis-slice-filled"></div>`;
+                for(let j=0; j<c-rem; j++) html += `<div class="vis-slice-empty"></div>`;
+                html += `</div>`;
+            }
+            html += `</div>`;
+            return html;
+        }
+
+        // Inisialisasi dan Render Soal
+        function initQuest() {
+            // Sembunyikan UI Post-Submit
+            document.getElementById('feedbackBox').classList.add('hidden');
+            document.getElementById('actionButtons').classList.add('hidden');
+            document.getElementById('btnCheck').classList.remove('hidden');
+            
+            // Acak soal
+            shuffleArray(questionBank);
+            activeQuestions = questionBank.slice(); // Copy array
+
+            const container = document.getElementById('questContainer');
+            container.innerHTML = "";
+
+            activeQuestions.forEach((q, index) => {
+                const no = index + 1;
+                let html = `
+                <div class="bg-slate-900 rounded-2xl p-6 border border-slate-700 shadow-xl relative overflow-hidden group">
+                    <div class="absolute -right-6 -bottom-6 text-8xl opacity-5 pointer-events-none transition-transform group-hover:scale-110">${q.icon}</div>
+                    
+                    <!-- Pertanyaan -->
+                    <div class="flex items-start gap-4 relative z-10">
+                        <div class="w-12 h-12 bg-rose-900/50 rounded-full flex items-center justify-center text-xl font-bold text-rose-400 border border-rose-700/50 shrink-0">
+                            ${no}
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-rose-300 text-sm uppercase tracking-widest mb-1">${q.title}</h4>
+                            <p class="text-slate-300 text-sm leading-relaxed mb-4">${q.text}</p>
+                            
+                            <!-- Input Interaktif -->
+                            <div class="bg-slate-800 p-3 rounded-xl border border-slate-600 w-max">
+                                <div class="flex items-center gap-2">
+                                    <input type="number" id="ans_${q.id}_w" class="input-dark w-12 h-12 rounded text-lg text-emerald-300" placeholder="Utuh">
+                                    <div class="math-frac">
+                                        <span class="math-num pb-1"><input type="number" id="ans_${q.id}_n" class="input-dark w-10 h-10 rounded text-sm text-sky-300" placeholder="Atas"></span>
+                                        <span class="math-den pt-1"><input type="number" id="ans_${q.id}_d" class="input-dark w-10 h-10 rounded text-sm text-sky-300" placeholder="Bawah"></span>
+                                    </div>
+                                </div>
+                                <p class="text-[10px] text-slate-400 text-center mt-2 italic">Kosongkan kotak yang tidak perlu.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tempat Penjelasan (Disembunyikan di awal) -->
+                    <div id="exp_${q.id}" class="hidden mt-6 bg-slate-800/80 border-t-2 border-rose-500 pt-4 relative z-10 rounded-b-xl -mx-6 -mb-6 px-6 pb-6 text-sm">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="font-bold text-emerald-400 flex items-center gap-2"><span class="text-lg">💡</span> Pembahasan</span>
+                            <span id="mark_${q.id}" class="font-bold text-lg"></span>
+                        </div>
+                        <ul class="space-y-2 text-slate-300 mb-4">
+                            <li><strong class="text-rose-400">1.</strong> ${q.step1}</li>
+                            <li><strong class="text-rose-400">2.</strong> ${q.step2}</li>
+                            <li><strong class="text-rose-400">3.</strong> ${q.step3}</li>
+                        </ul>
+                        <p class="text-xs text-slate-400 font-bold mb-1">Visualisasi ${q.a} × ${q.b}/${q.c}:</p>
+                        ${buildVisualBar(q.a, q.b, q.c)}
+                    </div>
+                </div>`;
+                container.insertAdjacentHTML('beforeend', html);
+            });
+        }
+
+        // Panggil saat halaman dimuat
+        window.onload = initQuest;
+
+        function submitBossBattle(e) {
+            e.preventDefault();
+            let correctCount = 0;
+            const total = activeQuestions.length;
+
+            activeQuestions.forEach(q => {
+                let w = parseInt(document.getElementById(`ans_${q.id}_w`).value) || 0;
+                let n = parseInt(document.getElementById(`ans_${q.id}_n`).value) || 0;
+                let d = parseInt(document.getElementById(`ans_${q.id}_d`).value) || 0;
+
+                let isCorrect = (w === q.ans_w && n === q.ans_n && d === q.ans_d);
+                if (isCorrect) correctCount++;
+
+                // Buka pembahasan
+                document.getElementById(`exp_${q.id}`).classList.remove('hidden');
+                
+                // Tanda Silang/Centang
+                const mark = document.getElementById(`mark_${q.id}`);
+                if (isCorrect) {
+                    mark.innerHTML = "✅ TEPAT";
+                    mark.className = "font-bold text-emerald-400 text-sm";
+                } else {
+                    mark.innerHTML = "❌ KELIRU";
+                    mark.className = "font-bold text-rose-400 text-sm";
+                }
+            });
+
+            // Kalkulasi Skor
+            const score = Math.round((correctCount / total) * 100);
+            const passed = score >= 70; // Syarat lulus (5 dari 6 benar = 83%)
+
+            // Simpan percobaan ke localStorage
+            let prevData = JSON.parse(localStorage.getItem('missionB1_pos7')) || { attempts: 0 };
+            let attempts = prevData.attempts + 1;
+            
+            const resultData = {
+                score: score + "/100",
+                correctCount: correctCount,
+                total: total,
+                passed: passed,
+                attempts: attempts
+            };
+            localStorage.setItem('missionB1_pos7', JSON.stringify(resultData));
+
+            // Feedback UI
+            const box = document.getElementById('feedbackBox');
+            box.classList.remove('hidden');
+            
+            document.getElementById('btnCheck').classList.add('hidden');
+            document.getElementById('actionButtons').classList.remove('hidden');
+
+            if (passed) {
+                box.className = "w-full max-w-2xl mx-auto p-6 rounded-2xl border bg-emerald-950/60 border-emerald-500 text-center shadow-[0_0_30px_rgba(16,185,129,0.3)] animate-fade-in-up";
+                box.innerHTML = `
+                    <div class="text-5xl mb-3">🏅</div>
+                    <h4 class="text-2xl font-extrabold text-emerald-400">MISSION ACCOMPLISHED!</h4>
+                    <p class="text-white text-xl my-2">Skor Akhir: <strong class="text-3xl">${score}</strong>/100</p>
+                    <p class="text-slate-300 text-sm">Kemampuan logikamu sudah level master! Data pencapaianmu berhasil dienkripsi.</p>`;
+                
+                document.getElementById('btnRetry').classList.add('hidden');
+                document.getElementById('btnNextPos').classList.remove('hidden');
+                document.getElementById('btnNextPos').classList.add('inline-flex');
+            } else {
+                box.className = "w-full max-w-2xl mx-auto p-6 rounded-2xl border bg-rose-950/60 border-rose-500 text-center shadow-[0_0_30px_rgba(244,63,94,0.3)] animate-fade-in-up";
+                box.innerHTML = `
+                    <div class="text-5xl mb-3">☠️</div>
+                    <h4 class="text-2xl font-extrabold text-rose-400">MISSION FAILED</h4>
+                    <p class="text-white text-xl my-2">Skor Akhir: <strong class="text-3xl">${score}</strong>/100</p>
+                    <p class="text-slate-300 text-sm mb-4">Kamu butuh minimal skor 70 (5 Benar) untuk menembus pertahanan ini. Pelajari pembahasan di atas, lalu coba lagi!</p>`;
+                
+                document.getElementById('btnNextPos').classList.add('hidden');
+                document.getElementById('btnRetry').classList.remove('hidden');
+                document.getElementById('btnRetry').classList.add('inline-flex', 'animate-pulse');
+            }
+
+            box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    </script>
+</body>
+</html>
