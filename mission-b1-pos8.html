@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pos 8: Mission Complete - Mission B1 | VisualMath.Lim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+        .card-dark { background-color: #1e293b; border: 1px solid #334155; }
+        
+        /* Animasi Badge */
+        .badge-glow {
+            box-shadow: 0 0 50px rgba(168, 85, 247, 0.4), inset 0 0 30px rgba(236, 72, 153, 0.4);
+            transition: all 1s ease-in-out;
+        }
+        .badge-locked { filter: grayscale(100%) opacity(0.5); transform: scale(0.9); }
+        .badge-unlocked { filter: grayscale(0%) opacity(1); transform: scale(1.1); animation: float-badge 3s ease-in-out infinite; }
+        
+        @keyframes float-badge {
+            0%, 100% { transform: translateY(0) scale(1.1); }
+            50% { transform: translateY(-10px) scale(1.1); }
+        }
+
+        /* Confetti Layer */
+        #confettiLayer { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 60; }
+        .confetti-piece {
+            position: absolute; top: -20px; border-radius: 2px;
+            animation: confetti-fall linear forwards;
+        }
+        @keyframes confetti-fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Log Row UI */
+        .log-row { display: flex; justify-content: space-between; align-items: center; padding: 1rem; border-radius: 0.75rem; background-color: #0f172a; border: 1px solid #334155; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative">
+
+    <!-- Confetti Container -->
+    <div id="confettiLayer"></div>
+
+    <!-- Efek Cahaya Ambient -->
+    <div class="fixed top-[-15%] left-1/2 -translate-x-1/2 w-[40rem] h-[40rem] bg-purple-600/20 rounded-full blur-[150px] pointer-events-none z-0"></div>
+
+    <!-- Header -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-10">
+            <a href="index.html" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                <img src="assets/logo.png" alt="Logo" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-purple-400\'>VM</div>'">
+                <div>
+                    <h1 class="text-lg font-bold text-purple-400 leading-tight">VisualMath.Lim</h1>
+                    <p class="text-[11px] text-slate-400 leading-tight uppercase tracking-wider">Modul Perkalian</p>
+                </div>
+            </a>
+            <span class="px-3 py-1 bg-purple-900/40 border border-purple-700/50 rounded-full text-xs font-bold text-purple-300 shadow-[0_0_10px_rgba(168,85,247,0.2)]">
+                🏆 Pos 8/8: Mission Complete
+            </span>
+        </div>
+        <!-- Progress Bar (100%) -->
+        <div class="h-1.5 w-full bg-slate-900">
+            <div class="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400" style="width: 100%"></div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-10 relative z-10 text-center">
+
+        <!-- KLAIM BADGE SECTION -->
+        <section class="space-y-6 pt-4" id="badgeSection">
+            <h2 class="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                MISSION ACCOMPLISHED!
+            </h2>
+            <p class="text-slate-300 text-sm md:text-base">Misi B1 selesai! Saatnya mengklaim lencana kebanggaanmu.</p>
+
+            <!-- 3D Badge Element -->
+            <div class="py-8">
+                <div id="theBadge" class="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-purple-900 via-slate-800 to-pink-900 border-4 border-slate-600 flex flex-col items-center justify-center badge-locked relative cursor-pointer" onclick="claimBadge()">
+                    <!-- Core Icon -->
+                    <span class="text-6xl absolute z-10">✖️</span>
+                    <span class="text-3xl absolute z-20 mt-8 ml-8">🍫</span>
+                </div>
+            </div>
+
+            <!-- Tombol Klaim -->
+            <div id="claimContainer">
+                <button onclick="claimBadge()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-black text-xl py-4 px-12 rounded-full shadow-[0_0_30px_rgba(236,72,153,0.5)] transition-all hover:scale-110 hover:-translate-y-2 animate-bounce">
+                    🌟 KLAIM BADGE 🌟
+                </button>
+            </div>
+            
+            <h3 id="badgeTitle" class="hidden text-2xl font-bold text-pink-400 mt-4 animate-fade-in-up">Fraction Multiplier Badge (Part 1)</h3>
+        </section>
+
+        <!-- UCAPAN SELAMAT (Disembunyikan sebelum diklaim) -->
+        <section id="congratulationsBox" class="hidden card-dark rounded-3xl p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-6 shadow-2xl border-t-4 border-t-pink-500 text-left animate-fade-in-up">
+            
+            <div class="flex flex-col items-center gap-3 shrink-0">
+                <img src="assets/Sigma.png" alt="Prof Sigma" class="w-24 h-24 object-contain drop-shadow-xl" onerror="this.outerHTML='<div class=\'w-24 h-24 rounded-full border-2 border-pink-500 bg-slate-800 flex items-center justify-center text-4xl\'>👨‍🏫</div>'">
+                <img src="assets/logo.png" alt="VM Logo" class="w-16 h-auto opacity-80" onerror="this.outerHTML='<div class=\'text-xs font-bold text-purple-400\'>VisualMath</div>'">
+            </div>
+            
+            <div class="space-y-3 flex-grow">
+                <p class="text-pink-400 font-bold text-xs tracking-widest uppercase border-b border-slate-700 pb-2">Pesan Resmi Tim VisualMath.Lim</p>
+                <h4 class="text-xl font-bold text-white">Luar Biasa, Agen!</h4>
+                <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+                    "Profesor Sigma dan seluruh tim <strong>VisualMath.Lim</strong> sangat bangga padamu! Kamu telah membuktikan bahwa mengalikan pecahan bukan sekadar menghafal rumus, melainkan memahami proses <em>Repeated Groups</em> (Penjumlahan Berulang). 
+                </p>
+                <p class="text-slate-300 text-sm md:text-base leading-relaxed">
+                    Teruslah berlatih, karena kemampuan analisamu kini sudah setingkat lebih tinggi. Sampai jumpa di Misi B2!"
+                </p>
+            </div>
+        </section>
+
+        <!-- LOG LAPORAN HASIL (RECAP) -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 space-y-5 text-left">
+            <h3 class="font-bold text-white text-lg flex items-center gap-2 justify-center md:justify-start">
+                <span>📊</span> Laporan Data Agen (Misi B1)
+            </h3>
+            
+            <div id="logContainer" class="space-y-4">
+                <!-- Log Pos 6 -->
+                <div id="pos6Log"></div>
+                <!-- Log Pos 7 -->
+                <div id="pos7Log"></div>
+            </div>
+
+            <p id="logFallbackNote" class="hidden text-xs text-slate-500 italic text-center pt-2">
+                Catatan: Sebagian data tidak ditemukan. Pastikan kamu menyelesaikan Pos 6 & Pos 7 di perangkat atau browser yang sama.
+            </p>
+        </section>
+
+        <!-- NAVIGASI AKHIR -->
+        <div class="flex justify-center pt-6 pb-12">
+            <a href="index.html" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-bold py-4 px-10 rounded-full shadow-lg transition-all hover:-translate-y-1 hover:border-purple-500">
+                🏠 Kembali ke Markas Utama (Home)
+            </a>
+        </div>
+
+    </main>
+
+    <!-- SCRIPT ANIMASI & LOCAL STORAGE -->
+    <script>
+        let badgeClaimed = false;
+
+        // ===================== EFEK CONFETTI =====================
+        function launchConfetti() {
+            const layer = document.getElementById('confettiLayer');
+            const colors = ['#a855f7', '#ec4899', '#38bdf8', '#fbbf24', '#f8fafc'];
+            const pieceCount = 100;
+            
+            for(let i = 0; i < pieceCount; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                
+                const size = 6 + Math.random() * 8;
+                piece.style.width = size + 'px';
+                piece.style.height = (size * 0.4) + 'px';
+                piece.style.left = Math.random() * 100 + 'vw';
+                piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                const duration = 2.5 + Math.random() * 2;
+                const delay = Math.random() * 0.5;
+                piece.style.animationDuration = duration + 's';
+                piece.style.animationDelay = delay + 's';
+                
+                layer.appendChild(piece);
+                
+                // Hapus elemen setelah animasi selesai agar tidak memberatkan browser
+                setTimeout(() => piece.remove(), (duration + delay) * 1000 + 200);
+            }
+        }
+
+        // ===================== KLAIM BADGE =====================
+        function claimBadge() {
+            if (badgeClaimed) return;
+            badgeClaimed = true;
+
+            // 1. Ubah Style Badge
+            const badge = document.getElementById('theBadge');
+            badge.classList.remove('badge-locked', 'border-slate-600', 'from-slate-800');
+            badge.classList.add('badge-unlocked', 'border-pink-400', 'badge-glow');
+
+            // 2. Hilangkan Tombol Klaim, Munculkan Judul
+            document.getElementById('claimContainer').style.display = 'none';
+            document.getElementById('badgeTitle').classList.remove('hidden');
+
+            // 3. Tembakkan Confetti Berkali-kali
+            launchConfetti();
+            setTimeout(launchConfetti, 1000);
+            setTimeout(launchConfetti, 2500);
+
+            // 4. Munculkan Ucapan Selamat
+            setTimeout(() => {
+                const congrats = document.getElementById('congratulationsBox');
+                congrats.classList.remove('hidden');
+                congrats.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 800);
+        }
+
+        // ===================== TARIK DATA DARI LOCAL STORAGE =====================
+        function loadLogData(key) {
+            try {
+                const raw = localStorage.getItem(key);
+                return raw ? JSON.parse(raw) : null;
+            } catch(e) { return null; }
+        }
+
+        function renderLogRow(title, data, icon, themeColor, textColor) {
+            if(!data) {
+                return `<div class="log-row">
+                    <div class="flex items-center gap-3"><span class="text-2xl opacity-50">${icon}</span> <span class="text-sm font-bold text-slate-500">${title}</span></div>
+                    <span class="text-xs text-slate-500 italic bg-slate-800 px-2 py-1 rounded">Tidak ada data</span>
+                </div>`;
+            }
+            
+            const statusText = data.passed ? 'LULUS MISI' : 'BUTUH LATIHAN';
+            const statusColor = data.passed ? textColor : 'text-rose-400';
+            const bgBadge = data.passed ? themeColor : 'bg-rose-900/40 border-rose-500';
+
+            return `<div class="log-row">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center text-2xl border border-slate-600 shrink-0">${icon}</div>
+                    <div>
+                        <p class="text-sm font-bold text-white mb-1">${title}</p>
+                        <p class="text-xs text-slate-400 mb-1">Total Percobaan: <strong>${data.attempts}x</strong></p>
+                        <span class="text-[10px] font-bold ${statusColor} px-2 py-0.5 rounded border ${bgBadge} uppercase tracking-wider">${statusText}</span>
+                    </div>
+                </div>
+                <div class="text-right border-l border-slate-700 pl-4">
+                    <p class="text-[10px] text-slate-400 uppercase tracking-widest mb-1">Skor Akhir</p>
+                    <p class="text-2xl font-extrabold ${statusColor}">${data.score}</p>
+                    <p class="text-xs text-slate-500 mt-1">${data.correctCount}/${data.total} Benar</p>
+                </div>
+            </div>`;
+        }
+
+        // Jalankan saat halaman dimuat
+        window.onload = () => {
+            const pos6Data = loadLogData('missionB1_pos6');
+            const pos7Data = loadLogData('missionB1_pos7');
+
+            document.getElementById('pos6Log').innerHTML = renderLogRow('Pos 6: Easy Quest', pos6Data, '⚔️', 'bg-blue-900/40 border-blue-500', 'text-blue-400');
+            document.getElementById('pos7Log').innerHTML = renderLogRow('Pos 7: Boss Battle (HOTS)', pos7Data, '🔴', 'bg-emerald-900/40 border-emerald-500', 'text-emerald-400');
+
+            if(!pos6Data || !pos7Data) {
+                document.getElementById('logFallbackNote').classList.remove('hidden');
+            }
+        };
+    </script>
+</body>
+</html>
