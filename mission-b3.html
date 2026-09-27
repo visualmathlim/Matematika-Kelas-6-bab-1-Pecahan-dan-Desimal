@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission B3: Perkalian Pecahan × Pecahan | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --navy:#0d1b4c; --navy-card:#16214f; --teal:#14a89a; --gold:#f4b400;
+    --green-dk:#0d766b; --ink:#f1f5f9; --line:#2a3868;
+  }
+  body{ background-color:var(--navy); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card-dark{ background-color:var(--navy-card); border:1px solid var(--line); }
+  .path-line{ position:absolute; top:0; bottom:0; left:50%; width:4px; background:linear-gradient(var(--teal),var(--gold)); transform:translateX(-50%); z-index:0; }
+  .node{ position:relative; z-index:1; }
+  .node-dot{ width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.6rem; border:3px solid var(--line); background:var(--navy-card); }
+  .node.active .node-dot{ border-color:var(--gold); box-shadow:0 0 0 4px rgba(244,180,0,.25); }
+  .node.done .node-dot{ border-color:var(--teal); background:var(--teal); }
+  .node.locked .node-dot{ opacity:.45; }
+  .avatar{ width:34px; height:34px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); background:#fff; }
+</style>
+</head>
+<body class="antialiased min-h-screen">
+
+<header class="card-dark border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+      <div>
+        <h1 class="text-lg font-bold" style="color:var(--gold)">VisualMath.Lim</h1>
+        <p class="text-[11px] text-slate-300">Math Mastery • Kelas 6</p>
+      </div>
+    </div>
+    <!-- Tombol Pintas ke Menu Home (index.html) -->
+    <a href="index.html" class="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-full text-xs font-bold text-slate-300 transition-colors flex items-center gap-1.5 shadow-sm">
+      <span>🏠</span> Menu Utama
+    </a>
+  </div>
+</header>
+
+<main class="max-w-3xl mx-auto px-4 py-10 space-y-8">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border" style="border-color:var(--line); background:var(--navy-card)">🍕 Mission B3</div>
+    <h2 class="text-3xl font-extrabold">Perkalian Pecahan × Pecahan</h2>
+    <p class="max-w-md mx-auto text-sm text-slate-300">Big Idea: <i>"Mengalikan pecahan berarti mengambil bagian dari bagian."</i></p>
+  </section>
+
+  <section class="relative py-4">
+    <div class="path-line"></div>
+    <div class="space-y-10">
+
+      <div class="node active flex items-center gap-4" id="node-1">
+        <div class="node-dot">1</div>
+        <a href="mission-b3-pos1-brief.html" class="card-dark rounded-xl px-4 py-3 flex-1 flex items-center justify-between hover:border-amber-400 transition-colors">
+          <div><p class="font-bold">Mission Brief</p><p class="text-xs text-slate-400">Kenalan dengan misi hari ini</p></div>
+          <img src="assets/Pixel.png" alt="Pixel" class="avatar" onerror="this.outerHTML='<div class=\'avatar flex items-center justify-center text-xs\'>🤖</div>'">
+        </a>
+      </div>
+
+      <div class="node locked flex items-center gap-4" id="node-2">
+        <div class="node-dot">2</div>
+        <a href="mission-b3-pos2-see.html" class="card-dark rounded-xl px-4 py-3 flex-1 flex items-center justify-between hover:border-amber-400 transition-colors">
+          <div><p class="font-bold">See — Lipat Kertas</p><p class="text-xs text-slate-400">Merasakan "bagian dari bagian"</p></div>
+          <img src="assets/Luna.png" alt="Luna" class="avatar" onerror="this.outerHTML='<div class=\'avatar flex items-center justify-center text-xs\'>👧🏻</div>'">
+        </a>
+      </div>
+
+      <div class="node locked flex items-center gap-4" id="node-3">
+        <div class="node-dot">3</div>
+        <a href="mission-b3-pos3-visualize.html" class="card-dark rounded-xl px-4 py-3 flex-1 flex items-center justify-between hover:border-amber-400 transition-colors">
+          <div><p class="font-bold">Visualize — Area Model</p><p class="text-xs text-slate-400">Grid interaktif + Mode Eksperimen</p></div>
+          <img src="assets/Luna.png" alt="Luna" class="avatar" onerror="this.outerHTML='<div class=\'avatar flex items-center justify-center text-xs\'>👧🏻</div>'">
+        </a>
+      </div>
+
+      <div class="node locked flex items-center gap-4" id="node-4">
+        <div class="node-dot">4</div>
+        <div class="card-dark rounded-xl px-4 py-3 flex-1 flex items-center justify-between opacity-70">
+          <div><p class="font-bold">Think & Discover</p><p class="text-xs text-slate-400">Menemukan rumus + Pixel Alert</p></div>
+          <img src="assets/Kian.png" alt="Kian" class="avatar" onerror="this.outerHTML='<div class=\'avatar flex items-center justify-center text-xs\'>👦🏻</div>'">
+        </div>
+      </div>
+
+      <div class="node locked flex items-center gap-4" id="node-5">
+        <div class="node-dot">5</div>
+        <div class="card-dark rounded-xl px-4 py-3 flex-1 flex items-center justify-between opacity-70">
+          <div><p class="font-bold">Skill Unlock</p><p class="text-xs text-slate-400">Aturan Emas & Strategi</p></div>
+          <img src="assets/Sigma.png" alt="Prof. Sigma" class="avatar" onerror="this.outerHTML='<div class=\'avatar flex items-center justify-center text-xs\'>👨🏻‍🏫</div>'">
+        </div>
+      </div>
+
+      <div class="node locked flex items-center gap-4" id="node-6">
+        <div class="node-dot">6</div>
+        <div class="card-dark rounded-xl px-4 py-3 flex-1 flex items-center justify-between opacity-70">
+          <div><p class="font-bold">Quest</p><p class="text-xs text-slate-400">Latihan bertahap + Buat Soal Sendiri</p></div>
+          <img src="assets/Kian.png" alt="Kian" class="avatar" onerror="this.outerHTML='<div class=\'avatar flex items-center justify-center text-xs\'>👦🏻</div>'">
+        </div>
+      </div>
+
+      <div class="node locked flex items-center gap-4" id="node-7">
+        <div class="node-dot">7</div>
+        <div class="card-dark rounded-xl px-4 py-3 flex-1 flex items-center justify-between opacity-70">
+          <div><p class="font-bold">Boss Battle</p><p class="text-xs text-slate-400">Soal cerita berlapis</p></div>
+          <img src="assets/Kian.png" alt="Kian" class="avatar" onerror="this.outerHTML='<div class=\'avatar flex items-center justify-center text-xs\'>👦🏻</div>'">
+        </div>
+      </div>
+
+      <div class="node locked flex items-center gap-4" id="node-8">
+        <div class="node-dot">8</div>
+        <div class="card-dark rounded-xl px-4 py-3 flex-1 flex items-center justify-between opacity-70">
+          <div><p class="font-bold">Mission Log & Achievement</p><p class="text-xs text-slate-400">Refleksi + Badge</p></div>
+          <img src="assets/Sigma.png" alt="Prof. Sigma" class="avatar" onerror="this.outerHTML='<div class=\'avatar flex items-center justify-center text-xs\'>👨🏻‍🏫</div>'">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="card-dark rounded-2xl p-6 text-center space-y-2">
+    <p class="text-sm text-slate-300">Selesaikan semua pos untuk membuka:</p>
+    <p class="text-xl font-bold" style="color:var(--gold)">🏅 Fraction Multiplier Badge</p>
+    <a href="mission-b3-pos1-brief.html" class="inline-block mt-3 font-bold py-3 px-8 rounded-full text-white" style="background:var(--teal)">Mulai Misi ➔</a>
+  </section>
+
+</main>
+</body>
+</html>
