@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 4: Think & Discover - Mission B3 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --navy:#0d1b4c; --navy-card:#16214f; --teal:#14a89a; --gold:#f4b400; --green-dk:#0d766b; --ink:#f1f5f9; --line:#2a3868; }
+  body{ background-color:var(--navy); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card-dark{ background-color:var(--navy-card); border:1px solid var(--line); }
+  
+  /* PENGATURAN PECAHAN VERTIKAL ATAS-BAWAH */
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .25rem; font-weight:bold; line-height:1.1; }
+  .math-num{ border-bottom:2px solid currentColor; padding:0 .3rem; width:100%; text-align:center; }
+  .math-den{ padding:0 .3rem; width:100%; text-align:center; }
+
+  /* GRID GAMBAR YANG JELAS & KONTRAS */
+  .cell{ border:2px solid rgba(255,255,255,0.25); background:#0a1338; border-radius:4px; }
+  .cell.teal{ background:var(--teal); } 
+  .cell.gold{ background:var(--gold); } 
+  .cell.overlap{ background:var(--green-dk); box-shadow: inset 0 0 10px rgba(255,255,255,0.4); }
+
+  .input-dark{ background:#0a1338; border:1px solid #475569; color:var(--ink); border-radius:.5rem; padding:.5rem .7rem; }
+  .opt{ display:flex; align-items:center; justify-content:center; gap:.5rem; background:#0a1338; border:1px solid var(--line); border-radius:.5rem; padding:.6rem; cursor:pointer; font-weight:600; font-size:.85rem; transition: all 0.2s; }
+  .opt:hover{ border-color:var(--teal); }
+  .opt.correct{ border-color:var(--teal); background:rgba(20,168,154,.15); }
+  .opt.wrong{ border-color:#ef4444; background:rgba(239,68,68,.12); }
+  .hint-box{ border-left:3px solid var(--gold); background:rgba(244,180,0,.08); }
+  .hint-box.strong{ border-left-color:var(--teal); background:rgba(20,168,154,.08); }
+  .fade-in{ animation: fadeIn .4s ease-in; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card-dark border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+      <div><h1 class="text-lg font-bold" style="color:var(--gold)">VisualMath.Lim</h1><p class="text-[11px] text-slate-300">Mission B3 • Kelas 6</p></div>
+    </div>
+    <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(20,168,154,.15); border:1px solid var(--teal); color:var(--teal)">🧠 Pos 4/8: Think & Discover</span>
+  </div>
+  <div class="h-1.5 w-full" style="background:#0a1338"><div class="h-full" style="width:50%; background:linear-gradient(to right,var(--teal),var(--gold))"></div></div>
+</header>
+
+<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border" style="border-color:var(--line); background:var(--navy-card)">🧠 Think & Discover</div>
+    <h2 class="text-3xl font-extrabold">Dari Kotak ke Rumus</h2>
+    <p class="max-w-lg mx-auto text-sm text-slate-300">Ingat grid 
+      <span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span> × 
+      <span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span> di Pos 3? Sekarang kita hitung angkanya dan cari polanya.
+    </p>
+  </section>
+
+  <!-- Recap grid -->
+  <section class="card-dark rounded-2xl p-6 flex flex-col md:flex-row gap-6 items-center border-2 border-slate-700 shadow-md">
+    <div id="recap-grid" class="grid shrink-0 gap-1 p-2 bg-slate-900 rounded-xl border border-slate-700" style="grid-template-columns:repeat(2,1fr); width:130px; aspect-ratio:2/3;"></div>
+    <div class="space-y-3 text-sm w-full">
+      <p class="font-semibold text-slate-200">Dari grid tadi 
+        (<span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span> milik Luna, 
+        <span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span> milik Kian):
+      </p>
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <span>Berapa sel yang tertimpa dua warna (hijau tua)?</span>
+        <input id="q-overlap" type="text" class="input-dark w-16 text-center font-bold">
+      </div>
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <span>Berapa total sel semuanya di grid?</span>
+        <input id="q-total" type="text" class="input-dark w-16 text-center font-bold">
+      </div>
+      <p id="recap-fb" class="hidden font-bold pt-1"></p>
+    </div>
+  </section>
+
+  <!-- 2 kolom: THINK | PIXEL ALERT -->
+  <div class="grid md:grid-cols-2 gap-6 items-start">
+
+    <section class="card-dark rounded-2xl p-6 space-y-4 border-2 border-slate-700 shadow-md">
+      <h3 class="font-bold text-base" style="color:var(--teal)">🧠 Step 3 — Think</h3>
+      <p class="text-sm text-slate-300">
+        Perhatikan pecahan umum
+        <span class="math-frac text-white"><span class="math-num">a</span><span class="math-den">b</span></span> ×
+        <span class="math-frac text-white"><span class="math-num">c</span><span class="math-den">d</span></span>.
+        Lengkapi berdasarkan grid tadi:
+      </p>
+      <div class="space-y-3 text-sm">
+        <div>
+          <label class="block text-slate-400 mb-1">Jumlah kolom/baris grid bersesuaian dengan angka...</label>
+          <input type="text" class="input-dark w-full" placeholder="b atau d?">
+        </div>
+        <div>
+          <label class="block text-slate-400 mb-1">Jumlah sel tertimpa (overlap) = hasil kali dari...</label>
+          <input type="text" class="input-dark w-full" placeholder="contoh: pembilang × pembilang">
+        </div>
+        <div>
+          <label class="block text-slate-400 mb-1">Jumlah total sel = hasil kali dari...</label>
+          <input type="text" class="input-dark w-full" placeholder="contoh: penyebut × penyebut">
+        </div>
+      </div>
+    </section>
+
+    <section class="card-dark rounded-2xl p-6 space-y-4 border-2" style="border-color:#7f1d1d">
+      <h3 class="font-bold text-red-400 flex items-center gap-2 text-base">⚠ Pixel Alert</h3>
+      <p class="text-sm text-slate-300">Pixel dengar banyak agen berpikir begini. Menurutmu, benar atau salah?</p>
+      <div class="bg-slate-900/60 rounded-xl p-4 text-sm text-center italic border border-slate-800">"Kalau dikalikan, hasilnya pasti lebih besar dari bilangan aslinya."</div>
+      <div class="flex gap-3">
+        <label class="opt flex-1" data-v="benar">✅ Benar</label>
+        <label class="opt flex-1" data-v="salah">❌ Salah</label>
+      </div>
+      <div id="alert-fb" class="hidden text-sm rounded-lg p-3 fade-in"></div>
+      
+      <!-- Garis Bilangan dengan Pecahan Vertikal -->
+      <div id="numberline" class="hidden pt-2 bg-slate-900/40 p-3 rounded-xl border border-slate-800">
+        <p class="text-xs text-slate-300 mb-2 text-center font-semibold">Lihat posisi hasilnya di garis bilangan:</p>
+        <svg viewBox="0 0 300 65" class="w-full">
+          <line x1="20" y1="35" x2="280" y2="35" stroke="#475569" stroke-width="2.5"/>
+          <line x1="20" y1="28" x2="20" y2="42" stroke="#94a3b8" stroke-width="2"/>
+          <text x="20" y="56" fill="#94a3b8" font-size="11" text-anchor="middle">0</text>
+          <line x1="280" y1="28" x2="280" y2="42" stroke="#94a3b8" stroke-width="2"/>
+          <text x="280" y="56" fill="#94a3b8" font-size="11" text-anchor="middle">1</text>
+          
+          <circle cx="150" cy="35" r="5" fill="var(--teal)"/>
+          <text x="150" y="20" fill="var(--teal)" font-size="11" text-anchor="middle" font-weight="bold">1/2</text>
+          
+          <circle cx="63" cy="35" r="5" fill="var(--gold)"/>
+          <text x="63" y="20" fill="var(--gold)" font-size="11" text-anchor="middle" font-weight="bold">1/6</text>
+        </svg>
+        <p class="text-xs text-center text-slate-300 mt-1">
+          <span class="math-frac" style="margin:0;"><span class="math-num" style="border-bottom-width:1px; padding:0 1px;">1</span><span class="math-den" style="padding:0 1px;">6</span></span> 
+          (hasil kali) justru lebih dekat ke 0 — lebih kecil dari 
+          <span class="math-frac" style="margin:0;"><span class="math-num" style="border-bottom-width:1px; padding:0 1px;">1</span><span class="math-den" style="padding:0 1px;">2</span></span>.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <!-- STEP 4: DISCOVER -->
+  <section class="card-dark rounded-2xl p-6 space-y-4 border-2 border-slate-700 shadow-md">
+    <h3 class="font-bold text-base" style="color:var(--gold)">💡 Step 4 — Discover</h3>
+    <p class="text-sm text-slate-300">Tuliskan kesimpulanmu sendiri: bagaimana rumus umum untuk
+      <span class="math-frac text-white"><span class="math-num">a</span><span class="math-den">b</span></span> ×
+      <span class="math-frac text-white"><span class="math-num">c</span><span class="math-den">d</span></span>,
+      dan mengapa hasil kali dua pecahan proper selalu lebih kecil dari keduanya?</p>
+    <textarea id="discover-input" class="w-full input-dark resize-none" rows="4" placeholder="Ketik kesimpulanmu di sini..."></textarea>
+
+    <div id="hint1" class="hidden hint-box rounded-lg p-3 text-sm text-amber-200 fade-in">
+      💭 <b>Petunjuk halus:</b> Lihat lagi grid Pos 3 — pembilang menghitung sel yang diarsir, penyebut menghitung total sel. Coba tulis dalam bentuk a × c dan b × d.
+    </div>
+    <div id="hint2" class="hidden hint-box strong rounded-lg p-3 text-sm text-sky-200 fade-in">
+      💡 <b>Petunjuk lebih jelas:</b> Rumusnya adalah <span class="math-frac text-white"><span class="math-num">a × c</span><span class="math-den">b × d</span></span>. Karena a &lt; b dan c &lt; d (pecahan proper), maka hasil kalinya dibagi dengan penyebut yang lebih besar — itu sebabnya nilai pecahannya mengecil.
+    </div>
+  </section>
+
+  <div class="flex justify-between items-center pt-2">
+    <a href="mission-b3-pos3-visualize.html" class="text-slate-400 hover:text-white text-sm">⬅ Visualize</a>
+    <a href="mission-b3-pos5-skillunlock.html" class="inline-block font-bold py-3 px-8 rounded-full text-white shadow-lg transition-transform hover:-translate-y-0.5" style="background:linear-gradient(to right,var(--teal),var(--green-dk))">Lanjut ke Skill Unlock ➔</a>
+  </div>
+
+</main>
+
+<script>
+// Recap grid statis (1/2 x 1/3, overlap 1 dari 6)
+const recapGrid = document.getElementById('recap-grid');
+for(let r=0;r<3;r++){
+  for(let c=0;c<2;c++){
+    const cell = document.createElement('div');
+    cell.className = 'cell aspect-square';
+    if(c===0 && r===0) cell.classList.add('overlap');
+    else if(c===0) cell.classList.add('teal');
+    else if(r===0) cell.classList.add('gold');
+    recapGrid.appendChild(cell);
+  }
+}
+document.getElementById('q-overlap').addEventListener('change', checkRecap);
+document.getElementById('q-total').addEventListener('change', checkRecap);
+function checkRecap(){
+  const o = document.getElementById('q-overlap').value.trim();
+  const t = document.getElementById('q-total').value.trim();
+  const fb = document.getElementById('recap-fb');
+  if(o==='' || t==='') return;
+  fb.classList.remove('hidden');
+  const ok = o==='1' && t==='6';
+  fb.textContent = ok ? '✅ Betul! 1 dari 6 = 1/6, sama seperti hasil perkalian pecahan.' : '❌ Coba hitung ulang sel di grid: overlap ada berapa? total ada berapa?';
+  fb.style.color = ok ? 'var(--teal)' : '#ef4444';
+}
+
+// Pixel Alert
+const alertFb = document.getElementById('alert-fb');
+const numberline = document.getElementById('numberline');
+document.querySelectorAll('.opt[data-v]').forEach(opt => {
+  opt.addEventListener('click', () => {
+    document.querySelectorAll('.opt[data-v]').forEach(o => o.classList.remove('correct','wrong'));
+    const isCorrect = opt.dataset.v === 'salah';
+    opt.classList.add(isCorrect ? 'correct' : 'wrong');
+    alertFb.classList.remove('hidden');
+    numberline.classList.remove('hidden');
+    alertFb.className = 'text-sm rounded-lg p-3 fade-in ' + (isCorrect ? 'bg-green-900/40 border border-green-700 text-green-300' : 'bg-red-900/40 border border-red-700 text-red-300');
+    alertFb.textContent = isCorrect
+      ? '✅ Betul, pernyataan itu salah! Perkalian pecahan proper justru membuat hasil semakin KECIL, bukan semakin besar.'
+      : '❌ Coba lihat lagi: 1/2 × 1/3 hasilnya 1/6. Apakah 1/6 lebih besar atau lebih kecil dari 1/2?';
+  });
+});
+
+// Discover: scaffolding hint progresif (30s / 60s)
+(function () {
+  const input = document.getElementById('discover-input');
+  const hint1 = document.getElementById('hint1');
+  const hint2 = document.getElementById('hint2');
+  let typed = false, hint1Shown = false, hint2Shown = false;
+  input.addEventListener('input', () => { typed = input.value.trim().length > 15; });
+  const t1 = setTimeout(() => { if(!typed && !hint1Shown){ hint1.classList.remove('hidden'); hint1Shown = true; } }, 30000);
+  const t2 = setTimeout(() => { if(!typed && !hint2Shown){ hint2.classList.remove('hidden'); hint2Shown = true; } }, 60000);
+  input.addEventListener('input', () => { if(input.value.trim().length > 15){ clearTimeout(t1); clearTimeout(t2); } });
+})();
+</script>
+</body>
+</html>
