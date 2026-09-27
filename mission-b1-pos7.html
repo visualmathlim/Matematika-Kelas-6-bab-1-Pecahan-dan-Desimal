@@ -17,12 +17,13 @@
             background-image: linear-gradient(to right, #f43f5e, #fb7185);
         }
         
+        /* CSS Pecahan Atas-Bawah */
         .math-frac {
             display: inline-flex; flex-direction: column; align-items: center;
-            vertical-align: middle; margin: 0 0.25rem; font-weight: bold; line-height: 1.1;
+            vertical-align: middle; margin: 0 0.3rem; font-weight: bold; line-height: 1.2;
         }
-        .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
-        .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+        .math-num { border-bottom: 2px solid currentColor; padding: 0 0.2rem; width: 100%; text-align: center; }
+        .math-den { padding: 0 0.2rem; width: 100%; text-align: center; }
 
         .input-dark { background-color: #0f172a; border: 1px solid #475569; color: #f8fafc; text-align: center; font-weight: bold; }
         .input-dark:focus { outline: none; border-color: #f43f5e; box-shadow: 0 0 0 2px rgba(244, 63, 94, 0.3); }
@@ -75,7 +76,7 @@
                 </div>
                 <h3 class="text-3xl md:text-4xl font-extrabold text-white mb-3">BOSS BATTLE <span class="text-gradient">(HOTS)</span></h3>
                 <p class="text-slate-300 italic text-sm md:text-base leading-relaxed bg-slate-900/50 p-4 rounded-xl border border-slate-700 shadow-inner">
-                    "Buktikan ketajaman logikamu di sini! Selesaikan 6 masalah dunia nyata di bawah ini. <strong class="text-rose-400">Peringatan:</strong> Tulis jawabanmu dalam bentuk <u>paling sederhana</u>, utuh, atau pecahan campuran. Jika nilaimu di bawah 70, kamu harus mengulang dengan soal yang diacak!"
+                    "Buktikan ketajaman logikamu di sini! Selesaikan 6 masalah dunia nyata di bawah ini. <strong class="text-rose-400">Peringatan:</strong> Tulis jawabanmu dalam bentuk <u>pecahan biasa yang paling sederhana</u> (tanpa pecahan campuran). Jika nilaimu di bawah 70, kamu harus mengulang dengan soal yang diacak!"
                 </p>
             </div>
         </section>
@@ -109,73 +110,76 @@
 
     <!-- JAVASCRIPT: DATA, RENDER, SHUFFLE, & CHECK LOGIC -->
     <script>
-        // Data Bank Soal (HOTS & Kontekstual)
+        // Fungsi membuat pecahan HTML untuk teks
+        const f = (n, d, color = "text-white") => `<div class='math-frac ${color}'><span class='math-num'>${n}</span><span class='math-den'>${d}</span></div>`;
+
+        // Data Bank Soal (HOTS & Kontekstual - Pecahan Biasa Saja)
         const questionBank = [
             {
                 id: 1,
                 icon: "🧁",
                 title: "Misi Koki Akademi",
-                text: "Chef membuat <strong>6 loyang</strong> kue. Setiap loyang membutuhkan tepung sebanyak <strong class='text-white'>3/4 kg</strong>. Berapa total tepung yang dibutuhkan?",
+                text: `Chef membuat <strong>6 loyang</strong> kue. Setiap loyang membutuhkan tepung sebanyak ${f(3,4)} <strong>kg</strong>. Berapa total tepung yang dibutuhkan?`,
                 a: 6, b: 3, c: 4,
-                ans_w: 4, ans_n: 1, ans_d: 2, // 18/4 -> 4 2/4 -> 4 1/2
-                step1: "6 × 3/4 = 18/4",
-                step2: "18 dibagi 4 dapat 4 (sisa 2) ➔ 4 2/4",
-                step3: "Sederhanakan 2/4 (dibagi 2) ➔ 4 1/2"
+                ans_n: 9, ans_d: 2, 
+                step1: `6 &times; ${f(3,4)} = ${f(18,4)}`,
+                step2: "Sederhanakan pecahan (pembilang dan penyebut dibagi 2).",
+                step3: `Hasil akhirnya adalah ${f(9,2, "text-emerald-400")}`
             },
             {
                 id: 2,
                 icon: "🎀",
                 title: "Dekorasi Pita",
-                text: "Sinta merangkai <strong>5 buah pita</strong> hias. Setiap pita panjangnya <strong class='text-white'>2/3 meter</strong>. Berapa meter pita yang digunakan Sinta seluruhnya?",
+                text: `Sinta merangkai <strong>5 buah pita</strong> hias. Setiap pita panjangnya ${f(2,3)} <strong>meter</strong>. Berapa meter pita yang digunakan Sinta seluruhnya?`,
                 a: 5, b: 2, c: 3,
-                ans_w: 3, ans_n: 1, ans_d: 3, // 10/3 -> 3 1/3
-                step1: "5 × 2/3 = 10/3",
-                step2: "10 dibagi 3 dapat 3 (sisa 1) ➔ 3 1/3",
-                step3: "Pecahan 1/3 sudah paling sederhana."
+                ans_n: 10, ans_d: 3,
+                step1: `5 &times; ${f(2,3)} = ${f(10,3)}`,
+                step2: "Pecahan ini sudah dalam bentuk paling sederhana.",
+                step3: `Hasil akhirnya adalah ${f(10,3, "text-emerald-400")}`
             },
             {
                 id: 3,
                 icon: "🏃",
                 title: "Latihan Fisik Agen",
-                text: "Kian berlari sejauh <strong class='text-white'>5/8 km</strong> setiap hari. Jika ia berlatih selama <strong>4 hari</strong> berturut-turut, berapa km total jarak yang ia tempuh?",
+                text: `Kian berlari sejauh ${f(5,8)} <strong>km</strong> setiap hari. Jika ia berlatih selama <strong>4 hari</strong> berturut-turut, berapa km total jarak yang ia tempuh?`,
                 a: 4, b: 5, c: 8,
-                ans_w: 2, ans_n: 1, ans_d: 2, // 20/8 -> 2 4/8 -> 2 1/2
-                step1: "4 × 5/8 = 20/8",
-                step2: "20 dibagi 8 dapat 2 (sisa 4) ➔ 2 4/8",
-                step3: "Sederhanakan 4/8 (dibagi 4) ➔ 2 1/2"
+                ans_n: 5, ans_d: 2, 
+                step1: `4 &times; ${f(5,8)} = ${f(20,8)}`,
+                step2: "Sederhanakan pecahan (pembilang dan penyebut dibagi 4).",
+                step3: `Hasil akhirnya adalah ${f(5,2, "text-emerald-400")}`
             },
             {
                 id: 4,
                 icon: "💧",
                 title: "Persediaan Air",
-                text: "Sebuah meja rapat disiapkan <strong>8 gelas</strong> air. Masing-masing gelas berisi <strong class='text-white'>3/5 liter</strong> air. Berapa liter total air di meja tersebut?",
+                text: `Sebuah meja rapat disiapkan <strong>8 gelas</strong> air. Masing-masing gelas berisi ${f(3,5)} <strong>liter</strong> air. Berapa liter total air di meja tersebut?`,
                 a: 8, b: 3, c: 5,
-                ans_w: 4, ans_n: 4, ans_d: 5, // 24/5 -> 4 4/5
-                step1: "8 × 3/5 = 24/5",
-                step2: "24 dibagi 5 dapat 4 (sisa 4) ➔ 4 4/5",
-                step3: "Pecahan 4/5 sudah paling sederhana."
+                ans_n: 24, ans_d: 5,
+                step1: `8 &times; ${f(3,5)} = ${f(24,5)}`,
+                step2: "Pecahan ini sudah dalam bentuk paling sederhana.",
+                step3: `Hasil akhirnya adalah ${f(24,5, "text-emerald-400")}`
             },
             {
                 id: 5,
                 icon: "🎨",
                 title: "Mengecat Tembok",
-                text: "Pak Tukang menghabiskan <strong>10 kaleng</strong> cat. Jika 1 kaleng bisa mengecat <strong class='text-white'>3/10 bagian</strong> tembok, berapa tembok yang berhasil dicat seluruhnya?",
-                a: 10, b: 3, c: 10,
-                ans_w: 3, ans_n: 0, ans_d: 0, // 30/10 -> 3 (utuh)
-                step1: "10 × 3/10 = 30/10",
-                step2: "30 dibagi 10 = 3",
-                step3: "Hasilnya adalah bilangan bulat utuh tanpa sisa (3)."
+                text: `Pak Tukang menghabiskan <strong>9 kaleng</strong> cat. Jika 1 kaleng bisa mengecat ${f(3,10)} <strong>bagian</strong> tembok, berapa bagian tembok yang berhasil dicat seluruhnya?`,
+                a: 9, b: 3, c: 10,
+                ans_n: 27, ans_d: 10,
+                step1: `9 &times; ${f(3,10)} = ${f(27,10)}`,
+                step2: "Pecahan ini sudah dalam bentuk paling sederhana.",
+                step3: `Hasil akhirnya adalah ${f(27,10, "text-emerald-400")}`
             },
             {
                 id: 6,
                 icon: "🤖",
                 title: "Investigasi Pixel",
-                text: "Pixel sedang memindahkan <strong>4 kotak</strong> memori. Tiap kotak beratnya tepat <strong class='text-white'>5/6 kg</strong>. Berapa kg berat total kotak yang dibawa Pixel?",
+                text: `Pixel sedang memindahkan <strong>4 kotak</strong> memori. Tiap kotak beratnya tepat ${f(5,6)} <strong>kg</strong>. Berapa kg berat total kotak yang dibawa Pixel?`,
                 a: 4, b: 5, c: 6,
-                ans_w: 3, ans_n: 1, ans_d: 3, // 20/6 -> 3 2/6 -> 3 1/3
-                step1: "4 × 5/6 = 20/6",
-                step2: "20 dibagi 6 dapat 3 (sisa 2) ➔ 3 2/6",
-                step3: "Sederhanakan 2/6 (dibagi 2) ➔ 3 1/3"
+                ans_n: 10, ans_d: 3,
+                step1: `4 &times; ${f(5,6)} = ${f(20,6)}`,
+                step2: "Sederhanakan pecahan (pembilang dan penyebut dibagi 2).",
+                step3: `Hasil akhirnya adalah ${f(10,3, "text-emerald-400")}`
             }
         ];
 
@@ -242,16 +246,16 @@
                             <h4 class="font-bold text-rose-300 text-sm uppercase tracking-widest mb-1">${q.title}</h4>
                             <p class="text-slate-300 text-sm leading-relaxed mb-4">${q.text}</p>
                             
-                            <!-- Input Interaktif -->
+                            <!-- Input Interaktif (Hanya Pecahan Biasa) -->
                             <div class="bg-slate-800 p-3 rounded-xl border border-slate-600 w-max">
-                                <div class="flex items-center gap-2">
-                                    <input type="number" id="ans_${q.id}_w" class="input-dark w-12 h-12 rounded text-lg text-emerald-300" placeholder="Utuh">
-                                    <div class="math-frac">
-                                        <span class="math-num pb-1"><input type="number" id="ans_${q.id}_n" class="input-dark w-10 h-10 rounded text-sm text-sky-300" placeholder="Atas"></span>
-                                        <span class="math-den pt-1"><input type="number" id="ans_${q.id}_d" class="input-dark w-10 h-10 rounded text-sm text-sky-300" placeholder="Bawah"></span>
-                                    </div>
+                                <div class="math-frac mx-4">
+                                    <span class="math-num pb-2">
+                                        <input type="number" id="ans_${q.id}_n" class="input-dark w-12 h-10 rounded text-base text-sky-300" placeholder="Atas" required>
+                                    </span>
+                                    <span class="math-den pt-2">
+                                        <input type="number" id="ans_${q.id}_d" class="input-dark w-12 h-10 rounded text-base text-sky-300" placeholder="Bawah" required>
+                                    </span>
                                 </div>
-                                <p class="text-[10px] text-slate-400 text-center mt-2 italic">Kosongkan kotak yang tidak perlu.</p>
                             </div>
                         </div>
                     </div>
@@ -262,12 +266,12 @@
                             <span class="font-bold text-emerald-400 flex items-center gap-2"><span class="text-lg">💡</span> Pembahasan</span>
                             <span id="mark_${q.id}" class="font-bold text-lg"></span>
                         </div>
-                        <ul class="space-y-2 text-slate-300 mb-4">
-                            <li><strong class="text-rose-400">1.</strong> ${q.step1}</li>
-                            <li><strong class="text-rose-400">2.</strong> ${q.step2}</li>
-                            <li><strong class="text-rose-400">3.</strong> ${q.step3}</li>
-                        </ul>
-                        <p class="text-xs text-slate-400 font-bold mb-1">Visualisasi ${q.a} × ${q.b}/${q.c}:</p>
+                        <div class="space-y-4 text-slate-300 mb-4 bg-slate-900/50 p-4 rounded-lg border border-slate-700">
+                            <div class="flex items-center gap-2"><strong class="text-rose-400">1.</strong> ${q.step1}</div>
+                            <div class="flex items-center gap-2"><strong class="text-rose-400">2.</strong> ${q.step2}</div>
+                            <div class="flex items-center gap-2"><strong class="text-rose-400">3.</strong> ${q.step3}</div>
+                        </div>
+                        <p class="text-xs text-slate-400 font-bold mb-1">Visualisasi Model Batang:</p>
                         ${buildVisualBar(q.a, q.b, q.c)}
                     </div>
                 </div>`;
@@ -284,11 +288,10 @@
             const total = activeQuestions.length;
 
             activeQuestions.forEach(q => {
-                let w = parseInt(document.getElementById(`ans_${q.id}_w`).value) || 0;
                 let n = parseInt(document.getElementById(`ans_${q.id}_n`).value) || 0;
                 let d = parseInt(document.getElementById(`ans_${q.id}_d`).value) || 0;
 
-                let isCorrect = (w === q.ans_w && n === q.ans_n && d === q.ans_d);
+                let isCorrect = (n === q.ans_n && d === q.ans_d);
                 if (isCorrect) correctCount++;
 
                 // Buka pembahasan
