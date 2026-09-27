@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 6: Quest Kuis - Mission B3 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --navy:#0d1b4c; --navy-card:#16214f; --teal:#14a89a; --gold:#f4b400; --green-dk:#0d766b; --ink:#f1f5f9; --line:#2a3868; }
+  body{ background-color:var(--navy); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card-dark{ background-color:var(--navy-card); border:1px solid var(--line); }
+  
+  /* PENGATURAN PECAHAN VERTIKAL ATAS-BAWAH */
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .25rem; font-weight:bold; line-height:1.1; }
+  .math-num{ border-bottom:2px solid currentColor; padding:0 .3rem; width:100%; text-align:center; }
+  .math-den{ padding:0 .3rem; width:100%; text-align:center; }
+
+  .opt{ display:block; background:#0a1338; border:1px solid var(--line); border-radius:.5rem; padding:.6rem .9rem; cursor:pointer; margin-top:.4rem; font-size:.9rem; transition: all 0.2s; }
+  .opt:hover{ border-color:var(--teal); }
+  .opt.chosen{ border-color:var(--gold); background:rgba(244,180,0,.1); }
+  .opt.correct{ border-color:var(--teal); background:rgba(20,168,154,.15); }
+  .opt.wrong{ border-color:#ef4444; background:rgba(239,68,68,.12); }
+  .btn{ padding:.6rem 1.3rem; border-radius:9999px; font-weight:bold; color:#fff; cursor: pointer; transition: transform 0.2s; }
+  .btn:hover{ transform: translateY(-1px); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; transform: none; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card-dark border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+      <div><h1 class="text-lg font-bold" style="color:var(--gold)">VisualMath.Lim</h1><p class="text-[11px] text-slate-300">Mission B3 • Kelas 6</p></div>
+    </div>
+    <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(20,168,154,.15); border:1px solid var(--teal); color:var(--teal)">🎮 Pos 6/8: Quest</span>
+  </div>
+  <div class="h-1.5 w-full" style="background:#0a1338"><div class="h-full" style="width:75%; background:linear-gradient(to right,var(--teal),var(--gold))"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-6">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border" style="border-color:var(--line); background:var(--navy-card)">🎮 Quest Kuis</div>
+    <h2 class="text-3xl font-extrabold">Uji Kemampuanmu</h2>
+    <p class="text-sm text-slate-300">5 soal • KKM 70 (minimal 4 benar) • Jawaban langsung tersimpan</p>
+  </section>
+
+  <div id="quiz-area" class="space-y-5"></div>
+
+  <div id="result-area" class="hidden card-dark rounded-2xl p-6 space-y-4 text-center border-2 border-slate-700 shadow-xl"></div>
+
+  <div class="flex justify-between items-center pt-2">
+    <a href="mission-b3-pos5-skill.html" class="text-slate-400 hover:text-white text-sm">⬅ Skill Unlock</a>
+    <a id="nav-next" href="mission-b3-pos7-boss.html" class="hidden inline-block font-bold py-3 px-8 rounded-full text-white shadow-lg transition-transform hover:-translate-y-0.5" style="background:linear-gradient(to right,var(--teal),var(--green-dk))">Lanjut ke Boss Battle ➔</a>
+  </div>
+
+</main>
+
+<script>
+// BANK SOAL DENGAN FORMAT PECAHAN HTML VERTIKAL
+const BANK = [
+  {
+    q: `<span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span> × <span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span> = ...`, 
+    opts: [
+      `<span class="math-frac"><span class="math-num">1</span><span class="math-den">6</span></span>`, 
+      `<span class="math-frac"><span class="math-num">1</span><span class="math-den">8</span></span>`, 
+      `<span class="math-frac"><span class="math-num">2</span><span class="math-den">6</span></span>`, 
+      `<span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span>`
+    ], 
+    correct: 1,
+    steps: [
+      "Langkah 1 (Kalikan Pembilang): 1 × 1 = 1",
+      "Langkah 2 (Kalikan Penyebut): 2 × 4 = 8",
+      "Hasil Akhir: Menjadi <span class='math-frac'><span class='math-num'>1</span><span class='math-den'>8</span></span> (sudah bentuk paling sederhana)."
+    ]
+  },
+  {
+    q: `<span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span> × <span class="math-frac"><span class="math-num">3</span><span class="math-den">5</span></span> = ...`, 
+    opts: [
+      `<span class="math-frac"><span class="math-num">2</span><span class="math-den">5</span></span>`, 
+      `<span class="math-frac"><span class="math-num">5</span><span class="math-den">8</span></span>`, 
+      `<span class="math-frac"><span class="math-num">6</span><span class="math-den">8</span></span>`, 
+      `<span class="math-frac"><span class="math-num">2</span><span class="math-den">8</span></span>`
+    ], 
+    correct: 0,
+    steps: [
+      "Langkah 1 (Kalikan Pembilang): 2 × 3 = 6",
+      "Langkah 2 (Kalikan Penyebut): 3 × 5 = 15",
+      "Langkah 3 (Sederhanakan): <span class='math-frac'><span class='math-num'>6</span><span class='math-den'>15</span></span> dibagi 3 pada pembilang dan penyebut menjadi <span class='math-frac'><span class='math-num'>2</span><span class='math-den'>5</span></span>."
+    ]
+  },
+  {
+    q: `<span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> × <span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span> = ...`, 
+    opts: [
+      `<span class="math-frac"><span class="math-num">5</span><span class="math-den">7</span></span>`, 
+      `<span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span>`, 
+      `<span class="math-frac"><span class="math-num">6</span><span class="math-den">7</span></span>`, 
+      `<span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span>`
+    ], 
+    correct: 1,
+    steps: [
+      "Langkah 1 (Kalikan Pembilang): 3 × 2 = 6",
+      "Langkah 2 (Kalikan Penyebut): 4 × 3 = 12",
+      "Langkah 3 (Sederhanakan): <span class='math-frac'><span class='math-num'>6</span><span class='math-den'>12</span></span> dibagi 6 menjadi <span class='math-frac'><span class='math-num'>1</span><span class='math-den'>2</span></span>."
+    ]
+  },
+  {
+    q: `Manakah hasil dari <span class="math-frac"><span class="math-num">1</span><span class="math-den">5</span></span> × <span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span>?`, 
+    opts: [
+      `<span class="math-frac"><span class="math-num">1</span><span class="math-den">7</span></span>`, 
+      `<span class="math-frac"><span class="math-num">1</span><span class="math-den">5</span></span>`, 
+      `<span class="math-frac"><span class="math-num">1</span><span class="math-den">10</span></span>`, 
+      `<span class="math-frac"><span class="math-num">2</span><span class="math-den">7</span></span>`
+    ], 
+    correct: 2,
+    steps: [
+      "Langkah 1 (Kalikan Pembilang): 1 × 1 = 1",
+      "Langkah 2 (Kalikan Penyebut): 5 × 2 = 10",
+      "Hasil Akhir: Menjadi <span class='math-frac'><span class='math-num'>1</span><span class='math-den'>10</span></span> (sudah paling sederhana)."
+    ]
+  },
+  {
+    q: `Luna makan <span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span> dari <span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span> loyang kue. Berapa bagian loyang yang ia makan?`, 
+    opts: [
+      `<span class="math-frac"><span class="math-num">1</span><span class="math-den">6</span></span>`, 
+      `<span class="math-frac"><span class="math-num">1</span><span class="math-den">5</span></span>`, 
+      `<span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span>`, 
+      `<span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span>`
+    ], 
+    correct: 0,
+    steps: [
+      "Penerapan Konsep: Bagian dari bagian menjadi operasi <span class='math-frac'><span class='math-num'>1</span><span class='math-den'>3</span></span> × <span class='math-frac'><span class='math-num'>1</span><span class='math-den'>2</span></span>.",
+      "Langkah 1 (Kalikan Pembilang): 1 × 1 = 1",
+      "Langkah 2 (Kalikan Penyebut): 3 × 2 = 6",
+      "Hasil Akhir: <span class='math-frac'><span class='math-num'>1</span><span class='math-den'>6</span></span> bagian loyang."
+    ]
+  },
+  {
+    q: `<span class="math-frac"><span class="math-num">4</span><span class="math-den">5</span></span> × <span class="math-frac"><span class="math-num">5</span><span class="math-den">8</span></span> = ...`, 
+    opts: [
+      `<span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span>`, 
+      `<span class="math-frac"><span class="math-num">9</span><span class="math-den">13</span></span>`, 
+      `<span class="math-frac"><span class="math-num">20</span><span class="math-den">13</span></span>`
+    ], 
+    correct: 0,
+    steps: [
+      "Cara Cepat (Cross-Cancel): Angka 5 di atas dan di bawah saling dicoret menjadi 1.",
+      "Coret 4 (atas) dan 8 (bawah) menjadi 1 dan 2.",
+      "Hasil Akhir: <span class='math-frac'><span class='math-num'>1 × 1</span><span class='math-den'>1 × 2</span></span> = <span class='math-frac'><span class='math-num'>1</span><span class='math-den'>2</span></span>."
+    ]
+  },
+  {
+    q: `<span class="math-frac"><span class="math-num">2</span><span class="math-den">5</span></span> × <span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> = ...`, 
+    opts: [
+      `<span class="math-frac"><span class="math-num">3</span><span class="math-den">10</span></span>`, 
+      `<span class="math-frac"><span class="math-num">5</span><span class="math-den">9</span></span>`, 
+      `<span class="math-frac"><span class="math-num">6</span><span class="math-den">9</span></span>`
+    ], 
+    correct: 0,
+    steps: [
+      "Langkah 1 (Kalikan Pembilang): 2 × 3 = 6",
+      "Langkah 2 (Kalikan Penyebut): 5 × 4 = 20",
+      "Langkah 3 (Sederhanakan): <span class='math-frac'><span class='math-num'>6</span><span class='math-den'>20</span></span> dibagi 2 menjadi <span class='math-frac'><span class='math-num'>3</span><span class='math-den'>10</span></span>."
+    ]
+  },
+  {
+    q: `<span class="math-frac"><span class="math-num">1</span><span class="math-den">6</span></span> × <span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> = ...`, 
+    opts: [
+      `<span class="math-frac"><span class="math-num">4</span><span class="math-den">10</span></span>`, 
+      `<span class="math-frac"><span class="math-num">1</span><span class="math-den">8</span></span>`, 
+      `<span class="math-frac"><span class="math-num">3</span><span class="math-den">10</span></span>`
+    ], 
+    correct: 1,
+    steps: [
+      "Langkah 1 (Kalikan Pembilang): 1 × 3 = 3",
+      "Langkah 2 (Kalikan Penyebut): 6 × 4 = 24",
+      "Langkah 3 (Sederhanakan): <span class='math-frac'><span class='math-num'>3</span><span class='math-den'>24</span></span> dibagi 3 menjadi <span class='math-frac'><span class='math-num'>1</span><span class='math-den'>8</span></span>."
+    ]
+  },
+  {
+    q: `Kian punya <span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> papan kayu. Ia gunakan <span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span>-nya untuk membuat rak. Berapa bagian papan yang terpakai?`, 
+    opts: [
+      `<span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span>`, 
+      `<span class="math-frac"><span class="math-num">4</span><span class="math-den">7</span></span>`, 
+      `<span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span>`
+    ], 
+    correct: 0,
+    steps: [
+      "Penerapan Soal Cerita: Operasi perkalian pecahan <span class='math-frac'><span class='math-num'>3</span><span class='math-den'>4</span></span> × <span class='math-frac'><span class='math-num'>1</span><span class='math-den'>3</span></span>.",
+      "Gunakan pencoretan silang (Cross-Cancel): Angka 3 di atas dan di bawah saling mencoret menjadi 1.",
+      "Hasil Akhir: <span class='math-frac'><span class='math-num'>1</span><span class='math-den'>4</span></span> bagian papan."
+    ]
+  },
+  {
+    q: `<span class="math-frac"><span class="math-num">5</span><span class="math-den">6</span></span> × <span class="math-frac"><span class="math-num">2</span><span class="math-den">5</span></span> = ...`, 
+    opts: [
+      `<span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span>`, 
+      `<span class="math-frac"><span class="math-num">7</span><span class="math-den">11</span></span>`, 
+      `<span class="math-frac"><span class="math-num">10</span><span class="math-den">11</span></span>`
+    ], 
+    correct: 0,
+    steps: [
+      "Cara Cepat (Cross-Cancel): Coret angka 5 di atas dan di bawah menjadi 1.",
+      "Coret 2 (atas) dan 6 (bawah) menjadi 1 dan 3.",
+      "Hasil Akhir: <span class='math-frac'><span class='math-num'>1 × 1</span><span class='math-den'>3 × 1</span></span> = <span class='math-frac'><span class='math-num'>1</span><span class='math-den'>3</span></span>."
+    ]
+  }
+];
+
+const LOG_KEY = 'vm_b3_pos6';
+function getLog(){ try{ return JSON.parse(localStorage.getItem(LOG_KEY)) || {attempts:[], bestScore:0, passed:false}; }catch(e){ return {attempts:[], bestScore:0, passed:false}; } }
+function saveLog(log){ localStorage.setItem(LOG_KEY, JSON.stringify(log)); }
+
+function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+const quizArea = document.getElementById('quiz-area');
+const resultArea = document.getElementById('result-area');
+const navNext = document.getElementById('nav-next');
+
+let currentSet = [];
+
+function pickNewSet(){
+  const log = getLog();
+  const attemptNum = log.attempts.length; 
+  const blockA = BANK.slice(0,5), blockB = BANK.slice(5,10);
+  const block = (attemptNum % 2 === 0) ? blockA : blockB;
+  currentSet = shuffle(block).map((item, idx) => ({...item, opts: item.opts.map((o,i)=>({text:o,origIndex:i})), _sid: idx}));
+  currentSet.forEach(item => { item.optsShuffled = shuffle(item.opts); });
+  renderQuiz();
+}
+
+function renderQuiz(){
+  quizArea.innerHTML = '';
+  resultArea.classList.add('hidden');
+  navNext.classList.add('hidden');
+  
+  currentSet.forEach((item, qi) => {
+    const div = document.createElement('div');
+    div.className = 'card-dark rounded-2xl p-5 border-2 border-slate-700 shadow-md';
+    div.innerHTML = `<p class="font-bold mb-3 text-base text-slate-100">Soal ${qi+1}. ${item.q}</p>` +
+      item.optsShuffled.map((o,oi) => `<label class="opt" data-qi="${qi}" data-oi="${oi}">${String.fromCharCode(65+oi)}. ${o.text}</label>`).join('');
+    quizArea.appendChild(div);
+  });
+  
+  document.querySelectorAll('.opt').forEach(opt => {
+    opt.addEventListener('click', () => {
+      const qi = opt.dataset.qi;
+      document.querySelectorAll(`.opt[data-qi="${qi}"]`).forEach(o => o.classList.remove('chosen'));
+      opt.classList.add('chosen');
+    });
+  });
+
+  const submitBtn = document.createElement('button');
+  submitBtn.className = 'btn w-full py-3 shadow-lg';
+  submitBtn.style.background = 'var(--teal)';
+  submitBtn.textContent = 'Kumpulkan Jawaban ➔';
+  submitBtn.addEventListener('click', gradeQuiz);
+  quizArea.appendChild(submitBtn);
+}
+
+function gradeQuiz(){
+  let correctCount = 0;
+  const wrongDetails = [];
+  currentSet.forEach((item, qi) => {
+    const chosen = document.querySelector(`.opt[data-qi="${qi}"].chosen`);
+    const chosenOi = chosen ? +chosen.dataset.oi : -1;
+    const chosenOrig = chosenOi >= 0 ? item.optsShuffled[chosenOi].origIndex : -1;
+    
+    document.querySelectorAll(`.opt[data-qi="${qi}"]`).forEach((o,oi) => {
+      if(item.optsShuffled[oi].origIndex === item.correct) o.classList.add('correct');
+      else if(o===chosen) o.classList.add('wrong');
+      o.style.pointerEvents = 'none';
+    });
+    
+    if(chosenOrig === item.correct) correctCount++;
+    else wrongDetails.push(item);
+  });
+
+  const score = correctCount * 20;
+  const passed = score >= 70; // KKM 70 (minimal 4 benar)
+  const log = getLog();
+  log.attempts.push({score, correct:correctCount, total:5, date:new Date().toLocaleString('id-ID')});
+  log.bestScore = Math.max(log.bestScore, score);
+  log.passed = log.passed || passed;
+  saveLog(log);
+
+  quizArea.querySelector('button').remove();
+
+  resultArea.classList.remove('hidden');
+  if(passed){
+    resultArea.innerHTML = `<p class="text-3xl font-extrabold text-teal-400 mb-2">✅ SKOR: ${score} — LULUS KKM!</p>
+      <p class="text-sm text-slate-200">Benar ${correctCount} dari 5 soal. Kerja bagus, kamu sudah memahami konsep perkalian pecahan dengan sangat baik. Silakan lanjut ke Boss Battle!</p>`;
+    navNext.classList.remove('hidden');
+  } else {
+    let html = `<p class="text-3xl font-extrabold text-red-400 mb-1">❌ SKOR: ${score} — Belum Mencapai KKM (70)</p>
+      <p class="text-sm text-slate-300 mb-4">Benar ${correctCount} dari 5 soal. Perhatikan pembahasan lengkap di bawah ini untuk belajar dari kesalahanmu:</p>`;
+    
+    wrongDetails.forEach(item => {
+      html += `<div class="text-left bg-slate-900/80 rounded-xl p-4 my-3 text-sm border border-slate-700 shadow-inner space-y-2">
+        <p class="font-bold text-white text-base">Soal: ${item.q}</p>
+        <p class="text-teal-300 font-semibold">✔ Jawaban Benar: ${item.opts[item.correct].text}</p>
+        <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700 space-y-1">
+          <p class="text-xs font-bold uppercase tracking-wider text-amber-300">Langkah Pengerjaan Lengkap:</p>
+          <ul class="list-disc list-inside text-slate-200 space-y-1">${item.steps.map(s=>`<li>${s}</li>`).join('')}</ul>
+        </div>
+      </div>`;
+    });
+    
+    html += `<button id="retry-btn" class="btn mt-4 py-3 px-8 shadow-lg" style="background:var(--gold); color:var(--navy)">🔄 Coba Lagi dengan Soal Baru</button>`;
+    resultArea.innerHTML = html;
+    document.getElementById('retry-btn').addEventListener('click', pickNewSet);
+  }
+}
+
+pickNewSet();
+</script>
+</body>
+</html>
