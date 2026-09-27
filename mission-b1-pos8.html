@@ -13,19 +13,6 @@
             overflow-x: hidden;
         }
         .card-dark { background-color: #1e293b; border: 1px solid #334155; }
-        
-        /* Animasi Badge */
-        .badge-glow {
-            box-shadow: 0 0 50px rgba(168, 85, 247, 0.4), inset 0 0 30px rgba(236, 72, 153, 0.4);
-            transition: all 1s ease-in-out;
-        }
-        .badge-locked { filter: grayscale(100%) opacity(0.5); transform: scale(0.9); }
-        .badge-unlocked { filter: grayscale(0%) opacity(1); transform: scale(1.1); animation: float-badge 3s ease-in-out infinite; }
-        
-        @keyframes float-badge {
-            0%, 100% { transform: translateY(0) scale(1.1); }
-            50% { transform: translateY(-10px) scale(1.1); }
-        }
 
         /* Confetti Layer */
         #confettiLayer { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 60; }
@@ -36,6 +23,61 @@
         @keyframes confetti-fall {
             0% { transform: translateY(0) rotate(0deg); opacity: 1; }
             100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* ===================== BADGE MEDAL ===================== */
+        #theBadge { position: relative; width: 13rem; height: 13rem; margin: 0 auto; }
+
+        /* Medal warna redup & di-lock secara default */
+        #badgeSvg { position: relative; z-index: 10; width: 100%; height: 100%; filter: grayscale(100%) brightness(0.55); transition: filter 0.9s ease; }
+        #theBadge.badge-unlocked #badgeSvg { filter: drop-shadow(0 0 22px rgba(236,72,153,0.55)) drop-shadow(0 0 42px rgba(168,85,247,0.35)); }
+
+        /* Kunci gembok di atas medali, hilang saat terbuka */
+        #lockIcon { opacity: 1; transition: opacity 0.7s ease 0.1s; }
+        #theBadge.badge-unlocked #lockIcon { opacity: 0; }
+
+        /* Pita di belakang medali, hanya muncul setelah lencana diklaim */
+        #ribbonSvg { position: absolute; z-index: 0; bottom: -1.75rem; left: 50%; transform: translateX(-50%); width: 7rem; height: 5rem; opacity: 0; transition: opacity 0.7s ease 0.3s; }
+        #theBadge.badge-unlocked #ribbonSvg { opacity: 1; }
+
+        /* Ajakan tap saat masih terkunci */
+        #theBadge.badge-locked { animation: locked-pulse 2.2s ease-in-out infinite; cursor: pointer; }
+        @keyframes locked-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.045); }
+        }
+
+        /* Animasi saat lencana dibuka */
+        #theBadge.badge-unlocked { animation: badge-pop 0.7s cubic-bezier(0.34,1.56,0.64,1) both, badge-float 3s ease-in-out 0.8s infinite; }
+        @keyframes badge-pop {
+            0% { transform: scale(0.75) rotate(-10deg); }
+            55% { transform: scale(1.18) rotate(5deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        @keyframes badge-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Kilau yang menyapu permukaan medali */
+        #theBadge.badge-unlocked #shineSweep { animation: shine-sweep 1.6s ease-in-out 1s 2; }
+        @keyframes shine-sweep {
+            0% { transform: translateX(0) skewX(-20deg); opacity: 0; }
+            12% { opacity: 0.85; }
+            55% { opacity: 0.85; }
+            100% { transform: translateX(280px) skewX(-20deg); opacity: 0; }
+        }
+
+        /* Partikel bintang/kilau saat lencana diklaim */
+        #sparkleLayer { position: absolute; inset: 0; z-index: 30; pointer-events: none; }
+        .sparkle {
+            position: absolute; left: 50%; top: 50%; font-size: 1.4rem; opacity: 0;
+            pointer-events: none; animation: sparkle-pop 1.3s ease-out forwards;
+        }
+        @keyframes sparkle-pop {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+            25% { opacity: 1; }
+            100% { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.1); }
         }
 
         /* Log Row UI */
@@ -79,12 +121,61 @@
             </h2>
             <p class="text-slate-300 text-sm md:text-base">Misi B1 selesai! Saatnya mengklaim lencana kebanggaanmu.</p>
 
-            <!-- 3D Badge Element -->
+            <!-- Badge Medal -->
             <div class="py-8">
-                <div id="theBadge" class="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-purple-900 via-slate-800 to-pink-900 border-4 border-slate-600 flex flex-col items-center justify-center badge-locked relative cursor-pointer" onclick="claimBadge()">
-                    <!-- Core Icon -->
-                    <span class="text-6xl absolute z-10">✖️</span>
-                    <span class="text-3xl absolute z-20 mt-8 ml-8">🍫</span>
+                <div id="theBadge" class="badge-locked" onclick="claimBadge()">
+                    <!-- Lapisan partikel kilau (diisi JS saat diklaim) -->
+                    <div id="sparkleLayer"></div>
+
+                    <!-- Pita medali -->
+                    <svg id="ribbonSvg" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="30,0 60,0 47,72 18,56" fill="#a21caf"/>
+                        <polygon points="60,0 90,0 102,56 73,72" fill="#7e22ce"/>
+                    </svg>
+
+                    <!-- Medali utama -->
+                    <svg id="badgeSvg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="medalGrad" cx="35%" cy="30%" r="75%">
+                                <stop offset="0%" stop-color="#fef9c3"/>
+                                <stop offset="35%" stop-color="#fbbf24"/>
+                                <stop offset="75%" stop-color="#d97706"/>
+                                <stop offset="100%" stop-color="#92400e"/>
+                            </radialGradient>
+                            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#f472b6"/>
+                                <stop offset="50%" stop-color="#a855f7"/>
+                                <stop offset="100%" stop-color="#6366f1"/>
+                            </linearGradient>
+                            <clipPath id="medalClip"><circle cx="100" cy="100" r="78"/></clipPath>
+                        </defs>
+
+                        <!-- Cincin luar -->
+                        <circle cx="100" cy="100" r="94" fill="url(#ringGrad)"/>
+                        <circle cx="100" cy="100" r="94" fill="none" stroke="#ffffff" stroke-opacity="0.25" stroke-width="2"/>
+
+                        <!-- Piringan medali -->
+                        <circle cx="100" cy="100" r="78" fill="url(#medalGrad)" stroke="#fff7ed" stroke-width="3"/>
+
+                        <!-- Ikon "perkalian pecahan": simbol x di atas pecahan a/b -->
+                        <g fill="#7c2d12">
+                            <text x="100" y="88" text-anchor="middle" font-size="42" font-weight="900">×</text>
+                            <line x1="78" y1="112" x2="122" y2="112" stroke="#7c2d12" stroke-width="5" stroke-linecap="round"/>
+                            <text x="100" y="106" text-anchor="middle" font-size="22" font-weight="800">a</text>
+                            <text x="100" y="134" text-anchor="middle" font-size="22" font-weight="800">b</text>
+                        </g>
+
+                        <!-- Kilau yang menyapu -->
+                        <g clip-path="url(#medalClip)">
+                            <rect id="shineSweep" x="-40" y="0" width="34" height="200" fill="#ffffff" opacity="0" transform="skewX(-20)"/>
+                        </g>
+
+                        <!-- Overlay terkunci -->
+                        <g id="lockIcon">
+                            <circle cx="100" cy="100" r="94" fill="#020617" opacity="0.6"/>
+                            <text x="100" y="120" text-anchor="middle" font-size="54">🔒</text>
+                        </g>
+                    </svg>
                 </div>
             </div>
 
@@ -94,7 +185,7 @@
                     🌟 KLAIM BADGE 🌟
                 </button>
             </div>
-            
+
             <h3 id="badgeTitle" class="hidden text-2xl font-bold text-pink-400 mt-4 animate-fade-in-up">Fraction Multiplier Badge (Part 1)</h3>
         </section>
 
@@ -177,21 +268,47 @@
             }
         }
 
+        // ===================== EFEK KILAU BINTANG DI SEKITAR BADGE =====================
+        function sparkleBurst() {
+            const layer = document.getElementById('sparkleLayer');
+            if (!layer) return;
+            const emojis = ['✨', '⭐', '💫', '🌟'];
+            const count = 14;
+
+            for (let i = 0; i < count; i++) {
+                const s = document.createElement('span');
+                s.className = 'sparkle';
+                s.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+                const angle = (Math.PI * 2 * i) / count + Math.random() * 0.3;
+                const dist = 75 + Math.random() * 45;
+                s.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+                s.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+                s.style.animationDelay = (Math.random() * 0.3) + 's';
+
+                layer.appendChild(s);
+                setTimeout(() => s.remove(), 1800);
+            }
+        }
+
         // ===================== KLAIM BADGE =====================
         function claimBadge() {
             if (badgeClaimed) return;
             badgeClaimed = true;
 
-            // 1. Ubah Style Badge
+            // 1. Buka kunci medali (memicu semua animasi lewat CSS: glow, pop, float, shine, pita)
             const badge = document.getElementById('theBadge');
-            badge.classList.remove('badge-locked', 'border-slate-600', 'from-slate-800');
-            badge.classList.add('badge-unlocked', 'border-pink-400', 'badge-glow');
+            badge.classList.remove('badge-locked');
+            badge.classList.add('badge-unlocked');
 
             // 2. Hilangkan Tombol Klaim, Munculkan Judul
             document.getElementById('claimContainer').style.display = 'none';
             document.getElementById('badgeTitle').classList.remove('hidden');
 
-            // 3. Tembakkan Confetti Berkali-kali
+            // 3. Tembakkan kilau bintang & confetti berkali-kali
+            sparkleBurst();
+            setTimeout(sparkleBurst, 900);
+
             launchConfetti();
             setTimeout(launchConfetti, 1000);
             setTimeout(launchConfetti, 2500);
