@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 2: See - Mission B3 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --navy:#0d1b4c; --navy-card:#16214f; --teal:#14a89a; --gold:#f4b400; --green-dk:#0d766b; --ink:#f1f5f9; --line:#2a3868; }
+  body{ background-color:var(--navy); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card-dark{ background-color:var(--navy-card); border:1px solid var(--line); }
+  
+  /* PENGATURAN PECAHAN VERTIKAL ATAS-BAWAH */
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .25rem; font-weight:bold; line-height:1.1; }
+  .math-num{ border-bottom:2px solid currentColor; padding:0 .3rem; width:100%; text-align:center; }
+  .math-den{ padding:0 .3rem; width:100%; text-align:center; }
+
+  /* KOTAK KERTAS DENGAN BATAS JELAS SAAT INTERAKSI */
+  .paper{ 
+    background:#0a1338; 
+    border:3px solid var(--line); 
+    border-radius:12px; 
+    position:relative; 
+    height:150px; 
+    display:flex; 
+    overflow:hidden; 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+  }
+  .strip{ flex:1; border-right:2px dashed rgba(255,255,255,.25); transition: background-color .4s, opacity .4s; }
+  .strip:last-child{ border-right:none; }
+  .strip.on{ background:var(--teal); }
+  .strip.off{ opacity:.25; }
+  .strip.gold{ background:var(--gold); }
+  
+  .btn{ padding:.6rem 1.4rem; border-radius:9999px; font-weight:bold; color:#fff; transition:all .2s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+  .btn:hover:not(:disabled){ transform: translateY(-2px); }
+  .btn:disabled{ opacity:.35; cursor:not-allowed; transform: none; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card-dark border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+      <div><h1 class="text-lg font-bold" style="color:var(--gold)">VisualMath.Lim</h1><p class="text-[11px] text-slate-300">Mission B3 • Kelas 6</p></div>
+    </div>
+    <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(20,168,154,.15); border:1px solid var(--teal); color:var(--teal)">👀 Pos 2/8: See</span>
+  </div>
+  <div class="h-1.5 w-full" style="background:#0a1338"><div class="h-full" style="width:25%; background:linear-gradient(to right,var(--teal),var(--gold))"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border" style="border-color:var(--line); background:var(--navy-card)">👀 See (Explore)</div>
+    <h2 class="text-3xl font-extrabold">Lipat Kertas, Rasakan "Bagian dari Bagian"</h2>
+    <p class="max-w-md mx-auto text-sm text-slate-300">Tekan tombol untuk melipat kertas selangkah demi selangkah.</p>
+  </section>
+
+  <section class="card-dark rounded-2xl p-6 space-y-5 border-2 border-slate-700 shadow-xl">
+    <p class="text-center text-sm font-semibold text-slate-200 bg-slate-900/60 py-2 px-4 rounded-lg border border-slate-700" id="stage-label">Langkah 0: Kertas masih utuh (1 bagian penuh)</p>
+
+    <!-- Kertas dengan Batas Jelas -->
+    <div class="paper" id="paper" style="border-color: var(--teal);">
+      <div class="strip"></div>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-3 pt-2">
+      <button id="btn-half" class="btn" style="background:var(--teal)">Lipat jadi 
+        <span class="math-frac" style="margin:0 0 0 2px;"><span class="math-num" style="border-bottom-width:1px; padding:0 1px;">1</span><span class="math-den" style="padding:0 1px;">2</span></span>
+      </button>
+      <button id="btn-third" class="btn" style="background:var(--gold)" disabled>Lipat 
+        <span class="math-frac" style="margin:0 0 0 2px;"><span class="math-num" style="border-bottom-width:1px; padding:0 1px;">1</span><span class="math-den" style="padding:0 1px;">3</span></span> 
+        dari bagian itu
+      </button>
+      <button id="btn-reset" class="btn bg-slate-600 hover:bg-slate-500">↺ Ulangi</button>
+    </div>
+
+    <p class="text-center text-sm font-bold text-amber-300 min-h-[1.5rem]" id="result-text"></p>
+  </section>
+
+  <!-- KOTAK GRID REVEAL DENGAN BATAS TEGAS -->
+  <section class="card-dark rounded-2xl p-6 hidden border-2 border-amber-500/50 shadow-lg" id="grid-reveal">
+    <p class="text-sm text-slate-200 mb-4 text-center">Kalau kertas dibuka lagi jadi ukuran penuh, ini posisi bagian yang kamu ambil dibanding SELURUH kertas:</p>
+    
+    <div class="grid grid-cols-6 gap-2 max-w-xs mx-auto p-3 bg-slate-900/80 rounded-xl border-2 border-slate-700 shadow-inner" id="mini-grid"></div>
+    
+    <p class="text-center text-sm mt-4 text-slate-200">Bagian yang kamu ambil = 
+      <span id="final-frac" class="font-bold text-lg" style="color:var(--gold)">
+        <span class="math-frac"><span class="math-num">1</span><span class="math-den">6</span></span>
+      </span> 
+      dari seluruh kertas
+    </p>
+  </section>
+
+  <div class="flex justify-between items-center pt-2">
+    <a href="mission-b3-pos1-brief.html" class="text-slate-400 hover:text-white text-sm">⬅ Brief</a>
+    <a href="mission-b3-pos3-visualize.html" class="inline-block font-bold py-3 px-8 rounded-full text-white shadow-lg transition-transform hover:-translate-y-0.5" style="background:linear-gradient(to right,var(--teal),var(--green-dk))">Lanjut ke Visualize ➔</a>
+  </div>
+
+</main>
+
+<script>
+let stage = 0;
+const paper = document.getElementById('paper');
+const label = document.getElementById('stage-label');
+const btnHalf = document.getElementById('btn-half');
+const btnThird = document.getElementById('btn-third');
+const resultText = document.getElementById('result-text');
+const gridReveal = document.getElementById('grid-reveal');
+const miniGrid = document.getElementById('mini-grid');
+const finalFrac = document.getElementById('final-frac');
+
+function renderStage0(){
+  paper.innerHTML = '<div class="strip"></div>';
+  paper.style.borderColor = 'var(--line)';
+  label.textContent = 'Langkah 0: Kertas masih utuh (1 bagian penuh)';
+  resultText.textContent = '';
+  gridReveal.classList.add('hidden');
+  btnHalf.disabled = false;
+  btnThird.disabled = true;
+}
+
+function renderStage1(){
+  paper.innerHTML = '<div class="strip on"></div><div class="strip off"></div>';
+  paper.style.borderColor = 'var(--teal)';
+  label.textContent = 'Langkah 1: Dilipat jadi 1/2 — bagian teal yang kita ambil';
+  resultText.textContent = '';
+  btnHalf.disabled = true;
+  btnThird.disabled = false;
+}
+
+function renderStage2(){
+  paper.innerHTML = '<div class="strip gold"></div><div class="strip off"></div><div class="strip off"></div>';
+  paper.style.borderColor = 'var(--gold)';
+  label.textContent = 'Langkah 2: Dari bagian teal tadi, diambil 1/3-nya (kuning)';
+  
+  // Menggunakan pecahan vertikal pada teks hasil
+  resultText.innerHTML = 'Yang tersisa (kuning) = <span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span> dari <span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span> = <span class="math-frac"><span class="math-num">1</span><span class="math-den">6</span></span> dari kertas utuh';
+  
+  btnThird.disabled = true;
+
+  miniGrid.innerHTML = '';
+  for(let i=0;i<6;i++){
+    const cell = document.createElement('div');
+    cell.className = 'aspect-square rounded-md flex items-center justify-center font-bold text-xs';
+    cell.style.background = (i===0) ? 'var(--gold)' : '#0a1338';
+    cell.style.border = (i===0) ? '2px solid #fff' : '1px solid rgba(255,255,255,.2)';
+    cell.style.boxShadow = (i===0) ? '0 0 10px rgba(244,180,0,0.5)' : 'none';
+    cell.textContent = (i===0) ? '1' : '';
+    miniGrid.appendChild(cell);
+  }
+  
+  finalFrac.innerHTML = '<span class="math-frac"><span class="math-num">1</span><span class="math-den">6</span></span>';
+  gridReveal.classList.remove('hidden');
+}
+
+btnHalf.addEventListener('click', () => { stage=1; renderStage1(); });
+btnThird.addEventListener('click', () => { stage=2; renderStage2(); });
+document.getElementById('btn-reset').addEventListener('click', () => { stage=0; renderStage0(); });
+
+renderStage0();
+</script>
+</body>
+</html>
