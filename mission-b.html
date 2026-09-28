@@ -49,7 +49,7 @@
     <header class="card-dark shadow-lg border-b sticky top-0 z-50">
         <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <img src="assets/logo.png" alt="VisualMath Logo" class="h-10 w-auto">
+                <img src="assets/logo.png" alt="VisualMath Logo" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
                 <div class="hidden sm:block">
                     <h1 class="text-lg font-bold text-sky-400">VisualMath Academy</h1>
                 </div>
@@ -94,7 +94,7 @@
 
             <!-- Pesan Pixel -->
             <div class="bg-slate-900 rounded-xl p-5 flex flex-col sm:flex-row gap-6 items-center sm:items-start border border-slate-800 mb-6 shadow-lg shadow-purple-900/20">
-                <img src="assets/Pixel.png" alt="Pixel" class="w-20 h-20 object-contain bg-slate-800 rounded-full p-2 border-2 border-purple-500 shrink-0">
+                <img src="assets/Pixel.png" alt="Pixel" class="w-20 h-20 object-contain bg-slate-800 rounded-full p-2 border-2 border-purple-500 shrink-0" onerror="this.outerHTML='<div class=\'w-20 h-20 bg-slate-800 rounded-full border-2 border-purple-500 flex items-center justify-center font-bold text-purple-400 shrink-0\'>PX</div>'">
                 <div class="space-y-2">
                     <p class="text-purple-400 font-bold text-sm">🤖 Pixel berkata:</p>
                     <p class="text-slate-300 italic">
@@ -109,7 +109,7 @@
                     <ul class="list-disc list-inside space-y-2 text-sm text-slate-400">
                         <li>Memahami makna perkalian melalui model konkret & visual.</li>
                         <li>Menjelaskan perkalian sebagai kelompok berulang (<em class="text-slate-300">repeated groups</em>).</li>
-                        <li>Menggunakan Bar Model dan Area Model.</li>
+                        <li>Menggunakan Bar Model dan Area Model 4 Daerah.</li>
                         <li>Menyelesaikan operasi perkalian secara konseptual dan prosedural.</li>
                     </ul>
                 </div>
@@ -129,10 +129,12 @@
         <section class="space-y-8">
             <div class="text-center mb-8">
                 <h3 class="text-2xl font-bold text-white mb-2">📖 Roadmap Mission B</h3>
-                <p class="text-slate-400">Mission B terdiri atas tiga sub-misi utama. Inilah yang akan kamu hadapi:</p>
+                <p class="text-slate-400">Mission B terdiri atas empat sub-misi utama. Inilah yang akan kamu hadapi:</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-6">
+            <!-- Diubah ke grid-cols-2 agar 4 card terlihat rapi (2 baris x 2 kolom) -->
+            <div class="grid md:grid-cols-2 gap-6">
+                
                 <!-- B1 Card -->
                 <div class="bg-slate-900 border border-slate-700 rounded-xl p-5 hover:border-sky-500 transition-colors relative overflow-hidden flex flex-col justify-between">
                     <div>
@@ -171,6 +173,20 @@
                         Mulai B3 ➔
                     </a>
                 </div>
+
+                <!-- B4 Card (BARU) -->
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-5 hover:border-teal-500 transition-colors relative overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <div class="absolute top-0 right-0 w-2 h-full bg-teal-500"></div>
+                        <span class="bg-teal-500 text-white text-xs font-bold px-2 py-1 rounded">Mission B4</span>
+                        <h4 class="text-lg font-bold text-teal-400 mt-3 mb-2">Pecahan Campuran</h4>
+                        <p class="text-sm text-slate-300 mb-4">Mengalikan pecahan campuran dengan memecahnya menjadi 4 daerah (<em class="text-slate-200">Area Model</em>) dan cara bersusun.</p>
+                    </div>
+                    <a href="mission-b4-dashboard.html" class="block text-center bg-teal-600 hover:bg-teal-500 text-white font-bold py-2 px-4 rounded-lg text-sm transition-all">
+                        Mulai B4 ➔
+                    </a>
+                </div>
+
             </div>
 
             <div class="text-center pt-6">
