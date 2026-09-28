@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission C - Operasi Pembagian Pecahan | VisualMath.Lim</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root { --navy: #0d1b4c; --navy-card: #16214f; --teal: #14a89a; --gold: #f4b400; --green-dk: #0d766b; --ink: #f1f5f9; --line: #2a3868; }
+        body { background-color: var(--navy); color: var(--ink); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; overflow-x: hidden; }
+        .card-dark { background-color: var(--navy-card); border: 1px solid var(--line); }
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, var(--teal), var(--gold));
+        }
+        /* Ornamen matematika transparan di latar belakang */
+        .math-bg-symbol {
+            position: absolute;
+            opacity: 0.04;
+            font-weight: 900;
+            user-select: none;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col relative">
+
+    <!-- Ornamen Matematika Latar Belakang -->
+    <div class="math-bg-symbol text-9xl top-20 left-10">÷</div>
+    <div class="math-bg-symbol text-8xl top-96 right-12">½</div>
+    <div class="math-bg-symbol text-7xl bottom-32 left-1/4">×</div>
+
+    <!-- Header / Navbar -->
+    <header class="card-dark shadow-lg border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="VisualMath Logo" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+                <div class="hidden sm:block">
+                    <h1 class="text-lg font-bold" style="color:var(--gold)">VisualMath.Lim</h1>
+                </div>
+            </div>
+            <div class="flex gap-4 items-center">
+                <a href="index.html" class="text-sm font-semibold text-slate-300 hover:text-white transition-colors flex items-center gap-1">🏠 Home</a>
+                <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(20,168,154,.15); border:1px solid var(--teal); color:var(--teal)">
+                    🟢 Sesi Aktif: Mission C
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-12 relative z-10">
+        
+        <!-- Judul Misi -->
+        <section class="text-center space-y-3">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border shadow-sm" style="border-color:var(--line); background:var(--navy-card)">
+                🏅 Fraction Divider Badge
+            </div>
+            <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight">
+                MISSION C <br> 
+                <span class="text-gradient">Operasi Pembagian Pecahan</span>
+            </h2>
+        </section>
+
+        <!-- Mission Brief -->
+        <section class="card-dark rounded-2xl p-6 md:p-8 relative overflow-hidden shadow-xl" style="border-color: var(--teal);">
+            <div class="absolute top-0 right-0 w-40 h-40 bg-teal-500/10 rounded-bl-full pointer-events-none"></div>
+            
+            <div class="flex items-center gap-2 mb-6">
+                <span class="text-2xl">🎯</span>
+                <h3 class="text-xl font-bold text-white tracking-wide">MISSION BRIEF</h3>
+            </div>
+
+            <!-- Big Idea -->
+            <div class="p-4 rounded-xl mb-6 border-l-4 shadow-inner" style="background: rgba(20,168,154,0.08); border-color: var(--teal);">
+                <p class="font-bold mb-1 text-sm uppercase tracking-wider" style="color: var(--teal);">💡 Big Idea (Konsep Utama)</p>
+                <p class="text-slate-200 text-lg leading-relaxed">
+                    Pembagian pecahan bukan sekadar dibalik lalu dikalikan! Pembagian berarti mencari <strong>berapa banyak kelompok</strong> yang muat di dalam suatu wadah (<em class="text-amber-300">Measurement / Grouping</em>) atau <strong>berbagi rata</strong> suatu kuantitas (<em class="text-amber-300">Sharing</em>).
+                </p>
+            </div>
+
+            <!-- Pesan Pixel / Karakter -->
+            <div class="bg-slate-900 rounded-xl p-5 flex flex-col sm:flex-row gap-6 items-center sm:items-start border border-slate-800 mb-6 shadow-md">
+                <img src="assets/Pixel.png" alt="Pixel" class="w-20 h-20 object-contain bg-slate-800 rounded-full p-2 border-2 shrink-0" style="border-color:var(--teal);" onerror="this.outerHTML='<div class=\'w-20 h-20 bg-slate-800 rounded-full border-2 border-teal-400 flex items-center justify-center font-bold text-teal-400 shrink-0\'>PX</div>'">
+                <div class="space-y-2">
+                    <p class="font-bold text-sm" style="color:var(--teal);">🤖 Pixel berkata:</p>
+                    <p class="text-slate-300 italic leading-relaxed">
+                        "Halo Agen! Di Mission C ini, kita akan memecahkan teka-teki yang sering mengejutkan: <em>Mengapa membagi suatu bilangan justru bisa menghasilkan angka yang lebih besar?</em> Gunakan logika berpikir visual ala Singapore Math sebelum kita menguasai rumus cepatnya!"
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mt-6">
+                <div class="space-y-3">
+                    <p class="font-bold text-slate-200 border-b border-slate-700 pb-2 flex items-center gap-2">✅ Learning Goals</p>
+                    <ul class="list-disc list-inside space-y-2 text-sm text-slate-300">
+                        <li>Memahami makna konseptual pembagian pecahan dengan benda konkret & gambar.</li>
+                        <li>Membedakan konsep <em class="text-teal-300">Sharing</em> (berbagi) dan <em class="text-teal-300">Grouping</em> (pengelompokan).</li>
+                        <li>Menguasai teknik menyamakan penyebut dan aturan <em>Keep-Change-Flip</em>.</li>
+                        <li>Menyelesaikan soal cerita HOTS pembagian pecahan campuran.</li>
+                    </ul>
+                </div>
+                <div class="space-y-4">
+                    <p class="font-bold text-slate-200 border-b border-slate-700 pb-2 flex items-center gap-2">📚 Vocabulary & Tools</p>
+                    <table class="w-full text-sm text-left text-slate-300">
+                        <tr class="border-b border-slate-700"><th class="py-1 text-slate-400">English</th><th class="py-1 text-slate-400">Indonesia</th></tr>
+                        <tr class="border-b border-slate-800"><td class="py-1">Dividend / Divisor</td><td class="py-1 font-semibold" style="color:var(--gold);">Yang Dibagi / Pembagi</td></tr>
+                        <tr class="border-b border-slate-800"><td class="py-1">Quotient</td><td class="py-1 font-semibold" style="color:var(--gold);">Hasil Bagi</td></tr>
+                        <tr><td class="py-1">Reciprocal (Flip)</td><td class="py-1 font-semibold" style="color:var(--gold);">Kebalikan Pecahan</td></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- MISSION SERIES ROADMAP C (4 Sub-Misi) -->
+        <section class="space-y-8">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl font-bold text-white mb-2">🗺️ Roadmap Mission C (4 Pos Utama)</h3>
+                <p class="text-slate-400 text-sm">Selesaikan urutan sub-misi ini satu per satu untuk menjadi Master Pembagian:</p>
+            </div>
+
+            <!-- Grid 2x2 untuk 4 sub-misi C1 s.d. C4 -->
+            <div class="grid md:grid-cols-2 gap-6">
+                
+                <!-- C1 Card -->
+                <div class="card-dark rounded-xl p-6 hover:border-sky-400 transition-all relative overflow-hidden flex flex-col justify-between shadow-lg">
+                    <div>
+                        <div class="absolute top-0 right-0 w-2 h-full bg-sky-500"></div>
+                        <span class="bg-sky-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">Mission C1</span>
+                        <h4 class="text-lg font-bold text-sky-400 mt-3 mb-2">Pecahan ÷ Bilangan Asli</h4>
+                        <p class="text-sm text-slate-300 mb-4">Memahami konsep berbagi rata (<em class="text-slate-200">Sharing</em>), misalnya <span class="text-amber-300">½ ÷ 3</span>.</p>
+                    </div>
+                    <a href="mission-c1-dashboard.html" class="block text-center bg-sky-600 hover:bg-sky-500 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-all shadow-md">
+                        Mulai C1 ➔
+                    </a>
+                </div>
+
+                <!-- C2 Card -->
+                <div class="card-dark rounded-xl p-6 hover:border-blue-400 transition-all relative overflow-hidden flex flex-col justify-between shadow-lg">
+                    <div>
+                        <div class="absolute top-0 right-0 w-2 h-full bg-blue-500"></div>
+                        <span class="bg-blue-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">Mission C2</span>
+                        <h4 class="text-lg font-bold text-blue-400 mt-3 mb-2">Bilangan Asli ÷ Pecahan</h4>
+                        <p class="text-sm text-slate-300 mb-4">Mencari berapa banyak potongan pecahan dalam satu wadah (<em class="text-slate-200">Grouping</em>), misalnya <span class="text-amber-300">3 ÷ ½</span>.</p>
+                    </div>
+                    <a href="mission-c2-dashboard.html" class="block text-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-all shadow-md">
+                        Mulai C2 ➔
+                    </a>
+                </div>
+
+                <!-- C3 Card -->
+                <div class="card-dark rounded-xl p-6 hover:border-purple-400 transition-all relative overflow-hidden flex flex-col justify-between shadow-lg">
+                    <div>
+                        <div class="absolute top-0 right-0 w-2 h-full bg-purple-500"></div>
+                        <span class="bg-purple-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">Mission C3</span>
+                        <h4 class="text-lg font-bold text-purple-400 mt-3 mb-2">Pecahan ÷ Pecahan</h4>
+                        <p class="text-sm text-slate-300 mb-4">Menyamakan penyebut dan menerapkan teknik kebalikan, misalnya <span class="text-amber-300">¾ ÷ ⅛</span>.</p>
+                    </div>
+                    <a href="mission-c3-dashboard.html" class="block text-center bg-purple-600 hover:bg-purple-500 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-all shadow-md">
+                        Mulai C3 ➔
+                    </a>
+                </div>
+
+                <!-- C4 Card -->
+                <div class="card-dark rounded-xl p-6 hover:border-teal-400 transition-all relative overflow-hidden flex flex-col justify-between shadow-lg">
+                    <div>
+                        <div class="absolute top-0 right-0 w-2 h-full bg-teal-500" style="background:var(--teal)"></div>
+                        <span class="text-white text-xs font-bold px-2.5 py-1 rounded-full" style="background:var(--teal)">Mission C4</span>
+                        <h4 class="text-lg font-bold mt-3 mb-2" style="color:var(--teal)">Pecahan ÷ Pecahan Campuran</h4>
+                        <p class="text-sm text-slate-300 mb-4">Tantangan puncak Boss Battle: mengubah campuran ke pecahan biasa sebelum membagi.</p>
+                    </div>
+                    <a href="mission-c4-dashboard.html" class="block text-center font-bold py-2.5 px-4 rounded-xl text-sm transition-all shadow-md" style="background:var(--teal); color:#fff;">
+                        Mulai C4 ➔
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="text-center pt-8">
+                <a href="mission-c1-dashboard.html" class="inline-block font-bold py-4 px-10 rounded-full shadow-lg transition-all hover:-translate-y-1 text-lg" style="background: linear-gradient(to right, var(--teal), var(--green-dk)); color: #fff;">
+                    🚀 Siap? Mulai Misi Pertama (C1) Sekarang ➔
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="card-dark border-t text-center py-6 mt-auto">
+        <p class="text-slate-400 text-sm">© 2026 VisualMath.Lim Academy. Matematika Lebih Mudah, Lebih Seru, Lebih Bermakna!</p>
+    </footer>
+
+</body>
+</html>
