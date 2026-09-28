@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pos 1: Real-World Hook | Mission C1</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky:#0EA5E9; --sky-d:#0369A1; --sky-dd:#0C4A6E; --sky-l:#E0F2FE; --bg:#F0F9FF; --card:#fff;
+  --ink:#0F2A3D; --muted:#4B6A80; --ok:#10B981; --hint:#F59E0B; --bad:#F43F5E; --line:#BAE6FD;
+  --r:18px; --f-head:'Baloo 2','Nunito',system-ui,sans-serif; --f-body:'Nunito',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+body{font-family:var(--f-body);color:var(--ink);background:var(--bg);font-size:18px;line-height:1.6; padding-bottom: 60px;}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;font-size:inherit;cursor:pointer;border:none;background:none}
+
+/* Fraksi vertikal */
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.1;font-weight:800;margin:0 .15em; font-size:1.1em;}
+.frac>span:first-child{border-bottom:.09em solid currentColor;padding:0 .2em .05em}
+.frac>span:last-child{padding-top:.05em}
+.math{font-family:var(--f-head);font-weight:800;font-size:1.25em;white-space:nowrap}
+
+/* Header */
+header{background:#fff;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:5}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;max-width:800px;margin:0 auto}
+.back-btn{display:flex;align-items:center;gap:6px;font-weight:700;color:var(--sky-d);transition:color .2s}
+.back-btn:hover{color:var(--sky-dd)}
+.pos-badge{background:var(--sky-l);color:var(--sky-d);font-weight:800;padding:4px 12px;border-radius:99px;font-size:.9rem}
+
+/* Layout */
+.wrap{max-width:800px;margin:0 auto;padding:30px 20px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:26px;margin-bottom:24px;box-shadow:0 4px 12px rgba(14,165,233,0.05)}
+h2{font-family:var(--f-head);font-size:1.8rem;color:var(--sky-dd);margin-bottom:12px;line-height:1.2}
+
+/* Dialog & Story */
+.story-box{display:flex;gap:20px;align-items:flex-start}
+.avatar{width:80px;height:80px;border-radius:50%;background:var(--sky-l);border:3px solid var(--line);object-fit:contain;flex-shrink:0;padding:4px}
+.bubble{background:var(--bg);border:2px solid var(--line);border-radius:var(--r);border-top-left-radius:0;padding:16px;flex:1}
+
+/* CSS Pizza Half */
+.pizza-container{display:flex;justify-content:center;margin:30px 0}
+.pizza{width:160px;height:160px;border-radius:50%;background:conic-gradient(var(--hint) 0% 50%, var(--sky-l) 50% 100%);border:4px solid var(--sky-d);position:relative;box-shadow:0 8px 16px rgba(0,0,0,0.1)}
+.pizza::after{content:'';position:absolute;top:-4px;bottom:-4px;left:50%;width:4px;background:var(--sky-d);transform:translateX(-50%)}
+
+/* Interaction */
+.options{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+.opt-btn{background:#fff;border:2px solid var(--line);border-radius:12px;padding:16px;font-weight:700;color:var(--ink);transition:all .2s;text-align:center;box-shadow:0 4px 0 var(--sky-l)}
+.opt-btn:hover{border-color:var(--sky);transform:translateY(-2px);box-shadow:0 6px 0 var(--line)}
+.opt-btn.correct{border-color:var(--ok);background:#ECFDF5;color:#065F46;box-shadow:0 4px 0 var(--ok)}
+.opt-btn.wrong{border-color:var(--bad);background:#FFF1F2;color:#9F1239;box-shadow:0 4px 0 var(--bad)}
+
+.feedback{display:none;margin-top:20px;padding:16px;border-radius:12px;font-weight:700;animation:fadeIn 0.3s ease-out}
+.feedback.show{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* Next Button */
+.next-wrap{text-align:center;margin-top:40px;display:none}
+.next-wrap.show{display:block}
+.btn-next{display:inline-block;background:var(--sky-d);color:#fff;font-family:var(--f-head);font-weight:800;font-size:1.2rem;padding:14px 36px;border-radius:99px;box-shadow:0 6px 0 var(--sky-dd);transition:transform .15s, box-shadow .15s}
+.btn-next:hover{transform:translateY(-2px);box-shadow:0 8px 0 var(--sky-dd)}
+.btn-next:active{transform:translateY(4px);box-shadow:0 2px 0 var(--sky-dd)}
+
+@media(max-width:600px){
+  .story-box{flex-direction:column;align-items:center;text-align:center}
+  .bubble{border-radius:var(--r);border-top-left-radius:var(--r)}
+  .options{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <a href="mission-c1.html" class="back-btn">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Kembali ke Peta
+    </a>
+    <div class="pos-badge">Pos 1 / 8</div>
+  </div>
+</header>
+
+<main class="wrap">
+  
+  <section class="card">
+    <h2>Pesta Pizza yang Tertunda</h2>
+    <div class="story-box">
+      <img src="assets/Kian.png" alt="Kian" class="avatar" onerror="this.outerHTML='<div class=\'avatar\' style=\'display:grid;place-items:center;font-weight:bold;color:var(--sky-d)\'>Kian</div>'">
+      <div class="bubble">
+        <p>Sore ini sepulang sekolah, Kian membuka kulkas dan melihat loyang pizza sisa semalam.</p>
+        <p style="margin-top:10px;">"Wah, masih ada <b><span class="frac"><span>1</span><span>2</span></span> loyang pizza!</b> Pas sekali untuk ganjal perut," pikir Kian.</p>
+      </div>
+    </div>
+    
+    <div class="pizza-container" aria-label="Gambar setengah pizza">
+      <div class="pizza"></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="story-box" style="flex-direction:row-reverse">
+      <img src="assets/Luna.png" alt="Luna" class="avatar" onerror="this.outerHTML='<div class=\'avatar\' style=\'display:grid;place-items:center;font-weight:bold;color:var(--sky-d)\'>Luna</div>'">
+      <div class="bubble" style="border-radius:var(--r);border-top-right-radius:0;">
+        <p>Tiba-tiba, <i>ding-dong!</i> Luna dan Pixel datang untuk belajar kelompok bersama.</p>
+        <p style="margin-top:10px;">Kian yang baik hati memutuskan untuk membagikan sisa pizza tersebut. Agar adil, pizza yang setengah itu harus dibagi sama rata untuk mereka bertiga <b>(Kian, Luna, dan Pixel)</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" style="border-color:var(--hint); background:#FFFBEB;">
+    <h2 style="color:#B45309">Uji Logikamu!</h2>
+    <p>Sebelum kita menghitung dengan rumus, mari gunakan logikamu. Jika <span class="frac"><span>1</span><span>2</span></span> loyang pizza dibagi untuk <b>3 orang</b> (<span class="math"><span class="frac"><span>1</span><span>2</span></span> ÷ 3</span>), bagaimana ukuran pizza yang akan didapatkan masing-masing anak?</p>
+    
+    <div class="options">
+      <button class="opt-btn" onclick="checkAnswer(false, this)">
+        🍕 Potongannya menjadi LEBIH BESAR dari <span class="frac" style="font-size:0.9em"><span>1</span><span>2</span></span>
+      </button>
+      <button class="opt-btn" onclick="checkAnswer(true, this)">
+        🍕 Potongannya menjadi LEBIH KECIL dari <span class="frac" style="font-size:0.9em"><span>1</span><span>2</span></span>
+      </button>
+    </div>
+
+    <div id="feedback" class="feedback"></div>
+  </section>
+
+  <div id="nextBtn" class="next-wrap">
+    <a href="mission-c1-pos2-concrete.html" class="btn-next" onclick="markDone()">Lanjut ke Pos 2 ➔</a>
+  </div>
+
+</main>
+
+<script>
+function checkAnswer(isCorrect, btnElement) {
+  // Reset buttons
+  const buttons = document.querySelectorAll('.opt-btn');
+  buttons.forEach(btn => {
+    btn.classList.remove('correct', 'wrong');
+    btn.style.pointerEvents = 'none'; // disable after clicking
+  });
+
+  const feedback = document.getElementById('feedback');
+  
+  if (isCorrect) {
+    btnElement.classList.add('correct');
+    feedback.className = 'feedback show correct';
+    feedback.style.background = '#D1FAE5';
+    feedback.style.color = '#065F46';
+    feedback.style.border = '2px solid #10B981';
+    feedback.innerHTML = `✅ <b>Tepat sekali!</b><br> Karena pizza yang tinggal <span class="frac" style="font-size:0.9em"><span>1</span><span>2</span></span> itu harus dibagi-bagi lagi, potongannya pasti makin kecil. Tapi, seberapa kecil ukurannya? Mari kita potong pizzanya bersama di Pos 2!`;
+    
+    // Tampilkan tombol lanjut
+    document.getElementById('nextBtn').classList.add('show');
+    
+    // Scroll ke tombol lanjut
+    setTimeout(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }, 200);
+
+  } else {
+    btnElement.classList.add('wrong');
+    feedback.className = 'feedback show wrong';
+    feedback.style.background = '#FFE4E6';
+    feedback.style.color = '#9F1239';
+    feedback.style.border = '2px solid #F43F5E';
+    feedback.innerHTML = `❌ <b>Tunggu dulu...</b><br> Kalau kuenya cuma setengah dan dibagi ke banyak orang, apakah mungkin potongannya membesar? Coba pikirkan lagi!`;
+    
+    // Allow trying again
+    setTimeout(() => {
+      buttons.forEach(btn => {
+        btn.style.pointerEvents = 'auto';
+        btn.classList.remove('wrong');
+      });
+      feedback.classList.remove('show');
+    }, 2500);
+  }
+}
+
+// Menandai Pos 1 Selesai di LocalStorage
+function markDone() {
+  try {
+    localStorage.setItem("vml_c1_done_1", "1");
+  } catch(e) {}
+}
+</script>
+</body>
+</html>
