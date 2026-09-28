@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 7: Boss Battle HOTS - Mission B4 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --navy:#0d1b4c; --navy-card:#16214f; --teal:#14a89a; --gold:#f4b400; --green-dk:#0d766b; --ink:#f1f5f9; --line:#2a3868; --sky:#3b5bb5; }
+  body{ background-color:var(--navy); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card-dark{ background-color:var(--navy-card); border:1px solid var(--line); }
+  .boss{ background:linear-gradient(135deg,#241548,#2c1a5c); border:1px solid #4c2f8c; }
+  
+  /* PENGATURAN PECAHAN VERTIKAL HTML */
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .2rem; font-weight:bold; line-height:1.1; font-size:.9em; }
+  .math-num{ border-bottom:2px solid currentColor; padding:0 .25rem; width:100%; text-align:center; }
+  .math-den{ padding:0 .25rem; width:100%; text-align:center; }
+  .math-mixed{ display:inline-flex; align-items:center; vertical-align:middle; font-weight:bold; }
+  
+  /* INPUT CAMPURAN VERTIKAL */
+  .mixed-input { display:inline-flex; align-items:center; vertical-align:middle; gap:0.2rem; }
+  .mixed-input input.w { width:2.8rem; text-align:center; background:#0a1338; color:var(--teal); font-weight:bold; padding:0.4rem 0.2rem; font-size:1rem; border:1px solid #475569; border-radius:.3rem; outline:none; transition: border-color 0.2s; }
+  .mixed-input input.w:focus { border-color: var(--gold); }
+  
+  .frac-input { display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; width:2.2rem; margin:0 .25rem; }
+  .frac-input input { width:100%; text-align:center; background:#0a1338; color:var(--teal); font-weight:bold; padding:0.15rem; font-size:.9rem; border:1px solid #475569; outline:none; transition: border-color 0.2s; }
+  .frac-input input:focus { border-color: var(--gold); }
+  .frac-input input.n { border-bottom: 2px solid var(--ink); border-radius:.3rem .3rem 0 0; }
+  .frac-input input.d { border-top: none; border-radius:0 0 .3rem .3rem; }
+  
+  .btn{ padding:.6rem 1.3rem; border-radius:9999px; font-weight:bold; color:#fff; cursor:pointer; transition: transform 0.2s; }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; transform:none; }
+  
+  ol.steps{ list-style:decimal; padding-left:1.3rem; } 
+  ol.steps li{ margin:.6rem 0; line-height: 1.5; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card-dark border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+      <div><h1 class="text-lg font-bold" style="color:var(--gold)">VisualMath.Lim</h1><p class="text-[11px] text-slate-300">Mission B4 • Kelas 6</p></div>
+    </div>
+    <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(20,168,154,.15); border:1px solid var(--teal); color:var(--teal)">👾 Pos 7/8: Boss Battle</span>
+  </div>
+  <div class="h-1.5 w-full" style="background:#0a1338"><div class="h-full" style="width:87.5%; background:linear-gradient(to right,var(--teal),var(--gold))"></div></div>
+</header>
+
+<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-6">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border" style="border-color:var(--line); background:var(--navy-card)">👾 Boss Battle</div>
+    <h2 class="text-3xl font-extrabold">Soal HOTS Berlapis</h2>
+    <p class="text-sm text-slate-300">KKM 70 • Dikerjakan bertahap • Hasil dan pembahasan selalu tersimpan</p>
+  </section>
+
+  <div id="hots-area"></div>
+  <div id="result-area" class="hidden space-y-6"></div>
+
+  <div class="flex justify-between items-center pt-2">
+    <a href="mission-b4-pos6-quiz.html" class="text-slate-400 hover:text-white text-sm">⬅ Quest</a>
+    <a id="nav-next" href="mission-b4-pos8-log.html" class="hidden inline-block font-bold py-3 px-8 rounded-full text-white shadow-lg transition-transform hover:-translate-y-0.5" style="background:linear-gradient(to right,var(--teal),var(--green-dk))">Lanjut ke Mission Log ➔</a>
+  </div>
+
+</main>
+
+<script>
+try{ const p=+localStorage.getItem('vm_b4_progress')||0; if(p<7) localStorage.setItem('vm_b4_progress',7); }catch(e){}
+
+function gcd(a,b){return b===0?a:gcd(b,a%b);}
+function red(n,d){const g=gcd(n,d);return [n/g,d/g];}
+function sub(x,y){return red(x[0]*y[1]-y[0]*x[1], x[1]*y[1]);}
+
+// Format Matematika HTML
+function fr(n,d){return `<span class="math-frac"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`;}
+function fracHTML(n,d){[n,d]=red(n,d);return d===1?`${n}`:fr(n,d);}
+function mixedHTML(n,d){
+  [n,d]=red(n,d);
+  const w=Math.floor(n/d),r=n%d;
+  if(r===0) return `${w}`;
+  return (w>0 ? `<span class="math-mixed">${w}${fr(r,d)}</span>` : fr(r,d));
+}
+function mixedPlain(n,d){[n,d]=red(n,d);const w=Math.floor(n/d),r=n%d;return r===0?`${w}`:(w>0?`${w} `:'')+`${r}/${d}`;}
+function mix(w,n,d){return `<span class="math-mixed">${w}${fr(n,d)}</span>`;}
+function eq(a,b){return a&&b&&a[1]!==0&&a[0]*b[1]===b[0]*a[1];}
+
+function getMixedInput(id) {
+  const w = document.getElementById(id+'_w').value.trim();
+  const n = document.getElementById(id+'_n').value.trim();
+  const d = document.getElementById(id+'_d').value.trim();
+  if(w && !n && !d) return [parseInt(w), 1];
+  if(!w && n && d) return [parseInt(n), parseInt(d)];
+  if(w && n && d) return [parseInt(w)*parseInt(d)+parseInt(n), parseInt(d)];
+  return null;
+}
+
+function calc(p){
+  const N1=p.w1*p.d1+p.n1, N2=p.w2*p.d2+p.n2;
+  return {N1,N2,tn:N1*N2,td:p.d1*p.d2};
+}
+
+function areaSteps(label,p){
+  const c=calc(p), g1=gcd(c.N1,p.d2), g2=gcd(c.N2,p.d1);
+  let s=`<b>${label}</b> = ${mix(p.w1,p.n1,p.d1)} × ${mix(p.w2,p.n2,p.d2)} = ${fr(c.N1,p.d1)} × ${fr(c.N2,p.d2)} = ${fr(c.tn,c.td)} = <b class="text-gold" style="color:var(--gold)">${mixedHTML(c.tn,c.td)}</b> m²`;
+  
+  if(g1>1||g2>1){ 
+    const r=[(c.N1/g1)*(c.N2/g2),(p.d1/g2)*(p.d2/g1)]; 
+    const cell=(v,g)=>g>1?`<s style="color:#ef4444">${v}</s><span class="text-[10px] absolute -mt-3 ml-1" style="color:var(--gold)">${v/g}</span>`:`${v}`;
+    const fc=(n,d)=>`<span class="math-frac relative"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`;
+    s+=`<div class="bg-slate-900/40 p-2 mt-2 rounded border border-slate-700 inline-block"><span class="text-xs font-semibold text-green-400">Atau Coret Silang:</span> <span class="text-sm">${fc(cell(c.N1,g1),cell(p.d1,g2))} × ${fc(cell(c.N2,g2),cell(p.d2,g1))} = ${mixedHTML(r[0],r[1])}</span></div>`; 
+  }
+  return s;
+}
+
+const HOTS=[
+  {name:'Kebun dan Kolam', outerName:'Seluruh Kebun', innerName:'Kolam', resName:'Lahan Sayur',
+   text:(o,i)=>`Kebun Pak Budi berbentuk persegi panjang berukuran ${mix(o.w1,o.n1,o.d1)} m × ${mix(o.w2,o.n2,o.d2)} m. Di dalam kebun tersebut dibuat kolam persegi panjang berukuran ${mix(i.w1,i.n1,i.d1)} m × ${mix(i.w2,i.n2,i.d2)} m. Sisa kebun ditanami sayur. Berapa m² luas kebun yang ditanami sayur?`,
+   outer:{w1:4,n1:1,d1:2,w2:2,n2:2,d2:3}, inner:{w1:1,n1:1,d1:2,w2:1,n2:1,d2:3}},
+   
+  {name:'Dinding dan Jendela', outerName:'Seluruh Dinding', innerName:'Jendela', resName:'Dinding Yang Dicat',
+   text:(o,i)=>`Dinding kamar berukuran ${mix(o.w1,o.n1,o.d1)} m × ${mix(o.w2,o.n2,o.d2)} m akan dicat. Di dinding itu ada jendela berukuran ${mix(i.w1,i.n1,i.d1)} m × ${mix(i.w2,i.n2,i.d2)} m yang tentu saja tidak ikut dicat. Berapa m² luas permukaan dinding yang dicat?`,
+   outer:{w1:3,n1:1,d1:2,w2:2,n2:2,d2:3}, inner:{w1:1,n1:1,d1:2,w2:1,n2:1,d2:3}}
+];
+
+const PTS=[30,30,40];
+const LOG_KEY='vm_b4_pos7';
+function getLog(){ try{ return JSON.parse(localStorage.getItem(LOG_KEY))||{attempts:[],bestScore:0,lastScore:0,passed:false}; }catch(e){ return {attempts:[],bestScore:0,lastScore:0,passed:false}; } }
+function saveLog(l){ try{ localStorage.setItem(LOG_KEY,JSON.stringify(l)); }catch(e){} }
+
+const area=document.getElementById('hots-area'), resultArea=document.getElementById('result-area'), navNext=document.getElementById('nav-next');
+
+function diagram(o,i,label){
+  const S=38, W=(o.w1+o.n1/o.d1)*S, H=(o.w2+o.n2/o.d2)*S, iw=(i.w1+i.n1/i.d1)*S, ih=(i.w2+i.n2/i.d2)*S;
+  return `<svg viewBox="0 0 ${W+8} ${H+8}" class="w-56 mx-auto drop-shadow-md"><rect x="4" y="4" width="${W}" height="${H}" fill="var(--teal)" opacity=".85" stroke="#fff" stroke-opacity=".5" rx="3"/><rect x="4" y="4" width="${iw}" height="${ih}" fill="var(--gold)" stroke="#fff" rx="2"/><text x="${4+iw/2}" y="${4+ih/2+4}" text-anchor="middle" font-size="11" font-weight="bold" fill="#0d1b4c">${label}</text></svg>`;
+}
+
+function pick(){
+  const n=getLog().attempts.length, q=HOTS[n%HOTS.length];
+  render(q);
+}
+
+function inputField(id) {
+  return `
+    <span class="mixed-input">
+      <input id="${id}_w" class="w" placeholder="Utuh">
+      <span class="frac-input">
+        <input type="text" id="${id}_n" class="n" placeholder="Atas">
+        <input type="text" id="${id}_d" class="d" placeholder="Bawah">
+      </span>
+    </span> m²
+  `;
+}
+
+function render(q){
+  resultArea.classList.add('hidden'); resultArea.innerHTML=''; navNext.classList.add('hidden'); area.classList.remove('hidden');
+  area.innerHTML=`
+  <div class="boss rounded-2xl p-6 space-y-5 shadow-xl border-2 border-purple-800">
+    <div class="flex items-center justify-between border-b border-purple-700 pb-2">
+      <p class="text-sm font-bold uppercase tracking-wide text-amber-300">⚔️ Case: ${q.name}</p>
+    </div>
+    
+    <p class="text-sm text-slate-100 leading-relaxed font-medium bg-purple-900/30 p-3 rounded-lg">${q.text(q.outer,q.inner)}</p>
+    
+    <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-700">
+      ${diagram(q.outer,q.inner,q.innerName)}
+      <p class="text-xs text-slate-400 text-center mt-3 font-semibold">Area Kuning = ${q.innerName}; Area Teal = Sisanya. Diagram sekedar ilustrasi visual.</p>
+    </div>
+    
+    <div class="space-y-3">
+      <div class="bg-slate-900/60 rounded-xl p-4 text-sm flex items-center justify-between flex-wrap gap-2 border border-slate-700">
+        <label class="font-semibold text-slate-200">1) Luas ${q.outerName} = </label>
+        ${inputField('a1')}
+      </div>
+      <div class="bg-slate-900/60 rounded-xl p-4 text-sm flex items-center justify-between flex-wrap gap-2 border border-slate-700">
+        <label class="font-semibold text-slate-200">2) Luas ${q.innerName} = </label>
+        ${inputField('a2')}
+      </div>
+      <div class="bg-slate-900/60 rounded-xl p-4 text-sm flex items-center justify-between flex-wrap gap-2 border border-amber-600 shadow-inner">
+        <label class="font-bold text-amber-400">3) Luas ${q.resName} = </label>
+        ${inputField('a3')}
+      </div>
+    </div>
+    
+    <button id="sub" class="btn w-full py-3 text-lg shadow-lg" style="background:var(--teal)">Kumpulkan Analisa Akhir ➔</button>
+  </div>`;
+  
+  document.getElementById('sub').addEventListener('click',()=>grade(q));
+}
+
+function getValStr(id) {
+  const w = document.getElementById(id+'_w').value;
+  const n = document.getElementById(id+'_n').value;
+  const d = document.getElementById(id+'_d').value;
+  if(w && !n) return w;
+  if(!w && n && d) return `${n}/${d}`;
+  if(w && n && d) return `${w} ${n}/${d}`;
+  return "(kosong)";
+}
+
+function grade(q){
+  const co=calc(q.outer), ci=calc(q.inner);
+  const vo=red(co.tn,co.td), vi=red(ci.tn,ci.td), vr=sub(vo,vi);
+  const exp=[vo,vi,vr];
+  const gotArr=[getMixedInput('a1'), getMixedInput('a2'), getMixedInput('a3')];
+  const strGot=[getValStr('a1'), getValStr('a2'), getValStr('a3')];
+  
+  const oks=exp.map((e,i)=>eq(gotArr[i],e));
+  const score=oks.reduce((s,ok,i)=>s+(ok?PTS[i]:0),0), passed=score>=70;
+
+  const log=getLog();
+  log.attempts.push({score,passed,date:new Date().toLocaleString('id-ID'),variant:q.name,parts:oks,answers:strGot,expected:exp.map(e=>mixedPlain(e[0],e[1]))});
+  log.bestScore=Math.max(log.bestScore||0,score); log.lastScore=score; log.passed=!!(log.passed||passed);
+  saveLog(log);
+
+  area.classList.add('hidden'); resultArea.classList.remove('hidden');
+  
+  const mk=(i,l)=>`<li class="bg-slate-900/40 p-3 rounded-lg border border-slate-700 mb-2">
+    <div class="flex items-center justify-between">
+      <span class="font-bold text-slate-200">${l}</span>
+      <span class="font-bold" style="color:${oks[i]?'var(--teal)':'#ef4444'}">${oks[i]?'✅ Tepat':'❌ Keliru'} (+${oks[i]?PTS[i]:0} pt)</span>
+    </div>
+    <div class="text-sm mt-1">Jawaban Benar: <b style="color:var(--gold)">${mixedHTML(exp[i][0],exp[i][1])}</b> m² ${oks[i]?'':`<span class="text-slate-400">| Jawabanmu: ${strGot[i]}</span>`}</div>
+  </li>`;
+  
+  resultArea.innerHTML=`
+    <div class="card-dark rounded-2xl p-6 text-center space-y-3 shadow-xl border-2 ${passed?'border-teal-500':'border-red-500'}">
+      <p class="text-3xl font-extrabold" style="color:${passed?'var(--teal)':'#ef4444'}">${passed?'✅':'❌'} SKOR: ${score} <br><span class="text-lg">${passed?'Lulus KKM Boss Battle!':'Belum Mencapai KKM (70)'}</span></p>
+      <p class="text-sm text-slate-300">Hasil percobaan ke-${log.attempts.length} tersimpan di log. Cek detail analisanya di bawah.</p>
+    </div>
+    
+    <div class="card-dark rounded-2xl p-6 space-y-3 shadow-md border border-slate-700">
+      <p class="font-bold text-amber-300 border-b border-slate-700 pb-2">Rincian Penilaian Lapis:</p>
+      <ul class="text-sm space-y-1">
+        ${mk(0,'Tahap 1: Luas '+q.outerName)}
+        ${mk(1,'Tahap 2: Luas '+q.innerName)}
+        ${mk(2,'Tahap 3: Luas '+q.resName)}
+      </ul>
+    </div>
+    
+    <div class="card-dark rounded-2xl p-6 space-y-3 text-sm shadow-md border border-slate-700">
+      <p class="font-bold text-lg border-b border-slate-700 pb-2" style="color:var(--teal)">Pembahasan Analisa HOTS</p>
+      <ol class="steps space-y-3 text-slate-200 mt-3">
+        <li class="bg-slate-900/30 p-3 rounded-xl border border-slate-700">${areaSteps('Luas '+q.outerName,q.outer)}</li>
+        <li class="bg-slate-900/30 p-3 rounded-xl border border-slate-700">${areaSteps('Luas '+q.innerName,q.inner)}</li>
+        <li class="bg-slate-900/30 p-4 rounded-xl border-2 border-amber-500/30 shadow-inner">
+          <p class="font-bold mb-1 text-base text-amber-300">Luas ${q.resName} = Luas ${q.outerName} − Luas ${q.innerName}</p>
+          <p class="text-base">${mixedHTML(vo[0],vo[1])} − ${mixedHTML(vi[0],vi[1])} = <b class="text-xl" style="color:var(--gold)">${mixedHTML(vr[0],vr[1])}</b> m²</p>
+        </li>
+        <li class="text-slate-400 bg-slate-900 p-3 rounded-lg text-xs">
+          <b>Logic Check:</b> Luas ${q.outerName} sekitar ${(q.outer.w1+q.outer.n1/q.outer.d1).toFixed(1)} × ${(q.outer.w2+q.outer.n2/q.outer.d2).toFixed(1)} ≈ ${(vo[0]/vo[1]).toFixed(1)} m². Dikurangi area ${q.innerName} sekitar ≈ ${(vi[0]/vi[1]).toFixed(1)} m². Hasil akhir harusnya sekitar ${(vr[0]/vr[1]).toFixed(1)} m². Jika hitungan akhirmu jauh dari ini, berarti ada yang salah.
+        </li>
+      </ol>
+    </div>
+    ` + (passed?`<p class="text-center text-sm font-semibold text-teal-300 mt-4 bg-slate-900/60 p-3 rounded-lg border border-teal-800">Hebat, Master Pecahan! Lanjut ke Mission Log untuk klaim badge-mu.</p>`:`<div class="text-center mt-6"><button id="retry" class="btn py-3 px-8 shadow-lg" style="background:var(--gold); color:var(--navy)">🔄 Coba Studi Kasus Boss Lain</button></div>`);
+    
+  if(passed) navNext.classList.remove('hidden');
+  else document.getElementById('retry').addEventListener('click',()=>{ window.scrollTo({top:0,behavior:'smooth'}); pick(); });
+  
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+pick();
+</script>
+</body>
+</html>
