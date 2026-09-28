@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 6: Quest Kuis - Mission B4 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --navy:#0d1b4c; --navy-card:#16214f; --teal:#14a89a; --gold:#f4b400; --green-dk:#0d766b; --ink:#f1f5f9; --line:#2a3868; --sky:#3b5bb5; }
+  body{ background-color:var(--navy); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card-dark{ background-color:var(--navy-card); border:1px solid var(--line); }
+  
+  /* PENGATURAN PECAHAN VERTIKAL HTML */
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .2rem; font-weight:bold; line-height:1.1; font-size:.9em; }
+  .math-num{ border-bottom:2px solid currentColor; padding:0 .25rem; width:100%; text-align:center; }
+  .math-den{ padding:0 .25rem; width:100%; text-align:center; }
+  .math-mixed{ display:inline-flex; align-items:center; vertical-align:middle; font-weight:bold; }
+  
+  /* AREA MODEL */
+  .am{ display:grid; width:100%; max-width:200px; margin:0 auto; border:2px solid var(--line); border-radius:6px; overflow:hidden; }
+  .am .r{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:0.25rem; font-size:.7rem; font-weight:700; color:#fff; text-align:center; border:1px solid rgba(255,255,255,.25); min-height:0; min-width:0; padding:2px; }
+  .rA{ background:var(--sky); } .rB{ background:var(--teal); } .rC{ background:var(--gold); color:var(--navy)!important; } .rD{ background:var(--green-dk); }
+  
+  .opt{ display:flex; align-items:center; justify-content:flex-start; gap:0.75rem; background:#0a1338; border:1px solid var(--line); border-radius:.5rem; padding:.75rem 1rem; cursor:pointer; margin-top:.5rem; transition: border-color 0.2s, background 0.2s; font-size:1.1rem; }
+  .opt:hover{ border-color:var(--teal); }
+  .opt.chosen{ border-color:var(--gold); background:rgba(244,180,0,.15); }
+  
+  .btn{ padding:.6rem 1.3rem; border-radius:9999px; font-weight:bold; color:#fff; cursor:pointer; transition: transform 0.2s; }
+  .btn:hover{ transform: translateY(-1px); }
+  
+  ol.steps{ list-style:decimal; padding-left:1.3rem; } 
+  ol.steps li{ margin:.6rem 0; line-height:1.5; }
+  table.lg td, table.lg th{ padding:.3rem .5rem; border-bottom:1px solid var(--line); font-size:.8rem; text-align:left; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card-dark border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+      <div><h1 class="text-lg font-bold" style="color:var(--gold)">VisualMath.Lim</h1><p class="text-[11px] text-slate-300">Mission B4 • Kelas 6</p></div>
+    </div>
+    <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(20,168,154,.15); border:1px solid var(--teal); color:var(--teal)">🎮 Pos 6/8: Quest</span>
+  </div>
+  <div class="h-1.5 w-full" style="background:#0a1338"><div class="h-full" style="width:75%; background:linear-gradient(to right,var(--teal),var(--gold))"></div></div>
+</header>
+
+<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-6">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border" style="border-color:var(--line); background:var(--navy-card)">🎮 Quest Kuis</div>
+    <h2 class="text-3xl font-extrabold">Uji Kemampuanmu</h2>
+    <p class="text-sm text-slate-300">5 soal • KKM 70 (minimal 4 benar) • Hasil dan pembahasan selalu tersimpan</p>
+  </section>
+
+  <div id="quiz-area" class="space-y-6"></div>
+  <div id="result-area" class="hidden space-y-6"></div>
+
+  <div class="flex justify-between items-center pt-2">
+    <a href="mission-b4-pos5-skill.html" class="text-slate-400 hover:text-white text-sm">⬅ Skill Unlock</a>
+    <a id="nav-next" href="mission-b4-pos7-boss.html" class="hidden inline-block font-bold py-3 px-8 rounded-full text-white shadow-lg transition-transform hover:-translate-y-0.5" style="background:linear-gradient(to right,var(--teal),var(--green-dk))">Lanjut ke Boss Battle ➔</a>
+  </div>
+
+</main>
+
+<script>
+try{ const p=+localStorage.getItem('vm_b4_progress')||0; if(p<5) localStorage.setItem('vm_b4_progress',5); }catch(e){}
+
+function gcd(a,b){return b===0?a:gcd(b,a%b);}
+function red(n,d){const g=gcd(n,d);return [n/g,d/g];}
+function add(x,y){return red(x[0]*y[1]+y[0]*x[1], x[1]*y[1]);}
+
+// Format Matematika HTML
+function fr(n,d){return `<span class="math-frac"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`;}
+function fracHTML(n,d){[n,d]=red(n,d);return d===1?`${n}`:fr(n,d);}
+function mixedHTML(n,d){
+  [n,d]=red(n,d);
+  const w=Math.floor(n/d),r=n%d;
+  if(r===0) return `${w}`;
+  return (w>0 ? `<span class="math-mixed">${w}${fr(r,d)}</span>` : fr(r,d));
+}
+function mixedPlain(n,d){[n,d]=red(n,d);const w=Math.floor(n/d),r=n%d;return r===0?`${w}`:(w>0?`${w} `:'')+`${r}/${d}`;}
+function mix(w,n,d){return `<span class="math-mixed">${w}${fr(n,d)}</span>`;}
+function plain(w,n,d){return `${w} ${n}/${d}`;}
+function txt(x){return x[1]===1?`${x[0]}`:fr(x[0],x[1]);}
+
+function calc(p){
+  const N1=p.w1*p.d1+p.n1, N2=p.w2*p.d2+p.n2;
+  return {N1,N2,tn:N1*N2,td:p.d1*p.d2,A:[p.w1*p.w2,1],B:red(p.w1*p.n2,p.d2),C:red(p.n1*p.w2,p.d1),D:red(p.n1*p.n2,p.d1*p.d2)};
+}
+
+function buildAM(el,p){
+  const fx=p.n1/p.d1, fy=p.n2/p.d2, c=calc(p), u='rgba(255,255,255,.28)';
+  el.style.gridTemplateColumns=`${p.w1}fr ${fx}fr`; el.style.gridTemplateRows=`${p.w2}fr ${fy}fr`; el.style.aspectRatio=`${p.w1+fx} / ${p.w2+fy}`;
+  el.innerHTML=`
+    <div class="r rA" style="background-image:linear-gradient(to right,${u} 1px,transparent 1px),linear-gradient(to bottom,${u} 1px,transparent 1px);background-size:calc(100%/${p.w1}) 100%,100% calc(100%/${p.w2});"><span>${txt(c.A)}</span></div>
+    <div class="r rC"><span>${txt(c.C)}</span></div>
+    <div class="r rB"><span>${txt(c.B)}</span></div>
+    <div class="r rD"><span>${txt(c.D)}</span></div>`;
+}
+
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function makeOptions(p){
+  const c=calc(p), ok=red(c.tn,c.td);
+  const trap=add(c.A,c.D), noD=add(add(c.A,c.B),c.C), plus1=red(c.tn+c.td,c.td), half=red(2*c.tn+c.td,2*c.td);
+  const cand=[{v:ok,k:'ok'},{v:trap,k:'trap'},{v:noD,k:'noD'},{v:plus1,k:'plus1'},{v:half,k:'plus1'}];
+  const out=[]; cand.forEach(o=>{ if(out.length<4 && !out.some(x=>x.v[0]*o.v[1]===o.v[0]*x.v[1])) out.push(o); });
+  return shuffle(out);
+}
+
+function stepsFor(p){
+  const c=calc(p), g1=gcd(c.N1,p.d2), g2=gcd(c.N2,p.d1);
+  const s=[
+    `<b>Taksir dulu:</b> hasilnya di antara ${p.w1*p.w2} dan ${(p.w1+1)*(p.w2+1)}.`,
+    `<b>Ubah ke pecahan biasa:</b><br>${mix(p.w1,p.n1,p.d1)} = ${fr(c.N1,p.d1)} &nbsp;dan&nbsp; ${mix(p.w2,p.n2,p.d2)} = ${fr(c.N2,p.d2)}.`,
+    `<b>Kalikan pembilang & penyebut:</b><br>${fr(c.N1,p.d1)} × ${fr(c.N2,p.d2)} = ${fr(c.tn,c.td)}.`,
+    `<b>Sederhanakan & ubah ke campuran:</b><br>${fr(c.tn,c.td)} = <b class="text-base text-gold" style="color:var(--gold)">${mixedHTML(c.tn,c.td)}</b>.`,
+    `<b>Cek dengan Area Model (4 daerah):</b><br>${txt(c.A)} + ${txt(c.B)} + ${txt(c.C)} + ${txt(c.D)} = ${mixedHTML(c.tn,c.td)}.`
+  ];
+  if(g1>1||g2>1){ 
+    const r=[(c.N1/g1)*(c.N2/g2),(p.d1/g2)*(p.d2/g1)]; 
+    const cell=(v,g)=>g>1?`<s style="color:#ef4444">${v}</s><span class="text-[10px] absolute -mt-3 ml-1" style="color:var(--gold)">${v/g}</span>`:`${v}`;
+    const fc=(n,d)=>`<span class="math-frac relative"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`;
+    s.push(`<b class="text-green-400">Cara cepat (coret silang):</b><br>${fc(cell(c.N1,g1),cell(p.d1,g2))} × ${fc(cell(c.N2,g2),cell(p.d2,g1))} = ${fracHTML(r[0],r[1])} = <b>${mixedHTML(r[0],r[1])}</b>.`); 
+  }
+  return s;
+}
+
+function qHTML(p){
+  if(p.story==='resep') return `Sebuah resep kue memakai ${mix(p.w1,p.n1,p.d1)} cangkir gula. Ibu membuat ${mix(p.w2,p.n2,p.d2)} kali resep tersebut. Berapa cangkir gula yang dibutuhkan seluruhnya?`;
+  if(p.story==='taman') return `Petak taman pak Budi berukuran ${mix(p.w1,p.n1,p.d1)} m × ${mix(p.w2,p.n2,p.d2)} m. Berapa m² luas tamannya?`;
+  return `<span class="text-xl">${mix(p.w1,p.n1,p.d1)} × ${mix(p.w2,p.n2,p.d2)} = ...</span>`;
+}
+function qPlain(p){ return `${plain(p.w1,p.n1,p.d1)} × ${plain(p.w2,p.n2,p.d2)}`; }
+
+const BANK=[
+  {w1:1,n1:1,d1:2,w2:2,n2:1,d2:2},{w1:2,n1:1,d1:3,w2:1,n2:1,d2:2},{w1:1,n1:1,d1:4,w2:2,n2:1,d2:3},{w1:3,n1:1,d1:2,w2:1,n2:1,d2:3},{w1:1,n1:1,d1:3,w2:2,n2:1,d2:4,story:'resep'},
+  {w1:2,n1:1,d1:2,w2:2,n2:1,d2:2},{w1:1,n1:2,d1:3,w2:2,n2:1,d2:4},{w1:4,n1:1,d1:2,w2:1,n2:1,d2:3},{w1:3,n1:1,d1:4,w2:2,n2:1,d2:2},{w1:3,n1:1,d1:3,w2:1,n2:1,d2:2,story:'taman'}
+];
+const LOG_KEY='vm_b4_pos6';
+function getLog(){ try{ return JSON.parse(localStorage.getItem(LOG_KEY))||{attempts:[],bestScore:0,lastScore:0,passed:false}; }catch(e){ return {attempts:[],bestScore:0,lastScore:0,passed:false}; } }
+function saveLog(l){ try{ localStorage.setItem(LOG_KEY,JSON.stringify(l)); }catch(e){} }
+
+const quizArea=document.getElementById('quiz-area'), resultArea=document.getElementById('result-area'), navNext=document.getElementById('nav-next');
+let cur=[];
+
+function pickSet(){
+  const n=getLog().attempts.length;
+  const block=(n%2===0)?BANK.slice(0,5):BANK.slice(5,10);
+  cur=shuffle(block).map(p=>({p,opts:makeOptions(p)}));
+  renderQuiz();
+}
+
+function renderQuiz(){
+  resultArea.classList.add('hidden'); resultArea.innerHTML=''; navNext.classList.add('hidden');
+  quizArea.innerHTML=''; quizArea.classList.remove('hidden');
+  
+  cur.forEach((q,qi)=>{
+    const d=document.createElement('div'); 
+    d.className='card-dark rounded-2xl p-6 border-2 border-slate-700 shadow-md';
+    d.innerHTML=`<p class="font-bold text-base mb-4 text-amber-300">Soal ${qi+1}. <br><span class="text-white font-normal mt-2 inline-block">${qHTML(q.p)}</span></p>` + 
+      q.opts.map((o,oi)=>`<label class="opt" data-q="${qi}" data-o="${oi}"><b class="text-sky-300 mr-2">${String.fromCharCode(65+oi)}.</b> ${mixedHTML(o.v[0],o.v[1])}</label>`).join('');
+    quizArea.appendChild(d);
+  });
+  
+  quizArea.querySelectorAll('.opt').forEach(el=>el.addEventListener('click',()=>{
+    quizArea.querySelectorAll(`.opt[data-q="${el.dataset.q}"]`).forEach(x=>x.classList.remove('chosen')); 
+    el.classList.add('chosen');
+  }));
+  
+  const b=document.createElement('button'); 
+  b.className='btn w-full py-3 shadow-lg text-lg mt-2'; 
+  b.style.background='var(--teal)'; 
+  b.textContent='Kumpulkan Jawaban ➔'; 
+  b.addEventListener('click',grade); 
+  quizArea.appendChild(b);
+}
+
+function grade(){
+  let correct=0; const items=[], cards=[];
+  cur.forEach((q,qi)=>{
+    const ch=quizArea.querySelector(`.opt.chosen[data-q="${qi}"]`);
+    const chosen=ch?q.opts[+ch.dataset.o]:null;
+    const ok=!!(chosen&&chosen.k==='ok'); if(ok) correct++;
+    const c=calc(q.p);
+    items.push({q:qPlain(q.p), ok, ans:mixedPlain(c.tn,c.td), given:chosen?mixedPlain(chosen.v[0],chosen.v[1]):'(kosong)'});
+    cards.push({q,ok,chosen,c});
+  });
+  const score=correct*20, passed=score>=70;
+  const log=getLog();
+  log.attempts.push({score,correct,total:5,passed,date:new Date().toLocaleString('id-ID'),items});
+  log.bestScore=Math.max(log.bestScore||0,score); log.lastScore=score; log.passed=!!(log.passed||passed);
+  saveLog(log);
+
+  quizArea.classList.add('hidden');
+  resultArea.classList.remove('hidden');
+  
+  let html=`<div class="card-dark rounded-2xl p-6 text-center space-y-3 border-2 ${passed?'border-teal-500':'border-red-500'} shadow-xl">
+    <p class="text-3xl font-extrabold" style="color:${passed?'var(--teal)':'#ef4444'}">${passed?'✅':'❌'} SKOR: ${score} <br><span class="text-lg">${passed?'Hebat, Lulus KKM!':'Belum mencapai KKM (70)'}</span></p>
+    <p class="text-sm text-slate-300 bg-slate-900/50 p-2 rounded-lg">Benar ${correct} dari 5 soal. Hasil percobaan ke-${log.attempts.length} sudah tersimpan di log. Pelajari pembahasan lengkap di bawah ini.</p>
+  </div>`;
+  
+  cards.forEach((x,i)=>{
+    html+=`<div class="card-dark rounded-2xl p-6 space-y-4 border border-slate-700 shadow-md" style="border-left:5px solid ${x.ok?'var(--teal)':'#ef4444'}">
+      <p class="font-bold text-base text-amber-300 border-b border-slate-700 pb-2">Soal ${i+1}. <span class="text-white font-normal">${qHTML(x.q.p)}</span></p>
+      
+      <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700 flex items-center justify-between flex-wrap gap-2">
+        <span class="text-base">${x.ok?'<b class="text-teal-400">✅ Jawabanmu Tepat!</b>':'<b class="text-red-400">❌ Jawabanmu:</b> '+(x.chosen?mixedHTML(x.chosen.v[0],x.chosen.v[1]):'(kosong)')}</span>
+        <span class="text-base">Jawaban Benar: <b class="text-xl" style="color:var(--gold)">${mixedHTML(x.c.tn,x.c.td)}</b></span>
+      </div>
+      
+      ${!x.ok&&x.chosen?`<p class="text-sm text-red-300 font-medium">💡 Analisa Kesalahan: ${x.chosen.k==='trap'?'Kamu masuk jebakan Pixel! Kamu hanya mengalikan (utuh×utuh) dan (pecahan×pecahan).':(x.chosen.k==='noD'?'Daerah pecahan × pecahan (hijau tua) tertinggal.':'Taksiran awalmu dan penjabaran Area Model mungkin keliru.')}</p>`:''}
+      
+      <div class="grid md:grid-cols-3 gap-5 items-start mt-4 pt-4 border-t border-slate-700">
+        <div class="md:col-span-2">
+          <p class="text-sm font-bold text-teal-300 mb-2 uppercase tracking-wide">Cara Lengkap:</p>
+          <ol class="steps text-sm text-slate-200 bg-slate-900/40 p-4 rounded-xl border border-slate-700 shadow-inner">${stepsFor(x.q.p).map(s=>`<li>${s}</li>`).join('')}</ol>
+        </div>
+        <div>
+          <p class="text-sm font-bold text-sky-300 mb-2 uppercase tracking-wide text-center">Area Model:</p>
+          <div id="am-${i}" class="am shadow-md"></div>
+        </div>
+      </div>
+    </div>`;
+  });
+  
+  html+= passed
+    ? `<p class="text-center text-sm font-semibold text-teal-300 mt-4 bg-slate-900/60 p-3 rounded-lg border border-teal-800">Mission Cleared! Kamu boleh melanjutkan ke Boss Battle.</p>`
+    : `<div class="text-center mt-6"><button id="retry" class="btn py-3 px-8 shadow-lg" style="background:var(--gold); color:var(--navy)">🔄 Coba Lagi dengan Soal Baru ➔</button></div>`;
+    
+  resultArea.innerHTML=html;
+  cards.forEach((x,i)=>buildAM(document.getElementById('am-'+i),x.q.p));
+  
+  if(passed) navNext.classList.remove('hidden');
+  else document.getElementById('retry').addEventListener('click',()=>{ window.scrollTo({top:0,behavior:'smooth'}); pickSet(); });
+  
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+pickSet();
+</script>
+</body>
+</html>
