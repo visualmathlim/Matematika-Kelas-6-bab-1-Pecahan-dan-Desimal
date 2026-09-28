@@ -9,11 +9,18 @@
   :root{ --navy:#0d1b4c; --navy-card:#16214f; --teal:#14a89a; --gold:#f4b400; --green-dk:#0d766b; --ink:#f1f5f9; --line:#2a3868; }
   body{ background-color:var(--navy); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
   .card-dark{ background-color:var(--navy-card); border:1px solid var(--line); }
-  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .2rem; font-weight:bold; line-height:1.1; font-size:.85em; }
+  
+  /* PENGATURAN PECAHAN VERTIKAL ATAS-BAWAH */
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .2rem; font-weight:bold; line-height:1.1; font-size:.9em; }
   .math-num{ border-bottom:2px solid currentColor; padding:0 .25rem; width:100%; text-align:center; }
   .math-den{ padding:0 .25rem; width:100%; text-align:center; }
+
+  /* PECAHAN CAMPURAN (ANGKA UTUH + PECAHAN) */
+  .math-mixed{ display:inline-flex; align-items:center; vertical-align:middle; font-weight:bold; }
+
   .input-dark{ background:#0a1338; border:1px solid #475569; color:var(--ink); border-radius:.5rem; padding:.4rem .6rem; width:5rem; text-align:center; }
-  .btn{ padding:.55rem 1.2rem; border-radius:9999px; font-weight:bold; color:#fff; }
+  .btn{ padding:.55rem 1.2rem; border-radius:9999px; font-weight:bold; color:#fff; cursor:pointer; transition: transform 0.2s; }
+  .btn:hover{ transform: translateY(-1px); }
 </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
@@ -21,7 +28,7 @@
 <header class="card-dark border-b sticky top-0 z-50">
   <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
     <div class="flex items-center gap-3">
-      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
       <div><h1 class="text-lg font-bold" style="color:var(--gold)">VisualMath.Lim</h1><p class="text-[11px] text-slate-300">Mission B4 • Kelas 6</p></div>
     </div>
     <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(20,168,154,.15); border:1px solid var(--teal); color:var(--teal)">🎯 Pos 1/8: Brief</span>
@@ -36,7 +43,7 @@
     <h2 class="text-3xl font-extrabold">Taman Luna</h2>
   </section>
 
-  <section class="card-dark rounded-2xl p-6 flex flex-col md:flex-row gap-6 items-center">
+  <section class="card-dark rounded-2xl p-6 flex flex-col md:flex-row gap-6 items-center border-2 border-slate-700 shadow-md">
     <div class="shrink-0 text-center">
       <svg viewBox="0 0 240 150" class="w-60">
         <rect x="10" y="10" width="200" height="107" rx="6" fill="var(--teal)" opacity=".85" stroke="var(--gold)" stroke-width="2"/>
@@ -50,20 +57,20 @@
     </div>
     <div class="space-y-3 text-sm text-slate-200">
       <p>Luna membuat petak taman berbentuk persegi panjang. Panjangnya
-        2<span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span> m dan lebarnya
-        1<span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span> m.</p>
-      <p class="font-bold" style="color:var(--gold)">Pertanyaan misi: berapa luas petak taman Luna?</p>
+        <span class="math-mixed">2<span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span></span> m dan lebarnya
+        <span class="math-mixed">1<span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span></span> m.</p>
+      <p class="font-bold text-base" style="color:var(--gold)">Pertanyaan misi: berapa luas petak taman Luna?</p>
       <p class="text-slate-300">Kedua ukurannya berbentuk pecahan campuran — ada bagian utuh <i>dan</i> bagian pecahan. Bagaimana mengalikan keduanya tanpa ada bagian yang tertinggal?</p>
     </div>
   </section>
 
-  <section class="card-dark rounded-2xl p-6 flex gap-4 items-start">
-    <img src="assets/Pixel.png" alt="Pixel" class="w-16 h-16 rounded-full border-2 shrink-0" style="border-color:var(--gold)">
+  <section class="card-dark rounded-2xl p-6 flex gap-4 items-start border-2 border-slate-700 shadow-md">
+    <img src="assets/Pixel.png" alt="Pixel" class="w-16 h-16 rounded-full border-2 shrink-0 object-cover" style="border-color:var(--gold)" onerror="this.outerHTML='<div class=\'w-16 h-16 rounded-full bg-slate-800 border-2 border-amber-400 flex items-center justify-center font-bold text-amber-400 shrink-0\'>PX</div>'">
     <div class="text-sm text-slate-200 space-y-3">
       <p><b style="color:var(--teal)">Pixel:</b> "Selamat datang di Mission B4! Di Mission B3 kamu sudah mengalikan pecahan dengan pecahan. Sekarang bilangannya punya bagian utuh juga. Hati-hati: ada jebakan yang sering membuat agen salah jawab!"</p>
       <div>
-        <p class="font-bold mb-2">🎯 Target Misi — setelah misi ini kamu dapat:</p>
-        <ul class="space-y-1">
+        <p class="font-bold mb-2 text-amber-300">🎯 Target Misi — setelah misi ini kamu dapat:</p>
+        <ul class="space-y-1.5 text-slate-300">
           <li>✅ Menaksir hasil perkalian pecahan campuran sebelum menghitung.</li>
           <li>✅ Menggunakan Area Model 4 kotak untuk memvisualisasikan perkalian.</li>
           <li>✅ Mengalikan dengan hasil kali sebagian dan dengan pecahan biasa.</li>
@@ -75,18 +82,32 @@
   </section>
 
   <!-- Kalibrasi mini -->
-  <section class="card-dark rounded-2xl p-6 space-y-3">
-    <h3 class="font-bold" style="color:var(--gold)">🔧 Kalibrasi Mini (tanpa nilai)</h3>
-    <p class="text-sm text-slate-300">Ubah dulu ke pecahan biasa. Tulis dengan garis miring, misalnya 7/3.</p>
-    <p class="text-sm">2<span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span> = <input id="c1" class="input-dark" placeholder="a/b"></p>
-    <p class="text-sm">1<span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span> = <input id="c2" class="input-dark" placeholder="a/b"></p>
-    <button id="chk" class="btn" style="background:var(--teal)">Periksa</button>
-    <p id="fb" class="text-sm font-bold hidden"></p>
+  <section class="card-dark rounded-2xl p-6 space-y-4 border-2 border-slate-700 shadow-xl">
+    <h3 class="font-bold text-base text-amber-300">🔧 Kalibrasi Mini (Tanpa Nilai)</h3>
+    <p class="text-sm text-slate-300">Ubah dulu ke pecahan biasa. Tulis dengan garis miring, misalnya <code class="bg-slate-900 px-2 py-0.5 rounded text-teal-300">7/3</code>.</p>
+    
+    <div class="space-y-3 bg-slate-900/60 p-4 rounded-xl border border-slate-700">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <span class="text-sm font-medium">
+          <span class="math-mixed">2<span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span></span> = 
+        </span>
+        <input id="c1" class="input-dark font-bold text-teal-300" placeholder="a/b">
+      </div>
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <span class="text-sm font-medium">
+          <span class="math-mixed">1<span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span></span> = 
+        </span>
+        <input id="c2" class="input-dark font-bold text-teal-300" placeholder="a/b">
+      </div>
+    </div>
+
+    <button id="chk" class="btn w-full py-3 shadow-lg" style="background:var(--teal)">Periksa Jawaban ➔</button>
+    <p id="fb" class="text-sm font-bold hidden p-3 rounded-lg text-center"></p>
   </section>
 
   <div class="flex justify-between items-center pt-2">
     <a href="mission-b4-dashboard.html" class="text-slate-400 hover:text-white text-sm">⬅ Dashboard</a>
-    <a href="mission-b4-pos2-see.html" class="inline-block font-bold py-3 px-8 rounded-full text-white" style="background:linear-gradient(to right,var(--teal),var(--green-dk))">Lanjut ke See ➔</a>
+    <a href="mission-b4-pos2-see.html" class="inline-block font-bold py-3 px-8 rounded-full text-white shadow-lg transition-transform hover:-translate-y-0.5" style="background:linear-gradient(to right,var(--teal),var(--green-dk))">Lanjut ke See ➔</a>
   </div>
 
 </main>
@@ -103,9 +124,17 @@ function eq(a,b){ return a && b && a[1]!==0 && a[0]*b[1]===b[0]*a[1]; }
 document.getElementById('chk').addEventListener('click', ()=>{
   const ok1 = eq(parseFrac(document.getElementById('c1').value),[5,2]);
   const ok2 = eq(parseFrac(document.getElementById('c2').value),[4,3]);
-  const fb = document.getElementById('fb'); fb.classList.remove('hidden');
-  if(ok1 && ok2){ fb.textContent='✅ Betul! 2½ = 5/2 dan 1⅓ = 4/3.'; fb.style.color='var(--teal)'; }
-  else { fb.textContent='❌ Ingat: bagian utuh × penyebut + pembilang, lalu tetap di atas penyebut yang sama. (2×2+1 = ? dan 1×3+1 = ?)'; fb.style.color='#ef4444'; }
+  const fb = document.getElementById('fb'); 
+  fb.classList.remove('hidden');
+  if(ok1 && ok2){
+    fb.textContent='✅ Betul! 2½ = 5/2 dan 1⅓ = 4/3.'; 
+    fb.style.color='var(--teal)'; 
+    fb.style.background='rgba(20,168,154,0.15)';
+  } else {
+    fb.textContent='❌ Ingat: bagian utuh × penyebut + pembilang, lalu tetap di atas penyebut yang sama. (2×2+1 = ? dan 1×3+1 = ?)'; 
+    fb.style.color='#ef4444';
+    fb.style.background='rgba(239,68,68,0.15)';
+  }
 });
 </script>
 </body>
