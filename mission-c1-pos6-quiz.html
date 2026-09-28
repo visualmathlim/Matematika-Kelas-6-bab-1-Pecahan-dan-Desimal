@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pos 6: Quest Kuis | Mission C1</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{ --sky:#0EA5E9; --sky-d:#0369A1; --sky-dd:#0C4A6E; --sky-l:#E0F2FE; --bg:#F0F9FF; --ink:#0F2A3D; --line:#BAE6FD; --f-head:'Baloo 2',sans-serif; --f-body:'Nunito',sans-serif;}
+*{box-sizing:border-box;margin:0} body{font-family:var(--f-body);color:var(--ink);background:var(--bg);padding-bottom:60px;} a{text-decoration:none}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.1;font-weight:800;margin:0 .15em; font-size:1.1em;} .frac>span:first-child{border-bottom:.09em solid currentColor;padding:0 .2em .05em} .frac>span:last-child{padding-top:.05em}
+header{background:#fff;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:5} .bar{display:flex;justify-content:space-between;padding:12px 20px;max-width:800px;margin:0 auto} .back-btn{font-weight:700;color:var(--sky-d)} .pos-badge{background:var(--sky-l);color:var(--sky-d);font-weight:800;padding:4px 12px;border-radius:99px;}
+.wrap{max-width:600px;margin:0 auto;padding:30px 20px} .card{background:#fff;border:2px solid var(--line);border-radius:18px;padding:20px;margin-bottom:20px;box-shadow:0 4px 12px rgba(14,165,233,0.05);}
+h2{font-family:var(--f-head);color:var(--sky-dd);text-align:center;margin-bottom:5px;}
+
+.opt{display:flex;align-items:center;gap:12px;background:var(--bg);border:2px solid var(--line);padding:12px 16px;border-radius:12px;margin-top:10px;cursor:pointer;transition:all .2s;}
+.opt:hover{border-color:var(--sky);} .opt.sel{background:#E0F2FE;border-color:var(--sky-d);box-shadow:0 0 0 2px var(--sky-d);}
+.btn{display:block;background:var(--sky-d);color:#fff;font-family:var(--f-head);font-weight:800;padding:14px;border-radius:99px;text-align:center;width:100%;border:none;cursor:pointer;font-size:1.1rem;margin-top:20px;}
+</style>
+</head>
+<body>
+<header><div class="bar"><a href="mission-c1.html" class="back-btn">Kembali</a><div class="pos-badge">Pos 6 / 8</div></div></header>
+<main class="wrap">
+  <div id="intro">
+    <h2>Quest Kuis C1</h2>
+    <p style="text-align:center; color:#4B6A80">5 Soal • KKM 70 (Min 4 Benar)</p>
+  </div>
+  <div id="quiz-area"></div>
+  <button id="submitBtn" class="btn">Kumpulkan Jawaban</button>
+  <div id="result-area" style="display:none; text-align:center;">
+    <h2 id="scoreTxt" style="font-size:2.5rem; margin-bottom:10px;"></h2>
+    <p id="msgTxt" style="margin-bottom:20px; font-weight:bold;"></p>
+    <a href="mission-c1-pos7-boss.html" id="nextLvl" class="btn" style="display:none; background:#10B981;">Lanjut ke Boss Battle ➔</a>
+    <button onclick="location.reload()" class="btn" style="background:#F59E0B; margin-top:10px;">Coba Lagi</button>
+  </div>
+</main>
+
+<script>
+const qs = [
+  { q: 'Hasil dari <span class="frac"><span>1</span><span>3</span></span> ÷ 4 adalah...', a: ['<span class="frac"><span>1</span><span>12</span></span>', '<span class="frac"><span>4</span><span>3</span></span>', '<span class="frac"><span>1</span><span>7</span></span>'], c: 0 },
+  { q: 'Hasil dari <span class="frac"><span>2</span><span>5</span></span> ÷ 3 adalah...', a: ['<span class="frac"><span>2</span><span>8</span></span>', '<span class="frac"><span>2</span><span>15</span></span>', '<span class="frac"><span>6</span><span>5</span></span>'], c: 1 },
+  { q: 'Sebuah tali panjangnya <span class="frac"><span>3</span><span>4</span></span> meter, dipotong sama panjang untuk 2 orang. Tiap orang mendapat...', a: ['<span class="frac"><span>3</span><span>2</span></span> m', '<span class="frac"><span>6</span><span>4</span></span> m', '<span class="frac"><span>3</span><span>8</span></span> m'], c: 2 },
+  { q: '<span class="frac"><span>5</span><span>6</span></span> ÷ 2 = ?', a: ['<span class="frac"><span>5</span><span>12</span></span>', '<span class="frac"><span>10</span><span>6</span></span>', '<span class="frac"><span>5</span><span>3</span></span>'], c: 0 },
+  { q: 'Jika <span class="frac"><span>4</span><span>7</span></span> liter susu dibagi ke 4 gelas sama rata, isi tiap gelas adalah...', a: ['<span class="frac"><span>1</span><span>7</span></span> L', '<span class="frac"><span>16</span><span>7</span></span> L', '<span class="frac"><span>4</span><span>28</span></span> L (atau <span class="frac"><span>1</span><span>7</span></span> L)'], c: 2 }
+];
+
+const qa = document.getElementById('quiz-area');
+qs.forEach((q, i) => {
+  let html = `<div class="card"><p style="font-weight:bold;font-size:1.1rem;margin-bottom:10px;">${i+1}. ${q.q}</p>`;
+  q.a.forEach((opt, j) => {
+    html += `<div class="opt" data-q="${i}" data-a="${j}"><b style="color:var(--sky-d)">${['A','B','C'][j]}.</b> ${opt}</div>`;
+  });
+  html += `</div>`;
+  qa.innerHTML += html;
+});
+
+let ans = {};
+document.querySelectorAll('.opt').forEach(el => {
+  el.addEventListener('click', function() {
+    let qIdx = this.getAttribute('data-q');
+    document.querySelectorAll(`.opt[data-q="${qIdx}"]`).forEach(o => o.classList.remove('sel'));
+    this.classList.add('sel');
+    ans[qIdx] = parseInt(this.getAttribute('data-a'));
+  });
+});
+
+document.getElementById('submitBtn').addEventListener('click', () => {
+  if(Object.keys(ans).length < 5) return alert('Jawab semua soal dulu ya, Agen!');
+  let score = 0;
+  qs.forEach((q, i) => { if(ans[i] === q.c) score += 20; });
+  
+  let passed = score >= 70;
+  
+  // Save Log
+  let log = JSON.parse(localStorage.getItem('vml_c1_done_6_log') || '{"attempts":[],"bestScore":0}');
+  log.attempts.push({score: score, date: new Date().toLocaleDateString('id-ID')});
+  log.bestScore = Math.max(log.bestScore, score);
+  log.passed = log.passed || passed;
+  localStorage.setItem('vml_c1_done_6_log', JSON.stringify(log));
+  if(passed) localStorage.setItem('vml_c1_done_6', '1');
+
+  // Display
+  document.getElementById('submitBtn').style.display = 'none';
+  qa.style.display = 'none';
+  document.getElementById('intro').style.display = 'none';
+  const res = document.getElementById('result-area');
+  res.style.display = 'block';
+  document.getElementById('scoreTxt').innerText = `Skor: ${score}`;
+  document.getElementById('scoreTxt').style.color = passed ? '#10B981' : '#F43F5E';
+  document.getElementById('msgTxt').innerText = passed ? 'Luar biasa! Kamu LULUS KKM!' : 'Jangan menyerah! Coba baca lagi cara cepat (KCF).';
+  if(passed) document.getElementById('nextLvl').style.display = 'block';
+});
+</script>
+</body>
+</html>
