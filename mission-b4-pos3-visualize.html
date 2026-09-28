@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 3: Visualize - Mission B4 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --navy:#0d1b4c; --navy-card:#16214f; --teal:#14a89a; --gold:#f4b400; --green-dk:#0d766b; --ink:#f1f5f9; --line:#2a3868; --sky:#3b5bb5; }
+  body{ background-color:var(--navy); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card-dark{ background-color:var(--navy-card); border:1px solid var(--line); }
+  
+  /* PENGATURAN PECAHAN VERTIKAL HTML */
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .2rem; font-weight:bold; line-height:1.1; font-size:.9em; }
+  .math-num{ border-bottom:2px solid currentColor; padding:0 .25rem; width:100%; text-align:center; }
+  .math-den{ padding:0 .25rem; width:100%; text-align:center; }
+  .math-mixed{ display:inline-flex; align-items:center; vertical-align:middle; font-weight:bold; }
+
+  /* INPUT PECAHAN VERTIKAL */
+  .frac-input { display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; width:2.8rem; margin:0 .25rem; }
+  .frac-input input { width:100%; text-align:center; background:#0a1338; color:var(--teal); font-weight:bold; padding:0.15rem; font-size:1rem; border:1px solid #475569; outline:none; transition: border-color 0.2s, background 0.2s; }
+  .frac-input input:focus { border-color: var(--gold); background: #111d4a; }
+  .frac-input input.n { border-bottom: 2px solid var(--ink); border-radius:.3rem .3rem 0 0; }
+  .frac-input input.d { border-top: none; border-radius:0 0 .3rem .3rem; }
+  
+  .mixed-input { display:inline-flex; align-items:center; vertical-align:middle; gap:0.2rem; }
+  .mixed-input input.w { width:3rem; text-align:center; background:#0a1338; color:var(--teal); font-weight:bold; padding:0.4rem 0.2rem; font-size:1rem; border:1px solid #475569; border-radius:.3rem; outline:none; transition: border-color 0.2s; }
+  .mixed-input input.w:focus { border-color: var(--gold); background: #111d4a; }
+
+  .input-dark{ background:#0a1338; border:1px solid #475569; color:var(--teal); border-radius:.3rem; padding:.35rem .5rem; width:3rem; text-align:center; outline:none; font-weight:bold; transition: border-color 0.2s; }
+  .input-dark:focus { border-color: var(--gold); }
+
+  .btn{ padding:.55rem 1.2rem; border-radius:9999px; font-weight:bold; color:#fff; transition: transform 0.2s; cursor:pointer; }
+  .btn:hover{ transform: translateY(-1px); }
+  
+  /* GRID AREA MODEL */
+  .am{ display:grid; width:100%; max-width:380px; margin:0 auto; border:2px solid var(--line); border-radius:6px; overflow:hidden; }
+  .am .r{ display:flex; flex-wrap:wrap; gap:0.25rem; align-items:center; justify-content:center; font-size:.8rem; font-weight:700; color:#fff; text-align:center; border:1px solid rgba(255,255,255,.25); min-height:0; min-width:0; padding:4px; }
+  .rA{ background:var(--sky); } .rB{ background:var(--teal); } .rC{ background:var(--gold); color:var(--navy)!important; } .rD{ background:var(--green-dk); }
+  
+  input[type=range]{ accent-color:var(--gold); width:100%; }
+  table.pp td, table.pp th{ padding:.5rem; border-bottom:1px solid var(--line); font-size:.85rem; text-align:center; }
+  table.pp td:first-child{ text-align:left; }
+  .dot{ display:inline-block; width:.8rem; height:.8rem; border-radius:3px; margin-right:.4rem; vertical-align:middle; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card-dark border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+      <div><h1 class="text-lg font-bold" style="color:var(--gold)">VisualMath.Lim</h1><p class="text-[11px] text-slate-300">Mission B4 • Kelas 6</p></div>
+    </div>
+    <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(20,168,154,.15); border:1px solid var(--teal); color:var(--teal)">🎨 Pos 3/8: Visualize</span>
+  </div>
+  <div class="h-1.5 w-full" style="background:#0a1338"><div class="h-full" style="width:37.5%; background:linear-gradient(to right,var(--teal),var(--gold))"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border" style="border-color:var(--line); background:var(--navy-card)">🎨 Visualize — Area Model 4 Kotak</div>
+    <h2 class="text-3xl font-extrabold">Empat Daerah, Empat Hasil Kali</h2>
+    <p class="max-w-md mx-auto text-sm text-slate-300">Pecah setiap pecahan campuran menjadi bagian utuh + bagian pecahan. Luasnya jadi 4 daerah.</p>
+  </section>
+
+  <!-- Latihan terpandu 2 1/2 x 1 1/3 -->
+  <section class="card-dark rounded-2xl p-6 space-y-6 border-2 border-slate-700 shadow-xl">
+    <p class="text-center text-xl font-bold flex items-center justify-center gap-2">
+      <span class="math-mixed">2<span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span></span> ×
+      <span class="math-mixed">1<span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span></span> = ?
+    </p>
+    
+    <div id="am1" class="am shadow-inner"></div>
+    
+    <div class="text-base space-y-4 bg-slate-900/60 p-5 rounded-xl border border-slate-700">
+      <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+        <span><span class="dot" style="background:var(--sky)"></span>utuh × utuh : <b>2 × 1</b></span>
+        <input id="g1" class="input-dark">
+      </div>
+      <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+        <span><span class="dot" style="background:var(--teal)"></span>utuh × pecahan : <b>2 × <span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span></b></span>
+        <span class="frac-input">
+          <input type="text" id="g2_n" class="n">
+          <input type="text" id="g2_d" class="d">
+        </span>
+      </div>
+      <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+        <span><span class="dot" style="background:var(--gold)"></span>pecahan × utuh : <b><span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span> × 1</b></span>
+        <span class="frac-input">
+          <input type="text" id="g3_n" class="n">
+          <input type="text" id="g3_d" class="d">
+        </span>
+      </div>
+      <div class="flex items-center justify-between">
+        <span><span class="dot" style="background:var(--green-dk)"></span>pecahan × pecahan : <b><span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span> × <span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span></b></span>
+        <span class="frac-input">
+          <input type="text" id="g4_n" class="n">
+          <input type="text" id="g4_d" class="d">
+        </span>
+      </div>
+    </div>
+    
+    <div class="text-center"><button id="chk1" class="btn py-3 px-8 shadow-md" style="background:var(--teal)">Periksa 4 Daerah</button></div>
+    <p id="fb1" class="text-center text-sm font-bold hidden p-3 rounded-lg"></p>
+    
+    <!-- Tahap Penjumlahan -->
+    <div id="sum1" class="hidden text-sm space-y-4 bg-slate-900/40 rounded-xl p-5 border-2 border-amber-500/30">
+      <p class="text-center text-base font-semibold text-slate-200">
+        Jumlahkan keempatnya: <br>
+        2 + <span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span> + <span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span> + <span class="math-frac"><span class="math-num">1</span><span class="math-den">6</span></span> = ?
+      </p>
+      
+      <div class="flex items-center justify-center gap-4 flex-wrap">
+        <span class="font-bold text-slate-300">Hasil Akhir:</span>
+        <span class="mixed-input">
+          <input id="gt_w" class="w" placeholder="Utuh">
+          <span class="frac-input">
+            <input type="text" id="gt_n" class="n" placeholder="Atas">
+            <input type="text" id="gt_d" class="d" placeholder="Bawah">
+          </span>
+        </span>
+        <button id="chk2" class="btn" style="background:var(--gold); color:var(--navy)">Periksa Total</button>
+      </div>
+      <p id="fb2" class="text-center text-base font-bold hidden p-3 rounded-lg"></p>
+    </div>
+  </section>
+
+  <!-- Mode Eksperimen -->
+  <section class="card-dark rounded-2xl p-6 space-y-5 border border-slate-700">
+    <button id="toggle-exp" class="w-full text-left font-bold flex items-center justify-between" style="color:var(--gold)">
+      <span>🔬 Mode Eksperimen — Coba Pecahan Campuranmu Sendiri</span><span id="ti">▼</span>
+    </button>
+    <div id="exp" class="hidden space-y-5">
+      <div class="grid grid-cols-2 gap-x-4 gap-y-3 text-sm bg-slate-900/60 p-4 rounded-xl border border-slate-700">
+        <div><label class="block text-slate-300 mb-1">Panjang: Utuh <b class="text-sky-300" id="v-w1">2</b></label><input type="range" id="w1" min="1" max="4" value="2"></div>
+        <div><label class="block text-slate-300 mb-1">Lebar: Utuh <b class="text-sky-300" id="v-w2">1</b></label><input type="range" id="w2" min="1" max="4" value="1"></div>
+        <div><label class="block text-slate-300 mb-1">Panjang: Pembilang <b class="text-amber-300" id="v-n1">1</b></label><input type="range" id="n1" min="1" max="5" value="1"></div>
+        <div><label class="block text-slate-300 mb-1">Lebar: Pembilang <b class="text-amber-300" id="v-n2">1</b></label><input type="range" id="n2" min="1" max="5" value="1"></div>
+        <div><label class="block text-slate-300 mb-1">Panjang: Penyebut <b class="text-amber-300" id="v-d1">2</b></label><input type="range" id="d1" min="2" max="6" value="2"></div>
+        <div><label class="block text-slate-300 mb-1">Lebar: Penyebut <b class="text-amber-300" id="v-d2">3</b></label><input type="range" id="d2" min="2" max="6" value="3"></div>
+      </div>
+      <div id="am2" class="am shadow-inner"></div>
+      
+      <div class="bg-slate-900/80 rounded-xl overflow-hidden border border-slate-700">
+        <table class="pp w-full" id="pp"></table>
+      </div>
+      
+      <div class="bg-slate-900/40 border border-slate-700 p-4 rounded-xl">
+        <p id="total2" class="text-center text-lg mb-2 font-semibold"></p>
+        <p id="est2" class="text-center text-xs text-slate-400"></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="flex justify-between items-center pt-2">
+    <a href="mission-b4-pos2-see.html" class="text-slate-400 hover:text-white text-sm">⬅ See</a>
+    <a href="mission-b4-pos4-think-discover.html" class="inline-block font-bold py-3 px-8 rounded-full text-white shadow-lg transition-transform hover:-translate-y-0.5" style="background:linear-gradient(to right,var(--teal),var(--green-dk))">Lanjut ke Think & Discover ➔</a>
+  </div>
+
+</main>
+
+<script>
+try{ const p=+localStorage.getItem('vm_b4_progress')||0; if(p<2) localStorage.setItem('vm_b4_progress',2); }catch(e){}
+
+function gcd(a,b){ return b===0 ? a : gcd(b, a%b); }
+function red(n,d){ const g=gcd(n,d); return [n/g, d/g]; }
+
+// Parser Fraksi yang sudah diperbaiki
+function parseFrac(s){
+  s = s.trim().replace(/\s+/g,' ');
+  let m = s.match(/^(\d+)\s+(\d+)\/(\d+)$/); if(m) return [(+m[1])*(+m[3])+(+m[2]), +m[3]];
+  m = s.match(/^(\d+)\/(\d+)$/); if(m) return [+m[1], +m[2]];
+  m = s.match(/^(\d+)$/); if(m) return [+m[1], 1];
+  return null;
+}
+function eq(a,b){ return a && b && a[1]!==0 && a[0]*b[1]===b[0]*a[1]; }
+
+// HTML Builders
+function fr(n,d){ return `<span class="math-frac"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`; }
+function fracHTML(n,d){ [n,d]=red(n,d); return d===1 ? `${n}` : fr(n,d); }
+function mixedHTML(n,d){
+  [n,d]=red(n,d);
+  const w=Math.floor(n/d), r=n%d;
+  if(r===0) return `${w}`;
+  return (w>0 ? `<span class="math-mixed">${w}${fr(r,d)}</span>` : fr(r,d));
+}
+
+// area model builder
+function buildAM(el, w1,n1,d1, w2,n2,d2, showLabels){
+  const fx = n1/d1, fy = n2/d2;
+  el.style.gridTemplateColumns = `${w1}fr ${fx}fr`;
+  el.style.gridTemplateRows = `${w2}fr ${fy}fr`;
+  el.style.aspectRatio = `${w1+fx} / ${w2+fy}`;
+  const unit = 'rgba(255,255,255,.28)';
+  const A = `<div class="r rA" style="background-image:linear-gradient(to right,${unit} 1px,transparent 1px),linear-gradient(to bottom,${unit} 1px,transparent 1px); background-size:calc(100%/${w1}) 100%,100% calc(100%/${w2});">${showLabels?`<span>${w1} ×${w2}</span>`:''}</div>`;
+  const C = `<div class="r rC">${showLabels?`<span>${fr(n1,d1)} ×${w2}</span>`:''}</div>`;
+  const B = `<div class="r rB">${showLabels?`<span>${w1} ×${fr(n2,d2)}</span>`:''}</div>`;
+  const D = `<div class="r rD">${showLabels?`<span>${fr(n1,d1)} ×${fr(n2,d2)}</span>`:''}</div>`;
+  el.innerHTML = A + C + B + D;
+}
+buildAM(document.getElementById('am1'), 2,1,2, 1,1,3, true);
+
+// Utility untuk mengambil nilai dari input vertikal
+function getFracVal(id) {
+  const n = document.getElementById(id+'_n').value.trim();
+  const d = document.getElementById(id+'_d').value.trim();
+  if(!n || !d) return "";
+  return n + '/' + d;
+}
+function getMixedVal(id) {
+  const w = document.getElementById(id+'_w').value.trim();
+  const n = document.getElementById(id+'_n').value.trim();
+  const d = document.getElementById(id+'_d').value.trim();
+  if(w && !n && !d) return w;
+  if(!w && n && d) return n + '/' + d;
+  if(w && n && d) return w + ' ' + n + '/' + d;
+  return "";
+}
+
+// Logika Pengecekan
+document.getElementById('chk1').addEventListener('click', ()=>{
+  const ok = [
+    eq(parseFrac(document.getElementById('g1').value),[2,1]), 
+    eq(parseFrac(getFracVal('g2')),[2,3]),
+    eq(parseFrac(getFracVal('g3')),[1,2]), 
+    eq(parseFrac(getFracVal('g4')),[1,6])
+  ];
+  const fb = document.getElementById('fb1'); 
+  fb.classList.remove('hidden');
+  if(ok.every(Boolean)){
+    fb.innerHTML='✅ Keempat daerah benar! Hebat!'; 
+    fb.style.color='var(--teal)';
+    fb.style.background='rgba(20,168,154,0.15)';
+    document.getElementById('sum1').classList.remove('hidden');
+  } else {
+    const wrong = ok.map((v,i)=>v?null:i+1).filter(Boolean).join(', ');
+    fb.innerHTML='❌ Periksa lagi hitungan daerah nomor: '+wrong; 
+    fb.style.color='#ef4444';
+    fb.style.background='rgba(239,68,68,0.15)';
+  }
+});
+
+document.getElementById('chk2').addEventListener('click', ()=>{
+  const ok = eq(parseFrac(getMixedVal('gt')),[10,3]);
+  const fb = document.getElementById('fb2'); 
+  fb.classList.remove('hidden');
+  if(ok){
+    fb.innerHTML = `✅ Betul sekali! Total luas = <span class="math-mixed">3<span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span></span> m².`;
+    fb.style.color = 'var(--teal)';
+    fb.style.background = 'rgba(20,168,154,0.15)';
+  } else {
+    fb.innerHTML = `❌ Hampir! Samakan penyebutnya dulu (jadikan per enam): 2 + <span class="math-frac"><span class="math-num">4</span><span class="math-den">6</span></span> + <span class="math-frac"><span class="math-num">3</span><span class="math-den">6</span></span> + <span class="math-frac"><span class="math-num">1</span><span class="math-den">6</span></span>.`;
+    fb.style.color = '#ef4444';
+    fb.style.background = 'rgba(239,68,68,0.15)';
+  }
+});
+
+// Mode eksperimen
+document.getElementById('toggle-exp').addEventListener('click', ()=>{
+  const e = document.getElementById('exp'); e.classList.toggle('hidden');
+  document.getElementById('ti').textContent = e.classList.contains('hidden') ? '▼' : '▲';
+});
+const ids = ['w1','w2','n1','n2','d1','d2'];
+function renderExp(){
+  ['n1','n2'].forEach(k=>{ const d = document.getElementById(k==='n1'?'d1':'d2'); const n = document.getElementById(k); if(+n.value >= +d.value) n.value = +d.value - 1; });
+  const v = {}; ids.forEach(k=>{ v[k] = +document.getElementById(k).value; document.getElementById('v-'+k).textContent = v[k]; });
+  buildAM(document.getElementById('am2'), v.w1,v.n1,v.d1, v.w2,v.n2,v.d2, true);
+
+  const A = [v.w1*v.w2, 1];
+  const B = red(v.w1*v.n2, v.d2);
+  const C = red(v.n1*v.w2, v.d1);
+  const D = red(v.n1*v.n2, v.d1*v.d2);
+  const N1 = v.w1*v.d1+v.n1, N2 = v.w2*v.d2+v.n2;
+  const tn = N1*N2, td = v.d1*v.d2;
+
+  document.getElementById('pp').innerHTML =
+    `<tr class="bg-slate-800 text-slate-200"><th>Daerah</th><th>Perhitungan</th><th>Hasil</th></tr>
+     <tr><td><span class="dot" style="background:var(--sky)"></span>utuh × utuh</td><td>${v.w1} × ${v.w2}</td><td>${A[0]}</td></tr>
+     <tr><td><span class="dot" style="background:var(--teal)"></span>utuh × pecahan</td><td>${v.w1} × ${fr(v.n2,v.d2)}</td><td>${fracHTML(B[0],B[1])}</td></tr>
+     <tr><td><span class="dot" style="background:var(--gold)"></span>pecahan × utuh</td><td>${fr(v.n1,v.d1)} × ${v.w2}</td><td>${fracHTML(C[0],C[1])}</td></tr>
+     <tr><td><span class="dot" style="background:var(--green-dk)"></span>pecahan × pecahan</td><td>${fr(v.n1,v.d1)} × ${fr(v.n2,v.d2)}</td><td>${fracHTML(D[0],D[1])}</td></tr>`;
+
+  document.getElementById('total2').innerHTML =
+    `<span class="math-mixed">${v.w1}${fr(v.n1,v.d1)}</span> × <span class="math-mixed">${v.w2}${fr(v.n2,v.d2)}</span> = ${fr(N1,v.d1)} × ${fr(N2,v.d2)} = ${fracHTML(tn,td)} = <b style="color:var(--gold)">${mixedHTML(tn,td)}</b>`;
+  const lowB = v.w1*v.w2, upB = (v.w1+1)*(v.w2+1);
+  document.getElementById('est2').textContent = `Taksiran awalmu harusnya: lebih dari ${lowB} dan kurang dari ${upB}. Hasil sebenarnya adalah ${(tn/td).toFixed(2)}.`;
+}
+ids.forEach(k=> document.getElementById(k).addEventListener('input', renderExp));
+renderExp();
+</script>
+</body>
+</html>
