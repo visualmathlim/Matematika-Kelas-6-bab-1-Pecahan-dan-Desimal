@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pos 2: Concrete | Mission C1</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{ --sky:#0EA5E9; --sky-d:#0369A1; --sky-dd:#0C4A6E; --sky-l:#E0F2FE; --bg:#F0F9FF; --card:#fff; --ink:#0F2A3D; --muted:#4B6A80; --ok:#10B981; --hint:#F59E0B; --bad:#F43F5E; --line:#BAE6FD; --r:18px; --f-head:'Baloo 2',sans-serif; --f-body:'Nunito',sans-serif; }
+*{box-sizing:border-box;margin:0}
+body{font-family:var(--f-body);color:var(--ink);background:var(--bg);line-height:1.6;padding-bottom:60px}
+a{text-decoration:none;color:inherit}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.1;font-weight:800;margin:0 .15em;font-size:1.1em}
+.frac>span:first-child{border-bottom:.09em solid currentColor;padding:0 .2em .05em}
+.frac>span:last-child{padding-top:.05em}
+.math{font-family:var(--f-head);font-weight:800;font-size:1.25em}
+header{background:#fff;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:5}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;max-width:800px;margin:0 auto}
+.back-btn{display:flex;align-items:center;gap:6px;font-weight:700;color:var(--sky-d)}
+.pos-badge{background:var(--sky-l);color:var(--sky-d);font-weight:800;padding:4px 12px;border-radius:99px;font-size:.9rem}
+.wrap{max-width:800px;margin:0 auto;padding:30px 20px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:26px;margin-bottom:24px;box-shadow:0 4px 12px rgba(14,165,233,0.05);text-align:center}
+h2{font-family:var(--f-head);font-size:1.8rem;color:var(--sky-dd);margin-bottom:12px;line-height:1.2}
+
+/* Game Interaktif CSS */
+.pizza-stage{display:flex;justify-content:center;align-items:center;gap:30px;margin:30px 0; flex-wrap:wrap;}
+.pizza{width:180px;height:180px;border-radius:50%;background:var(--sky-l);border:4px dashed var(--line);position:relative; overflow:hidden;}
+.pizza .half{position:absolute;left:50%;top:0;bottom:0;right:0;background:var(--hint); transform-origin:left center; transition:all 0.5s;}
+.pizza.cut .slice1{clip-path:polygon(0 50%, 100% 0, 100% 33%, 0 50%); background:#F59E0B;}
+.pizza.cut .slice2{clip-path:polygon(0 50%, 100% 33%, 100% 66%, 0 50%); background:#D97706;}
+.pizza.cut .slice3{clip-path:polygon(0 50%, 100% 66%, 100% 100%, 0 50%); background:#B45309;}
+
+.btn{display:inline-block;background:var(--sky-d);color:#fff;font-family:var(--f-head);font-weight:800;font-size:1.1rem;padding:12px 28px;border-radius:99px;border:none;cursor:pointer;box-shadow:0 4px 0 var(--sky-dd);transition:transform .1s}
+.btn:active{transform:translateY(4px);box-shadow:0 0 0 var(--sky-dd)}
+.btn-next{display:none;background:var(--ok);box-shadow:0 4px 0 #047857;}
+.btn-next.show{display:inline-block;}
+
+.message{display:none;margin-top:20px;padding:16px;background:#E0F2FE;border:2px solid var(--sky);border-radius:12px;font-weight:700;}
+</style>
+</head>
+<body>
+<header><div class="bar"><a href="mission-c1.html" class="back-btn">Kembali</a><div class="pos-badge">Pos 2 / 8</div></div></header>
+<main class="wrap">
+  <section class="card">
+    <h2>Game: Potong Pizzanya!</h2>
+    <p>Ini adalah <span class="frac"><span>1</span><span>2</span></span> loyang pizza sisa semalam. Klik tombol di bawah untuk membaginya sama rata kepada Kian, Luna, dan Pixel (3 orang).</p>
+    
+    <div class="pizza-stage">
+      <div id="pizza" class="pizza">
+        <div class="half slice1" id="s1"></div>
+        <div class="half slice2" id="s2"></div>
+        <div class="half slice3" id="s3"></div>
+      </div>
+    </div>
+    
+    <button id="cutBtn" class="btn">🔪 Bagi Menjadi 3</button>
+
+    <div id="msg" class="message">
+      Hebat! Setengah loyang tadi kini terbagi 3. <br>
+      Jika kita kembalikan ke ukuran pizza utuh, 1 potong kecil milik Kian besarnya adalah <b><span class="frac"><span>1</span><span>6</span></span></b> bagian dari loyang utuh! <br>
+      Secara matematika: <span class="math"><span class="frac"><span>1</span><span>2</span></span> ÷ 3 = <span class="frac"><span>1</span><span>6</span></span></span>
+    </div>
+    
+    <div style="margin-top:20px;">
+      <a href="mission-c1-pos3-visualize.html" id="nextBtn" class="btn btn-next" onclick="markDone()">Lanjut ke Pos 3 ➔</a>
+    </div>
+  </section>
+</main>
+<script>
+  document.getElementById('cutBtn').addEventListener('click', function() {
+    document.getElementById('pizza').classList.add('cut');
+    this.style.display = 'none';
+    document.getElementById('msg').style.display = 'block';
+    document.getElementById('nextBtn').classList.add('show');
+  });
+  function markDone(){ try{ localStorage.setItem("vml_c1_done_2", "1"); }catch(e){} }
+</script>
+</body>
+</html>
