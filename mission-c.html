@@ -24,6 +24,11 @@
             pointer-events: none;
             z-index: 0;
         }
+        /* Format Pecahan Vertikal Atas-Bawah */
+        .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 .2rem; font-weight: bold; line-height: 1.1; font-size: .9em; }
+        .math-num { border-bottom: 2px solid currentColor; padding: 0 .25rem; width: 100%; text-align: center; }
+        .math-den { padding: 0 .25rem; width: 100%; text-align: center; }
+        .math-mixed { display: inline-flex; align-items: center; vertical-align: middle; font-weight: bold; }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col relative">
@@ -131,9 +136,13 @@
                         <div class="absolute top-0 right-0 w-2 h-full bg-sky-500"></div>
                         <span class="bg-sky-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">Mission C1</span>
                         <h4 class="text-lg font-bold text-sky-400 mt-3 mb-2">Pecahan ÷ Bilangan Asli</h4>
-                        <p class="text-sm text-slate-300 mb-4">Memahami konsep berbagi rata (<em class="text-slate-200">Sharing</em>), misalnya <span class="text-amber-300">½ ÷ 3</span>.</p>
+                        <p class="text-sm text-slate-300 mb-4">Memahami konsep berbagi rata (<em class="text-slate-200">Sharing</em>), misalnya: 
+                            <span class="text-amber-300">
+                                <span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span> ÷ 3
+                            </span>.
+                        </p>
                     </div>
-                    <a href="mission-c1-dashboard.html" class="block text-center bg-sky-600 hover:bg-sky-500 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-all shadow-md">
+                    <a href="mission-c1.html" class="block text-center bg-sky-600 hover:bg-sky-500 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-all shadow-md">
                         Mulai C1 ➔
                     </a>
                 </div>
@@ -144,9 +153,13 @@
                         <div class="absolute top-0 right-0 w-2 h-full bg-blue-500"></div>
                         <span class="bg-blue-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">Mission C2</span>
                         <h4 class="text-lg font-bold text-blue-400 mt-3 mb-2">Bilangan Asli ÷ Pecahan</h4>
-                        <p class="text-sm text-slate-300 mb-4">Mencari berapa banyak potongan pecahan dalam satu wadah (<em class="text-slate-200">Grouping</em>), misalnya <span class="text-amber-300">3 ÷ ½</span>.</p>
+                        <p class="text-sm text-slate-300 mb-4">Mencari berapa banyak potongan dalam satu wadah (<em class="text-slate-200">Grouping</em>), misalnya: 
+                            <span class="text-amber-300">
+                                3 ÷ <span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span>
+                            </span>.
+                        </p>
                     </div>
-                    <a href="mission-c2-dashboard.html" class="block text-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-all shadow-md">
+                    <a href="mission-c2.html" class="block text-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-all shadow-md">
                         Mulai C2 ➔
                     </a>
                 </div>
@@ -157,22 +170,30 @@
                         <div class="absolute top-0 right-0 w-2 h-full bg-purple-500"></div>
                         <span class="bg-purple-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">Mission C3</span>
                         <h4 class="text-lg font-bold text-purple-400 mt-3 mb-2">Pecahan ÷ Pecahan</h4>
-                        <p class="text-sm text-slate-300 mb-4">Menyamakan penyebut dan menerapkan teknik kebalikan, misalnya <span class="text-amber-300">¾ ÷ ⅛</span>.</p>
+                        <p class="text-sm text-slate-300 mb-4">Menyamakan penyebut & teknik kebalikan, misalnya: 
+                            <span class="text-amber-300">
+                                <span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> ÷ <span class="math-frac"><span class="math-num">1</span><span class="math-den">8</span></span>
+                            </span>.
+                        </p>
                     </div>
-                    <a href="mission-c3-dashboard.html" class="block text-center bg-purple-600 hover:bg-purple-500 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-all shadow-md">
+                    <a href="mission-c3.html" class="block text-center bg-purple-600 hover:bg-purple-500 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition-all shadow-md">
                         Mulai C3 ➔
                     </a>
                 </div>
 
-                <!-- C4 Card -->
+                <!-- C4 Card (Diperbarui Judul & Rumusnya) -->
                 <div class="card-dark rounded-xl p-6 hover:border-teal-400 transition-all relative overflow-hidden flex flex-col justify-between shadow-lg">
                     <div>
                         <div class="absolute top-0 right-0 w-2 h-full bg-teal-500" style="background:var(--teal)"></div>
                         <span class="text-white text-xs font-bold px-2.5 py-1 rounded-full" style="background:var(--teal)">Mission C4</span>
-                        <h4 class="text-lg font-bold mt-3 mb-2" style="color:var(--teal)">Pecahan ÷ Pecahan Campuran</h4>
-                        <p class="text-sm text-slate-300 mb-4">Tantangan puncak Boss Battle: mengubah campuran ke pecahan biasa sebelum membagi.</p>
+                        <h4 class="text-lg font-bold mt-3 mb-2" style="color:var(--teal)">Pecahan Campuran ÷ Pecahan Campuran</h4>
+                        <p class="text-sm text-slate-300 mb-4">Tantangan puncak Boss Battle, misalnya: 
+                            <span class="text-amber-300">
+                                <span class="math-mixed">2<span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span></span> ÷ <span class="math-mixed">1<span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span></span>
+                            </span>.
+                        </p>
                     </div>
-                    <a href="mission-c4-dashboard.html" class="block text-center font-bold py-2.5 px-4 rounded-xl text-sm transition-all shadow-md" style="background:var(--teal); color:#fff;">
+                    <a href="mission-c4.html" class="block text-center font-bold py-2.5 px-4 rounded-xl text-sm transition-all shadow-md" style="background:var(--teal); color:#fff;">
                         Mulai C4 ➔
                     </a>
                 </div>
@@ -180,7 +201,7 @@
             </div>
 
             <div class="text-center pt-8">
-                <a href="mission-c1-dashboard.html" class="inline-block font-bold py-4 px-10 rounded-full shadow-lg transition-all hover:-translate-y-1 text-lg" style="background: linear-gradient(to right, var(--teal), var(--green-dk)); color: #fff;">
+                <a href="mission-c1.html" class="inline-block font-bold py-4 px-10 rounded-full shadow-lg transition-all hover:-translate-y-1 text-lg" style="background: linear-gradient(to right, var(--teal), var(--green-dk)); color: #fff;">
                     🚀 Siap? Mulai Misi Pertama (C1) Sekarang ➔
                 </a>
             </div>
