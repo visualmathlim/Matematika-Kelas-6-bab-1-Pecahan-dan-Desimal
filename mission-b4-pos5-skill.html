@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 5: Skill Unlock - Mission B4 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --navy:#0d1b4c; --navy-card:#16214f; --teal:#14a89a; --gold:#f4b400; --green-dk:#0d766b; --ink:#f1f5f9; --line:#2a3868; --sky:#3b5bb5; }
+  body{ background-color:var(--navy); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card-dark{ background-color:var(--navy-card); border:1px solid var(--line); }
+  
+  /* PENGATURAN PECAHAN VERTIKAL HTML */
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .2rem; font-weight:bold; line-height:1.1; font-size:.9em; }
+  .math-num{ border-bottom:2px solid currentColor; padding:0 .25rem; width:100%; text-align:center; }
+  .math-den{ padding:0 .25rem; width:100%; text-align:center; }
+  .math-mixed{ display:inline-flex; align-items:center; vertical-align:middle; font-weight:bold; }
+
+  /* AREA MODEL */
+  .am{ display:grid; width:100%; max-width:240px; margin:0 auto; border:2px solid var(--line); border-radius:6px; overflow:hidden; }
+  .am .r{ display:flex; align-items:center; justify-content:center; font-size:.7rem; font-weight:700; color:#fff; text-align:center; border:1px solid rgba(255,255,255,.25); min-height:0; min-width:0; padding:2px; }
+  .rA{ background:var(--sky); } .rB{ background:var(--teal); } .rC{ background:var(--gold); color:var(--navy)!important; } .rD{ background:var(--green-dk); }
+  
+  .btn{ padding:.55rem 1.2rem; border-radius:9999px; font-weight:bold; color:#fff; cursor:pointer; transition:transform 0.2s; }
+  .btn:hover{ transform: translateY(-1px); }
+  
+  /* INPUT PECAHAN VERTIKAL */
+  .frac-input { display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; width:2.5rem; margin:0 .25rem; }
+  .frac-input input { width:100%; text-align:center; background:#0a1338; color:var(--teal); font-weight:bold; padding:0.15rem; font-size:.9rem; border:1px solid #475569; outline:none; transition: border-color 0.2s, background 0.2s; }
+  .frac-input input:focus { border-color: var(--gold); background: #111d4a; }
+  .frac-input input.n { border-bottom: 2px solid var(--ink); border-radius:.3rem .3rem 0 0; }
+  .frac-input input.d { border-top: none; border-radius:0 0 .3rem .3rem; }
+  
+  .mixed-input { display:inline-flex; align-items:center; vertical-align:middle; gap:0.2rem; }
+  .mixed-input input.w { width:2.5rem; text-align:center; background:#0a1338; color:var(--teal); font-weight:bold; padding:0.4rem 0.2rem; font-size:.9rem; border:1px solid #475569; border-radius:.3rem; outline:none; transition: border-color 0.2s; }
+  .mixed-input input.w:focus { border-color: var(--gold); background: #111d4a; }
+
+  .input-dark{ background:#0a1338; border:1px solid #475569; color:var(--teal); font-weight:bold; border-radius:.4rem; padding:.35rem .5rem; width:4rem; text-align:center; outline:none; transition:border-color 0.2s; }
+  .input-dark:focus{ border-color:var(--gold); }
+  
+  ol.steps{ list-style:decimal; padding-left:1.3rem; } 
+  ol.steps li{ margin:.5rem 0; line-height: 1.6; }
+  ol.steps li.hide{ display:none; }
+  .pill{ font-size:.7rem; padding:.15rem .6rem; border-radius:9999px; font-weight:700; color:#fff; display:inline-block; margin-bottom: 4px; }
+  table.cmp td, table.cmp th{ padding:.5rem .7rem; border-bottom:1px solid var(--line); font-size:.85rem; text-align:left; vertical-align:top; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card-dark border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+      <div><h1 class="text-lg font-bold" style="color:var(--gold)">VisualMath.Lim</h1><p class="text-[11px] text-slate-300">Mission B4 • Kelas 6</p></div>
+    </div>
+    <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(20,168,154,.15); border:1px solid var(--teal); color:var(--teal)">🔓 Pos 5/8: Skill Unlock</span>
+  </div>
+  <div class="h-1.5 w-full" style="background:#0a1338"><div class="h-full" style="width:62.5%; background:linear-gradient(to right,var(--teal),var(--gold))"></div></div>
+</header>
+
+<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border" style="border-color:var(--line); background:var(--navy-card)">🔓 Skill Unlock</div>
+    <h2 class="text-3xl font-extrabold">Satu Soal, Tiga Cara, Satu Jawaban</h2>
+  </section>
+
+  <section class="card-dark rounded-2xl p-6 flex flex-col md:flex-row gap-5 items-start border-2 border-slate-700 shadow-md">
+    <img src="assets/Sigma.png" alt="Prof. Sigma" class="w-16 h-16 rounded-full border-2 shrink-0 object-cover" style="border-color:var(--gold)" onerror="this.outerHTML='<div class=\'w-16 h-16 rounded-full bg-slate-800 border-2 border-amber-400 flex items-center justify-center font-bold text-amber-400 shrink-0\'>SG</div>'">
+    <div class="text-sm text-slate-200 space-y-3">
+      <p><b style="color:var(--gold)">Prof. Sigma:</b> "Tiga cara ini bukan tiga hal yang terpisah. Mereka bertingkat:"</p>
+      <div class="flex flex-wrap items-center gap-3 bg-slate-900/50 p-3 rounded-lg border border-slate-700">
+        <span class="pill" style="background:var(--sky); margin:0;">1. Visualisasi</span> 
+        <span class="text-slate-400">➔</span>
+        <span class="pill" style="background:var(--teal); margin:0;">2. Cara Lengkap</span> 
+        <span class="text-slate-400">➔</span>
+        <span class="pill" style="background:var(--green-dk); margin:0;">3. Cara Cepat</span>
+      </div>
+      <p class="text-slate-300">Cara Lengkap adalah "terjemahan angka" dari Area Model. Cara Cepat adalah jalan pintas dari Cara Lengkap — hasilnya selalu sama.</p>
+    </div>
+  </section>
+
+  <!-- Contoh -->
+  <section class="space-y-4">
+    <h3 class="font-bold text-xl" style="color:var(--gold)">📘 Contoh: <span id="ex-title"></span></h3>
+    <div id="ex-ways"></div>
+  </section>
+
+  <!-- Tabel perbandingan -->
+  <section class="card-dark rounded-2xl p-6 overflow-x-auto shadow-md border-2 border-slate-700">
+    <table class="cmp w-full">
+      <tr style="color:var(--gold)"><th>Cara</th><th>Kapan cocok</th><th>Kelebihan</th><th>Hati-hati</th></tr>
+      <tr><td class="font-semibold text-sky-300">Visualisasi (Area Model)</td><td>Memahami konsep, angka kecil</td><td>Terlihat mengapa ada 4 daerah</td><td>Lambat untuk angka besar</td></tr>
+      <tr><td class="font-semibold text-teal-300">Cara Lengkap</td><td>Hampir semua soal</td><td>Rapi, mudah diperiksa</td><td>Angka bisa membesar, perlu disederhanakan</td></tr>
+      <tr><td class="font-semibold text-green-400">Cara Cepat (coret silang)</td><td>Ada faktor yang sama antara pembilang dan penyebut</td><td>Angka kecil, hasil langsung sederhana</td><td>Tidak selalu ada yang bisa dicoret</td></tr>
+    </table>
+  </section>
+
+  <!-- Aturan Emas -->
+  <section class="card-dark rounded-2xl p-6 border-2 shadow-lg" style="border-color:#ef4444">
+    <p class="font-extrabold text-red-400 mb-3 text-lg flex items-center gap-2">⚠ Aturan Emas Mission B4</p>
+    <ul class="text-sm text-slate-200 space-y-2.5 list-disc list-inside">
+      <li><b>Taksir dulu</b>, hitung kemudian — hasil harus berada di antara (Utuh₁ × Utuh₂) dan ((Utuh₁+1) × (Utuh₂+1)).</li>
+      <li>Jangan kalikan bagian utuh dan bagian pecahan secara terpisah. Ada <b>4 daerah</b>, tidak boleh ada yang tertinggal.</li>
+      <li>Ubah ke pecahan biasa <b>sebelum</b> mengalikan (pecahan campuran tidak boleh langsung dikalikan pembilang dengan pembilang).</li>
+      <li>Coret silang hanyalah jalan pintas. Kalau ragu, gunakan <b>Cara Lengkap</b>.</li>
+    </ul>
+  </section>
+
+  <!-- Latihan -->
+  <section class="card-dark rounded-2xl p-6 space-y-5 border-2 border-slate-700 shadow-xl">
+    <h3 class="font-bold text-xl" style="color:var(--teal)">📝 Latihan: <span id="pr-title"></span></h3>
+    <p class="text-sm text-slate-300">Kerjakan dengan caramu sendiri, lalu bandingkan dengan tiga cara di atas.</p>
+    
+    <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-700 space-y-4">
+      <div class="flex items-center gap-3 flex-wrap">
+        <span class="text-sm font-semibold text-slate-300">Taksiran luas berada di antara:</span>
+        <input id="pr-lo" class="input-dark"> <span class="text-slate-400">dan</span> <input id="pr-hi" class="input-dark">
+      </div>
+      
+      <div class="flex items-center gap-4 flex-wrap pt-2 border-t border-slate-700">
+        <span class="text-sm font-semibold text-slate-300">Jawaban Akhir:</span>
+        <span class="mixed-input">
+          <input id="pr-ans-w" class="w" placeholder="Utuh">
+          <span class="frac-input">
+            <input type="text" id="pr-ans-n" class="n" placeholder="Atas">
+            <input type="text" id="pr-ans-d" class="d" placeholder="Bawah">
+          </span>
+        </span>
+        <button id="pr-chk" class="btn shadow-md" style="background:var(--teal)">Periksa & Bandingkan ➔</button>
+      </div>
+    </div>
+    
+    <p id="pr-fb" class="text-sm font-bold hidden p-3 rounded-lg text-center"></p>
+    <div id="pr-ways" class="hidden mt-4 pt-4 border-t border-slate-700"></div>
+  </section>
+
+  <div class="flex justify-between items-center pt-2">
+    <a href="mission-b4-pos4-think-discover.html" class="text-slate-400 hover:text-white text-sm">⬅ Think & Discover</a>
+    <a href="mission-b4-pos6-quiz.html" class="inline-block font-bold py-3 px-8 rounded-full text-white shadow-lg transition-transform hover:-translate-y-0.5" style="background:linear-gradient(to right,var(--teal),var(--green-dk))">Lanjut ke Quest ➔</a>
+  </div>
+
+</main>
+
+<script>
+try{ const p=+localStorage.getItem('vm_b4_progress')||0; if(p<4) localStorage.setItem('vm_b4_progress',4); }catch(e){}
+
+function gcd(a,b){return b===0?a:gcd(b,a%b);}
+function red(n,d){const g=gcd(n,d);return [n/g,d/g];}
+function fr(n,d){return `<span class="math-frac"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`;}
+function fracHTML(n,d){[n,d]=red(n,d);return d===1?`${n}`:fr(n,d);}
+function mixedHTML(n,d){
+  [n,d]=red(n,d);
+  const w=Math.floor(n/d),r=n%d;
+  if(r===0) return `${w}`;
+  return (w>0 ? `<span class="math-mixed">${w}${fr(r,d)}</span>` : fr(r,d));
+}
+function mix(w,n,d){return `<span class="math-mixed">${w}${fr(n,d)}</span>`;}
+function txt(x){return x[1]===1?`${x[0]}`:fr(x[0],x[1]);}
+
+function calc(p){
+  const N1=p.w1*p.d1+p.n1, N2=p.w2*p.d2+p.n2;
+  return {N1,N2,tn:N1*N2,td:p.d1*p.d2,A:[p.w1*p.w2,1],B:red(p.w1*p.n2,p.d2),C:red(p.n1*p.w2,p.d1),D:red(p.n1*p.n2,p.d1*p.d2)};
+}
+
+function buildAM(el,p){
+  const fx=p.n1/p.d1, fy=p.n2/p.d2, c=calc(p), u='rgba(255,255,255,.28)';
+  el.style.gridTemplateColumns=`${p.w1}fr ${fx}fr`; el.style.gridTemplateRows=`${p.w2}fr ${fy}fr`; el.style.aspectRatio=`${p.w1+fx} / ${p.w2+fy}`;
+  el.innerHTML=`
+    <div class="r rA" style="background-image:linear-gradient(to right,${u} 1px,transparent 1px),linear-gradient(to bottom,${u} 1px,transparent 1px);background-size:calc(100%/${p.w1}) 100%,100% calc(100%/${p.w2});">${txt(c.A)}</div>
+    <div class="r rC">${txt(c.C)}</div>
+    <div class="r rB">${txt(c.B)}</div>
+    <div class="r rD">${txt(c.D)}</div>`;
+}
+
+function cancelInfo(p){
+  const c=calc(p), g1=gcd(c.N1,p.d2), g2=gcd(c.N2,p.d1);
+  const cell=(v,g)=>g>1?`<s style="color:#ef4444">${v}</s><span class="text-xs absolute -mt-4 ml-2" style="color:var(--gold)">${v/g}</span>`:`${v}`;
+  
+  // Custom fraction to support strike-through formatting properly
+  const f=(n,d)=>`<span class="math-frac relative"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`;
+  
+  return {
+    can:(g1>1||g2>1), 
+    html:`${f(cell(c.N1,g1),cell(p.d1,g2))} × ${f(cell(c.N2,g2),cell(p.d2,g1))}`, 
+    r:[(c.N1/g1)*(c.N2/g2),(p.d1/g2)*(p.d2/g1)]
+  };
+}
+
+function renderWays(p, el, stepper){
+  const c=calc(p), ci=cancelInfo(p);
+  const steps=[
+    `Ubah ke pecahan biasa:<br>${mix(p.w1,p.n1,p.d1)} = ${fr(c.N1,p.d1)} dan ${mix(p.w2,p.n2,p.d2)} = ${fr(c.N2,p.d2)}`,
+    `Kalikan pembilang dan penyebut:<br>${fr(c.N1,p.d1)} × ${fr(c.N2,p.d2)} = ${fr(c.tn,c.td)}`,
+    `Sederhanakan dan ubah ke campuran:<br>${fr(c.tn,c.td)} = ${mixedHTML(c.tn,c.td)}`,
+    `Cek dengan taksiran:<br>Di antara ${p.w1*p.w2} dan ${(p.w1+1)*(p.w2+1)} → ${mixedHTML(c.tn,c.td)} masuk akal ✓`
+  ];
+  
+  el.innerHTML=`
+  <div class="grid md:grid-cols-3 gap-5">
+    <div class="card-dark rounded-2xl p-5 space-y-4 border border-slate-700 shadow-md">
+      <p class="font-bold border-b border-slate-700 pb-2"><span class="pill" style="background:var(--sky)">1</span> Visualisasi</p>
+      <div class="am shadow-inner"></div>
+      <p class="text-sm text-slate-200 text-center bg-slate-900/50 p-2 rounded-lg border border-slate-700 mt-2">${txt(c.A)} + ${txt(c.B)} + ${txt(c.C)} + ${txt(c.D)} = <b style="color:var(--gold)">${mixedHTML(c.tn,c.td)}</b></p>
+    </div>
+    
+    <div class="card-dark rounded-2xl p-5 space-y-3 border border-slate-700 shadow-md">
+      <p class="font-bold border-b border-slate-700 pb-2"><span class="pill" style="background:var(--teal)">2</span> Cara Lengkap</p>
+      <ol class="steps text-sm text-slate-200">${steps.map((s,i)=>`<li class="${stepper&&i>0?'hide':''} bg-slate-900/40 p-2 rounded border border-slate-800">${s}</li>`).join('')}</ol>
+      ${stepper?'<button class="btn w-full mt-3 py-2 shadow" style="background:var(--teal)">Langkah berikutnya ➔</button>':''}
+    </div>
+    
+    <div class="card-dark rounded-2xl p-5 space-y-4 border border-slate-700 shadow-md">
+      <p class="font-bold border-b border-slate-700 pb-2"><span class="pill" style="background:var(--green-dk)">3</span> Cara Cepat <br><span class="text-xs text-slate-400 font-normal mt-1 block">(Shortcut cara 2)</span></p>
+      ${ci.can?`
+        <p class="text-sm text-slate-300">Setelah diubah ke pecahan biasa, coret silang faktor yang sama:</p>
+        <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700 text-center">
+          <p class="text-xl mb-3 flex items-center justify-center gap-2">${ci.html}</p>
+          <p class="text-base text-slate-200">= ${fracHTML(ci.r[0],ci.r[1])} = <b style="color:var(--gold)">${mixedHTML(ci.r[0],ci.r[1])}</b></p>
+        </div>
+        <p class="text-xs text-slate-400">Angka merah dicoret, angka kuning kecil adalah hasil pembagiannya. Hasilnya sama dengan cara 2.</p>`
+      :`<p class="text-sm text-slate-300 bg-slate-900/50 p-4 rounded-lg border border-slate-700">Untuk soal ini tidak ada faktor yang bisa dicoret silang. Cara Lengkap adalah satu-satunya jalan.</p>`}
+    </div>
+  </div>`;
+  
+  buildAM(el.querySelector('.am'),p);
+  if(stepper){
+    const lis=el.querySelectorAll('ol.steps li'), btn=el.querySelector('.btn'); let k=1;
+    btn.addEventListener('click',()=>{ if(k<lis.length){ lis[k].classList.remove('hide'); k++; } if(k>=lis.length) btn.style.display='none'; });
+  }
+}
+
+// Utility untuk mengambil nilai dari input vertikal latihan
+function getMixedVal() {
+  const w = document.getElementById('pr-ans-w').value.trim();
+  const n = document.getElementById('pr-ans-n').value.trim();
+  const d = document.getElementById('pr-ans-d').value.trim();
+  if(w && !n && !d) return [parseInt(w), 1];
+  if(!w && n && d) return [parseInt(n), parseInt(d)];
+  if(w && n && d) return [parseInt(w) * parseInt(d) + parseInt(n), parseInt(d)];
+  return null;
+}
+
+const pex={w1:1,n1:1,d1:2,w2:2,n2:2,d2:3};
+document.getElementById('ex-title').innerHTML=`${mix(1,1,2)} × ${mix(2,2,3)} = ?`;
+renderWays(pex, document.getElementById('ex-ways'), true);
+
+const ppr={w1:2,n1:1,d1:4,w2:1,n2:1,d2:3};
+document.getElementById('pr-title').innerHTML=`${mix(2,1,4)} × ${mix(1,1,3)} = ?`;
+
+document.getElementById('pr-chk').addEventListener('click',()=>{
+  const a = getMixedVal();
+  const c = calc(ppr);
+  const fb = document.getElementById('pr-fb');
+  const lo = parseFloat(document.getElementById('pr-lo').value);
+  const hi = parseFloat(document.getElementById('pr-hi').value);
+  
+  fb.classList.remove('hidden');
+  const okAns = a && a[1]!==0 && a[0]*c.td === c.tn*a[1];
+  
+  let extra = (!isNaN(lo) && !isNaN(hi)) 
+    ? ((lo <= c.tn/c.td && c.tn/c.td <= hi)
+        ? '<br><span class="text-xs font-normal">Taksiranmu masuk akal.</span>'
+        : `<br><span class="text-xs font-normal text-slate-300">Taksiranmu belum akurat — rentang yang benar antara ${ppr.w1*ppr.w2} dan ${(ppr.w1+1)*(ppr.w2+1)}.</span>`) 
+    : '';
+    
+  if(okAns){
+    fb.innerHTML = '✅ Jawaban akhirmu benar!' + extra;
+    fb.style.color = 'var(--teal)';
+    fb.style.background = 'rgba(20,168,154,0.15)';
+  } else {
+    fb.innerHTML = '❌ Belum tepat. Lihat pembahasan tiga cara di bawah, lalu bandingkan langkahmu.' + extra;
+    fb.style.color = '#ef4444';
+    fb.style.background = 'rgba(239,68,68,0.15)';
+  }
+  
+  const w=document.getElementById('pr-ways'); 
+  w.classList.remove('hidden'); 
+  renderWays(ppr,w,false);
+});
+</script>
+</body>
+</html>
