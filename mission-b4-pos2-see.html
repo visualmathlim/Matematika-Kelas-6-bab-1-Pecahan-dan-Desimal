@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 2: See - Mission B4 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --navy:#0d1b4c; --navy-card:#16214f; --teal:#14a89a; --gold:#f4b400; --green-dk:#0d766b; --ink:#f1f5f9; --line:#2a3868; --sky:#3b5bb5; }
+  body{ background-color:var(--navy); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card-dark{ background-color:var(--navy-card); border:1px solid var(--line); }
+  
+  /* PENGATURAN PECAHAN VERTIKAL ATAS-BAWAH */
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .2rem; font-weight:bold; line-height:1.1; font-size:.9em; }
+  .math-num{ border-bottom:2px solid currentColor; padding:0 .25rem; width:100%; text-align:center; }
+  .math-den{ padding:0 .25rem; width:100%; text-align:center; }
+  .math-mixed{ display:inline-flex; align-items:center; vertical-align:middle; font-weight:bold; }
+
+  .btn{ padding:.55rem 1.2rem; border-radius:9999px; font-weight:bold; color:#fff; cursor:pointer; transition: transform 0.2s; }
+  .btn:hover{ transform: translateY(-1px); }
+  .btn:disabled{ opacity:.35; cursor:not-allowed; transform: none; }
+  select{ background:#0a1338; border:1px solid #475569; color:var(--ink); border-radius:.5rem; padding:.35rem .6rem; }
+  
+  #garden{ display:grid; grid-template-columns:4fr 1fr; grid-template-rows:3fr 1fr; width:100%; max-width:340px; aspect-ratio:2.5/1.3333; margin:0 auto; gap:0; border:2px solid var(--line); border-radius:6px; overflow:hidden; background:#0a1338; }
+  .reg{ display:flex; align-items:center; justify-content:center; font-size:.75rem; font-weight:700; color:#fff; opacity:.12; transition:opacity .5s, background-color .5s; border:1px solid rgba(255,255,255,.2); text-align:center; line-height:1.2; }
+  .reg.on{ opacity:1; }
+  #rA{ background:var(--sky); } #rB{ background:var(--teal); } #rC{ background:var(--gold); color:var(--navy); } #rD{ background:var(--green-dk); }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card-dark border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+      <div><h1 class="text-lg font-bold" style="color:var(--gold)">VisualMath.Lim</h1><p class="text-[11px] text-slate-300">Mission B4 • Kelas 6</p></div>
+    </div>
+    <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(20,168,154,.15); border:1px solid var(--teal); color:var(--teal)">👀 Pos 2/8: See</span>
+  </div>
+  <div class="h-1.5 w-full" style="background:#0a1338"><div class="h-full" style="width:25%; background:linear-gradient(to right,var(--teal),var(--gold))"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border" style="border-color:var(--line); background:var(--navy-card)">👀 See (Explore)</div>
+    <h2 class="text-3xl font-extrabold">Taksir Dulu, Susun Kemudian</h2>
+    <p class="max-w-md mx-auto text-sm text-slate-300">Agen yang baik menebak dengan masuk akal sebelum menghitung.</p>
+  </section>
+
+  <!-- Langkah 1: taksiran -->
+  <section class="card-dark rounded-2xl p-6 space-y-4 border-2 border-slate-700 shadow-md">
+    <div class="flex gap-4 items-start">
+      <img src="assets/Luna.png" alt="Luna" class="w-14 h-14 rounded-full border-2 shrink-0 object-cover" style="border-color:var(--gold)" onerror="this.outerHTML='<div class=\'w-14 h-14 rounded-full bg-slate-800 border-2 border-amber-400 flex items-center justify-center font-bold text-amber-400 shrink-0\'>LU</div>'">
+      <p class="text-sm text-slate-200"><b style="color:var(--teal)">Luna:</b> "Panjang tamanku lebih dari 2 m tapi kurang dari 3 m. Lebarnya lebih dari 1 m tapi kurang dari 2 m. Jadi luasnya kira-kira di antara berapa?"</p>
+    </div>
+    <p class="text-sm text-center">Luas taman lebih dari
+      <select id="lo"><option>1</option><option>2</option><option>3</option><option>4</option></select> m² dan kurang dari
+      <select id="hi"><option>4</option><option>5</option><option>6</option><option>8</option></select> m²</p>
+    <div class="text-center"><button id="lock" class="btn py-2.5 px-6 shadow-md" style="background:var(--gold); color:var(--navy)">Kunci Taksiran</button></div>
+    <p id="est-fb" class="text-sm text-center text-slate-300 hidden font-semibold"></p>
+  </section>
+
+  <!-- Langkah 2: susun taman -->
+  <section class="card-dark rounded-2xl p-6 space-y-5 border-2 border-slate-700 shadow-xl">
+    <p id="stage" class="text-center text-sm text-slate-300">Kunci taksiranmu dulu, lalu susun tamannya.</p>
+
+    <div id="garden">
+      <div class="reg" id="rA">2 × 1<br>2 ubin utuh</div>
+      <div class="reg" id="rC">
+        <span class="math-frac" style="margin:0;"><span class="math-num" style="border-bottom-width:1px; padding:0 1px;">1</span><span class="math-den" style="padding:0 1px;">2</span></span> × 1
+      </div>
+      <div class="reg" id="rB">
+        2 × <span class="math-frac" style="margin:0;"><span class="math-num" style="border-bottom-width:1px; padding:0 1px;">1</span><span class="math-den" style="padding:0 1px;">3</span></span>
+      </div>
+      <div class="reg" id="rD">
+        <span class="math-frac" style="margin:0;"><span class="math-num" style="border-bottom-width:1px; padding:0 1px;">1</span><span class="math-den" style="padding:0 1px;">2</span></span> × <span class="math-frac" style="margin:0;"><span class="math-num" style="border-bottom-width:1px; padding:0 1px;">1</span><span class="math-den" style="padding:0 1px;">3</span></span>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-2">
+      <button id="s1" class="btn shadow-sm" style="background:var(--sky)" disabled>1. Ubin utuh</button>
+      <button id="s2" class="btn shadow-sm" style="background:var(--teal)" disabled>2. Strip bawah</button>
+      <button id="s3" class="btn shadow-sm" style="background:var(--gold); color:var(--navy)" disabled>3. Strip kanan</button>
+      <button id="s4" class="btn shadow-sm" style="background:var(--green-dk)" disabled>4. Pojok kecil</button>
+      <button id="reset" class="btn shadow-sm" style="background:#475569">↺ Ulangi</button>
+    </div>
+
+    <div id="running" class="text-center text-base font-bold min-h-[1.5rem]" style="color:var(--gold)"></div>
+    <p id="final-fb" class="text-center text-sm hidden p-3 rounded-lg font-semibold"></p>
+  </section>
+
+  <div class="flex justify-between items-center pt-2">
+    <a href="mission-b4-pos1-brief.html" class="text-slate-400 hover:text-white text-sm">⬅ Brief</a>
+    <a href="mission-b4-pos3-visualize.html" class="inline-block font-bold py-3 px-8 rounded-full text-white shadow-lg transition-transform hover:-translate-y-0.5" style="background:linear-gradient(to right,var(--teal),var(--green-dk))">Lanjut ke Visualize ➔</a>
+  </div>
+
+</main>
+
+<script>
+try{ const p=+localStorage.getItem('vm_b4_progress')||0; if(p<1) localStorage.setItem('vm_b4_progress',1); }catch(e){}
+
+let lo=null, hi=null, step=0;
+const btns = [null,'s1','s2','s3','s4'].map(id=> id? document.getElementById(id):null);
+const regs = {1:['rA'],2:['rB'],3:['rC'],4:['rD']};
+
+// TAMPILAN MATEMATIKA BERSIH DENGAN FORMAT VERTIKAL HTML
+const runs = [
+  '', 
+  'Ubin utuh: 2 × 1 = 2 m²',
+  '2 + <span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span> (strip bawah: 2 × <span class="math-frac" style="margin:0;"><span class="math-num" style="border-bottom-width:1px; padding:0 1px;">1</span><span class="math-den" style="padding:0 1px;">3</span></span>) = <span class="math-mixed">2<span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span></span> m²',
+  '2<span class="math-mixed"><span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span></span> + <span class="math-frac" style="margin:0;"><span class="math-num" style="border-bottom-width:1px; padding:0 1px;">1</span><span class="math-den" style="padding:0 1px;">2</span></span> (strip kanan: <span class="math-frac" style="margin:0;"><span class="math-num" style="border-bottom-width:1px; padding:0 1px;">1</span><span class="math-den" style="padding:0 1px;">2</span></span> × 1) = <span class="math-mixed">3<span class="math-frac"><span class="math-num">1</span><span class="math-den">6</span></span></span> m²',
+  '3<span class="math-mixed"><span class="math-frac"><span class="math-num">1</span><span class="math-den">6</span></span></span> + <span class="math-frac" style="margin:0;"><span class="math-num" style="border-bottom-width:1px; padding:0 1px;">1</span><span class="math-den" style="padding:0 1px;">6</span></span> (pojok kecil: <span class="math-frac" style="margin:0;"><span class="math-num" style="border-bottom-width:1px; padding:0 1px;">1</span><span class="math-den" style="padding:0 1px;">2</span></span> × <span class="math-frac" style="margin:0;"><span class="math-num" style="border-bottom-width:1px; padding:0 1px;">1</span><span class="math-den" style="padding:0 1px;">3</span></span>) = <span class="math-mixed">3<span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span></span> m²'
+];
+
+const labels = ['Belum ada yang disusun.','Langkah 1 selesai: ubin utuh terpasang.','Langkah 2 selesai: strip bawah terpasang.','Langkah 3 selesai: strip kanan terpasang.','Langkah 4 selesai: taman lengkap!'];
+
+function refresh(){
+  document.querySelectorAll('.reg').forEach(r=>r.classList.remove('on'));
+  for(let i=1;i<=step;i++) regs[i].forEach(id=>document.getElementById(id).classList.add('on'));
+  document.getElementById('stage').textContent = lo===null ? 'Kunci taksiranmu dulu, lalu susun tamannya.' : labels[step];
+  document.getElementById('running').innerHTML = runs[step];
+  for(let i=1;i<=4;i++) btns[i].disabled = (lo===null) || (i!==step+1);
+  const fb = document.getElementById('final-fb');
+  if(step===4){
+    const total = 10/3;
+    const ok = lo<=total && total<=hi;
+    fb.classList.remove('hidden');
+    fb.innerHTML = ok
+      ? `✅ Luas taman = <span class="math-mixed">3<span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span></span> m². Taksiranmu (${lo}–${hi} m²) masuk akal!`
+      : `⚠ Luas taman = <span class="math-mixed">3<span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span></span> m², di luar taksiranmu (${lo}–${hi} m²). Taksiran yang baik: lebih dari 2×1 = 2 dan kurang dari 3×2 = 6.`;
+    fb.style.color = ok ? 'var(--teal)' : 'var(--gold)';
+    fb.style.background = ok ? 'rgba(20,168,154,0.15)' : 'rgba(244,180,0,0.15)';
+  } else { fb.classList.add('hidden'); }
+}
+
+document.getElementById('lock').addEventListener('click', ()=>{
+  lo = +document.getElementById('lo').value; hi = +document.getElementById('hi').value;
+  const fb = document.getElementById('est-fb'); fb.classList.remove('hidden');
+  if(lo>=hi){
+    fb.textContent = 'Batas bawah harus lebih kecil dari batas atas.';
+    fb.style.color = '#ef4444';
+    lo=null; hi=null;
+  } else {
+    fb.textContent = `Taksiran terkunci: ${lo} sampai ${hi} m². Sekarang susun tamannya!`;
+    fb.style.color = 'var(--teal)';
+  }
+  refresh();
+});
+[1,2,3,4].forEach(i=> btns[i].addEventListener('click', ()=>{ step=i; refresh(); }));
+document.getElementById('reset').addEventListener('click', ()=>{ step=0; refresh(); });
+refresh();
+</script>
+</body>
+</html>
