@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pos 7: Boss Battle | Mission C1</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{ --sky:#0EA5E9; --sky-d:#0369A1; --sky-dd:#0C4A6E; --sky-l:#E0F2FE; --bg:#F0F9FF; --ink:#0F2A3D; --line:#BAE6FD; --f-head:'Baloo 2',sans-serif; --f-body:'Nunito',sans-serif;}
+*{box-sizing:border-box;margin:0} body{font-family:var(--f-body);color:var(--ink);background:var(--bg);padding-bottom:60px;} a{text-decoration:none}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.1;font-weight:800;margin:0 .15em; font-size:1.1em;} .frac>span:first-child{border-bottom:.09em solid currentColor;padding:0 .2em .05em} .frac>span:last-child{padding-top:.05em}
+header{background:#fff;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:5} .bar{display:flex;justify-content:space-between;padding:12px 20px;max-width:800px;margin:0 auto} .back-btn{font-weight:700;color:var(--sky-d)} .pos-badge{background:#FEF3C7;color:#B45309;font-weight:800;padding:4px 12px;border-radius:99px;}
+.wrap{max-width:600px;margin:0 auto;padding:30px 20px} .card{background:#fff;border:2px solid #FCD34D;border-radius:18px;padding:24px;margin-bottom:20px;box-shadow:0 6px 16px rgba(245,158,11,0.15);}
+h2{font-family:var(--f-head);color:#B45309;text-align:center;margin-bottom:15px; font-size:2rem;}
+.inp-group{display:flex; align-items:center; gap:10px; background:var(--bg); padding:10px; border-radius:8px; margin-bottom:15px;}
+.inp-frac{display:inline-flex; flex-direction:column; width:50px; gap:4px;}
+.inp-frac input{text-align:center; font-weight:bold; font-size:1rem; border:2px solid var(--line); border-radius:4px; outline:none; padding:4px;}
+.inp-frac input:focus{border-color:var(--sky-d)}
+.btn{display:block;background:#F59E0B;color:#fff;font-family:var(--f-head);font-weight:800;padding:14px;border-radius:99px;text-align:center;width:100%;border:none;cursor:pointer;font-size:1.1rem;box-shadow:0 4px 0 #D97706;}
+#feedback{display:none; padding:15px; border-radius:12px; font-weight:bold; margin-top:20px; text-align:center;}
+</style>
+</head>
+<body>
+<header><div class="bar"><a href="mission-c1.html" class="back-btn">Kembali</a><div class="pos-badge">👾 Pos 7 Boss Battle</div></div></header>
+<main class="wrap">
+  <section class="card">
+    <h2>Misi Bagi Lahan</h2>
+    <p style="margin-bottom:15px;">Pak Budi memiliki sebidang tanah pertanian yang luasnya <b><span class="frac"><span>4</span><span>5</span></span> hektar</b>. Ia ingin membagi tanah tersebut sama rata kepada <b>6 anak petaninya</b>.</p>
+    <p style="background:#FFFBEB; padding:10px; border-radius:8px; border-left:4px solid #F59E0B; font-size:0.9rem; margin-bottom:20px;">
+      <i>Tips: Hitung hasil baginya, lalu pastikan jawabanmu dalam <b>pecahan paling sederhana</b> (pembilang dan penyebut tidak bisa dibagi angka yang sama lagi).</i>
+    </p>
+
+    <div class="inp-group">
+      <b>Luas tanah tiap anak = </b>
+      <div class="inp-frac">
+        <input type="number" id="num" placeholder="Atas">
+        <input type="number" id="den" placeholder="Bawah">
+      </div>
+      <b>hektar</b>
+    </div>
+
+    <button id="chkBtn" class="btn">Serang Boss! ⚔️</button>
+    <div id="feedback"></div>
+    <a href="mission-c1-pos8-log.html" id="nextBtn" class="btn" style="display:none; background:#10B981; margin-top:15px; box-shadow:0 4px 0 #047857;">Lanjut ke Mission Log ➔</a>
+  </section>
+</main>
+<script>
+document.getElementById('chkBtn').addEventListener('click', function() {
+  const num = document.getElementById('num').value;
+  const den = document.getElementById('den').value;
+  const fb = document.getElementById('feedback');
+  
+  if(!num || !den) return alert('Isi pecahannya dulu, Agen!');
+  
+  // 4/5 / 6 = 4/30. Disederhanakan = 2/15.
+  if(num == '2' && den == '15') {
+    fb.style.display = 'block'; fb.style.background = '#D1FAE5'; fb.style.color = '#065F46'; fb.style.border = '2px solid #10B981';
+    fb.innerHTML = '✅ <b>Luar Biasa! Tepat Sekali!</b><br> <span class="frac"><span>4</span><span>5</span></span> ÷ 6 = <span class="frac"><span>4</span><span>30</span></span>. Jika disederhanakan (dibagi 2), hasilnya <span class="frac"><span>2</span><span>15</span></span>.';
+    this.style.display = 'none';
+    document.getElementById('nextBtn').style.display = 'block';
+    
+    // Simpan kelulusan & log
+    let log = JSON.parse(localStorage.getItem('vml_c1_done_7_log') || '{"attempts":[],"bestScore":0}');
+    log.attempts.push({score: 100, date: new Date().toLocaleDateString('id-ID')});
+    log.bestScore = 100; log.passed = true;
+    localStorage.setItem('vml_c1_done_7_log', JSON.stringify(log));
+    localStorage.setItem('vml_c1_done_7', '1');
+  } else if(num == '4' && den == '30') {
+    fb.style.display = 'block'; fb.style.background = '#FFFBEB'; fb.style.color = '#B45309'; fb.style.border = '2px solid #F59E0B';
+    fb.innerHTML = '⚠️ <b>Hampir Sempurna!</b><br> Hasilnya memang 4/30, tapi ingat instruksi <i>Tips</i>: "pecahan paling sederhana". Coba bagi pembilang dan penyebut dengan 2!';
+  } else {
+    fb.style.display = 'block'; fb.style.background = '#FFE4E6'; fb.style.color = '#9F1239'; fb.style.border = '2px solid #F43F5E';
+    fb.innerHTML = '❌ <b>Belum Tepat!</b><br> Ingat cara KCF: <span class="frac"><span>4</span><span>5</span></span> × <span class="frac"><span>1</span><span>6</span></span>. Coba hitung lagi!';
+    
+    let log = JSON.parse(localStorage.getItem('vml_c1_done_7_log') || '{"attempts":[],"bestScore":0}');
+    log.attempts.push({score: 0, date: new Date().toLocaleDateString('id-ID')});
+    localStorage.setItem('vml_c1_done_7_log', JSON.stringify(log));
+  }
+});
+</script>
+</body>
+</html>
