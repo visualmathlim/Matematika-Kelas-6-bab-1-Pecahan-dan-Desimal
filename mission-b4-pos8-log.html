@@ -9,15 +9,18 @@
   :root{ --navy:#0d1b4c; --navy-card:#16214f; --teal:#14a89a; --gold:#f4b400; --green-dk:#0d766b; --ink:#f1f5f9; --line:#2a3868; }
   body{ background-color:var(--navy); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; overflow-x:hidden; }
   .card-dark{ background-color:var(--navy-card); border:1px solid var(--line); }
-  .btn{ padding:.75rem 1.8rem; border-radius:9999px; font-weight:bold; color:#fff; }
-  .avatar{ width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); background:#fff; flex:none; }
-  table.lg td, table.lg th{ padding:.35rem .5rem; border-bottom:1px solid var(--line); font-size:.8rem; text-align:left; }
+  .btn{ padding:.75rem 1.8rem; border-radius:9999px; font-weight:bold; color:#fff; cursor:pointer; transition:transform 0.2s; }
+  .btn:hover{ transform:translateY(-1px); }
+  .avatar{ width:48px; height:48px; border-radius:50%; object-fit:contain; border:2px solid var(--gold); background:var(--navy-card); flex:none; padding:2px; }
+  table.lg td, table.lg th{ padding:.5rem; border-bottom:1px solid var(--line); font-size:.85rem; text-align:left; }
+  
   @keyframes shake{ 0%,100%{transform:rotate(0)} 20%{transform:rotate(-8deg)} 40%{transform:rotate(8deg)} 60%{transform:rotate(-6deg)} 80%{transform:rotate(6deg)} }
   @keyframes popIn{ 0%{transform:scale(0) rotate(-25deg); opacity:0} 60%{transform:scale(1.2) rotate(8deg); opacity:1} 100%{transform:scale(1) rotate(0)} }
   @keyframes glow{ 0%,100%{box-shadow:0 0 24px 4px rgba(244,180,0,.45)} 50%{box-shadow:0 0 44px 12px rgba(244,180,0,.8)} }
   @keyframes ring{ 0%{transform:scale(.6); opacity:.8} 100%{transform:scale(2.2); opacity:0} }
   @keyframes fall{ to{ transform:translateY(105vh) rotate(540deg); opacity:.2; } }
-  .chest{ animation:shake 1.2s ease-in-out infinite; display:inline-block; font-size:6rem; cursor:pointer; }
+  
+  .chest{ animation:shake 1.2s ease-in-out infinite; display:inline-block; font-size:6rem; cursor:pointer; drop-shadow: 0 10px 15px rgba(0,0,0,0.5); }
   .badge-wrap{ position:relative; display:inline-flex; align-items:center; justify-content:center; width:170px; height:170px; }
   .badge{ width:150px; height:150px; border-radius:50%; background:radial-gradient(circle at 30% 30%, #ffe08a, var(--gold) 60%, #b98700); display:flex; align-items:center; justify-content:center; font-size:4.5rem; animation:popIn .9s cubic-bezier(.34,1.56,.64,1) both, glow 2s ease-in-out .9s infinite; border:4px solid #fff3c4; }
   .ring{ position:absolute; inset:10px; border-radius:50%; border:3px solid var(--gold); animation:ring 1.6s ease-out infinite; }
@@ -31,7 +34,7 @@
 <header class="card-dark border-b sticky top-0 z-40">
   <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
     <div class="flex items-center gap-3">
-      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-slate-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
       <div><h1 class="text-lg font-bold" style="color:var(--gold)">VisualMath.Lim</h1><p class="text-[11px] text-slate-300">Mission B4 • Kelas 6</p></div>
     </div>
     <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:rgba(20,168,154,.15); border:1px solid var(--teal); color:var(--teal)">📖 Pos 8/8: Mission Log</span>
@@ -39,16 +42,16 @@
   <div class="h-1.5 w-full" style="background:#0a1338"><div class="h-full" style="width:100%; background:linear-gradient(to right,var(--teal),var(--gold))"></div></div>
 </header>
 
-<main class="flex-grow max-w-2xl mx-auto w-full px-4 py-10 space-y-8">
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
   <section class="text-center space-y-2">
     <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border" style="border-color:var(--line); background:var(--navy-card)">📖 Mission Log</div>
     <h2 class="text-3xl font-extrabold">Hasil Perjalananmu di Mission B4</h2>
   </section>
 
-  <div id="scores"></div>
+  <div id="scores" class="space-y-4"></div>
   <div id="claim"></div>
   <div id="team"></div>
-  <div id="home" class="text-center"></div>
+  <div id="home" class="text-center pt-2"></div>
 </main>
 
 <script>
@@ -59,41 +62,51 @@ let claimed=false; try{ claimed = localStorage.getItem('vm_b4_claimed')==='1'; }
 
 function scoreCard(title,icon,log,href){
   const last=log.attempts.length? (log.lastScore ?? log.attempts[log.attempts.length-1].score) : null;
-  const rows=log.attempts.length ? log.attempts.map((a,i)=>`<tr><td>Percobaan ${i+1}</td><td>${a.date}</td><td class="font-bold" style="color:${a.score>=70?'var(--teal)':'#ef4444'}">${a.score}</td><td>${a.score>=70?'✅ Lulus':'❌ Belum'}</td></tr>`).join('') : `<tr><td colspan="4" class="text-slate-500">Belum ada percobaan. <a href="${href}" style="color:var(--gold)">Kerjakan sekarang ➔</a></td></tr>`;
-  return `<div class="card-dark rounded-2xl p-5 space-y-3">
-    <div class="flex items-center justify-between"><p class="font-bold">${icon} ${title}</p><span class="text-xs px-2 py-0.5 rounded-full" style="background:${log.passed?'var(--teal)':'#7f1d1d'}">${log.passed?'Lulus KKM':'Belum lulus'}</span></div>
-    <div class="grid grid-cols-3 gap-2 text-center text-sm">
-      <div class="bg-slate-900/40 rounded-lg p-2"><p class="text-xs text-slate-400">Terakhir</p><p class="text-xl font-bold">${last===null?'-':last}</p></div>
-      <div class="bg-slate-900/40 rounded-lg p-2"><p class="text-xs text-slate-400">Terbaik</p><p class="text-xl font-bold" style="color:var(--gold)">${log.attempts.length?log.bestScore:'-'}</p></div>
-      <div class="bg-slate-900/40 rounded-lg p-2"><p class="text-xs text-slate-400">Percobaan</p><p class="text-xl font-bold">${log.attempts.length}</p></div>
+  const rows=log.attempts.length ? log.attempts.map((a,i)=>`<tr><td>Percobaan ${i+1}</td><td>${a.date}</td><td class="font-bold" style="color:${a.score>=70?'var(--teal)':'#ef4444'}">${a.score}</td><td class="font-bold">${a.score>=70?'<span class="text-teal-400">✅ Lulus</span>':'<span class="text-red-400">❌ Belum</span>'}</td></tr>`).join('') : `<tr><td colspan="4" class="text-slate-400 text-center py-4">Belum ada data percobaan. <a href="${href}" class="font-bold underline" style="color:var(--gold)">Kerjakan sekarang ➔</a></td></tr>`;
+  return `<div class="card-dark rounded-2xl p-6 border-2 border-slate-700 shadow-lg space-y-4">
+    <div class="flex items-center justify-between border-b border-slate-700 pb-2"><p class="font-bold text-lg text-amber-300">${icon} ${title}</p><span class="text-xs px-3 py-1 font-bold rounded-full" style="background:${log.passed?'var(--teal)':'#7f1d1d'}">${log.passed?'✅ Lulus KKM':'❌ Belum Lulus'}</span></div>
+    <div class="grid grid-cols-3 gap-3 text-center text-sm">
+      <div class="bg-slate-900/60 border border-slate-700 rounded-lg p-3"><p class="text-xs text-slate-400 uppercase tracking-wide">Terakhir</p><p class="text-2xl font-bold">${last===null?'-':last}</p></div>
+      <div class="bg-slate-900/60 border border-amber-600 rounded-lg p-3 shadow-inner"><p class="text-xs text-slate-400 uppercase tracking-wide">Terbaik</p><p class="text-2xl font-bold" style="color:var(--gold)">${log.attempts.length?log.bestScore:'-'}</p></div>
+      <div class="bg-slate-900/60 border border-slate-700 rounded-lg p-3"><p class="text-xs text-slate-400 uppercase tracking-wide">Percobaan</p><p class="text-2xl font-bold">${log.attempts.length}</p></div>
     </div>
-    <table class="lg w-full"><tr><th>Ke-</th><th>Tanggal</th><th>Skor</th><th>Status</th></tr>${rows}</table>
+    <div class="bg-slate-900/40 rounded-lg overflow-hidden border border-slate-700">
+      <table class="lg w-full"><tr class="bg-slate-800 text-slate-300"><th>Ke-</th><th>Tanggal</th><th>Skor</th><th>Status</th></tr>${rows}</table>
+    </div>
   </div>`;
 }
+
 const avg = (L6.attempts.length && L7.attempts.length) ? Math.round((L6.bestScore+L7.bestScore)/2) : null;
 document.getElementById('scores').innerHTML =
   scoreCard('Pos 6 — Quest Kuis','🎮',L6,'mission-b4-pos6-quiz.html') +
-  `<div class="h-4"></div>` +
   scoreCard('Pos 7 — Boss Battle HOTS','👾',L7,'mission-b4-pos7-boss.html') +
-  `<div class="card-dark rounded-2xl p-4 mt-4 text-center"><p class="text-xs text-slate-400">Rata-rata nilai terbaik Pos 6 &amp; 7</p><p class="text-3xl font-extrabold" style="color:var(--gold)">${avg===null?'-':avg}</p></div>`;
+  `<div class="card-dark rounded-2xl p-5 text-center shadow-md bg-gradient-to-r from-slate-900 to-slate-800 border border-slate-700"><p class="text-sm text-slate-300 font-semibold mb-1">Rata-rata Skor Terbaik Pos 6 & 7</p><p class="text-4xl font-extrabold" style="color:var(--gold)">${avg===null?'-':avg}</p></div>`;
 
 /* ---------- pesan tim ---------- */
 const tries=L6.attempts.length+L7.attempts.length;
 const MSG = both ? [
-  ['Sigma','Prof. Sigma','Kamu tidak hanya menemukan jawaban, tetapi juga mampu menjelaskan mengapa jawabannya benar. Itulah Math Agent sejati.'],
-  ['Luna','Luna','Kamu sudah melihat gambar di balik angka. Empat daerah itu tidak lagi ada yang tertinggal!'],
-  ['Kian','Kian','Idemu berani dan hasilnya nyata. Tantangan berikutnya pasti bisa kamu taklukkan juga!'],
-  ['Pixel','Pixel','Sistem mencatat: Mission B4 selesai. Semua log tersimpan. Kamu luar biasa!'],
-  ['Pixel','Coach Lim & Tim VisualMath.Lim',`Kami bangga sekali padamu. ${tries>2?`Kamu mencoba ${tries} kali — itu semangat pantang menyerah yang sesungguhnya.`:'Terus pertahankan semangat belajarmu.'} Sampai jumpa di misi berikutnya!`]
+  ['Sigma','Prof. Sigma','Kamu tidak hanya menemukan jawaban, tetapi juga mampu menjelaskan mengapa jawabannya benar. Itulah pemikir matematis sejati.'],
+  ['Luna','Luna','Hebat! Kamu sudah melihat gambar utuh di balik angka. Empat daerah Area Model itu tidak lagi ada yang tertinggal!'],
+  ['Kian','Kian','Idemu berani dan usahamu nyata. Tantangan pecahan campuran sudah kamu taklukkan.'],
+  ['Pixel','Pixel','Sistem mencatat: Mission B4 selesai 100%. Seluruh record memuaskan. Kamu luar biasa, Agen!'],
+  ['logo','Coach & Tim VisualMath',`Kami bangga sekali padamu. ${tries>2?`Kamu gigih mencoba hingga ${tries} kali — itu semangat pantang menyerah yang sesungguhnya.`:'Terus pertahankan konsentrasi dan semangat belajarmu.'} Sampai jumpa di misi selanjutnya!`]
 ] : [
-  ['Pixel','Pixel','Belum lulus bukan berarti gagal. Setiap percobaan sudah tercatat dan menjadi petunjuk untuk langkah berikutnya.'],
-  ['Luna','Luna','Baca lagi pembahasan lengkapnya, lalu lihat gambar Area Model. Banyak petunjuk tersembunyi di sana.'],
-  ['Kian','Kian','Jangan takut mencoba lagi. Soal berikutnya berbeda, dan kamu sudah lebih paham dari sebelumnya.'],
-  ['Sigma','Prof. Sigma','Seorang Math Agent belajar dari setiap kesalahan. Kamu pasti bisa!'],
-  ['Pixel','Coach Lim & Tim VisualMath.Lim','Kami percaya padamu. Kerjakan pos yang belum lulus, lalu kembali untuk mengklaim badge-mu.']
+  ['Pixel','Pixel','Belum lulus bukan berarti gagal. Setiap percobaan sudah tercatat dalam sistem dan menjadi petunjuk untuk evaluasi langkah berikutnya.'],
+  ['Luna','Luna','Coba baca perlahan pembahasan lengkap di setiap soal, lalu lihat gambar Area Modelnya. Banyak petunjuk tersembunyi di sana.'],
+  ['Kian','Kian','Jangan takut untuk mencoba lagi. Latihan berikutnya pasti kamu bisa kerjakan lebih baik dari sebelumnya.'],
+  ['Sigma','Prof. Sigma','Seorang Math Agent belajar dari setiap kesalahan. Jadikan keliru sebagai batu pijakan. Kamu pasti bisa!'],
+  ['logo','Coach & Tim VisualMath','Kami percaya pada kemampuanmu. Kerjakan ulang pos yang belum lulus, lalu kembali ke sini untuk mengklaim badge penghargaanmu.']
 ];
-document.getElementById('team').innerHTML=`<section class="card-dark rounded-2xl p-5 space-y-4"><p class="font-bold" style="color:var(--teal)">💬 Pesan dari Tim VisualMath.Lim</p>`+
-  MSG.map(m=>`<div class="flex gap-3 items-start"><img src="assets/${m[0]}.png" alt="${m[1]}" class="avatar"><div class="text-sm bg-slate-900/40 rounded-xl px-3 py-2"><p class="text-xs font-bold" style="color:var(--gold)">${m[1]}</p>"${m[2]}"</div></div>`).join('')+`</section>`;
+
+document.getElementById('team').innerHTML=`<section class="card-dark rounded-2xl p-6 space-y-5 border border-slate-700 shadow-md">
+  <p class="font-bold text-lg border-b border-slate-700 pb-2" style="color:var(--teal)">💬 Pesan dari Tim VisualMath</p>`+
+  MSG.map(m=>`<div class="flex gap-4 items-start">
+    <img src="assets/${m[0]}.png" alt="${m[1]}" class="avatar" onerror="this.outerHTML='<div class=\\'avatar flex items-center justify-center font-bold text-[10px] text-amber-500 bg-slate-800\\'>${m[1].substring(0,2).toUpperCase()}</div>'">
+    <div class="text-sm bg-slate-900/60 border border-slate-700 rounded-xl px-4 py-3 shadow-inner flex-grow">
+      <p class="text-xs font-bold mb-1 uppercase tracking-wide" style="color:var(--gold)">${m[1]}</p>
+      <p class="text-slate-200 leading-relaxed">"${m[2]}"</p>
+    </div>
+  </div>`).join('')+`</section>`;
 
 /* ---------- klaim badge ---------- */
 const claimEl=document.getElementById('claim'), homeEl=document.getElementById('home');
@@ -106,17 +119,17 @@ function confetti(){
 }
 function xpCount(el,to){ let v=0; const t=setInterval(()=>{ v+=5; el.textContent='+'+Math.min(v,to)+' XP'; if(v>=to) clearInterval(t); },40); }
 function showHome(){
-  homeEl.innerHTML=`<a href="index.html" class="btn inline-block fade-in" style="background:linear-gradient(to right,var(--teal),var(--green-dk))">🏠 Kembali ke Home</a><p class="mt-2"><a href="mission-b4-dashboard.html" class="text-xs text-slate-400 hover:text-white">Lihat peta misi</a></p>`;
+  homeEl.innerHTML=`<a href="index.html" class="btn inline-block fade-in shadow-lg py-3 px-8" style="background:linear-gradient(to right,var(--teal),var(--green-dk))">🏠 Kembali ke Dashboard Utama ➔</a><p class="mt-4"><a href="mission-b4-dashboard.html" class="text-sm font-semibold text-slate-400 hover:text-white transition-colors">Lihat Peta Misi B4</a></p>`;
 }
 function revealBadge(animate){
-  claimEl.innerHTML=`<section class="text-center space-y-3">
+  claimEl.innerHTML=`<section class="text-center space-y-4 py-4">
     <div class="badge-wrap"><span class="ring"></span><span class="ring"></span><span class="ring"></span><div class="badge">🏅</div></div>
-    <h3 class="text-2xl font-extrabold fade-in" style="color:var(--gold)">Mixed Number Master Badge</h3>
-    <p class="text-slate-300 text-sm fade-in">Selamat! Kamu menguasai perkalian pecahan campuran.</p>
-    <p id="xp" class="text-2xl font-bold" style="color:var(--teal)">+0 XP</p>
-    <button id="replay" class="text-xs text-slate-400 hover:text-white">🔁 Putar animasi lagi</button>
+    <h3 class="text-3xl font-extrabold fade-in text-amber-300">Mixed Fraction Master Terbuka!</h3>
+    <p class="text-slate-300 text-base font-medium fade-in">Selamat! Kamu menguasai perkalian pecahan campuran.</p>
+    <p id="xp" class="text-3xl font-extrabold fade-in" style="color:var(--teal)">+0 XP</p>
+    <button id="replay" class="text-xs font-semibold text-slate-400 hover:text-white bg-slate-800 px-3 py-1.5 rounded-full mt-2 transition-colors">🔁 Putar ulang animasi</button>
   </section>`;
-  xpCount(document.getElementById('xp'),100);
+  xpCount(document.getElementById('xp'),150);
   if(animate) confetti();
   document.getElementById('replay').addEventListener('click',()=>revealBadge(true));
   try{ localStorage.setItem('vm_b4_claimed','1'); }catch(e){}
@@ -125,10 +138,10 @@ function revealBadge(animate){
 if(both){
   if(claimed){ revealBadge(false); }
   else {
-    claimEl.innerHTML=`<section class="text-center space-y-3">
-      <p class="text-sm text-slate-300">Kedua pos sudah lulus KKM 70. Hadiahmu sudah menunggu!</p>
-      <div id="chest" class="chest" title="Klik untuk klaim">🎁</div>
-      <div><button id="claim-btn" class="btn" style="background:var(--gold); color:var(--navy)">🎉 Klaim Badge</button></div>
+    claimEl.innerHTML=`<section class="text-center space-y-4 card-dark p-8 rounded-2xl border border-amber-500/50 shadow-2xl">
+      <p class="text-base font-bold text-amber-300">Misi Selesai! Kedua Pos sudah lulus KKM (70).</p>
+      <div id="chest" class="chest my-2" title="Klik untuk klaim">🎁</div>
+      <div><button id="claim-btn" class="btn py-3 px-8 shadow-lg text-lg" style="background:linear-gradient(to right, var(--gold), #d97706); color:var(--navy)">🎉 Buka Hadiah & Klaim Badge</button></div>
     </section>`;
     const go=()=>revealBadge(true);
     document.getElementById('claim-btn').addEventListener('click',go);
@@ -136,15 +149,15 @@ if(both){
   }
 } else {
   const need6=!L6.passed, need7=!L7.passed;
-  claimEl.innerHTML=`<section class="card-dark rounded-2xl p-6 text-center space-y-3">
-    <div class="text-6xl opacity-40">🔒</div>
-    <p class="font-bold">Badge belum bisa diklaim</p>
-    <p class="text-sm text-slate-300">Badge terbuka setelah Pos 6 dan Pos 7 sama-sama mencapai KKM 70.</p>
-    <div class="flex flex-wrap justify-center gap-3">
-      ${need6?'<a href="mission-b4-pos6-quiz.html" class="btn text-sm" style="background:var(--gold); color:var(--navy)">Kerjakan Pos 6</a>':''}
-      ${need7?'<a href="mission-b4-pos7-boss.html" class="btn text-sm" style="background:var(--gold); color:var(--navy)">Kerjakan Pos 7</a>':''}
+  claimEl.innerHTML=`<section class="card-dark rounded-2xl p-8 text-center space-y-4 border border-slate-700 shadow-xl">
+    <div class="text-6xl opacity-40 drop-shadow-md">🔒</div>
+    <p class="font-extrabold text-xl">Badge Belum Terbuka</p>
+    <p class="text-sm text-slate-300 max-w-sm mx-auto">Badge penghargaan terbuka otomatis setelah Pos 6 dan Pos 7 sama-sama mencapai minimal skor KKM (70).</p>
+    <div class="flex flex-wrap justify-center gap-3 pt-2">
+      ${need6?'<a href="mission-b4-pos6-quiz.html" class="btn text-sm shadow" style="background:var(--gold); color:var(--navy)">Kerjakan Pos 6</a>':''}
+      ${need7?'<a href="mission-b4-pos7-boss.html" class="btn text-sm shadow" style="background:var(--gold); color:var(--navy)">Kerjakan Pos 7</a>':''}
     </div></section>`;
-  homeEl.innerHTML=`<a href="index.html" class="text-sm text-slate-400 hover:text-white">🏠 Kembali ke Home dulu</a>`;
+  homeEl.innerHTML=`<a href="index.html" class="text-sm font-semibold text-slate-400 hover:text-white transition-colors">🏠 Kembali ke Dashboard Utama Dulu</a>`;
 }
 </script>
 </body>
