@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission B4: Perkalian Pecahan Campuran | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --navy:#0d1b4c; --navy-card:#16214f; --teal:#14a89a; --gold:#f4b400; --green-dk:#0d766b; --ink:#f1f5f9; --line:#2a3868; }
+  body{ background-color:var(--navy); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card-dark{ background-color:var(--navy-card); border:1px solid var(--line); }
+  .path-line{ position:absolute; top:32px; bottom:32px; left:32px; width:4px; background:linear-gradient(var(--teal),var(--gold)); z-index:0; }
+  .node{ position:relative; z-index:1; }
+  .node-dot{ width:64px; height:64px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.5rem; font-weight:800; border:3px solid var(--line); background:var(--navy-card); flex:none; }
+  .node.active .node-dot{ border-color:var(--gold); box-shadow:0 0 0 4px rgba(244,180,0,.25); color:var(--gold); }
+  .node.done .node-dot{ border-color:var(--teal); background:var(--teal); color:#fff; }
+  .node.locked .node-dot{ opacity:.5; }
+  .avatar{ width:38px; height:38px; border-radius:50%; object-fit:cover; border:2px solid var(--gold); background:#fff; }
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .2rem; font-weight:bold; line-height:1.1; font-size:.85em; }
+  .math-num{ border-bottom:2px solid currentColor; padding:0 .25rem; width:100%; text-align:center; }
+  .math-den{ padding:0 .25rem; width:100%; text-align:center; }
+</style>
+</head>
+<body class="antialiased min-h-screen">
+
+<header class="card-dark border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex items-center gap-3">
+    <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto">
+    <div>
+      <h1 class="text-lg font-bold" style="color:var(--gold)">VisualMath.Lim</h1>
+      <p class="text-[11px] text-slate-300">Math Mastery • Kelas 6</p>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-3xl mx-auto px-4 py-10 space-y-8">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border" style="border-color:var(--line); background:var(--navy-card)">🌱 Mission B4</div>
+    <h2 class="text-3xl font-extrabold">Perkalian Pecahan Campuran</h2>
+    <p class="text-2xl font-bold" style="color:var(--gold)">
+      2<span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span> ×
+      1<span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span> = ?
+    </p>
+    <p class="max-w-md mx-auto text-sm text-slate-300">Big Idea: <i>"Pecahan campuran punya bagian utuh dan bagian pecahan. Saat dikalikan, keduanya ikut dikalikan — tidak ada yang boleh tertinggal."</i></p>
+  </section>
+
+  <section class="relative py-2">
+    <div class="path-line"></div>
+    <div id="nodes" class="space-y-8"></div>
+  </section>
+
+  <section class="card-dark rounded-2xl p-6 text-center space-y-2">
+    <p class="text-sm text-slate-300">Selesaikan semua pos untuk membuka:</p>
+    <p class="text-xl font-bold" style="color:var(--gold)">🏅 Mixed Number Master Badge</p>
+    <a id="cta" href="mission-b4-pos1-brief.html" class="inline-block mt-3 font-bold py-3 px-8 rounded-full text-white" style="background:var(--teal)">Mulai Misi ➔</a>
+    <p><a href="index.html" class="text-xs text-slate-400 hover:text-white">🏠 Kembali ke Home</a></p>
+  </section>
+
+</main>
+
+<script>
+function readLog(key){ try{ return JSON.parse(localStorage.getItem(key)) || {passed:false}; }catch(e){ return {passed:false}; } }
+let progress = 0;
+try{ progress = +localStorage.getItem('vm_b4_progress') || 0; }catch(e){}
+const log6 = readLog('vm_b4_pos6'), log7 = readLog('vm_b4_pos7');
+
+const NODES = [
+  {t:'Mission Brief', s:'Taman Luna & kalibrasi mini', img:'Pixel', href:'mission-b4-pos1-brief.html'},
+  {t:'See — Taksir & Susun Ubin', s:'Taksir dulu, lalu susun tamannya', img:'Luna', href:'mission-b4-pos2-see.html'},
+  {t:'Visualize — Area Model 4 Kotak', s:'Grid interaktif + Mode Eksperimen', img:'Luna', href:'mission-b4-pos3-visualize.html'},
+  {t:'Think & Discover', s:'Menemukan pola + Pixel Alert', img:'Kian', href:'mission-b4-pos4-think-discover.html'},
+  {t:'Skill Unlock', s:'Aturan Emas & 3 strategi', img:'Sigma', href:'mission-b4-pos5-skillunlock.html'},
+  {t:'Quest', s:'Kuis KKM 70', img:'Kian', href:'mission-b4-pos6-quiz.html'},
+  {t:'Boss Battle', s:'Soal HOTS berlapis', img:'Kian', href:'mission-b4-pos7-boss.html'},
+  {t:'Mission Log & Badge', s:'Refleksi + badge', img:'Sigma', href:'mission-b4-pos8-log.html'}
+];
+function isDone(n){
+  if(n<=5) return n<=progress;
+  if(n===6) return !!log6.passed;
+  if(n===7) return !!log7.passed;
+  return !!(log6.passed && log7.passed);
+}
+let activeIdx = NODES.findIndex((_,i)=>!isDone(i+1));
+const wrap = document.getElementById('nodes');
+NODES.forEach((nd,i)=>{
+  const n = i+1, done = isDone(n);
+  const state = done ? 'done' : (i===activeIdx ? 'active' : 'locked');
+  const div = document.createElement('div');
+  div.className = `node ${state} flex items-center gap-4`;
+  div.innerHTML = `<div class="node-dot">${done ? '✓' : n}</div>
+    <a href="${nd.href}" class="card-dark rounded-xl px-4 py-3 flex-1 flex items-center justify-between hover:border-amber-400 transition-colors">
+      <div><p class="font-bold">${nd.t}</p><p class="text-xs text-slate-400">${nd.s}</p></div>
+      <img src="assets/${nd.img}.png" alt="${nd.img}" class="avatar">
+    </a>`;
+  wrap.appendChild(div);
+});
+if(activeIdx >= 0){
+  document.getElementById('cta').href = NODES[activeIdx].href;
+  document.getElementById('cta').textContent = activeIdx===0 ? 'Mulai Misi ➔' : 'Lanjutkan Misi ➔';
+} else {
+  document.getElementById('cta').href = 'mission-b4-pos8-log.html';
+  document.getElementById('cta').textContent = 'Lihat Badge-mu 🏅';
+}
+</script>
+</body>
+</html>
