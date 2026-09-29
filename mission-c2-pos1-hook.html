@@ -26,21 +26,21 @@ header{background:#fff;border-bottom:2px solid var(--line);position:sticky;top:0
       <img src="assets/Pixel.png" alt="Pixel" class="avatar" onerror="this.outerHTML='<div class=\'avatar\' style=\'display:grid;place-items:center;font-weight:bold;color:var(--blue-d)\'>PX</div>'">
       <div class="bubble">
         <p>Pixel sedang mendekorasi markas VisualMath. Ia memiliki pita panjang yang berukuran persis <b>3 meter utuh</b>.</p>
-        <p style="margin-top:10px;">Untuk membuat hiasan kado kecil, ia harus memotong pita tersebut. Setiap 1 hiasan kado membutuhkan potongan pita sepanjang <b><span class="frac"><span>1</span><span>4</span></span> meter</b>.</p>
+        <p style="margin-top:10px;">Untuk membuat hiasan kado, ia harus memotong-motong pita tersebut. Setiap 1 hiasan kado membutuhkan potongan pita sepanjang <b><span class="frac"><span>3</span><span>4</span></span> meter</b>.</p>
       </div>
     </div>
   </section>
 
   <section class="card" style="border-color:var(--blue-d); background:#EFF6FF;">
     <h2 style="color:var(--blue-d)">Tebak-Tebakan Logika!</h2>
-    <p>Jika 3 meter pita dipotong-potong menjadi ukuran <span class="frac"><span>1</span><span>4</span></span> meter (<span class="math">3 ÷ <span class="frac"><span>1</span><span>4</span></span></span>), coba tebak, berapa banyak potongan pita yang akan dihasilkan Pixel?</p>
+    <p>Jika 3 meter pita dipotong-potong menjadi kelompok ukuran <span class="frac"><span>3</span><span>4</span></span> meter (secara matematika: <span class="math">3 ÷ <span class="frac"><span>3</span><span>4</span></span></span>), coba tebak, berapa banyak potongan pita hias yang didapatkan?</p>
     
     <div class="options">
       <button class="opt-btn" onclick="checkAnswer(false, this)">
-        Jumlah potongannya pasti <b>KECIL</b> (kurang dari 3)
+        Jumlah pitanya <b>SEDIKIT</b> (Kurang dari 3)
       </button>
       <button class="opt-btn" onclick="checkAnswer(true, this)">
-        Jumlah potongannya pasti <b>BANYAK</b> (lebih dari 3)
+        Jumlah pitanya <b>BANYAK</b> (Lebih dari 3)
       </button>
     </div>
 
@@ -58,13 +58,13 @@ function checkAnswer(isCorrect, btnElement) {
   if (isCorrect) {
     btnElement.classList.add('correct'); fb.className = 'feedback show correct';
     fb.style.background = '#D1FAE5'; fb.style.color = '#065F46'; fb.style.border = '2px solid #10B981';
-    fb.innerHTML = `✅ <b>Tepat Sekali! Logikamu Jalan!</b><br> 1 meter utuh saja kalau dipotong ukuran <span class="frac" style="font-size:0.9em"><span>1</span><span>4</span></span> bisa jadi 4 potongan. Kalau ada 3 meter, pasti jumlah potongannya bertambah banyak!`;
+    fb.innerHTML = `✅ <b>Logikamu Jalan!</b><br> Walaupun yang dipotong ukurannya <span class="frac" style="font-size:0.9em"><span>3</span><span>4</span></span> (bukan 1), tapi karena pita utuhnya ada 3 meter, potongannya akan terkumpul menjadi lebih banyak! Ayo kita lihat visualnya!`;
     document.getElementById('nextBtn').classList.add('show');
     setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 200);
   } else {
     btnElement.classList.add('wrong'); fb.className = 'feedback show wrong';
     fb.style.background = '#FFE4E6'; fb.style.color = '#9F1239'; fb.style.border = '2px solid #F43F5E';
-    fb.innerHTML = `❌ <b>Ups! Hati-hati dengan jebakan pembagian!</b><br> Bayangkan kamu menggunting pita. Bukankah menggunting pita utuh justru menghasilkan BANYAK potongan kecil?`;
+    fb.innerHTML = `❌ <b>Ups! Hati-hati jebakan!</b><br> Bayangkan menggunting pita panjang menjadi bagian pecahan yang lebih kecil dari 1 meter. Apakah hasilnya akan lebih sedikit? Coba pikir lagi!`;
     setTimeout(() => { buttons.forEach(btn => { btn.style.pointerEvents = 'auto'; btn.classList.remove('wrong'); }); fb.classList.remove('show'); }, 3500);
   }
 }
