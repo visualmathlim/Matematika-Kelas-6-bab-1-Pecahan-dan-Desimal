@@ -13,10 +13,12 @@ header{background:#fff;border-bottom:2px solid var(--line);position:sticky;top:0
 h2{font-family:var(--f-head);font-size:1.8rem;color:var(--blue-dd);text-align:center;margin-bottom:20px;}
 
 /* Grid 3 Kolom */
-.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;}
-.skill-box{background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:20px;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,0.02);}
-.pill{background:var(--blue-d);color:#fff;font-weight:bold;padding:6px 14px;border-radius:99px;font-size:0.9rem;display:inline-block;margin-bottom:15px;}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+.skill-box{background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:20px;text-align:center;box-shadow:0 4px 6px rgba(0,0,0,0.02); display:flex; flex-direction:column;}
+.pill{background:var(--blue-d);color:#fff;font-weight:bold;padding:6px 14px;border-radius:99px;font-size:0.9rem;display:inline-block;margin-bottom:15px; align-self:center;}
 .skill-title{font-family:var(--f-head); color:var(--blue-dd); font-size:1.3rem; margin-bottom:15px;}
+.skill-content{background:#fff; padding:15px; border-radius:8px; border:2px dashed var(--blue); flex-grow:1;}
+.step-text{font-size:0.85rem; color:var(--muted); text-align:left; font-weight:700; margin-bottom:5px; margin-top:10px;}
 
 /* Mini Visualizer CSS */
 .mini-bar{display:flex; height:35px; border:2px solid var(--blue-dd); margin:5px 0; border-radius:4px; overflow:hidden;}
@@ -25,6 +27,11 @@ h2{font-family:var(--f-head);font-size:1.8rem;color:var(--blue-dd);text-align:ce
 .group-A {background:#FCA5A5; color:#7F1D1D;}
 .group-B {background:#6EE7B7; color:#064E3B;}
 .group-C {background:#93C5FD; color:#1E3A8A;}
+
+/* KCF Highlight Colors */
+.c-keep {color:var(--blue-dd);}
+.c-change {color:#D97706;}
+.c-flip {color:#047857;}
 
 /* Tombol */
 .btn{display:block;background:var(--ok,#10B981);color:#fff;font-family:var(--f-head);font-weight:800;padding:16px;border-radius:99px;text-align:center;box-shadow:0 6px 0 #047857; font-size:1.2rem; transition:transform 0.1s;}
@@ -45,20 +52,18 @@ h2{font-family:var(--f-head);font-size:1.8rem;color:var(--blue-dd);text-align:ce
         <span class="pill">Cara 1</span>
         <div class="skill-title">Visualisasi Bar Model</div>
         
-        <!-- Gambar 2 Bar dibagi 3 -->
-        <div class="mini-bar">
-          <div class="mini-slice group-A">1</div><div class="mini-slice group-A">1</div><div class="mini-slice group-B">2</div>
+        <div class="skill-content">
+          <!-- Gambar 2 Bar dibagi 3 -->
+          <div class="mini-bar">
+            <div class="mini-slice group-A">1</div><div class="mini-slice group-A">1</div><div class="mini-slice group-B">2</div>
+          </div>
+          <div class="mini-bar">
+            <div class="mini-slice group-B">2</div><div class="mini-slice group-C">3</div><div class="mini-slice group-C">3</div>
+          </div>
+          <div class="step-text" style="margin-top:15px;">1. Gambar 2 bar, iris jadi 3 bagian (Total 6 potong).</div>
+          <div class="step-text">2. Kelompokkan tiap 2 potong warna.</div>
+          <div class="step-text">3. Terdapat tepat <span style="color:var(--ok); font-size:1.1rem">3 kelompok utuh</span>.</div>
         </div>
-        <div class="mini-bar">
-          <div class="mini-slice group-B">2</div><div class="mini-slice group-C">3</div><div class="mini-slice group-C">3</div>
-        </div>
-        
-        <p style="font-size:0.9rem; color:var(--muted); margin-top:15px; text-align:left;">
-          <b>Langkah:</b><br>
-          1. Gambar 2 bar utuh, belah jadi pertiga-an (Total 6 potong).<br>
-          2. Kelompokkan tiap 2 potong warnanya.<br>
-          3. Hitung jumlah warnanya. Terdapat <b>3 kelompok utuh</b>.
-        </p>
       </div>
       
       <!-- CARA 2: LENGKAP -->
@@ -66,40 +71,58 @@ h2{font-family:var(--f-head);font-size:1.8rem;color:var(--blue-dd);text-align:ce
         <span class="pill" style="background:var(--blue-d)">Cara 2</span>
         <div class="skill-title">Cara Lengkap (Konsep)</div>
         
-        <div style="background:#fff; padding:15px; border-radius:8px; border:2px dashed var(--blue);">
-          <span class="math">2 ÷ <span class="frac"><span>2</span><span>3</span></span></span><br><br>
-          <span class="math">= <span class="frac"><span>6</span><span>3</span></span> ÷ <span class="frac"><span>2</span><span>3</span></span></span><br><br>
-          <span class="math">= 6 ÷ 2</span><br><br>
-          <span class="math" style="color:var(--ok)">= 3</span>
+        <div class="skill-content" style="border-color:var(--blue-d);">
+          <div class="step-text" style="margin-top:0;">1. Samakan Penyebut (2 = 6/3)</div>
+          <div class="math" style="text-align:center; margin-bottom:15px;">
+            <span class="frac"><span>6</span><span>3</span></span> ÷ <span class="frac"><span>2</span><span>3</span></span>
+          </div>
+          
+          <div class="step-text">2. Karena penyebut sama, cukup bagi pembilangnya!</div>
+          <div class="math" style="text-align:center; margin-bottom:15px;">
+            6 ÷ 2
+          </div>
+
+          <div class="step-text">3. Hasil Akhir</div>
+          <div class="math" style="text-align:center; color:var(--ok);">
+            = 3
+          </div>
         </div>
-        
-        <p style="font-size:0.9rem; color:var(--muted); margin-top:15px; text-align:left;">
-          <b>Langkah:</b><br>
-          Ubah bilangan asli menjadi pecahan dengan <b>penyebut yang sama</b> (2 = 6/3). Jika penyebut sudah sama, cukup bagikan angka atasnya (pembilang)!
-        </p>
       </div>
 
       <!-- CARA 3: CEPAT (KCF) -->
       <div class="skill-box" style="border-color:var(--hint); background:#FFFBEB">
-        <span class="pill" style="background:var(--hint)">Cara 3</span>
-        <div class="skill-title">Cara Cepat (KCF)</div>
+        <span class="pill" style="background:var(--hint); color:#78350F;">Cara 3</span>
+        <div class="skill-title">Cara Cepat (K-C-F)</div>
         
-        <div style="background:#fff; padding:15px; border-radius:8px; border:2px dashed var(--hint);">
-          <span style="font-weight:bold; color:#B45309">K</span>eep - <span style="font-weight:bold; color:#B45309">C</span>hange - <span style="font-weight:bold; color:#B45309">F</span>lip<br><br>
-          <span class="math">
-            <span style="border-bottom:3px solid var(--blue);">2</span> 
-            <span style="color:#B45309">×</span> 
-            <span class="frac"><span style="color:#B45309">3</span><span style="color:#B45309">2</span></span>
-          </span><br><br>
-          <span class="math">= <span class="frac"><span>6</span><span>2</span></span></span><br><br>
-          <span class="math" style="color:var(--ok)">= 3</span>
+        <div class="skill-content" style="border-color:var(--hint);">
+          <div class="step-text" style="margin-top:0;">1. Jadikan Pecahan Biasa (Beri /1)</div>
+          <div class="math" style="text-align:center; margin-bottom:15px;">
+            <span class="frac"><span>2</span><span>1</span></span> ÷ <span class="frac"><span>2</span><span>3</span></span>
+          </div>
+
+          <div class="step-text">2. Terapkan K-C-F (Keep-Change-Flip)</div>
+          <div style="display:flex; justify-content:space-evenly; align-items:center; margin-bottom:15px; background:#FEF3C7; padding:10px; border-radius:8px;">
+            <div style="text-align:center;">
+              <div style="font-size:0.75rem; font-weight:bold;" class="c-keep">KEEP</div>
+              <span class="math c-keep"><span class="frac"><span>2</span><span>1</span></span></span>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:0.75rem; font-weight:bold;" class="c-change">CHANGE</div>
+              <span class="math c-change">×</span>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-size:0.75rem; font-weight:bold;" class="c-flip">FLIP</div>
+              <span class="math c-flip"><span class="frac"><span>3</span><span>2</span></span></span>
+            </div>
+          </div>
+
+          <div class="step-text">3. Kalikan Lurus (Atas × Atas, Bawah × Bawah)</div>
+          <div class="math" style="text-align:center;">
+            <span class="frac"><span>2 × 3</span><span>1 × 2</span></span> = <span class="frac"><span>6</span><span>2</span></span> <span style="color:var(--ok)">= 3</span>
+          </div>
         </div>
-        
-        <p style="font-size:0.9rem; color:var(--muted); margin-top:15px; text-align:left;">
-          <b>Langkah:</b><br>
-          <b>Tetap</b> angka pertama, <b>Ubah</b> bagi jadi kali, <b>Balik</b> pecahan kedua (atas jadi bawah). Lalu kalikan seperti biasa!
-        </p>
       </div>
+
     </div>
   </section>
   <a href="mission-c2-pos6-quiz.html" class="btn" onclick="markDone()">Senjata Terkunci! Siap Uji Kuis Pos 6 ➔</a>
