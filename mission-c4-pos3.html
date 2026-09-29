@@ -17,16 +17,15 @@
     --gold: #ca8a04; 
     --gold-bg: #f4b400; 
     --red: #dc2626; 
-    --purple: #7c3aed;
   }
   body { background-color: var(--bg); color: var(--ink); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; overflow-x: hidden; }
   
-  /* Header & Cards */
+  /* Header */
   .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
   .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 700; color: var(--royal-dk); background: #dbe3f5; padding: 6px 16px; border-radius: 99px; transition: all 0.2s; }
   .home-btn:hover { background: var(--royal); color: #fff; }
 
-  /* Pecahan Vertikal (Math UI) */
+  /* Math UI */
   .m { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', serif; white-space: nowrap; font-weight: bold; }
   .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.15rem; line-height: 1.1; font-size: 0.95em; }
   .math-num { border-bottom: 2px solid currentColor; padding: 0 0.2rem; width: 100%; text-align: center; }
@@ -37,36 +36,79 @@
   /* Input Sandbox */
   .input-panel { background: linear-gradient(135deg, #1e293b, #0f172a); color: white; border-radius: 12px; padding: 1.5rem; position: relative; border: 2px solid #334155; }
   .math-input-box { display: inline-flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); border-radius: 0.5rem; padding: 2px; }
-  .math-input-box input, .math-input-box select { width: 50px; text-align: center; font-weight: bold; font-size: 1.1rem; border: none; outline: none; background: transparent; color: #fff; padding: 2px 0; -moz-appearance: textfield; cursor: pointer; }
+  .math-input-box input, .math-input-box select { width: 50px; text-align: center; font-weight: bold; font-size: 1.1rem; border: none; outline: none; background: transparent; color: #fff; padding: 2px 0; cursor: pointer; -moz-appearance: textfield; }
   .math-input-box input::-webkit-outer-spin-button, .math-input-box input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
   .math-input-box .input-num { border-bottom: 2px solid rgba(255,255,255,0.5); }
   .input-whole { width: 45px; text-align: center; font-weight: bold; font-size: 1.5rem; border: none; outline: none; background: rgba(255,255,255,0.1); color: #fff; border-radius: 8px; padding: 0.2rem; border: 1px solid rgba(255,255,255,0.3); }
 
-  /* Tombol Utama */
+  /* Tombol */
   .btn { display: inline-block; text-align: center; padding: 0.8rem 1.5rem; border-radius: 99px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
-  .btn-action { background: linear-gradient(to right, var(--gold), var(--gold-bg)); color: var(--royal-dk); box-shadow: 0 4px 10px rgba(244, 180, 0, 0.3); width: 100%; font-size: 1.1rem; }
-  .btn-action:hover { transform: scale(1.02); box-shadow: 0 6px 15px rgba(244, 180, 0, 0.5); }
+  .btn-action { background: linear-gradient(to right, var(--red), #991b1b); box-shadow: 0 4px 10px rgba(220,38,38,0.3); width: 100%; font-size: 1.1rem; }
+  .btn-action:hover { transform: scale(1.02); box-shadow: 0 6px 15px rgba(220,38,38,0.5); }
   .btn-next { background: linear-gradient(to right, var(--royal), var(--royal-dk)); box-shadow: 0 4px 10px rgba(37,99,235,0.3); }
+
+  /* --- LAB VISUAL (Style Pos 2) --- */
+  .lab-container { background: #1e293b; border-radius: 12px; padding: 2rem; border: 2px solid #334155; position: relative; overflow: hidden; min-height: 250px; margin-top: 1.5rem; display: none; }
   
-  /* Area Pabrik (Visual) */
-  .factory-area { min-height: 200px; background: #e2e8f0; border-radius: 12px; border: 4px solid #94a3b8; padding: 1.5rem; margin-top: 1.5rem; box-shadow: inset 0 4px 10px rgba(0,0,0,0.05); }
-  .conveyor { border-top: 4px dashed #64748b; margin-top: -10px; padding-top: 20px; display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; align-items: center; }
+  /* Wood Blocks (Pre-Cut) */
+  .pre-cut-area { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center; transition: opacity 0.3s; }
   
-  /* Slices CSS */
-  .wood-slice { height: 40px; border: 1px solid rgba(0,0,0,0.2); box-shadow: inset 0 0 5px rgba(0,0,0,0.1); transition: all 0.5s; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; color: transparent; overflow: hidden; }
+  .wood-whole {
+    width: 120px; height: 60px;
+    background: linear-gradient(135deg, #d97706, #b45309); 
+    border: 2px solid #78350f; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: bold; font-size: 1.2rem;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.3), 0 4px 6px rgba(0,0,0,0.5);
+  }
+  .wood-partial {
+    height: 60px;
+    background: linear-gradient(135deg, #d97706, #b45309); 
+    border: 2px solid #78350f; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: bold; font-size: 1rem;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.3), 0 4px 6px rgba(0,0,0,0.5);
+  }
+
+  /* Wood Blocks (Post-Cut) */
+  .post-cut-area { display: none; flex-wrap: wrap; gap: 15px; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.5s ease 0.2s; }
   
-  /* Kelompok Warna */
-  .grp-0 { background-color: var(--royal); color: white; }
-  .grp-1 { background-color: var(--teal); color: white; }
-  .grp-2 { background-color: var(--gold-bg); color: var(--ink); }
-  .grp-3 { background-color: var(--purple); color: white; }
-  .grp-4 { background-color: var(--red); color: white; }
+  .wood-slice-small {
+    height: 45px;
+    background: linear-gradient(135deg, #d97706, #b45309); 
+    border: 2px solid #78350f; border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-weight: bold; font-size: 0.8rem;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+  }
+
+  /* Grouping Boxes */
+  .group-box {
+    border: 3px solid var(--teal); border-radius: 8px; padding: 8px;
+    display: flex; gap: 4px; background: rgba(13, 148, 136, 0.15);
+    position: relative; box-shadow: 0 0 10px rgba(13, 148, 136, 0.2);
+  }
+  .group-box::after {
+    content: "1 Kelompok"; position: absolute; bottom: -22px; left: 0; width: 100%;
+    text-align: center; color: var(--teal); font-size: 0.75rem; font-weight: bold;
+  }
   
-  /* Sisa (Remainder) */
-  .sisa { background: repeating-linear-gradient(45deg, #cbd5e1, #cbd5e1 4px, #e2e8f0 4px, #e2e8f0 8px); border-color: #94a3b8; }
+  .remainder-box {
+    border: 3px dashed var(--red); background: rgba(220, 38, 38, 0.15);
+  }
+  .remainder-box::after {
+    content: "Sisa"; color: var(--red);
+  }
+
+  /* Laser Animasi */
+  .laser-beam { position: absolute; top: 0; bottom: 0; width: 6px; background: #ef4444; box-shadow: 0 0 20px 8px rgba(239, 68, 68, 0.9); opacity: 0; z-index: 50; }
   
-  /* Tanda Utuh */
-  .whole-divider { width: 4px; height: 50px; background: #1e293b; border-radius: 2px; margin: 0 2px; }
+  @keyframes fireLaser {
+    0% { opacity: 0; transform: scaleY(0); }
+    10% { opacity: 1; transform: scaleY(1); }
+    90% { opacity: 1; transform: scaleY(1); }
+    100% { opacity: 0; transform: scaleY(0); }
+  }
 
   .hidden-area { opacity: 0; max-height: 0; overflow: hidden; transition: all 0.5s ease; }
   .show-area { opacity: 1; max-height: 2000px; padding-top: 1.5rem; }
@@ -98,10 +140,10 @@
 <main class="flex-grow max-w-5xl mx-auto w-full px-4 py-8 space-y-6">
   
   <section class="text-center space-y-2 mb-4">
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--gold); background:#fff8e6; color:var(--gold)">⚙️ Fitur Sandbox Game</div>
-    <h2 class="text-3xl font-extrabold" style="color:var(--royal-dk)">Pabrik Pemotong Interaktif</h2>
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--gold); background:#fff8e6; color:var(--gold)">⚙️ Sandbox Game</div>
+    <h2 class="text-3xl font-extrabold" style="color:var(--royal-dk)">Meja Potong Interaktif</h2>
     <p class="text-sm text-slate-600 max-w-2xl mx-auto">
-      Selamat datang di ruang kontrol! Atur sendiri ukuran logistik awal (Pecahan Campuran) dan ukuran mesin pemotongnya. Lihat mesin bekerja secara langsung!
+      Tentukan ukuran kayu (Pecahan Campuran) dan ukuran target potongannya. Saksikan meja laser memecahnya secara otomatis!
     </p>
   </section>
 
@@ -109,14 +151,14 @@
   <div class="input-panel shadow-2xl">
     <div class="grid md:grid-cols-2 gap-8 items-center">
       
-      <!-- Input 1: Kayu Awal (Pecahan Campuran) -->
+      <!-- Input 1: Kayu Awal -->
       <div class="text-center space-y-3">
         <p class="font-bold text-blue-200 uppercase tracking-widest text-sm">Ukuran Kayu Logistik</p>
         <div class="flex items-center justify-center gap-2">
-          <input type="number" id="inp-w" class="input-whole" value="2" min="1" max="5" title="Angka Bulat (1-5)">
+          <input type="number" id="inp-w" class="input-whole" value="2" min="1" max="4" title="Bulat">
           <div class="math-input-box">
-            <input type="number" id="inp-n1" class="input-num" value="1" min="1" max="5">
-            <select id="inp-d1" title="Penyebut (2,3,4,5,6)">
+            <input type="number" id="inp-n1" class="input-num" value="1" min="0" max="5">
+            <select id="inp-d1">
               <option value="2" selected>2</option>
               <option value="3">3</option>
               <option value="4">4</option>
@@ -126,73 +168,70 @@
           </div>
           <span class="text-slate-400 font-bold ml-2">Meter</span>
         </div>
-        <p class="text-xs text-slate-400">Batasan: Bulat (1-5), Penyebut (2-6)</p>
       </div>
 
       <!-- Input 2: Mesin Pemotong -->
       <div class="text-center space-y-3 relative">
-        <!-- Garis Pemisah (Desktop) -->
         <div class="hidden md:block absolute left-0 top-0 bottom-0 w-px bg-slate-600 -ml-4"></div>
-        
         <p class="font-bold text-teal-300 uppercase tracking-widest text-sm">Dipotong Ukuran</p>
         <div class="flex items-center justify-center gap-2 mt-2">
           <span class="text-3xl text-slate-500 font-bold mr-3">÷</span>
           <div class="math-input-box">
             <input type="number" id="inp-n2" class="input-num" value="1" min="1" max="11">
-            <select id="inp-d2" title="Penyebut (2,3,4,6,12)">
+            <select id="inp-d2">
               <option value="2">2</option>
               <option value="3">3</option>
               <option value="4" selected>4</option>
               <option value="6">6</option>
+              <option value="8">8</option>
               <option value="12">12</option>
             </select>
           </div>
           <span class="text-slate-400 font-bold ml-2">Meter</span>
         </div>
-        <p class="text-xs text-slate-400">Batasan: Penyebut (2,3,4,6,12)</p>
       </div>
     </div>
 
     <div class="mt-8">
-      <button id="btn-process" class="btn btn-action uppercase tracking-wider">⚡ Mulai Pemotongan Logistik!</button>
+      <button id="btn-process" class="btn btn-action uppercase tracking-wider">⚡ AKTIFKAN LASER PEMOTONG!</button>
     </div>
   </div>
 
-  <!-- VISUAL FACTORY AREA -->
-  <div class="factory-area hidden-area" id="factory-display">
-    <p class="text-center text-slate-500 font-bold mb-4 uppercase text-sm tracking-widest" id="factory-title">Sabuk Konveyor (Memproses...)</p>
-    <div class="conveyor" id="conveyor-belt">
-      <!-- Div Slices akan di-render di sini oleh JavaScript -->
-    </div>
+  <!-- VISUAL LAB AREA -->
+  <div class="lab-container shadow-xl" id="lab-display">
+    <p class="text-center text-blue-200 font-bold mb-6 tracking-wider uppercase text-sm" id="lab-title">Mempersiapkan Material...</p>
     
-    <!-- Keterangan Warna -->
-    <div class="flex justify-center flex-wrap gap-4 mt-6 text-xs font-bold" id="legend-area">
-      <!-- Di-render JS -->
+    <div class="relative w-full flex justify-center">
+      <!-- Container Laser Dinamis -->
+      <div id="lasers-container"></div>
+
+      <!-- State 1: Kayu Sebelum Dipotong -->
+      <div id="pre-cut-area" class="pre-cut-area w-full"></div>
+
+      <!-- State 2: Kayu Setelah Dipotong & Dikelompokkan -->
+      <div id="post-cut-area" class="post-cut-area w-full"></div>
     </div>
   </div>
 
   <!-- EXPLANATION AREA -->
   <div class="card rounded-2xl p-6 hidden-area" id="explanation-area">
-    <h3 class="font-bold text-xl text-center mb-4" style="color:var(--royal-dk)">Hasil Laporan Pabrik 📝</h3>
+    <h3 class="font-bold text-xl text-center mb-4" style="color:var(--teal)">Visualisasi Sukses! ✅</h3>
     
-    <div class="eq text-lg" id="math-equation">
-      <!-- Di-render JS -->
-    </div>
+    <div class="eq text-lg" id="math-equation"></div>
     
     <div class="grid md:grid-cols-2 gap-4 mt-4" id="math-steps">
       <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
-        <p class="font-bold text-royal-dk text-sm mb-2">Langkah 1: Samakan Persepsi (KPK)</p>
+        <p class="font-bold text-royal-dk text-sm mb-2">Langkah 1: Menjadi Pecahan Biasa (KPK)</p>
         <p class="text-sm text-slate-700" id="step-1-text"></p>
       </div>
       <div class="bg-teal-50 p-4 rounded-xl border border-teal-100">
-        <p class="font-bold text-teal-800 text-sm mb-2">Langkah 2: Proses Pembagian</p>
+        <p class="font-bold text-teal-800 text-sm mb-2">Langkah 2: Pengelompokan (Pembagian)</p>
         <p class="text-sm text-slate-700" id="step-2-text"></p>
       </div>
     </div>
     
     <div class="mt-8 text-center">
-      <p class="text-slate-600 text-sm mb-3">Puas mencoba eksperimennya? Saatnya merangkum rumusnya!</p>
-      <a href="mission-c4-pos4.html" id="btn-next" class="btn btn-next px-10 py-3 text-lg shadow-md">Lanjut ke Pos 4 ➔</a>
+      <a href="mission-c4-pos4.html" id="btn-next" class="btn btn-next px-10 py-3 text-lg shadow-md">Lanjut ke Pos 4: Temukan Pola Rumusnya ➔</a>
     </div>
   </div>
 
@@ -202,135 +241,150 @@
   // Fungsi Matematika Bantuan
   function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
   function lcm(a, b) { return (a * b) / gcd(a, b); }
-  
-  // Fungsi Helper Render Pecahan
-  function fr(n, d, classes="") { return `<span class="math-frac ${classes}"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`; }
-  function mix(w, n, d) { return `<span class="m"><span class="whole">${w}</span>${fr(n, d)}</span>`; }
+  function fr(n, d, cls="") { return `<span class="math-frac ${cls}"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`; }
+  function mix(w, n, d) { return n === 0 ? `<span class="m"><span class="whole">${w}</span></span>` : `<span class="m"><span class="whole">${w}</span>${fr(n, d)}</span>`; }
 
   // Elemen DOM
   const btnProcess = document.getElementById('btn-process');
-  const factoryDisplay = document.getElementById('factory-display');
-  const conveyorBelt = document.getElementById('conveyor-belt');
-  const legendArea = document.getElementById('legend-area');
+  const labDisplay = document.getElementById('lab-display');
+  const preCutArea = document.getElementById('pre-cut-area');
+  const postCutArea = document.getElementById('post-cut-area');
+  const lasersContainer = document.getElementById('lasers-container');
   const explanationArea = document.getElementById('explanation-area');
+  const labTitle = document.getElementById('lab-title');
   
-  // Event Listener
-  btnProcess.addEventListener('click', runFactory);
+  // Render Awal (Pre-Cut) saat input berubah
+  const inputs = document.querySelectorAll('#inp-w, #inp-n1, #inp-d1, #inp-n2, #inp-d2');
+  inputs.forEach(inp => inp.addEventListener('change', renderPreCut));
 
-  function runFactory() {
-    // 1. Ambil Nilai Input
+  function renderPreCut() {
     let w = parseInt(document.getElementById('inp-w').value) || 0;
     let n1 = parseInt(document.getElementById('inp-n1').value) || 0;
     let d1 = parseInt(document.getElementById('inp-d1').value) || 1;
-    let n2 = parseInt(document.getElementById('inp-n2').value) || 0;
-    let d2 = parseInt(document.getElementById('inp-d2').value) || 1;
 
-    // Validasi Dasar (Cegah Error / Infinity)
-    if (w < 0) w = 1; if (w > 5) w = 5;
-    if (n1 < 0) n1 = 1; if (n2 <= 0) n2 = 1;
+    if (w < 0) w = 1; if (w > 4) w = 4; // Batasi agar visual rapi
+    if (n1 < 0) n1 = 0; if (n1 >= d1) n1 = d1 - 1; // n1 harus pecahan murni
+    
     document.getElementById('inp-w').value = w;
     document.getElementById('inp-n1').value = n1;
-    document.getElementById('inp-n2').value = n2;
 
-    // 2. Tampilkan Area Pabrik
-    factoryDisplay.classList.add('show-area');
-    explanationArea.classList.remove('show-area'); // Sembunyikan penjelasan dulu
-    conveyorBelt.innerHTML = '';
-    legendArea.innerHTML = '';
-    document.getElementById('factory-title').innerText = "Sabuk Konveyor (Memotong & Mengelompokkan...)";
+    // Reset Lab
+    labDisplay.style.display = 'block';
+    explanationArea.classList.remove('show-area');
+    preCutArea.style.opacity = '1';
+    preCutArea.style.display = 'flex';
+    postCutArea.style.display = 'none';
+    postCutArea.style.opacity = '0';
+    labTitle.innerText = "Material Awal (Menunggu Laser)";
+    btnProcess.disabled = false;
+    btnProcess.innerText = "⚡ AKTIFKAN LASER PEMOTONG!";
+    btnProcess.style.opacity = '1';
 
-    // 3. Logika Matematika & Setup Visual
-    // Pecahan 1: (w * d1 + n1) / d1
-    let num1_imp = (w * d1) + n1;
+    let html = '';
+    // Gambar balok utuh
+    for(let i=0; i<w; i++) {
+      html += `<div class="wood-whole">1 Utuh</div>`;
+    }
+    // Gambar balok pecahan (lebar proporsional)
+    if(n1 > 0) {
+      let percent = (n1 / d1) * 100;
+      let widthPx = Math.max(30, (n1 / d1) * 120); // minimal 30px agar teks muat
+      html += `<div class="wood-partial" style="width: ${widthPx}px">${n1}/${d1}</div>`;
+    }
+    preCutArea.innerHTML = html;
+  }
+
+  // Trigger render pertama
+  renderPreCut();
+
+  // Eksekusi Animasi Potong
+  btnProcess.addEventListener('click', function() {
+    btnProcess.disabled = true;
+    btnProcess.innerText = "MEMOTONG...";
+    btnProcess.style.opacity = "0.7";
+
+    // Ambil Data
+    let w = parseInt(document.getElementById('inp-w').value);
+    let n1 = parseInt(document.getElementById('inp-n1').value);
+    let d1 = parseInt(document.getElementById('inp-d1').value);
+    let n2 = parseInt(document.getElementById('inp-n2').value) || 1;
+    let d2 = parseInt(document.getElementById('inp-d2').value);
+
+    // Kalkulasi Matematika
+    let num1_imp = (w * d1) + n1; 
+    let L = lcm(d1, d2); 
     
-    // Cari KPK Penyebut untuk memotong blok agar presisi
-    let L = lcm(d1, d2);
-    
-    // Konversi semua ke satuan (slice) terkecil L
-    // Total slice yang tersedia (Kayu Awal)
     let totalSlices = num1_imp * (L / d1);
-    
-    // Ukuran pemotong (Butuh berapa slice per kelompok?)
     let groupSize = n2 * (L / d2);
     
-    // Kalkulasi Hasil
     let fullGroups = Math.floor(totalSlices / groupSize);
     let remainder = totalSlices % groupSize;
 
-    // --- ANIMASI RENDER POTONGAN ---
-    // Atur lebar visual tiap slice berdasarkan banyaknya potongan (Maks ~300)
-    let sliceWidth = totalSlices > 100 ? "8px" : (totalSlices > 50 ? "15px" : "25px");
-    
-    // Array warna keliling
-    const colorClasses = ['grp-0', 'grp-1', 'grp-2', 'grp-3', 'grp-4'];
-    
-    let htmlContent = '';
-    let currentSliceInGroup = 0;
-    let currentGroupIndex = 0;
-
-    for(let i = 0; i < totalSlices; i++) {
-      // Tambahkan pembatas hitam tebal setiap 1 kayu utuh awal
-      if (i > 0 && i % (L) === 0) {
-        htmlContent += `<div class="whole-divider"></div>`;
-      }
-
-      // Tentukan warna (Kelompok atau Sisa)
-      let sliceClass = '';
-      let text = '';
-      
-      if (currentGroupIndex < fullGroups) {
-        sliceClass = colorClasses[currentGroupIndex % 5];
-        // text = currentSliceInGroup === Math.floor(groupSize/2) ? (currentGroupIndex+1) : ''; // Nomor di tengah (opsional)
-      } else {
-        sliceClass = 'sisa'; // Sisa
-      }
-
-      htmlContent += `<div class="wood-slice ${sliceClass}" style="width: ${sliceWidth}; border-radius: ${totalSlices>100?'1px':'3px'}"></div>`;
-
-      // Logika pindah kelompok
-      currentSliceInGroup++;
-      if (currentSliceInGroup === groupSize) {
-        currentGroupIndex++;
-        currentSliceInGroup = 0;
-        // Beri spasi sedikit antar kelompok
-        htmlContent += `<div style="width:4px;"></div>`; 
-      }
-    }
-
-    // Tampilkan ke DOM
-    conveyorBelt.innerHTML = htmlContent;
-
-    // Render Keterangan (Legend)
-    legendArea.innerHTML = `
-      <div class="flex items-center gap-1"><div class="w-4 h-4 grp-0 border border-slate-400 rounded"></div> Kelompok Utuh</div>
-      <div class="flex items-center gap-1"><div class="w-4 h-4 sisa border border-slate-400 rounded"></div> Sisa (Tidak Cukup)</div>
-      <div class="flex items-center gap-1"><div class="w-1 h-5 bg-slate-800 rounded"></div> Batas 1 Kayu Utuh</div>
+    // 1. Tembakkan Laser (Buat 3 laser animasi vertikal)
+    lasersContainer.innerHTML = `
+      <div class="laser-beam" style="left: 30%; animation: fireLaser 0.6s ease-out forwards;"></div>
+      <div class="laser-beam" style="left: 50%; animation: fireLaser 0.6s ease-out forwards 0.1s;"></div>
+      <div class="laser-beam" style="left: 70%; animation: fireLaser 0.6s ease-out forwards 0.2s;"></div>
     `;
 
-    // 4. Tampilkan Penjelasan Matematika (Delay sedikit agar dramatis)
+    // 2. Waktu Laser Memotong
     setTimeout(() => {
-      document.getElementById('factory-title').innerText = "Proses Selesai!";
+      preCutArea.style.opacity = '0';
+      setTimeout(() => preCutArea.style.display = 'none', 300);
+
+      // Render Hasil Potongan
+      let postHtml = '';
+      let slicesDrawn = 0;
       
-      let eqStr = `
-        <span class="m">${mix(w, n1, d1)} ÷ ${fr(n2, d2)} = ?</span>
-      `;
+      // Ukuran potong disesuaikan agar tidak meluap jika jumlahnya banyak
+      let sliceWidth = totalSlices > 30 ? 20 : 35;
+      let sliceFontSize = totalSlices > 30 ? 0.6 : 0.8;
+
+      for(let g=0; g<fullGroups; g++) {
+        postHtml += `<div class="group-box">`;
+        for(let s=0; s<groupSize; s++) {
+          postHtml += `<div class="wood-slice-small" style="width:${sliceWidth}px; font-size:${sliceFontSize}rem">1/${L}</div>`;
+          slicesDrawn++;
+        }
+        postHtml += `</div>`;
+      }
+
+      if(remainder > 0) {
+        postHtml += `<div class="group-box remainder-box">`;
+        for(let r=0; r<remainder; r++) {
+          postHtml += `<div class="wood-slice-small" style="width:${sliceWidth}px; font-size:${sliceFontSize}rem">1/${L}</div>`;
+          slicesDrawn++;
+        }
+        postHtml += `</div>`;
+      }
+
+      postCutArea.innerHTML = postHtml;
+      postCutArea.style.display = 'flex';
+      labTitle.innerText = "Hasil Potongan Terkelompok";
+      
+      // Tampilkan (Fade In) Post Cut Area
+      setTimeout(() => postCutArea.style.opacity = '1', 50);
+
+    }, 300); // laser hit
+
+    // 3. Tampilkan Penjelasan Matematika
+    setTimeout(() => {
+      let eqStr = `<span class="m">${mix(w, n1, d1)} ÷ ${fr(n2, d2)} = ?</span>`;
       document.getElementById('math-equation').innerHTML = eqStr;
       
-      // Step 1: Penjelasan KPK
       document.getElementById('step-1-text').innerHTML = `
-        Pabrik memotong semua kayu menjadi ukuran terkecil yang sama <b>(KPK dari ${d1} dan ${d2} adalah ${L})</b>.<br>
-        • Kayu awal bernilai <span class="m">${fr(num1_imp, d1)}</span>, diubah menjadi <span class="m">${fr(totalSlices, L)}</span> (Ada ${totalSlices} keping).<br>
-        • Pemotong bernilai <span class="m">${fr(n2, d2)}</span>, diubah menjadi <span class="m">${fr(groupSize, L)}</span> (Butuh ${groupSize} keping tiap kelompok).
+        Laser memecah semua balok menjadi satuan terkecil yaitu <b>per-${L}</b> (KPK).<br>
+        • Kayu awal diubah seluruhnya menjadi <span class="m">${fr(totalSlices, L)}</span> (Tercipta ${totalSlices} potong kayu kecil).<br>
+        • Mesin diatur untuk mengambil <span class="m">${fr(n2, d2)}</span>, yang setara dengan <span class="m">${fr(groupSize, L)}</span> (Butuh ${groupSize} potong tiap 1 kelompok).
       `;
 
-      // Step 2: Penjelasan Hasil
       let sisaTeks = remainder === 0 
-        ? "<b>Tidak ada sisa potong.</b>" 
-        : `Sisa ${remainder} keping (ini setara dengan <span class="m text-red-600 font-bold">${fr(remainder, groupSize)}</span> bagian dari kebutuhan 1 kelompok).`;
+        ? "<b>Tidak ada kayu yang bersisa.</b>" 
+        : `Sisa ${remainder} potong kayu tidak cukup untuk membuat 1 kelompok baru (Tepatnya bernilai <span class="m text-red-600 font-bold">${fr(remainder, groupSize)}</span> kelompok).`;
 
       document.getElementById('step-2-text').innerHTML = `
-        Kini pabrik mengemas ${totalSlices} keping ke dalam kelompok berisi ${groupSize} keping.<br>
-        <span class="m bg-white px-2 py-1 rounded inline-block my-1 border border-teal-200">
+        Kini kayu kecil tersebut dikumpulkan ke dalam kotak-kotak pembagi:<br>
+        <span class="m bg-white px-2 py-1 rounded inline-block my-1 border border-teal-200 shadow-sm">
           ${totalSlices} ÷ ${groupSize} = <b>${fullGroups}</b> kelompok utuh, sisa <b>${remainder}</b>.
         </span><br>
         ${sisaTeks}
@@ -342,11 +396,10 @@
       let currentProgress = parseInt(localStorage.getItem('vm_c4_progress')) || 1;
       if (currentProgress < 4) localStorage.setItem('vm_c4_progress', 4);
       
-      // Auto Scroll ke hasil
       explanationArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-    }, 800);
-  }
+    }, 1200);
+  });
 </script>
 </body>
 </html>
