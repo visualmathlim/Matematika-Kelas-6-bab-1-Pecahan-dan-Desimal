@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 3: Visualize - Mission C3 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --royal:#2563eb; --royal-dk:#1e40af; --bg:#eef2fb; --card:#ffffff; --ink:#0f172a; --line:#dbe3f5; --teal:#0d9488; --gold:#ca8a04; --gold-bg:#f4b400; --green-dk:#0f766e; --red:#dc2626; }
+  body{ background-color:var(--bg); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card{ background-color:var(--card); border:1px solid var(--line); box-shadow:0 1px 4px rgba(30,64,175,.06); }
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .2rem; font-weight:bold; line-height:1.1; font-size:.9em; }
+  .math-num{ border-bottom:2px solid currentColor; padding:0 .3rem; width:100%; text-align:center; }
+  .math-den{ padding:0 .3rem; width:100%; text-align:center; }
+  .btn{ padding:.55rem 1.2rem; border-radius:9999px; font-weight:bold; color:#fff; cursor:pointer; }
+  input[type=range]{ accent-color:var(--royal); width:100%; }
+  
+  #bar1, #bar2{ display:flex; width:100%; max-width:420px; margin:0 auto; height:60px; border:3px solid var(--royal-dk); border-radius:8px; overflow:hidden; background:#f1f5f9; box-shadow: inset 0 2px 4px rgba(0,0,0,0.06); }
+  .cell{ flex:1; border-right:2px solid #ffffff; display:flex; align-items:center; justify-content:center; font-size:.65rem; font-weight:800; color:#fff; transition:all 0.3s ease; }
+  .cell:last-child{ border-right:none; }
+  .g-even{ background:var(--royal); text-shadow: 0 1px 2px rgba(0,0,0,0.3); } 
+  .g-odd{ background:var(--gold-bg); color:var(--royal-dk); text-shadow: 0 1px 2px rgba(255,255,255,0.5); }
+  .g-rem{ background:repeating-linear-gradient(45deg,#cbd5e1,#cbd5e1 5px,#f1f5f9 5px,#f1f5f9 10px); color:#475569; font-weight:bold; }
+  .home-btn{ display:flex; align-items:center; gap:6px; font-size:0.9rem; font-weight:700; color:var(--royal-dk); background:#dbe3f5; padding:6px 14px; border-radius:99px; transition:all 0.2s; }
+  .home-btn:hover{ background:var(--royal); color:#fff; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+      <div>
+        <h1 class="text-lg font-bold" style="color:var(--royal)">VisualMath.Lim</h1>
+        <p class="text-[11px] text-slate-500">Mission C3 • Kelas 6</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:#e8eefc; border:1px solid var(--royal); color:var(--royal-dk)">🎨 Pos 3/8: Visualize</span>
+      <a href="index.html" class="home-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full" style="background:#dbe3f5"><div class="h-full" style="width:37.5%; background:linear-gradient(to right,var(--royal),var(--gold-bg))"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--royal); background:#e8eefc; color:var(--royal-dk)">🎨 Visualize — Lab Grouping</div>
+    <h2 class="text-3xl font-extrabold" style="color:var(--royal-dk)">Berapa Potongan Termuat di Dalamnya?</h2>
+    <p class="max-w-md mx-auto text-sm text-slate-600">Bar hanya sepanjang pecahan pertama — lalu dikelompokkan berdasarkan ukuran pecahan kedua.</p>
+  </section>
+
+  <!-- Latihan Terpandu -->
+  <section class="card rounded-2xl p-6 space-y-4">
+    <p class="text-center text-xl font-bold">
+      <span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> ÷
+      <span class="math-frac"><span class="math-num">3</span><span class="math-den">8</span></span> = ?
+    </p>
+    <div id="bar1"></div>
+    <p class="text-center text-sm text-slate-600 font-medium px-2" id="info1"></p>
+    <div class="text-center pt-2">
+      <button id="reveal1" class="btn shadow-md hover:opacity-95" style="background:var(--royal)">Tampilkan Kelompok Warna</button>
+    </div>
+  </section>
+
+  <!-- Mode Eksperimen -->
+  <section class="card rounded-2xl p-6 space-y-5 border-2 border-blue-100">
+    <button id="toggle-exp" class="w-full text-left font-bold flex items-center justify-between text-base" style="color:var(--royal-dk)">
+      <span>🔬 Mode Eksperimen — Coba Pecahanmu Sendiri</span>
+      <span id="ti" class="text-xl">▼</span>
+    </button>
+    
+    <div id="exp" class="hidden space-y-5 pt-3 border-t border-slate-100">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4 text-sm bg-slate-50 p-4 rounded-xl border border-slate-200">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Pecahan Yang Dibagi: <span id="lbl-frac1" class="text-blue-600"><span class="math-frac"><span class="math-num">5</span><span class="math-den">6</span></span></span></label>
+          <div class="space-y-2 mt-2">
+            <div><span class="text-xs text-slate-500">Pembilang (a): <span id="v-a" class="font-bold">5</span></span><input type="range" id="a" min="2" max="11" value="5"></div>
+            <div><span class="text-xs text-slate-500">Penyebut (b): <span id="v-b" class="font-bold">6</span></span><input type="range" id="b" min="3" max="12" value="6"></div>
+          </div>
+        </div>
+        
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Pecahan Pembagi: <span id="lbl-frac2" class="text-amber-600"><span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span></span></label>
+          <div class="space-y-2 mt-2">
+            <div><span class="text-xs text-slate-500">Pembilang (c): <span id="v-c" class="font-bold">2</span></span><input type="range" id="c" min="2" max="11" value="2"></div>
+            <div><span class="text-xs text-slate-500">Penyebut (d): <span id="v-d" class="font-bold">3</span></span><input type="range" id="d" min="3" max="12" value="3"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="bar2"></div>
+      <p class="text-center text-sm font-semibold text-slate-700" id="expr2"></p>
+      <p class="text-center text-sm p-3 rounded-xl bg-blue-50 border border-blue-200" id="res2"></p>
+    </div>
+  </section>
+
+  <div class="flex justify-between items-center pt-2">
+    <a href="mission-c3-pos2-see.html" class="text-slate-500 hover:text-slate-800 text-sm font-semibold">⬅ Kembali ke See</a>
+    <a href="mission-c3-pos4-discover.html" class="inline-block font-bold py-3 px-8 rounded-full text-white shadow-md transition-transform hover:-translate-y-0.5" style="background:linear-gradient(to right,var(--royal),var(--royal-dk))">Lanjut ke Think & Discover ➔</a>
+  </div>
+
+</main>
+
+<script>
+try{ const p=+localStorage.getItem('vm_c3_progress')||0; if(p<2) localStorage.setItem('vm_c3_progress',2); }catch(e){}
+
+function gcd(x,y){return y===0?x:gcd(y,x%y);}
+function lcm(x,y){return x*y/gcd(x,y);}
+function fr(n,d){return `<span class="math-frac"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`;}
+
+// Latihan terpandu: 3/4 ÷ 3/8, L=8, A=6, C=3 -> 2 kelompok, sisa 0
+const bar1 = document.getElementById('bar1');
+function renderBar1(reveal){
+  bar1.innerHTML='';
+  const A=6, C=3; // satuan per-8 (3/4 = 6/8, 3/8 = 3/8)
+  for(let i=0; i<A; i++){
+    const cell = document.createElement('div'); cell.className='cell';
+    if(reveal){ 
+      const grp = Math.floor(i/C); 
+      cell.classList.add(grp%2===0 ? 'g-even' : 'g-odd'); 
+      if(i%C===0) cell.textContent=`Kelompok ${grp+1}`; 
+    } else {
+      cell.style.background = '#e2e8f0';
+      cell.style.color = '#64748b';
+      cell.textContent = '1/8';
+    }
+    bar1.appendChild(cell);
+  }
+  document.getElementById('info1').innerHTML = reveal
+    ? `<span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> m sama dengan 6 kotak (satuan <span class="math-frac"><span class="math-num">1</span><span class="math-den">8</span></span> m). Dikelompokkan tiap 3 kotak (<span class="math-frac"><span class="math-num">3</span><span class="math-den">8</span></span> m) menghasilkan <b style="color:var(--gold)">2 kelompok penuh</b> tanpa sisa.`
+    : `Bar ini panjangnya <span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> m, dibagi dalam satuan penyebut sama yaitu <span class="math-frac"><span class="math-num">1</span><span class="math-den">8</span></span> m (terdapat 6 kotak kecil). Klik tombol di bawah untuk melihat kelompoknya!`;
+}
+renderBar1(false);
+document.getElementById('reveal1').addEventListener('click', ()=>renderBar1(true));
+
+// Mode eksperimen
+document.getElementById('toggle-exp').addEventListener('click', ()=>{
+  const e = document.getElementById('exp'); e.classList.toggle('hidden');
+  document.getElementById('ti').textContent = e.classList.contains('hidden') ? '▼' : '▲';
+});
+
+const ids=['a','b','c','d'];
+function renderExp(){
+  const v={}; ids.forEach(k=>{ v[k]=+document.getElementById(k).value; document.getElementById('v-'+k).textContent=v[k]; });
+  
+  // Update label pecahan interaktif di atas slider
+  document.getElementById('lbl-frac1').innerHTML = fr(v.a, v.b);
+  document.getElementById('lbl-frac2').innerHTML = fr(v.c, v.d);
+
+  const L = lcm(v.b, v.d);
+  const A = v.a * (L / v.b);   // total bagian pada bar pertama
+  const C = v.c * (L / v.d);   // ukuran tiap kelompok
+  const whole = Math.floor(A / C);
+  const rem = A % C;
+
+  const bar2 = document.getElementById('bar2'); bar2.innerHTML='';
+  for(let i=0; i<A; i++){
+    const cell = document.createElement('div'); cell.className='cell';
+    if(i < whole*C){ 
+      const grp = Math.floor(i/C); 
+      cell.classList.add(grp%2===0 ? 'g-even' : 'g-odd'); 
+      if(i%C===0) cell.textContent=`Klp ${grp+1}`; 
+    } else { 
+      cell.classList.add('g-rem'); 
+      if(i===whole*C) cell.textContent='Sisa'; 
+    }
+    bar2.appendChild(cell);
+  }
+  
+  document.getElementById('expr2').innerHTML = `Persamaan: ${fr(v.a,v.b)} ÷ ${fr(v.c,v.d)} = ${fr(A,L)} ÷ ${fr(C,L)} = ${A} ÷ ${C} (dalam satuan penyebut ${L})`;
+  
+  const remFracG = rem>0 ? gcd(rem,C) : 1;
+  document.getElementById('res2').innerHTML = rem===0
+    ? `Hasil: <b style="color:var(--royal-dk); font-size:1.1rem;">${whole}</b> kelompok penuh, <b>tidak ada sisa</b>.`
+    : `Hasil: <b style="color:var(--royal-dk); font-size:1.1rem;">${whole}</b> kelompok penuh, sisa <b>${fr(rem/remFracG, C/remFracG)}</b> dari satu kelompok (${fr(rem,L)} m).`;
+}
+
+ids.forEach(k=> document.getElementById(k).addEventListener('input', ()=>{
+  const b=document.getElementById('b'), a=document.getElementById('a');
+  const d=document.getElementById('d'), c=document.getElementById('c');
+  if(+a.value>=13) a.value=12; if(+c.value>=13) c.value=12;
+  renderExp();
+}));
+renderExp();
+</script>
+</body>
+</html>
