@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Mission C4 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --royal: #2563eb; 
+    --royal-dk: #1e40af; 
+    --bg: #f8fafc; 
+    --card: #ffffff; 
+    --ink: #0f172a; 
+    --line: #e2e8f0; 
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+    --red: #dc2626; 
+    --locked: #94a3b8;
+  }
+  body { background-color: var(--bg); color: var(--ink); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; }
+  
+  /* Header & Buttons */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 700; color: var(--royal-dk); background: #dbe3f5; padding: 6px 16px; border-radius: 99px; transition: all 0.2s; }
+  .home-btn:hover { background: var(--royal); color: #fff; transform: translateY(-1px); }
+  
+  /* Pecahan Vertikal (Konsistensi UI Math) */
+  .m { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', serif; white-space: nowrap; font-weight: bold; }
+  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.2rem; line-height: 1.1; font-size: 0.9em; }
+  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
+  .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+  .whole { margin-right: 0.1rem; }
+
+  /* Map Nodes (Pos) */
+  .pos-card { border-radius: 1rem; padding: 1.25rem; transition: all 0.3s; position: relative; border: 2px solid transparent; display: flex; flex-direction: column; height: 100%; }
+  .pos-card.locked { background: #f1f5f9; border-color: var(--line); opacity: 0.75; cursor: not-allowed; }
+  .pos-card.unlocked { background: #fff; border-color: var(--royal); box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.1); cursor: pointer; }
+  .pos-card.unlocked:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.2); }
+  .pos-card.completed { background: #f0fdf4; border-color: var(--teal); cursor: pointer; }
+  
+  .pos-icon { width: 3rem; height: 3rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; }
+  .locked .pos-icon { background: #e2e8f0; color: #94a3b8; }
+  .unlocked .pos-icon { background: #dbeafe; color: var(--royal); }
+  .completed .pos-icon { background: #ccfbf1; color: var(--teal); }
+  
+  .badge-status { position: absolute; top: -10px; right: 15px; padding: 4px 12px; border-radius: 99px; font-size: 0.75rem; font-weight: bold; color: white; }
+  .badge-locked { background: var(--locked); }
+  .badge-unlocked { background: var(--royal); animation: pulse 2s infinite; }
+  .badge-completed { background: var(--teal); }
+
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0); } }
+  
+  /* Progress Bar */
+  .progress-bg { background: var(--line); height: 12px; border-radius: 99px; overflow: hidden; width: 100%; }
+  .progress-fill { background: linear-gradient(90deg, var(--royal), var(--teal)); height: 100%; transition: width 0.5s ease; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <div class="h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm">VM</div>
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--royal)">VisualMath.Lim</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission C4 • Kelas 6</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="index.html" class="home-btn shadow-sm">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="flex-grow max-w-5xl mx-auto w-full px-4 py-10 space-y-10">
+
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-4">
+    <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold border-2 shadow-sm" style="border-color:var(--royal); background:#e8eefc; color:var(--royal-dk)">
+      🚀 MISSION C4: THE MIXED NUMBERS
+    </div>
+    <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-800">
+      Operasi <span style="color:var(--royal)">Logistik Berat</span>
+    </h2>
+    <p class="text-slate-600 max-w-2xl mx-auto text-lg">
+      Tantangan baru! Bagaimana cara membagi benda yang ukurannya tidak genap? Misi kita adalah membongkar rahasia Pecahan Campuran 
+      seperti <span class="m"><span class="whole">2</span><span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span></span>. 
+      Selesaikan ke-8 Pos komando ini untuk menjadi Master!
+    </p>
+    
+    <!-- PROGRESS TRACKER -->
+    <div class="max-w-md mx-auto pt-4 space-y-2">
+      <div class="flex justify-between text-sm font-bold text-slate-600">
+        <span>Progress Misi</span>
+        <span id="progress-text" style="color:var(--royal)">0%</span>
+      </div>
+      <div class="progress-bg shadow-inner">
+        <div id="progress-bar" class="progress-fill" style="width: 0%;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAP MISSION GRID -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-4" id="mission-map">
+    <!-- Di-generate otomatis oleh JavaScript di bawah -->
+  </section>
+
+</main>
+
+<script>
+  // ----------------------------------------------------
+  // DATA MAP POS MISSION C4
+  // ----------------------------------------------------
+  const posData = [
+    { id: 1, title: "Briefing", desc: "Menerima misi logistik. Kenapa pecahan campuran itu penting?", icon: "📜", link: "mission-c4-pos1.html" },
+    { id: 2, title: "See", desc: "Laboratorium visual. Bongkar pecahan campuran menjadi pecahan biasa.", icon: "🔍", link: "mission-c4-pos2.html" },
+    { id: 3, title: "Visualize", desc: "Sandbox Game! Pabrik pemotong interaktif (kamu bebas atur angka).", icon: "⚙️", link: "mission-c4-pos3.html" },
+    { id: 4, title: "Think", desc: "Temukan pola rahasia. Hubungkan logika visual dengan angka.", icon: "🧠", link: "mission-c4-pos4.html" },
+    { id: 5, title: "Skill Unlock", desc: "Master Class! Pelajari 2 cara tercepat dan hindari jebakan.", icon: "🔓", link: "mission-c4-pos5.html" },
+    { id: 6, title: "Quest", desc: "Latihan pemantapan konsep pecahan campuran (skor dicatat).", icon: "⚔️", link: "mission-c4-pos6.html" },
+    { id: 7, title: "Boss Battle", desc: "Ujian HOTS. Menghitung sisa potongan yang mengecoh (skor dicatat).", icon: "👾", link: "mission-c4-pos7.html" },
+    { id: 8, title: "Mission Log", desc: "Rapor evaluasi, analisa kesalahan, dan klaim Badge Master-mu!", icon: "🏆", link: "mission-c4-pos8.html" }
+  ];
+
+  // ----------------------------------------------------
+  // LOGIKA PROGRESS DAN RENDER UI
+  // ----------------------------------------------------
+  // Ambil progress dari localStorage (default 1 jika baru mulai)
+  let currentProgress = parseInt(localStorage.getItem('vm_c4_progress')) || 1;
+  
+  // Update Progress Bar
+  const progressPercent = Math.min(100, Math.round(((currentProgress - 1) / posData.length) * 100));
+  document.getElementById('progress-bar').style.width = progressPercent + '%';
+  document.getElementById('progress-text').innerText = (currentProgress > 8 ? 100 : progressPercent) + '%';
+
+  const mapContainer = document.getElementById('mission-map');
+
+  posData.forEach((pos) => {
+    // Tentukan Status: completed, unlocked (current), atau locked
+    let statusClass = 'locked';
+    let badge = '<span class="badge-status badge-locked">Terkunci</span>';
+    
+    if (currentProgress > pos.id) {
+      statusClass = 'completed';
+      badge = '<span class="badge-status badge-completed">✓ Selesai</span>';
+    } else if (currentProgress === pos.id) {
+      statusClass = 'unlocked';
+      badge = '<span class="badge-status badge-unlocked">Sekarang</span>';
+    }
+
+    // Buat HTML Card
+    const cardHTML = `
+      <div class="pos-card ${statusClass}" onclick="navigateTo(${pos.id}, '${pos.link}')">
+        ${badge}
+        <div class="pos-icon">${pos.icon}</div>
+        <h3 class="font-bold text-lg text-slate-800 mb-2">Pos ${pos.id}: ${pos.title}</h3>
+        <p class="text-sm text-slate-500 leading-relaxed flex-grow">${pos.desc}</p>
+        
+        <div class="mt-4 pt-4 border-t border-slate-100 flex justify-between items-center">
+          <span class="text-xs font-bold ${statusClass === 'locked' ? 'text-slate-400' : 'text-royal-600'}" style="color: ${statusClass !== 'locked' ? 'var(--royal)' : ''}">
+            ${statusClass === 'completed' ? 'Ulangi Materi' : (statusClass === 'unlocked' ? 'Mulai ➔' : 'Terkunci')}
+          </span>
+        </div>
+      </div>
+    `;
+    
+    mapContainer.insertAdjacentHTML('beforeend', cardHTML);
+  });
+
+  // Fungsi Navigasi
+  function navigateTo(posId, link) {
+    if (posId <= currentProgress) {
+      window.location.href = link;
+    } else {
+      alert("⚠️ Pos ini masih terkunci! Selesaikan Pos sebelumnya terlebih dahulu.");
+    }
+  }
+
+  // Cheat Mode (Hanya untuk keperluan Development / Preview Anda)
+  // Ketik 'unlockC4()' di Console browser untuk membuka semua pos
+  window.unlockC4 = function() {
+    localStorage.setItem('vm_c4_progress', 8);
+    location.reload();
+  }
+  window.resetC4 = function() {
+    localStorage.setItem('vm_c4_progress', 1);
+    localStorage.removeItem('vm_c4_pos6_log');
+    localStorage.removeItem('vm_c4_pos7_log');
+    location.reload();
+  }
+</script>
+</body>
+</html>
