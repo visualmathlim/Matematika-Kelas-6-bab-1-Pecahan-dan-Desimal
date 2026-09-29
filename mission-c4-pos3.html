@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 3: Sandbox Game - Mission C4 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --royal: #2563eb; 
+    --royal-dk: #1e40af; 
+    --bg: #eef2fb; 
+    --card: #ffffff; 
+    --ink: #0f172a; 
+    --line: #dbe3f5; 
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+    --red: #dc2626; 
+    --purple: #7c3aed;
+  }
+  body { background-color: var(--bg); color: var(--ink); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; overflow-x: hidden; }
+  
+  /* Header & Cards */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 700; color: var(--royal-dk); background: #dbe3f5; padding: 6px 16px; border-radius: 99px; transition: all 0.2s; }
+  .home-btn:hover { background: var(--royal); color: #fff; }
+
+  /* Pecahan Vertikal (Math UI) */
+  .m { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', serif; white-space: nowrap; font-weight: bold; }
+  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.15rem; line-height: 1.1; font-size: 0.95em; }
+  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.2rem; width: 100%; text-align: center; }
+  .math-den { padding: 0 0.2rem; width: 100%; text-align: center; }
+  .whole { margin-right: 0.1rem; }
+  .eq { display: block; text-align: center; font-size: 1.25rem; padding: 0.75rem; margin: 1rem 0; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 0.6rem; }
+
+  /* Input Sandbox */
+  .input-panel { background: linear-gradient(135deg, #1e293b, #0f172a); color: white; border-radius: 12px; padding: 1.5rem; position: relative; border: 2px solid #334155; }
+  .math-input-box { display: inline-flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); border-radius: 0.5rem; padding: 2px; }
+  .math-input-box input, .math-input-box select { width: 50px; text-align: center; font-weight: bold; font-size: 1.1rem; border: none; outline: none; background: transparent; color: #fff; padding: 2px 0; -moz-appearance: textfield; cursor: pointer; }
+  .math-input-box input::-webkit-outer-spin-button, .math-input-box input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .math-input-box .input-num { border-bottom: 2px solid rgba(255,255,255,0.5); }
+  .input-whole { width: 45px; text-align: center; font-weight: bold; font-size: 1.5rem; border: none; outline: none; background: rgba(255,255,255,0.1); color: #fff; border-radius: 8px; padding: 0.2rem; border: 1px solid rgba(255,255,255,0.3); }
+
+  /* Tombol Utama */
+  .btn { display: inline-block; text-align: center; padding: 0.8rem 1.5rem; border-radius: 99px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
+  .btn-action { background: linear-gradient(to right, var(--gold), var(--gold-bg)); color: var(--royal-dk); box-shadow: 0 4px 10px rgba(244, 180, 0, 0.3); width: 100%; font-size: 1.1rem; }
+  .btn-action:hover { transform: scale(1.02); box-shadow: 0 6px 15px rgba(244, 180, 0, 0.5); }
+  .btn-next { background: linear-gradient(to right, var(--royal), var(--royal-dk)); box-shadow: 0 4px 10px rgba(37,99,235,0.3); }
+  
+  /* Area Pabrik (Visual) */
+  .factory-area { min-height: 200px; background: #e2e8f0; border-radius: 12px; border: 4px solid #94a3b8; padding: 1.5rem; margin-top: 1.5rem; box-shadow: inset 0 4px 10px rgba(0,0,0,0.05); }
+  .conveyor { border-top: 4px dashed #64748b; margin-top: -10px; padding-top: 20px; display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; align-items: center; }
+  
+  /* Slices CSS */
+  .wood-slice { height: 40px; border: 1px solid rgba(0,0,0,0.2); box-shadow: inset 0 0 5px rgba(0,0,0,0.1); transition: all 0.5s; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; color: transparent; overflow: hidden; }
+  
+  /* Kelompok Warna */
+  .grp-0 { background-color: var(--royal); color: white; }
+  .grp-1 { background-color: var(--teal); color: white; }
+  .grp-2 { background-color: var(--gold-bg); color: var(--ink); }
+  .grp-3 { background-color: var(--purple); color: white; }
+  .grp-4 { background-color: var(--red); color: white; }
+  
+  /* Sisa (Remainder) */
+  .sisa { background: repeating-linear-gradient(45deg, #cbd5e1, #cbd5e1 4px, #e2e8f0 4px, #e2e8f0 8px); border-color: #94a3b8; }
+  
+  /* Tanda Utuh */
+  .whole-divider { width: 4px; height: 50px; background: #1e293b; border-radius: 2px; margin: 0 2px; }
+
+  .hidden-area { opacity: 0; max-height: 0; overflow: hidden; transition: all 0.5s ease; }
+  .show-area { opacity: 1; max-height: 2000px; padding-top: 1.5rem; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center relative z-20">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--royal)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Kelas 6 • Mission C4</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="px-3 py-1 rounded-full text-xs font-semibold hidden md:inline-block" style="background:#e8eefc; border:1px solid var(--royal); color:var(--royal-dk)">⚙️ Pos 3/8: Visualize</span>
+      <a href="mission-c4.html" class="home-btn shadow-sm">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Peta Misi</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full" style="background:var(--line)"><div class="h-full" style="width:37.5%; background:linear-gradient(to right,var(--royal),var(--teal))"></div></div>
+</header>
+
+<main class="flex-grow max-w-5xl mx-auto w-full px-4 py-8 space-y-6">
+  
+  <section class="text-center space-y-2 mb-4">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--gold); background:#fff8e6; color:var(--gold)">⚙️ Fitur Sandbox Game</div>
+    <h2 class="text-3xl font-extrabold" style="color:var(--royal-dk)">Pabrik Pemotong Interaktif</h2>
+    <p class="text-sm text-slate-600 max-w-2xl mx-auto">
+      Selamat datang di ruang kontrol! Atur sendiri ukuran logistik awal (Pecahan Campuran) dan ukuran mesin pemotongnya. Lihat mesin bekerja secara langsung!
+    </p>
+  </section>
+
+  <!-- CONTROL PANEL -->
+  <div class="input-panel shadow-2xl">
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      
+      <!-- Input 1: Kayu Awal (Pecahan Campuran) -->
+      <div class="text-center space-y-3">
+        <p class="font-bold text-blue-200 uppercase tracking-widest text-sm">Ukuran Kayu Logistik</p>
+        <div class="flex items-center justify-center gap-2">
+          <input type="number" id="inp-w" class="input-whole" value="2" min="1" max="5" title="Angka Bulat (1-5)">
+          <div class="math-input-box">
+            <input type="number" id="inp-n1" class="input-num" value="1" min="1" max="5">
+            <select id="inp-d1" title="Penyebut (2,3,4,5,6)">
+              <option value="2" selected>2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+            </select>
+          </div>
+          <span class="text-slate-400 font-bold ml-2">Meter</span>
+        </div>
+        <p class="text-xs text-slate-400">Batasan: Bulat (1-5), Penyebut (2-6)</p>
+      </div>
+
+      <!-- Input 2: Mesin Pemotong -->
+      <div class="text-center space-y-3 relative">
+        <!-- Garis Pemisah (Desktop) -->
+        <div class="hidden md:block absolute left-0 top-0 bottom-0 w-px bg-slate-600 -ml-4"></div>
+        
+        <p class="font-bold text-teal-300 uppercase tracking-widest text-sm">Dipotong Ukuran</p>
+        <div class="flex items-center justify-center gap-2 mt-2">
+          <span class="text-3xl text-slate-500 font-bold mr-3">÷</span>
+          <div class="math-input-box">
+            <input type="number" id="inp-n2" class="input-num" value="1" min="1" max="11">
+            <select id="inp-d2" title="Penyebut (2,3,4,6,12)">
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4" selected>4</option>
+              <option value="6">6</option>
+              <option value="12">12</option>
+            </select>
+          </div>
+          <span class="text-slate-400 font-bold ml-2">Meter</span>
+        </div>
+        <p class="text-xs text-slate-400">Batasan: Penyebut (2,3,4,6,12)</p>
+      </div>
+    </div>
+
+    <div class="mt-8">
+      <button id="btn-process" class="btn btn-action uppercase tracking-wider">⚡ Mulai Pemotongan Logistik!</button>
+    </div>
+  </div>
+
+  <!-- VISUAL FACTORY AREA -->
+  <div class="factory-area hidden-area" id="factory-display">
+    <p class="text-center text-slate-500 font-bold mb-4 uppercase text-sm tracking-widest" id="factory-title">Sabuk Konveyor (Memproses...)</p>
+    <div class="conveyor" id="conveyor-belt">
+      <!-- Div Slices akan di-render di sini oleh JavaScript -->
+    </div>
+    
+    <!-- Keterangan Warna -->
+    <div class="flex justify-center flex-wrap gap-4 mt-6 text-xs font-bold" id="legend-area">
+      <!-- Di-render JS -->
+    </div>
+  </div>
+
+  <!-- EXPLANATION AREA -->
+  <div class="card rounded-2xl p-6 hidden-area" id="explanation-area">
+    <h3 class="font-bold text-xl text-center mb-4" style="color:var(--royal-dk)">Hasil Laporan Pabrik 📝</h3>
+    
+    <div class="eq text-lg" id="math-equation">
+      <!-- Di-render JS -->
+    </div>
+    
+    <div class="grid md:grid-cols-2 gap-4 mt-4" id="math-steps">
+      <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+        <p class="font-bold text-royal-dk text-sm mb-2">Langkah 1: Samakan Persepsi (KPK)</p>
+        <p class="text-sm text-slate-700" id="step-1-text"></p>
+      </div>
+      <div class="bg-teal-50 p-4 rounded-xl border border-teal-100">
+        <p class="font-bold text-teal-800 text-sm mb-2">Langkah 2: Proses Pembagian</p>
+        <p class="text-sm text-slate-700" id="step-2-text"></p>
+      </div>
+    </div>
+    
+    <div class="mt-8 text-center">
+      <p class="text-slate-600 text-sm mb-3">Puas mencoba eksperimennya? Saatnya merangkum rumusnya!</p>
+      <a href="mission-c4-pos4.html" id="btn-next" class="btn btn-next px-10 py-3 text-lg shadow-md">Lanjut ke Pos 4 ➔</a>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // Fungsi Matematika Bantuan
+  function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
+  function lcm(a, b) { return (a * b) / gcd(a, b); }
+  
+  // Fungsi Helper Render Pecahan
+  function fr(n, d, classes="") { return `<span class="math-frac ${classes}"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`; }
+  function mix(w, n, d) { return `<span class="m"><span class="whole">${w}</span>${fr(n, d)}</span>`; }
+
+  // Elemen DOM
+  const btnProcess = document.getElementById('btn-process');
+  const factoryDisplay = document.getElementById('factory-display');
+  const conveyorBelt = document.getElementById('conveyor-belt');
+  const legendArea = document.getElementById('legend-area');
+  const explanationArea = document.getElementById('explanation-area');
+  
+  // Event Listener
+  btnProcess.addEventListener('click', runFactory);
+
+  function runFactory() {
+    // 1. Ambil Nilai Input
+    let w = parseInt(document.getElementById('inp-w').value) || 0;
+    let n1 = parseInt(document.getElementById('inp-n1').value) || 0;
+    let d1 = parseInt(document.getElementById('inp-d1').value) || 1;
+    let n2 = parseInt(document.getElementById('inp-n2').value) || 0;
+    let d2 = parseInt(document.getElementById('inp-d2').value) || 1;
+
+    // Validasi Dasar (Cegah Error / Infinity)
+    if (w < 0) w = 1; if (w > 5) w = 5;
+    if (n1 < 0) n1 = 1; if (n2 <= 0) n2 = 1;
+    document.getElementById('inp-w').value = w;
+    document.getElementById('inp-n1').value = n1;
+    document.getElementById('inp-n2').value = n2;
+
+    // 2. Tampilkan Area Pabrik
+    factoryDisplay.classList.add('show-area');
+    explanationArea.classList.remove('show-area'); // Sembunyikan penjelasan dulu
+    conveyorBelt.innerHTML = '';
+    legendArea.innerHTML = '';
+    document.getElementById('factory-title').innerText = "Sabuk Konveyor (Memotong & Mengelompokkan...)";
+
+    // 3. Logika Matematika & Setup Visual
+    // Pecahan 1: (w * d1 + n1) / d1
+    let num1_imp = (w * d1) + n1;
+    
+    // Cari KPK Penyebut untuk memotong blok agar presisi
+    let L = lcm(d1, d2);
+    
+    // Konversi semua ke satuan (slice) terkecil L
+    // Total slice yang tersedia (Kayu Awal)
+    let totalSlices = num1_imp * (L / d1);
+    
+    // Ukuran pemotong (Butuh berapa slice per kelompok?)
+    let groupSize = n2 * (L / d2);
+    
+    // Kalkulasi Hasil
+    let fullGroups = Math.floor(totalSlices / groupSize);
+    let remainder = totalSlices % groupSize;
+
+    // --- ANIMASI RENDER POTONGAN ---
+    // Atur lebar visual tiap slice berdasarkan banyaknya potongan (Maks ~300)
+    let sliceWidth = totalSlices > 100 ? "8px" : (totalSlices > 50 ? "15px" : "25px");
+    
+    // Array warna keliling
+    const colorClasses = ['grp-0', 'grp-1', 'grp-2', 'grp-3', 'grp-4'];
+    
+    let htmlContent = '';
+    let currentSliceInGroup = 0;
+    let currentGroupIndex = 0;
+
+    for(let i = 0; i < totalSlices; i++) {
+      // Tambahkan pembatas hitam tebal setiap 1 kayu utuh awal
+      if (i > 0 && i % (L) === 0) {
+        htmlContent += `<div class="whole-divider"></div>`;
+      }
+
+      // Tentukan warna (Kelompok atau Sisa)
+      let sliceClass = '';
+      let text = '';
+      
+      if (currentGroupIndex < fullGroups) {
+        sliceClass = colorClasses[currentGroupIndex % 5];
+        // text = currentSliceInGroup === Math.floor(groupSize/2) ? (currentGroupIndex+1) : ''; // Nomor di tengah (opsional)
+      } else {
+        sliceClass = 'sisa'; // Sisa
+      }
+
+      htmlContent += `<div class="wood-slice ${sliceClass}" style="width: ${sliceWidth}; border-radius: ${totalSlices>100?'1px':'3px'}"></div>`;
+
+      // Logika pindah kelompok
+      currentSliceInGroup++;
+      if (currentSliceInGroup === groupSize) {
+        currentGroupIndex++;
+        currentSliceInGroup = 0;
+        // Beri spasi sedikit antar kelompok
+        htmlContent += `<div style="width:4px;"></div>`; 
+      }
+    }
+
+    // Tampilkan ke DOM
+    conveyorBelt.innerHTML = htmlContent;
+
+    // Render Keterangan (Legend)
+    legendArea.innerHTML = `
+      <div class="flex items-center gap-1"><div class="w-4 h-4 grp-0 border border-slate-400 rounded"></div> Kelompok Utuh</div>
+      <div class="flex items-center gap-1"><div class="w-4 h-4 sisa border border-slate-400 rounded"></div> Sisa (Tidak Cukup)</div>
+      <div class="flex items-center gap-1"><div class="w-1 h-5 bg-slate-800 rounded"></div> Batas 1 Kayu Utuh</div>
+    `;
+
+    // 4. Tampilkan Penjelasan Matematika (Delay sedikit agar dramatis)
+    setTimeout(() => {
+      document.getElementById('factory-title').innerText = "Proses Selesai!";
+      
+      let eqStr = `
+        <span class="m">${mix(w, n1, d1)} ÷ ${fr(n2, d2)} = ?</span>
+      `;
+      document.getElementById('math-equation').innerHTML = eqStr;
+      
+      // Step 1: Penjelasan KPK
+      document.getElementById('step-1-text').innerHTML = `
+        Pabrik memotong semua kayu menjadi ukuran terkecil yang sama <b>(KPK dari ${d1} dan ${d2} adalah ${L})</b>.<br>
+        • Kayu awal bernilai <span class="m">${fr(num1_imp, d1)}</span>, diubah menjadi <span class="m">${fr(totalSlices, L)}</span> (Ada ${totalSlices} keping).<br>
+        • Pemotong bernilai <span class="m">${fr(n2, d2)}</span>, diubah menjadi <span class="m">${fr(groupSize, L)}</span> (Butuh ${groupSize} keping tiap kelompok).
+      `;
+
+      // Step 2: Penjelasan Hasil
+      let sisaTeks = remainder === 0 
+        ? "<b>Tidak ada sisa potong.</b>" 
+        : `Sisa ${remainder} keping (ini setara dengan <span class="m text-red-600 font-bold">${fr(remainder, groupSize)}</span> bagian dari kebutuhan 1 kelompok).`;
+
+      document.getElementById('step-2-text').innerHTML = `
+        Kini pabrik mengemas ${totalSlices} keping ke dalam kelompok berisi ${groupSize} keping.<br>
+        <span class="m bg-white px-2 py-1 rounded inline-block my-1 border border-teal-200">
+          ${totalSlices} ÷ ${groupSize} = <b>${fullGroups}</b> kelompok utuh, sisa <b>${remainder}</b>.
+        </span><br>
+        ${sisaTeks}
+      `;
+
+      explanationArea.classList.add('show-area');
+      
+      // Simpan Progress
+      let currentProgress = parseInt(localStorage.getItem('vm_c4_progress')) || 1;
+      if (currentProgress < 4) localStorage.setItem('vm_c4_progress', 4);
+      
+      // Auto Scroll ke hasil
+      explanationArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    }, 800);
+  }
+</script>
+</body>
+</html>
