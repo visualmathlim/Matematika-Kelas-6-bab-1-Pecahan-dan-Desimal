@@ -29,7 +29,7 @@
   .hint-box{ border-left:3px solid var(--gold-bg); background:#fff8e6; }
   .hint-box.strong{ border-left-color:var(--royal); background:#e8eefc; }
   .fade-in{ animation:fadeIn .4s ease-in; } @keyframes fadeIn{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
-  ol.steps{ list-style:decimal; padding-left:1.3rem; } ol.steps li{ margin:.5rem 0; } ol.steps li.hide{ display:none; }
+  ol.steps{ list-style:decimal; padding-left:1.3rem; } ol.steps li{ margin:.6rem 0; } ol.steps li.hide{ display:none; }
   .home-btn{ display:flex; align-items:center; gap:6px; font-size:0.9rem; font-weight:700; color:var(--royal-dk); background:#dbe3f5; padding:6px 14px; border-radius:99px; transition:all 0.2s; }
   .home-btn:hover{ background:var(--royal); color:#fff; }
 </style>
@@ -63,58 +63,72 @@
     <h2 class="text-3xl font-extrabold" style="color:var(--royal-dk)">Dari Penyebut Sama ke Rumus</h2>
   </section>
 
-  <!-- Contoh -->
+  <!-- Contoh yang Diperjelas Langkah Transisinya -->
   <section class="card rounded-2xl p-6 space-y-4">
-    <h3 class="font-bold text-base" style="color:var(--gold)">📘 Contoh: Langkah Demi Langkah Menyamakan Penyebut</h3>
+    <h3 class="font-bold text-base" style="color:var(--gold)">📘 Contoh: Mengapa Pembilang Bisa Langsung Dibagi?</h3>
     <p class="text-center text-xl font-bold">
       <span class="math-frac"><span class="math-num">5</span><span class="math-den">6</span></span> ÷
       <span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span> = ?
     </p>
-    <ol class="steps text-sm space-y-2">
-      <li>Samakan penyebut menjadi 6: 
-        <span class="math-frac"><span class="math-num">5</span><span class="math-den">6</span></span> tetap, dan 
-        <span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span> = <span class="math-frac"><span class="math-num">4</span><span class="math-den">6</span></span> (pembilang & penyebut dikali 2)
+    <ol class="steps text-sm space-y-3 text-slate-700">
+      <li><b>Samakan penyebut (KPK dari 6 dan 3 adalah 6):</b><br>
+        Pecahan pertama <span class="math-frac"><span class="math-num">5</span><span class="math-den">6</span></span> tetap.<br>
+        Pecahan kedua <span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span> diubah menjadi <span class="math-frac"><span class="math-num">4</span><span class="math-den">6</span></span> (karena pembilang dan penyebut dikalikan 2).<br>
+        Sehingga soalnya menjadi: 
+        <span class="math-frac"><span class="math-num">5</span><span class="math-den">6</span></span> ÷ 
+        <span class="math-frac"><span class="math-num">4</span><span class="math-den">6</span></span>.
       </li>
-      <li class="hide">Karena penyebut sudah sama, sekarang tinggal membagi pembilangnya: 5 ÷ 4</li>
-      <li class="hide">Hasil akhir: 
+      <li class="hide"><b>Gunakan konsep pecahan senama (penyebut sama):</b><br>
+        Bayangkan kamu memiliki 5 bagian dari total 6 bagian, lalu ingin dikelompokkan tiap 4 bagian dari total 6 bagian yang sama besar.<br>
+        Karena penyebutnya sudah sama-sama per-enam ($\text{per } 6$), satuan penyebutnya bisa diabaikan sejenak, dan kita cukup membagi angka pembilangnya saja: <b style="color:var(--royal-dk)">5 ÷ 4</b>.
+      </li>
+      <li class="hide"><b>Tuliskan dalam bentuk pecahan & sederhanakan:</b><br>
+        5 ÷ 4 dapat ditulis sebagai pecahan vertikal <span class="math-frac"><span class="math-num">5</span><span class="math-den">4</span></span>.<br>
+        Jadi, 
         <span class="math-frac"><span class="math-num">5</span><span class="math-den">6</span></span> ÷ 
         <span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span> = 
         <span class="math-frac"><span class="math-num">5</span><span class="math-den">4</span></span> = 
-        1<span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span>
+        <b>1<span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span></b>.
       </li>
     </ol>
     <div class="text-center pt-2">
-      <button id="ex-next" class="btn text-xs shadow-md" style="background:var(--royal)">Langkah Berikutnya ➔</button>
+      <button id="ex-next" class="btn text-xs shadow-md" style="background:var(--royal)">Tampilkan Langkah Berikutnya ➔</button>
     </div>
   </section>
 
   <div class="grid md:grid-cols-2 gap-6 items-start">
-    <!-- THINK -->
+    <!-- THINK: Diperbaiki Penulisan Rumusnya agar Menggunakan Format Vertikal/Formal -->
     <section class="card rounded-2xl p-6 space-y-4">
       <h3 class="font-bold text-base" style="color:var(--royal-dk)">🧠 Think — Pola Umum Rumus</h3>
       <p class="text-sm text-slate-700">Untuk 
         <span class="math-frac"><span class="math-num">a</span><span class="math-den">b</span></span> ÷ 
         <span class="math-frac"><span class="math-num">c</span><span class="math-den">d</span></span>, 
-        setelah penyebut disamakan menjadi KPK ($L$), lengkapi rumus matematika di bawah ini:
+        setelah penyebut disamakan menjadi KPK ($L$), susunan rumusnya menjadi seperti ini:
       </p>
       
       <div class="space-y-4 text-sm bg-slate-50 p-4 rounded-xl border border-slate-200">
-        <p class="flex items-center justify-between">
-          <span>Pembilang pecahan 1 menjadi:</span>
-          <span>$a \times (L \div$ 
-            <span class="math-input-box"><input type="text" id="tk1" placeholder="?"></span> 
-            $)$
+        <div class="flex items-center justify-between font-medium">
+          <span>Pecahan 1 setelah disamakan:</span>
+          <span>
+            <span class="math-frac">
+              <span class="math-num">$a \times (L \div$ <span class="math-input-box" style="margin: 0 2px;"><input type="text" id="tk1" placeholder="?"></span> $)$</span>
+              <span class="math-den">$L$</span>
+            </span>
           </span>
-        </p>
-        <p class="flex items-center justify-between">
-          <span>Pembilang pecahan 2 menjadi:</span>
-          <span>$c \times (L \div$ 
-            <span class="math-input-box"><input type="text" id="tk2" placeholder="?"></span> 
-            $)$
+        </div>
+        
+        <div class="flex items-center justify-between font-medium">
+          <span>Pecahan 2 setelah disamakan:</span>
+          <span>
+            <span class="math-frac">
+              <span class="math-num">$c \times (L \div$ <span class="math-input-box" style="margin: 0 2px;"><input type="text" id="tk2" placeholder="?"></span> $)$</span>
+              <span class="math-den">$L$</span>
+            </span>
           </span>
-        </p>
-        <p class="flex items-center justify-between">
-          <span>Hasil bagi akhir =</span>
+        </div>
+
+        <div class="flex items-center justify-between pt-2 border-t border-slate-200 font-semibold">
+          <span>Hasil bagi akhir:</span>
           <span>Pembilang 1 
             <select id="tk3" class="font-bold mx-1">
               <option value="">pilih</option>
@@ -123,7 +137,7 @@
             </select> 
             Pembilang 2
           </span>
-        </p>
+        </div>
       </div>
 
       <button id="think-chk" class="btn w-full shadow-md hover:opacity-95" style="background:var(--royal)">Periksa Rumus</button>
@@ -135,7 +149,7 @@
       <h3 class="font-bold text-base flex items-center gap-2" style="color:var(--red)">
         <span>⚠ Pixel Alert</span>
       </h3>
-      <p class="text-sm text-slate-600">Seorang agen memakai rumus Keep-Change-Flip dengan cara seperti ini. Benar atau salah?</p>
+      <p class="text-sm text-slate-600">Seorang agen memakai rumus Keep-Change-Flip dengan cara seperti di bawah ini. Apakah benar atau salah?</p>
       
       <div class="bg-slate-50 rounded-xl p-4 text-center text-lg font-bold border border-slate-200">
         <span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> ÷
@@ -144,7 +158,7 @@
         <span class="math-frac"><span class="math-num">3</span><span class="math-den">8</span></span> =
         <span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span>
       </div>
-      <p class="text-xs text-slate-500 text-center italic">(Pecahan pertama yang dibalik oleh agen tersebut)</p>
+      <p class="text-xs text-slate-500 text-center italic">(Perhatikan pecahan mana yang dibalik oleh agen tersebut)</p>
       
       <div class="grid grid-cols-2 gap-3 pt-2">
         <div class="opt" data-v="benar">✅ Benar</div>
@@ -201,7 +215,7 @@ document.getElementById('ex-next').addEventListener('click', function(){
 document.getElementById('think-chk').addEventListener('click', ()=>{
   const ok = document.getElementById('tk1').value.trim().toLowerCase()==='b' && document.getElementById('tk2').value.trim().toLowerCase()==='d' && document.getElementById('tk3').value==='bagi';
   const fb = document.getElementById('think-fb'); fb.classList.remove('hidden');
-  fb.innerHTML = ok ? '✅ <b>Betul Sekali!</b> $a \\times (L \\div b)$ dibagi $[c \\times (L \\div d)]$ — penyebut sama, tinggal bagi pembilang.' : '❌ <b>Belum Tepat.</b> Ingat: $L \\div b$ dan $L \\div d$ adalah faktor pengali supaya penyebutnya jadi $L$. Hasil akhirnya dibagi, bukan dikali.';
+  fb.innerHTML = ok ? '✅ <b>Hebat!</b> Ketika penyebut sudah sama ($L$), pembilang pertama dibagi dengan pembilang kedua.' : '❌ <b>Belum Tepat.</b> Ingat: $L \\div b$ dan $L \\div d$ adalah pengali untuk menyamakan penyebut. Setelah sama, kedua pembilang harus dibagi ($÷$).';
   fb.className = ok ? 'text-sm font-bold p-3 rounded-lg text-center bg-green-50 text-emerald-700 border border-teal-300' : 'text-sm font-bold p-3 rounded-lg text-center bg-red-50 text-rose-700 border border-red-300';
 });
 
@@ -212,8 +226,8 @@ document.querySelectorAll('.opt[data-v]').forEach(o=>o.addEventListener('click',
   const fb=document.getElementById('alert-fb'); fb.classList.remove('hidden');
   fb.className='text-sm rounded-lg p-3 fade-in '+(good?'bg-green-50 border border-teal-300 text-emerald-800 font-semibold':'bg-red-50 border border-red-300 text-rose-800 font-semibold');
   fb.innerHTML = good
-    ? '✅ <b>Tepat! Ini pernyataan yang SALAH!</b> Yang seharusnya dibalik adalah pembaginya (<span class="math-frac"><span class="math-num">3</span><span class="math-den">8</span></span>), bukan yang dibagi (<span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span>). Jawaban benar: <span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> ÷ <span class="math-frac"><span class="math-num">3</span><span class="math-den">8</span></span> = <span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> × <span class="math-frac"><span class="math-num">8</span><span class="math-den">3</span></span> = 2.'
-    : '❌ <b>Cek lagi!</b> Pada aturan Keep-Change-Flip, yang dibalik adalah bilangan KEDUA (pembagi), bukan yang pertama.';
+    ? '✅ <b>Tepat! Ini pernyataan yang SALAH!</b> Yang dibalik oleh agen tersebut adalah pecahan pertama (<span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span>), padahal yang harus dibalik adalah pecahan kedua (<span class="math-frac"><span class="math-num">3</span><span class="math-den">8</span></span>).'
+    : '❌ <b>Cek lagi!</b> Pada aturan Keep-Change-Flip, bilangan pertama TIDAK BOLEH dibalik. Yang dibalik hanya bilangan kedua (pembagi).';
 }));
 
 // DISCOVER Hints
@@ -252,7 +266,7 @@ function gRender(){
     const o=opts[+el.dataset.i];
     gArea.querySelectorAll('.opt').forEach((x,i)=>{ x.style.pointerEvents='none'; if(opts[i].k==='ok') x.classList.add('ok'); });
     let msg;
-    if(o.k==='ok'){ gstreak++; gscore+=10+(gstreak>=3?5:0); msg='✅ <b>Tepat!</b> Penyebut disamakan dulu, baru bagi pembilangnya (atau balik pecahan KEDUA saja).'; }
+    if(o.k==='ok'){ gstreak++; gscore+=10+(gstreak>=3?5:0); msg='✅ <b>Tepat!</b> Penyebut disamakan dulu, lalu bagi pembilangnya (atau balik pecahan KEDUA saja).'; }
     else { gstreak=0; el.classList.add('bad');
       if(o.k==='flip') msg='❌ <b>Jebakan Pixel!</b> Ini hasil kalau membalik pecahan yang dibagi (pertama), bukan pembaginya. Jawabannya jadi kebalikan!';
       else if(o.k==='noflip') msg='❌ <b>Hampir!</b> Ini hasil kalau pecahan kedua tidak dibalik sama sekali (dikalikan langsung).';
