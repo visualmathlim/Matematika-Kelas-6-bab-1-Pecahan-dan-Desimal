@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pos 2: Concrete | Mission C2</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{ --blue:#2563EB; --blue-d:#1D4ED8; --blue-dd:#1E3A8A; --blue-l:#DBEAFE; --bg:#F8FAFC; --card:#fff; --ink:#0F172A; --muted:#475569; --ok:#10B981; --hint:#F59E0B; --line:#CBD5E1; --f-head:'Baloo 2',sans-serif; --f-body:'Nunito',sans-serif; }
+*{box-sizing:border-box;margin:0} body{font-family:var(--f-body);color:var(--ink);background:var(--bg);padding-bottom:60px;} a{text-decoration:none;color:inherit}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.1;font-weight:800;margin:0 .15em;font-size:1.1em} .frac>span:first-child{border-bottom:.09em solid currentColor;padding:0 .2em .05em} .frac>span:last-child{padding-top:.05em} .math{font-family:var(--f-head);font-weight:800;font-size:1.2em;}
+header{background:#fff;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:5} .bar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;max-width:800px;margin:0 auto} .back-btn{font-weight:700;color:var(--blue-d)} .pos-badge{background:var(--blue-l);color:var(--blue-d);font-weight:800;padding:4px 12px;border-radius:99px;}
+.wrap{max-width:800px;margin:0 auto;padding:30px 20px} .card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:26px;margin-bottom:24px;box-shadow:0 4px 12px rgba(37,99,235,0.05); text-align:center;}
+h2{font-family:var(--f-head);font-size:1.8rem;color:var(--blue-dd);margin-bottom:12px;line-height:1.2}
+
+/* Game Ribbon CSS */
+.ribbon-stage{margin:30px 0;}
+.meter-label{font-weight:bold; color:var(--blue-d); text-align:left; margin-bottom:5px; margin-top:15px; font-size:1.1rem;}
+.ribbon{width:100%; height:60px; background:linear-gradient(90deg, #F59E0B, #FCD34D, #F59E0B); border:3px solid #B45309; border-radius:8px; display:flex; position:relative; overflow:hidden;}
+.ribbon-part{flex:1; border-right:3px dashed transparent; display:flex; justify-content:center; align-items:center; color:transparent; font-weight:900; font-size:1.2rem; transition:all 0.5s ease;}
+.ribbon-part:last-child{border-right:none;}
+
+/* Cut State */
+.ribbon.cut .ribbon-part{border-right:3px solid #B45309; color:#92400E; background:rgba(255,255,255,0.3);}
+.ribbon.cut .ribbon-part:nth-child(even){background:rgba(255,255,255,0.1);}
+
+.btn{display:inline-block;background:var(--blue-d);color:#fff;font-family:var(--f-head);font-weight:800;font-size:1.1rem;padding:12px 28px;border-radius:99px;border:none;cursor:pointer;box-shadow:0 4px 0 var(--blue-dd);transition:transform .1s} .btn:active{transform:translateY(4px);box-shadow:none}
+.btn-next{display:none;background:var(--ok);box-shadow:0 4px 0 #047857;} .btn-next.show{display:inline-block;}
+.message{display:none;margin-top:20px;padding:16px;background:#E0F2FE;border:2px solid var(--blue);border-radius:12px;font-weight:700; font-size:1.1rem; line-height:1.5;}
+</style>
+</head>
+<body>
+<header><div class="bar"><a href="mission-c2.html" class="back-btn">Kembali</a><div class="pos-badge">Pos 2 / 8</div></div></header>
+<main class="wrap">
+  <section class="card">
+    <h2>Game: Gunting Pita Ajaib ✂️</h2>
+    <p>Ini adalah <b>3 meter</b> pita milik Pixel. Klik tombol gunting untuk memotong setiap meter pita menjadi bagian berukuran <b><span class="frac"><span>1</span><span>4</span></span> meter</b>.</p>
+    
+    <div class="ribbon-stage">
+      <div class="meter-label">Pita Meter ke-1</div>
+      <div class="ribbon" id="r1">
+        <div class="ribbon-part">1</div><div class="ribbon-part">2</div><div class="ribbon-part">3</div><div class="ribbon-part">4</div>
+      </div>
+      <div class="meter-label">Pita Meter ke-2</div>
+      <div class="ribbon" id="r2">
+        <div class="ribbon-part">5</div><div class="ribbon-part">6</div><div class="ribbon-part">7</div><div class="ribbon-part">8</div>
+      </div>
+      <div class="meter-label">Pita Meter ke-3</div>
+      <div class="ribbon" id="r3">
+        <div class="ribbon-part">9</div><div class="ribbon-part">10</div><div class="ribbon-part">11</div><div class="ribbon-part">12</div>
+      </div>
+    </div>
+    
+    <button id="cutBtn" class="btn">✂️ Gunting Jadi Potongan 1/4!</button>
+
+    <div id="msg" class="message"></div>
+    
+    <div style="margin-top:20px;">
+      <a href="mission-c2-pos3-visualize.html" id="nextBtn" class="btn btn-next" onclick="markDone()">Wow, Keren! Lanjut ke Lab Pos 3 ➔</a>
+    </div>
+  </section>
+</main>
+<script>
+  document.getElementById('cutBtn').addEventListener('click', function() {
+    document.getElementById('r1').classList.add('cut');
+    document.getElementById('r2').classList.add('cut');
+    document.getElementById('r3').classList.add('cut');
+    this.style.display = 'none';
+    
+    const msg = document.getElementById('msg');
+    msg.innerHTML = `
+      <b>Lihat! Angkanya Membesar!</b><br>
+      Setiap 1 meter menghasilkan 4 potong. Karena ada 3 meter, pita ini terpotong menjadi <b>12 potongan kecil</b>!<br><br>
+      Secara matematika ditulis:<br>
+      <span class="math">3 ÷ <span class="frac"><span>1</span><span>4</span></span> = 12</span>
+    `;
+    msg.style.display = 'block';
+    msg.style.animation = 'fadeIn 0.5s';
+    document.getElementById('nextBtn').classList.add('show');
+  });
+  function markDone(){ try{ localStorage.setItem("vml_c2_done_2", "1"); }catch(e){} }
+</script>
+</body>
+</html>
