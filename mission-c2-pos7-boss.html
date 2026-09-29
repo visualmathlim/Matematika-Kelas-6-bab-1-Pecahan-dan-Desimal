@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pos 7: Boss Battle | Mission C2</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{ --blue:#2563EB; --blue-d:#1D4ED8; --blue-dd:#1E3A8A; --blue-l:#DBEAFE; --bg:#F8FAFC; --ink:#0F172A; --line:#CBD5E1; --hint:#F59E0B; --f-head:'Baloo 2',sans-serif; --f-body:'Nunito',sans-serif;}
+*{box-sizing:border-box;margin:0} body{font-family:var(--f-body);color:var(--ink);background:var(--bg);padding-bottom:60px;} a{text-decoration:none}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.1;font-weight:800;margin:0 .15em; font-size:1.1em;} .frac>span:first-child{border-bottom:.09em solid currentColor;padding:0 .2em .05em} .frac>span:last-child{padding-top:.05em} .math{font-family:var(--f-head);font-weight:800; font-size:1.2em;}
+header{background:#fff;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:5} .bar{display:flex;justify-content:space-between;padding:12px 20px;max-width:800px;margin:0 auto; align-items:center;} .back-btn{font-weight:700;color:var(--blue-d)} .pos-badge{background:#FEF3C7;color:#B45309;font-weight:800;padding:4px 12px;border-radius:99px;}
+.wrap{max-width:600px;margin:0 auto;padding:30px 20px} .card{background:#fff;border:2px solid #FCD34D;border-radius:18px;padding:24px;margin-bottom:20px;box-shadow:0 6px 16px rgba(245,158,11,0.15);}
+h2{font-family:var(--f-head);color:#B45309;text-align:center;margin-bottom:15px; font-size:2rem;}
+.inp-group{display:flex; align-items:center; gap:10px; background:var(--bg); padding:12px; border-radius:8px; margin-bottom:15px; justify-content:center;}
+.inp-frac{display:inline-flex; flex-direction:column; width:60px; gap:4px;}
+.inp-frac input{text-align:center; font-weight:bold; font-size:1.1rem; border:2px solid var(--blue); border-radius:6px; outline:none; padding:4px;}
+.inp-frac input:focus{border-color:var(--blue-d)}
+.btn{display:block;background:#F59E0B;color:#fff;font-family:var(--f-head);font-weight:800;padding:14px;border-radius:99px;text-align:center;width:100%;border:none;cursor:pointer;font-size:1.1rem;box-shadow:0 4px 0 #D97706;}
+.btn:active{transform:translateY(4px);}
+#feedback{display:none; padding:15px; border-radius:12px; font-weight:bold; margin-top:20px; text-align:center;}
+</style>
+</head>
+<body>
+<header><div class="bar"><a href="mission-c2.html" class="back-btn">Kembali</a><div class="pos-badge">👾 Pos 7 Boss Battle</div></div></header>
+<main class="wrap">
+  <section class="card">
+    <h2>Tantangan Resep Raksasa</h2>
+    <p style="margin-bottom:15px; line-height:1.7;">Ibu membeli <b>5 kg gula pasir</b> untuk persiapan membuat kue. Setiap satu loyang kue bolu membutuhkan persis <span class="frac"><span>3</span><span>4</span></span> kg gula.</p>
+    <p style="background:#FFFBEB; padding:12px; border-radius:8px; border-left:4px solid #F59E0B; font-size:0.95rem; margin-bottom:20px; line-height:1.6;">
+      <b>Pertanyaan Boss:</b> Berapa jumlah total gula (dalam bentuk pecahan biasa) yang merepresentasikan hasil pembagian <span class="math">5 ÷ <span class="frac"><span>3</span><span>4</span></span></span>?<br>
+      <i>Tips: Terapkan aturan <span style="color:#B45309">Keep-Change-Flip (KCF)</span> pada bilangan 5 (ubah jadi 5/1).</i>
+    </p>
+
+    <div class="inp-group">
+      <b>Hasil Bagian = </b>
+      <div class="inp-frac">
+        <input type="number" id="num" placeholder="Atas">
+        <input type="number" id="den" placeholder="Bawah">
+      </div>
+    </div>
+
+    <button id="chkBtn" class="btn">Serang Boss! ⚔️</button>
+    <div id="feedback"></div>
+    <a href="mission-c2-pos8-log.html" id="nextBtn" class="btn" style="display:none; background:#10B981; margin-top:15px; box-shadow:0 4px 0 #047857;">Lanjut ke Mission Log ➔</a>
+  </section>
+</main>
+<script>
+document.getElementById('chkBtn').addEventListener('click', function() {
+  const num = document.getElementById('num').value;
+  const den = document.getElementById('den').value;
+  const fb = document.getElementById('feedback');
+  
+  if(!num || !den) return alert('Isi kotak pembilang dan penyebutnya dulu, Agen!');
+  
+  // 5 / (3/4) = 5 * 4/3 = 20/3
+  if(num == '20' && den == '3') {
+    fb.style.display = 'block'; fb.style.background = '#D1FAE5'; fb.style.color = '#065F46'; fb.style.border = '2px solid #10B981';
+    fb.innerHTML = '✅ <b>Luar Biasa! Pertahanan Boss Jebol!</b><br> <span class="frac"><span>5</span><span>1</span></span> × <span class="frac"><span>4</span><span>3</span></span> = <span class="frac"><span>20</span><span>3</span></span> (atau setara dengan <span class="math">6<span class="frac"><span>2</span><span>3</span></span></span> loyang kue). Kamu hebat!';
+    this.style.display = 'none';
+    document.getElementById('nextBtn').style.display = 'block';
+    
+    // Simpan kelulusan & log
+    let log = JSON.parse(localStorage.getItem('vml_c2_done_7_log') || '{"attempts":[],"bestScore":0}');
+    log.attempts.push({score: 100, date: new Date().toLocaleDateString('id-ID')});
+    log.bestScore = 100; log.passed = true;
+    localStorage.setItem('vml_c2_done_7_log', JSON.stringify(log));
+    localStorage.setItem('vml_c2_done_7', '1');
+  } else {
+    fb.style.display = 'block'; fb.style.background = '#FFE4E6'; fb.style.color = '#9F1239'; fb.style.border = '2px solid #F43F5E';
+    fb.innerHTML = '❌ <b>Serangan Meleset!</b><br> Ingat langkah KCF: <span class="frac"><span>5</span><span>1</span></span> dikali kebalikan <span class="frac"><span>3</span><span>4</span></span> yaitu <span class="frac"><span>4</span><span>3</span></span>. Coba hitung pembilang dan penyebutnya lagi!';
+    
+    let log = JSON.parse(localStorage.getItem('vml_c2_done_7_log') || '{"attempts":[],"bestScore":0}');
+    log.attempts.push({score: 0, date: new Date().toLocaleDateString('id-ID')});
+    localStorage.setItem('vml_c2_done_7_log', JSON.stringify(log));
+  }
+});
+</script>
+</body>
+</html>
