@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 5: Skill Unlock - Mission C4 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --royal: #2563eb; 
+    --royal-dk: #1e40af; 
+    --bg: #eef2fb; 
+    --card: #ffffff; 
+    --ink: #0f172a; 
+    --line: #dbe3f5; 
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+    --red: #dc2626; 
+    --purple: #7c3aed;
+  }
+  body { background-color: var(--bg); color: var(--ink); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; overflow-x: hidden; }
+  
+  /* Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 700; color: var(--royal-dk); background: #dbe3f5; padding: 6px 16px; border-radius: 99px; transition: all 0.2s; }
+  .home-btn:hover { background: var(--royal); color: #fff; }
+
+  /* Math UI Vertikal */
+  .m { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', serif; white-space: nowrap; font-weight: bold; }
+  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.15rem; line-height: 1.1; font-size: 0.95em; }
+  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
+  .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+  .whole { margin-right: 0.1rem; font-size: 1.2em; }
+  
+  /* Kustomisasi Tampilan Spesifik Pos 5 */
+  .alert-box { background: #fef2f2; border: 2px dashed var(--red); border-radius: 12px; padding: 1.5rem; position: relative; overflow: hidden; transition: all 0.3s; }
+  .alert-box::before { content: "⚠️ JEBAKAN FATAL!"; position: absolute; top: 0; left: 0; background: var(--red); color: white; padding: 4px 12px; font-size: 0.75rem; font-weight: bold; border-bottom-right-radius: 8px; letter-spacing: 1px; }
+  
+  .method-tab { cursor: pointer; padding: 14px 20px; font-weight: bold; text-align: center; border-radius: 8px 8px 0 0; transition: all 0.2s; border: 2px solid transparent; border-bottom: none; background: #f1f5f9; color: #64748b; font-size: 1.05rem; }
+  .method-tab.active-teal { background: white; color: var(--teal); border-color: var(--teal); border-bottom: 2px solid white; margin-bottom: -2px; z-index: 10; position: relative; }
+  .method-tab.active-purple { background: white; color: var(--purple); border-color: var(--purple); border-bottom: 2px solid white; margin-bottom: -2px; z-index: 10; position: relative; }
+  
+  .method-content { background: white; border-radius: 0 8px 8px 8px; padding: 2rem; border: 2px solid var(--line); display: none; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+  .method-content.active { display: block; animation: fadeIn 0.4s ease; }
+  
+  /* Steps UI */
+  .step-row { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px dashed #e2e8f0; }
+  .step-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .step-num { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; }
+  
+  /* Arrow & Highlights */
+  .highlight-red { color: var(--red); text-decoration: line-through; text-decoration-thickness: 3px; }
+  
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  
+  /* Animasi Ledakan Jebakan */
+  .boom-overlay { position: absolute; inset: 0; background: rgba(220,38,38,0.95); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 2rem; font-weight: 900; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 20; }
+  .boom-overlay.show { opacity: 1; pointer-events: auto; animation: shake 0.5s; }
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-10px); } 40%, 80% { transform: translateX(10px); } }
+
+  .btn { display: inline-block; text-align: center; padding: 0.8rem 1.5rem; border-radius: 99px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
+  .btn-next { background: linear-gradient(to right, var(--royal), var(--royal-dk)); box-shadow: 0 4px 10px rgba(37,99,235,0.3); width: 100%; font-size: 1.1rem; }
+  .btn-next:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(37,99,235,0.4); }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center relative z-20">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--royal)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Kelas 6 • Mission C4</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="px-3 py-1 rounded-full text-xs font-semibold hidden md:inline-block" style="background:#e8eefc; border:1px solid var(--royal); color:var(--royal-dk)">🔓 Pos 5/8: Master Class</span>
+      <a href="mission-c4.html" class="home-btn shadow-sm">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Peta Misi</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full" style="background:var(--line)"><div class="h-full" style="width:62.5%; background:linear-gradient(to right,var(--royal),var(--teal))"></div></div>
+</header>
+
+<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-8">
+  
+  <section class="text-center space-y-2 mb-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--royal); background:#e8eefc; color:var(--royal-dk)">🔓 Skill Unlock</div>
+    <h2 class="text-3xl font-extrabold" style="color:var(--royal-dk)">Master Class: Jurus Pamungkas</h2>
+    <p class="text-sm text-slate-600 max-w-2xl mx-auto font-medium">
+      Mari kita bedah rumus pembagian langkah demi langkah sedetail mungkin! Tapi sebelumnya, perhatikan jebakan ini!
+    </p>
+  </section>
+
+  <!-- JEBAKAN FATAL (INTERAKTIF) -->
+  <div class="alert-box shadow-md cursor-pointer" id="trap-box" onclick="triggerTrap()">
+    <div class="boom-overlay" id="boom">
+      <span>💥 SALAH BESAR! 💥</span>
+      <span class="text-sm font-normal mt-2 px-4 text-center">Kamu menghancurkan material logistiknya!<br>Angka bulat dan pecahan TIDAK BOLEH dipisah saat dibagi!</span>
+      <button class="mt-4 px-6 py-2 bg-white text-red-600 rounded-full text-sm font-bold shadow hover:bg-slate-100" onclick="resetTrap(event)">Saya Mengerti</button>
+    </div>
+
+    <div class="pt-6 text-center">
+      <p class="font-medium text-slate-700 mb-4 text-sm md:text-base">Kesalahan fatal paling umum: Membagi angka bulat dengan bulat, dan pecahan dengan pecahan secara terpisah. <br><span class="text-red-600 font-bold animate-pulse">Klik area ini untuk melihat akibatnya!</span></p>
+      
+      <div class="flex flex-col md:flex-row items-center justify-center gap-4 bg-white p-4 rounded-xl border border-red-200 shadow-inner">
+        <div class="text-2xl"><span class="m"><span class="whole">3</span><span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span></span> ÷ <span class="m"><span class="whole">1</span><span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span></span></div>
+        <div class="text-xl font-bold text-slate-400">➜</div>
+        
+        <div class="flex items-center gap-3">
+          <div class="bg-red-50 p-3 rounded border border-red-200 text-center">
+            <span class="text-xs text-red-500 font-bold block mb-2 uppercase">Bulat ÷ Bulat</span>
+            <span class="m text-xl highlight-red">3 ÷ 1 = 3</span>
+          </div>
+          <span class="text-xl font-bold text-slate-400">+</span>
+          <div class="bg-red-50 p-3 rounded border border-red-200 text-center">
+            <span class="text-xs text-red-500 font-bold block mb-2 uppercase">Pecahan ÷ Pecahan</span>
+            <span class="m text-xl highlight-red"><span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span> ÷ <span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span> = 2</span>
+          </div>
+        </div>
+        
+        <div class="text-xl font-bold text-slate-400">➜</div>
+        <div class="text-2xl text-red-600 font-bold bg-white p-2 border-2 border-red-400 rounded-lg shadow-sm">Hasil: <span class="m highlight-red"><span class="whole">3</span><span class="math-frac"><span class="math-num">2</span><span class="math-den"></span></span></span> (SALAH!)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S.O.P YANG BENAR (SANGAT DETAIL) -->
+  <div class="bg-white rounded-2xl p-6 md:p-8 border-2 border-royal-dk shadow-xl relative mt-12">
+    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-royal-dk text-white px-8 py-1 rounded-full font-bold tracking-widest text-sm shadow-md">
+      S.O.P PEMECAHAN YANG BENAR
+    </div>
+    
+    <div class="text-center mb-8 mt-2 bg-slate-50 py-3 rounded-lg border border-slate-200">
+      <p class="font-bold text-slate-500 text-sm mb-1 uppercase tracking-widest">Mari selesaikan soal berikut:</p>
+      <p class="m text-3xl text-royal-dk"><span class="whole">2</span><span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span> <span class="mx-3 text-slate-400 font-bold">÷</span> <span class="whole">1</span><span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span></p>
+    </div>
+
+    <!-- LANGKAH 1 MUTLAK (DETAIL) -->
+    <div class="bg-blue-50 p-6 rounded-xl border border-blue-200 mb-8 shadow-sm relative">
+      <div class="absolute top-0 right-0 bg-blue-600 text-white font-bold text-xs px-3 py-1 rounded-bl-lg rounded-tr-lg">LANGKAH MUTLAK</div>
+      <p class="font-bold text-royal-dk text-lg mb-4 text-center uppercase tracking-wide">Langkah 1: Ubah ke Pecahan Biasa</p>
+      
+      <p class="text-sm text-slate-700 text-center mb-4">Gunakan rumus: <b>(Bilangan Bulat × Penyebut Bawah) + Pembilang Atas</b>. Angka penyebut bawahnya tetap sama.</p>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <!-- Rincian Pecahan 1 -->
+        <div class="bg-white p-4 rounded-lg border border-slate-200 flex flex-col items-center">
+          <span class="m text-2xl mb-2"><span class="whole text-blue-600">2</span><span class="math-frac"><span class="math-num text-teal-600">1</span><span class="math-den text-red-500">4</span></span></span>
+          <p class="text-xs text-slate-500 mb-1">Cara Menghitung Atasnya:</p>
+          <p class="m text-lg font-bold text-slate-700 bg-slate-50 p-2 rounded">
+            (<span class="text-blue-600">2</span> × <span class="text-red-500">4</span>) + <span class="text-teal-600">1</span> = 9
+          </p>
+          <p class="text-xs text-slate-500 mt-2">Bawahnya tetap <span class="text-red-500 font-bold">4</span>, sehingga menjadi:</p>
+          <span class="m text-2xl mt-1 font-bold text-royal-dk border-2 border-royal/30 p-2 rounded-lg bg-blue-50"><span class="math-frac"><span class="math-num">9</span><span class="math-den">4</span></span></span>
+        </div>
+        <!-- Rincian Pecahan 2 -->
+        <div class="bg-white p-4 rounded-lg border border-slate-200 flex flex-col items-center">
+          <span class="m text-2xl mb-2"><span class="whole text-blue-600">1</span><span class="math-frac"><span class="math-num text-teal-600">1</span><span class="math-den text-red-500">2</span></span></span>
+          <p class="text-xs text-slate-500 mb-1">Cara Menghitung Atasnya:</p>
+          <p class="m text-lg font-bold text-slate-700 bg-slate-50 p-2 rounded">
+            (<span class="text-blue-600">1</span> × <span class="text-red-500">2</span>) + <span class="text-teal-600">1</span> = 3
+          </p>
+          <p class="text-xs text-slate-500 mt-2">Bawahnya tetap <span class="text-red-500 font-bold">2</span>, sehingga menjadi:</p>
+          <span class="m text-2xl mt-1 font-bold text-royal-dk border-2 border-royal/30 p-2 rounded-lg bg-blue-50"><span class="math-frac"><span class="math-num">3</span><span class="math-den">2</span></span></span>
+        </div>
+      </div>
+      
+      <div class="text-center mt-4">
+        <p class="text-sm font-semibold text-slate-700">Wujud soal sekarang telah aman untuk dieksekusi:</p>
+        <p class="m text-2xl font-bold mt-2"><span class="math-frac"><span class="math-num">9</span><span class="math-den">4</span></span> <span class="mx-2 text-slate-400">÷</span> <span class="math-frac"><span class="math-num">3</span><span class="math-den">2</span></span></p>
+      </div>
+    </div>
+
+    <!-- LANGKAH 2: PILIHAN JURUS -->
+    <div>
+      <p class="font-bold text-slate-800 text-center mb-6 text-lg uppercase tracking-wide">Langkah 2: Pilih Metode Eksekusi (Jurus Mission C3)</p>
+      
+      <!-- Tabs -->
+      <div class="flex justify-center border-b-2 border-line">
+        <div class="method-tab active-teal" id="tab-1" onclick="switchTab(1)">
+          Metode 1: Kali Silang (K-C-F)
+        </div>
+        <div class="method-tab" id="tab-2" onclick="switchTab(2)">
+          Metode 2: Samakan Penyebut
+        </div>
+      </div>
+
+      <!-- TAB CONTENT 1 (KALI SILANG - SANGAT DETAIL) -->
+      <div id="content-1" class="method-content active !border-teal-500">
+        <p class="text-sm text-slate-600 mb-6 text-center font-medium bg-teal-50 py-2 rounded">Ini adalah cara tercepat! Ubah pembagian menjadi perkalian silang.</p>
+        
+        <div class="space-y-4">
+          <!-- Step 1-3 -->
+          <div class="step-row">
+            <div class="step-num bg-teal-600 shadow-md">1</div>
+            <div class="flex-grow">
+              <p class="font-bold text-teal-800 mb-1">Mantra K-C-F (Keep - Change - Flip)</p>
+              <ul class="text-sm text-slate-700 space-y-1 mb-3 list-disc ml-5">
+                <li><b class="text-teal-700">KEEP:</b> Pecahan pertama (<span class="m font-bold"><span class="math-frac"><span class="math-num">9</span><span class="math-den">4</span></span></span>) dibiarkan TAHAN posisinya.</li>
+                <li><b class="text-teal-700">CHANGE:</b> Tanda bagi (<span class="m font-bold">÷</span>) UBAH menjadi kali (<span class="m font-bold">×</span>).</li>
+                <li><b class="text-teal-700">FLIP:</b> Pecahan kedua (<span class="m font-bold"><span class="math-frac"><span class="math-num">3</span><span class="math-den">2</span></span></span>) BALIK posisinya (atas ke bawah) menjadi <span class="m font-bold"><span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span></span>.</li>
+              </ul>
+              <div class="flex items-center gap-3 text-xl bg-slate-50 p-3 rounded-lg border border-slate-200 justify-center">
+                <span class="m font-bold text-teal-700"><span class="math-frac"><span class="math-num">9</span><span class="math-den">4</span></span></span>
+                <span class="m font-bold text-teal-600 text-2xl mx-2">×</span>
+                <span class="m font-bold text-teal-700 bg-teal-100 p-1 rounded border border-teal-300"><span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span></span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Step 4 -->
+          <div class="step-row">
+            <div class="step-num bg-teal-600 shadow-md">2</div>
+            <div class="flex-grow">
+              <p class="font-bold text-teal-800 mb-1">Eksekusi Perkalian</p>
+              <p class="text-sm text-slate-700 mb-2">Pada perkalian pecahan, aturannya sangat lurus: Kalikan <b>Atas dengan Atas</b>, dan <b>Bawah dengan Bawah</b>.</p>
+              <div class="flex items-center justify-center gap-4 text-lg bg-slate-50 p-3 rounded-lg border border-slate-200">
+                <span class="m font-bold"><span class="math-frac"><span class="math-num">9 × 2</span><span class="math-den">4 × 3</span></span></span>
+                <span class="m font-bold text-slate-400">=</span>
+                <span class="m font-bold text-teal-800 text-2xl"><span class="math-frac"><span class="math-num">18</span><span class="math-den">12</span></span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="step-row border-none pb-0">
+            <div class="step-num bg-teal-600 shadow-md">3</div>
+            <div class="flex-grow">
+              <p class="font-bold text-teal-800 mb-1">Sederhanakan Hasil Akhir</p>
+              <p class="text-sm text-slate-700 mb-2">Karena pembilang (18) lebih besar dari penyebut (12), kita jadikan pecahan campuran. Sebelumnya, mari perkecil angkanya dengan membagi FPB-nya yaitu <b>6</b>.</p>
+              <div class="flex flex-col md:flex-row items-center justify-center gap-4 text-lg bg-slate-50 p-3 rounded-lg border border-slate-200 text-center">
+                <div class="m">
+                  <span class="math-frac">
+                    <span class="math-num text-slate-600 text-sm mb-1">÷ 6</span>
+                    <span class="math-num text-xl font-bold">18</span>
+                    <span class="math-den text-xl font-bold">12</span>
+                    <span class="math-den text-slate-600 text-sm mt-1">÷ 6</span>
+                  </span>
+                </div>
+                <span class="m font-bold text-slate-400 md:mx-2">➔</span>
+                <span class="m font-bold text-xl"><span class="math-frac"><span class="math-num">3</span><span class="math-den">2</span></span></span>
+                <span class="m font-bold text-slate-400 text-sm md:mx-2">Lalu jadikan campuran:</span>
+                <span class="m font-bold text-teal-700 text-3xl bg-teal-100 p-2 border border-teal-300 rounded shadow-sm"><span class="whole">1</span><span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB CONTENT 2 (SAMAKAN PENYEBUT - SANGAT DETAIL) -->
+      <div id="content-2" class="method-content !border-purple-500">
+        <p class="text-sm text-slate-600 mb-6 text-center font-medium bg-purple-50 py-2 rounded">Ini adalah cara yang kuat secara konsep logika. Cocok jika kamu lupa rumus silang.</p>
+        
+        <div class="space-y-4">
+          <!-- Step 1 -->
+          <div class="step-row">
+            <div class="step-num bg-purple-600 shadow-md">1</div>
+            <div class="flex-grow">
+              <p class="font-bold text-purple-800 mb-1">Samakan Penyebut Bawah (Cari KPK)</p>
+              <p class="text-sm text-slate-700 mb-3">Penyebut awal adalah <b>4</b> dan <b>2</b>. Kita harus mencari angka kelipatan terkecil yang bisa dibagi oleh keduanya (KPK). KPK dari 4 dan 2 adalah <b>4</b>.</p>
+              
+              <div class="flex flex-col md:flex-row items-center gap-4 bg-slate-50 p-3 rounded-lg border border-slate-200">
+                <div class="text-center w-full md:w-1/2">
+                  <p class="text-xs text-slate-500 mb-1">Pecahan 1 (Tetap, karena per-4)</p>
+                  <span class="m font-bold text-xl"><span class="math-frac"><span class="math-num">9</span><span class="math-den">4</span></span></span>
+                </div>
+                <div class="hidden md:block w-px bg-slate-300 h-10"></div>
+                <div class="text-center w-full md:w-1/2">
+                  <p class="text-xs text-slate-500 mb-1">Pecahan 2 (Ubah jadi per-4)</p>
+                  <span class="m font-bold text-xl"><span class="math-frac"><span class="math-num">3 <span class="text-sm text-purple-500">× 2</span></span><span class="math-den">2 <span class="text-sm text-purple-500">× 2</span></span></span> ➔ <span class="math-frac text-purple-700 bg-purple-100 p-1 rounded"><span class="math-num">6</span><span class="math-den">4</span></span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Step 2 -->
+          <div class="step-row">
+            <div class="step-num bg-purple-600 shadow-md">2</div>
+            <div class="flex-grow">
+              <p class="font-bold text-purple-800 mb-1">Coret Penyebutnya!</p>
+              <p class="text-sm text-slate-700 mb-2">Karena sekarang kedua pecahan sudah punya ukuran kepingan yang sama (sama-sama per-4), kita bisa mengabaikan angka penyebutnya dengan cara dicoret.</p>
+              <div class="flex items-center justify-center gap-4 text-2xl bg-slate-50 p-3 rounded-lg border border-slate-200">
+                <span class="m font-bold text-purple-700"><span class="math-frac"><span class="math-num">9</span><span class="math-den text-red-500 line-through decoration-4">4</span></span></span>
+                <span class="m font-bold text-slate-400 text-xl">÷</span>
+                <span class="m font-bold text-purple-700"><span class="math-frac"><span class="math-num">6</span><span class="math-den text-red-500 line-through decoration-4">4</span></span></span>
+                <span class="m font-bold text-slate-500 text-lg mx-2">Tersisa:</span>
+                <span class="m font-bold text-purple-800">9 ÷ 6</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-row border-none pb-0">
+            <div class="step-num bg-purple-600 shadow-md">3</div>
+            <div class="flex-grow">
+              <p class="font-bold text-purple-800 mb-1">Ubah Menjadi Pecahan Akhir</p>
+              <p class="text-sm text-slate-700 mb-2">Bentuk <span class="m font-bold">9 ÷ 6</span> langsung ditulis sebagai pecahan <span class="m font-bold"><span class="math-frac"><span class="math-num">9</span><span class="math-den">6</span></span></span>. Terakhir, kecilkan angkanya (dibagi FPB 3), lalu jadikan pecahan campuran.</p>
+              <div class="flex flex-col md:flex-row items-center justify-center gap-3 text-lg bg-slate-50 p-3 rounded-lg border border-slate-200 text-center">
+                <span class="m font-bold text-xl"><span class="math-frac"><span class="math-num text-purple-800">9</span><span class="math-den text-purple-800">6</span></span></span>
+                <span class="m font-bold text-slate-400 text-sm md:mx-1">Kecilkan (÷3) ➔</span>
+                <span class="m font-bold text-xl"><span class="math-frac"><span class="math-num">3</span><span class="math-den">2</span></span></span>
+                <span class="m font-bold text-slate-400 text-sm md:mx-1">Campuran ➔</span>
+                <span class="m font-bold text-purple-700 text-3xl bg-purple-100 p-2 border border-purple-300 rounded shadow-sm"><span class="whole">1</span><span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="mt-10 max-w-md mx-auto text-center space-y-3">
+    <p class="text-sm font-bold text-slate-600 uppercase tracking-widest">Persiapan Kelas Master Selesai</p>
+    <p class="text-sm text-slate-500 pb-2">Kamu bebas menggunakan Metode 1 atau Metode 2 di ujian sesungguhnya. Bersiaplah!</p>
+    <a href="mission-c4-pos6.html" class="btn btn-next py-4 shadow-lg">Lanjut ke Pos 6: Ujian Quest ➔</a>
+  </div>
+
+</main>
+
+<script>
+  // Logika Jebakan Interaktif
+  const boom = document.getElementById('boom');
+  
+  function triggerTrap() {
+    boom.classList.add('show');
+  }
+  
+  function resetTrap(e) {
+    e.stopPropagation(); // Mencegah klik menyebar ke div parent (trap-box)
+    boom.classList.remove('show');
+    
+    // Simpan progress karena murid sudah melihat teori jebakan
+    let currentProgress = parseInt(localStorage.getItem('vm_c4_progress')) || 1;
+    if (currentProgress < 6) localStorage.setItem('vm_c4_progress', 6);
+  }
+
+  // Logika Switching Tabs Cara 1 & Cara 2
+  function switchTab(tabId) {
+    const t1 = document.getElementById('tab-1');
+    const t2 = document.getElementById('tab-2');
+    const c1 = document.getElementById('content-1');
+    const c2 = document.getElementById('content-2');
+
+    if (tabId === 1) {
+      t1.className = "method-tab active-teal";
+      t2.className = "method-tab";
+      c1.classList.add('active');
+      c2.classList.remove('active');
+    } else {
+      t1.className = "method-tab";
+      t2.className = "method-tab active-purple";
+      c1.classList.remove('active');
+      c2.classList.add('active');
+    }
+    
+    // Simpan progress juga di sini jika mereka mengeksplorasi tab
+    let currentProgress = parseInt(localStorage.getItem('vm_c4_progress')) || 1;
+    if (currentProgress < 6) localStorage.setItem('vm_c4_progress', 6);
+  }
+</script>
+</body>
+</html>
