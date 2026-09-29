@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 8: Mission Log - Mission C4 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --royal: #2563eb; 
+    --royal-dk: #1e40af; 
+    --bg: #f8fafc; 
+    --card: #ffffff; 
+    --ink: #0f172a; 
+    --line: #e2e8f0; 
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+    --red: #dc2626; 
+  }
+  body { background-color: var(--bg); color: var(--ink); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; overflow-x: hidden; position: relative; }
+  
+  /* Header & Cards */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 700; color: var(--royal-dk); background: #dbe3f5; padding: 6px 16px; border-radius: 99px; transition: all 0.2s; }
+  .home-btn:hover { background: var(--royal); color: #fff; }
+
+  /* Math UI Vertikal */
+  .m { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', serif; white-space: nowrap; font-weight: bold; }
+  
+  /* Badge Animasi */
+  .badge-container { perspective: 1000px; }
+  .badge-medal {
+    width: 140px; height: 140px; margin: 0 auto;
+    background: linear-gradient(135deg, #fef08a, #ca8a04);
+    border: 6px solid #facc15; border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    box-shadow: 0 10px 25px rgba(202, 138, 4, 0.4);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: scale(0.8); opacity: 0.5;
+  }
+  .badge-medal.claimed {
+    transform: scale(1) rotate(360deg);
+    opacity: 1;
+    box-shadow: 0 0 40px rgba(250, 204, 21, 0.8);
+    animation: badgePulse 2s infinite alternate;
+  }
+
+  @keyframes badgePulse {
+    0% { transform: scale(1) rotate(0deg); box-shadow: 0 0 20px rgba(250, 204, 21, 0.6); }
+    100% { transform: scale(1.05) rotate(0deg); box-shadow: 0 0 45px rgba(250, 204, 21, 0.9); }
+  }
+
+  /* Tombol */
+  .btn { display: inline-block; text-align: center; padding: 0.8rem 1.8rem; border-radius: 99px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
+  .btn-claim { background: linear-gradient(to right, var(--gold), var(--gold-bg)); color: var(--royal-dk); box-shadow: 0 4px 15px rgba(244,180,0,0.4); font-size: 1.1rem; }
+  .btn-claim:hover { transform: scale(1.05); }
+  .btn-claim:disabled { background: #cbd5e1; color: #64748b; cursor: not-allowed; box-shadow: none; transform: none; }
+  
+  .btn-dashboard { background: linear-gradient(to right, var(--royal), var(--royal-dk)); box-shadow: 0 4px 10px rgba(37,99,235,0.3); }
+  .btn-dashboard:hover { transform: translateY(-2px); }
+
+  .log-item { background: #f8fafc; border: 1px solid #e2e8f0; padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 0.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.95rem; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-20">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--royal)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Kelas 6 • Mission C4</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="px-3 py-1 rounded-full text-xs font-semibold hidden md:inline-block bg-teal-50 border border-teal-200 text-teal-700">🏆 Pos 8/8: Mission Log</span>
+      <!-- MENU HOME KE index.html -->
+      <a href="index.html" class="home-btn shadow-sm">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full bg-teal-600" style="width: 100%;"></div></div>
+</header>
+
+<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-8">
+  
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-3">
+    <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-bold border-2 shadow-sm bg-teal-50 border-teal-300 text-teal-800">
+      🎉 MISI C4 SELESAI!
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Rapor & Mission Log Agen</h2>
+    <p class="text-sm md:text-base text-slate-600 max-w-xl mx-auto font-medium">
+      Selamat! Kamu telah menyelesaikan seluruh rangkaian operasi logistik pecahan campuran. Periksa rekam jejak nilai KKM-mu di bawah ini.
+    </p>
+  </section>
+
+  <!-- KOTAK LAPORAN SKOR (POS 6 & POS 7) -->
+  <div class="grid md:grid-cols-2 gap-6">
+    
+    <!-- RAPOR POS 6 -->
+    <div class="card rounded-2xl p-6 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+        <h3 class="font-bold text-lg text-slate-800">⚔️ Quest (Pos 6)</h3>
+        <span class="text-xl font-extrabold" id="score-pos6" style="color:var(--teal)">0 / 100</span>
+      </div>
+      <div id="status-pos6" class="text-xs font-bold px-3 py-1 rounded-full inline-block">Memeriksa status...</div>
+      <p class="text-xs text-slate-500 uppercase tracking-wider font-bold pt-2">Rincian Jawaban Soal Konsep:</p>
+      <div id="logs-pos6" class="space-y-1 max-h-40 overflow-y-auto pr-1"></div>
+    </div>
+
+    <!-- RAPOR POS 7 -->
+    <div class="card rounded-2xl p-6 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+        <h3 class="font-bold text-lg text-slate-800">👹 Boss Battle (Pos 7)</h3>
+        <span class="text-xl font-extrabold" id="score-pos7" style="color:var(--red)">0 / 100</span>
+      </div>
+      <div id="status-pos7" class="text-xs font-bold px-3 py-1 rounded-full inline-block">Memeriksa status...</div>
+      <p class="text-xs text-slate-500 uppercase tracking-wider font-bold pt-2">Rincian Studi Kasus HOTS:</p>
+      <div id="logs-pos7" class="space-y-1 max-h-40 overflow-y-auto pr-1"></div>
+    </div>
+
+  </div>
+
+  <!-- UCAPAN DARI PROF. SIGMA (TEAM VISUALMATH) -->
+  <div class="card rounded-2xl p-6 md:p-8 bg-gradient-to-br from-blue-900 to-indigo-950 text-white shadow-xl flex flex-col md:flex-row items-center gap-6">
+    <div class="w-24 h-24 rounded-full bg-amber-400 border-4 border-white flex-shrink-0 flex items-center justify-center text-4xl shadow-lg">
+      👨‍🏫
+    </div>
+    <div class="space-y-3 text-center md:text-left">
+      <p class="text-xs uppercase tracking-widest text-amber-300 font-bold">Pesan Resmi Tim VisualMath</p>
+      <h3 class="text-2xl font-bold">Prof. Sigma & Tim</h3>
+      <p class="text-sm md:text-base text-blue-100 leading-relaxed italic">
+        "Luar biasa, Agen! Memahami pembagian pecahan campuran dengan mengubahnya terlebih dahulu menjadi pecahan biasa bukanlah hal yang mudah. Pastikan kamu telah melampaui KKM di Pos 6 (minimal 70) dan Pos 7 (minimal 75) untuk membuka lencana kehormatanmu. Pertahankan mental juara ini!"
+      </p>
+    </div>
+  </div>
+
+  <!-- SEKSI KLAIM BADGE -->
+  <div class="card rounded-2xl p-8 text-center space-y-6">
+    <h3 class="text-2xl font-extrabold text-slate-800">Sertifikat & Lencana Kehormatan</h3>
+    <p id="claim-instruction" class="text-sm text-slate-600">Selesaikan syarat KKM di kedua pos untuk membuka lencana kehormatan Mission C4.</p>
+    
+    <div class="badge-container py-4">
+      <div id="badge-element" class="badge-medal">
+        <span class="text-4xl">⭐</span>
+        <span class="text-xs font-black tracking-wider text-amber-900 mt-1">MASTER</span>
+      </div>
+    </div>
+
+    <div id="claim-section">
+      <button id="btn-claim-badge" onclick="claimBadge()" class="btn btn-claim" disabled>🔒 Syarat KKM Belum Terpenuhi</button>
+    </div>
+    
+    <div id="claimed-msg" class="hidden text-teal-700 font-bold text-lg animate-bounce">
+      ✨ Lencana Resmi Telah Dimiliki! Selamat Menjadi Master Math Mastery! ✨
+    </div>
+  </div>
+
+  <!-- NAVIGASI BAWAH -->
+  <div class="flex flex-col sm:flex-row justify-between items-center gap-4 pt-4 pb-12">
+    <a href="mission-c4.html" class="btn btn-dashboard">⬅ Kembali ke Peta Misi C4</a>
+    <a href="index.html" class="home-btn px-6 py-3 shadow-md">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>Kembali ke Menu Utama (Home)</span>
+    </a>
+  </div>
+
+</main>
+
+<script>
+  // ----------------------------------------------------
+  // AMBIL DATA & VALIDASI KKM (Pos 6 >= 70 dan Pos 7 >= 75)
+  // ----------------------------------------------------
+  const score6 = parseInt(localStorage.getItem('vm_c4_pos6_score')) || 0;
+  const score7 = parseInt(localStorage.getItem('vm_c4_pos7_score')) || 0;
+  
+  const passedPos6 = score6 >= 70;
+  const passedPos7 = score7 >= 75;
+  const canClaimBadge = passedPos6 && passedPos7;
+
+  const logs6 = JSON.parse(localStorage.getItem('vm_c4_pos6_logs') || '[]');
+  const logs7 = JSON.parse(localStorage.getItem('vm_c4_pos7_logs') || '[]');
+
+  // Tampilkan Skor & Status KKM Pos 6
+  document.getElementById('score-pos6').innerText = score6 + " / 100";
+  const statusPos6 = document.getElementById('status-pos6');
+  if (passedPos6) {
+    statusPos6.className = "text-xs font-bold px-3 py-1 rounded-full inline-block bg-green-100 text-green-700";
+    statusPos6.innerText = "✓ Lulus KKM (Min. 70)";
+  } else {
+    statusPos6.className = "text-xs font-bold px-3 py-1 rounded-full inline-block bg-red-100 text-red-700";
+    statusPos6.innerText = "✕ Belum Lulus KKM (Min. 70)";
+  }
+
+  // Tampilkan Skor & Status KKM Pos 7
+  document.getElementById('score-pos7').innerText = score7 + " / 100";
+  const statusPos7 = document.getElementById('status-pos7');
+  if (passedPos7) {
+    statusPos7.className = "text-xs font-bold px-3 py-1 rounded-full inline-block bg-green-100 text-green-700";
+    statusPos7.innerText = "✓ Lulus KKM (Min. 75)";
+  } else {
+    statusPos7.className = "text-xs font-bold px-3 py-1 rounded-full inline-block bg-red-100 text-red-700";
+    statusPos7.innerText = "✕ Belum Lulus KKM (Min. 75)";
+  }
+
+  // Render Log Pos 6
+  const logs6Container = document.getElementById('logs-pos6');
+  if (logs6.length === 0) {
+    logs6Container.innerHTML = `<p class="text-xs text-slate-400 italic text-center py-2">Belum ada riwayat pengerjaan Quest.</p>`;
+  } else {
+    logs6.forEach(l => {
+      logs6Container.innerHTML += `
+        <div class="log-item">
+          <span>Soal No. ${l.no}</span>
+          <span class="font-bold ${l.correct ? 'text-teal-600' : 'text-red-500'}">
+            ${l.correct ? '✅ Benar' : '❌ Salah'} (${l.userAnswer})
+          </span>
+        </div>
+      `;
+    });
+  }
+
+  // Render Log Pos 7
+  const logs7Container = document.getElementById('logs-pos7');
+  if (logs7.length === 0) {
+    logs7Container.innerHTML = `<p class="text-xs text-slate-400 italic text-center py-2">Belum ada riwayat Boss Battle.</p>`;
+  } else {
+    logs7.forEach(l => {
+      logs7Container.innerHTML += `
+        <div class="log-item">
+          <span class="truncate max-w-[180px]" title="${l.title}">${l.title}</span>
+          <span class="font-bold ${l.correct ? 'text-teal-600' : 'text-red-500'}">
+            ${l.correct ? '✅ Selesai' : '❌ Gagal'}
+          </span>
+        </div>
+      `;
+    });
+  }
+
+  // Atur Tombol Klaim Berdasarkan Syarat KKM
+  const claimBtn = document.getElementById('btn-claim-badge');
+  const claimInstruction = document.getElementById('claim-instruction');
+
+  if (canClaimBadge) {
+    claimBtn.removeAttribute('disabled');
+    claimBtn.className = "btn btn-claim";
+    claimBtn.innerText = "🏆 Klaim Badge Master Sekarang!";
+    claimInstruction.innerText = "Syarat KKM terpenuhi! Tekan tombol di bawah untuk mengklaim lencana resmi.";
+  } else {
+    claimBtn.setAttribute('disabled', 'true');
+    claimBtn.className = "btn btn-claim";
+    claimBtn.innerText = "🔒 Syarat KKM Belum Terpenuhi";
+    claimInstruction.innerText = "⚠️ Kamu harus mencapai nilai minimal 70 di Quest (Pos 6) dan minimal 75 di Boss Battle (Pos 7) untuk membuka lencana ini.";
+  }
+
+  // Cek apakah badge sudah pernah diklaim sebelumnya
+  if (localStorage.getItem('vm_c4_badge_claimed') === 'true') {
+    triggerBadgeUI(false); // false = jangan jalankan animasi party saat reload halaman
+  }
+
+  // Fungsi Klaim Badge dengan Animasi Party / Confetti
+  function claimBadge() {
+    if (!canClaimBadge) return;
+    
+    localStorage.setItem('vm_c4_badge_claimed', 'true');
+    triggerBadgeUI(true); // true = jalankan animasi party
+  }
+
+  function triggerBadgeUI(playAnimation) {
+    const medal = document.getElementById('badge-element');
+    const claimSection = document.getElementById('claim-section');
+    const claimedMsg = document.getElementById('claimed-msg');
+
+    medal.classList.add('claimed');
+    claimSection.style.display = 'none';
+    claimedMsg.classList.remove('hidden');
+
+    // Tandai seluruh Mission C4 100% Selesai di localStorage
+    localStorage.setItem('vm_c4_progress', '9'); // 9 berarti tamat
+
+    if (playAnimation) {
+      launchPartyConfetti();
+    }
+  }
+
+  // Fungsi Animasi Party / Confetti dari Atas Layar
+  function launchPartyConfetti() {
+    const colors = ['#f4b400', '#2563eb', '#0d9488', '#dc2626', '#7c3aed', '#ec4899', '#10b981'];
+    
+    for (let i = 0; i < 75; i++) {
+      const confetti = document.createElement('div');
+      confetti.style.position = 'fixed';
+      confetti.style.top = '-20px';
+      confetti.style.left = Math.random() * window.innerWidth + 'px';
+      confetti.style.width = (Math.random() * 10 + 6) + 'px';
+      confetti.style.height = (Math.random() * 14 + 8) + 'px';
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.opacity = Math.random() * 0.5 + 0.5;
+      confetti.style.borderRadius = Math.random() > 0.5 ? '50%': '2px';
+      confetti.style.zIndex = '9999';
+      confetti.style.pointerEvents = 'none';
+      
+      document.body.appendChild(confetti);
+
+      const duration = Math.random() * 2500 + 1500;
+      const targetX = parseFloat(confetti.style.left) + (Math.random() * 200 - 100);
+      const targetY = window.innerHeight + 50;
+
+      confetti.style.transition = `all ${duration}ms cubic-bezier(0.25, 1, 0.5, 1)`;
+
+      setTimeout(() => {
+        confetti.style.top = targetY + 'px';
+        confetti.style.left = targetX + 'px';
+        confetti.style.transform = `rotate(${Math.random() * 720 - 360}deg) scale(${Math.random() * 0.5 + 0.8})`;
+        confetti.style.opacity = '0';
+      }, 30);
+
+      setTimeout(() => {
+        confetti.remove();
+      }, duration + 100);
+    }
+  }
+</script>
+</body>
+</html>
