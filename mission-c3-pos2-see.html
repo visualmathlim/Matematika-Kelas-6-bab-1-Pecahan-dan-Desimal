@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 2: See - Mission C3 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --royal:#2563eb; --royal-dk:#1e40af; --bg:#eef2fb; --card:#ffffff; --ink:#0f172a; --line:#dbe3f5; --teal:#0d9488; --gold:#ca8a04; --gold-bg:#f4b400; --green-dk:#0f766e; --red:#dc2626; }
+  body{ background-color:var(--bg); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card{ background-color:var(--card); border:1px solid var(--line); box-shadow:0 1px 4px rgba(30,64,175,.06); }
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .2rem; font-weight:bold; line-height:1.1; font-size:.9em; }
+  .math-num{ border-bottom:2px solid currentColor; padding:0 .3rem; width:100%; text-align:center; }
+  .math-den{ padding:0 .3rem; width:100%; text-align:center; }
+  .btn{ padding:.55rem 1.2rem; border-radius:9999px; font-weight:bold; color:#fff; cursor:pointer; }
+  .btn:disabled{ opacity:.35; cursor:not-allowed; }
+  select{ background:#f8fafc; border:1px solid #cbd5e1; color:var(--ink); border-radius:.5rem; padding:.35rem .6rem; }
+  
+  /* Peningkatan Visualisasi Kotak Pita */
+  #ribbon{ display:flex; width:100%; max-width:400px; margin:0 auto; height:75px; border:3px solid var(--royal-dk); border-radius:10px; overflow:hidden; background:#f1f5f9; box-shadow: inset 0 2px 4px rgba(0,0,0,0.06); }
+  .seg{ flex:1; border-right:2px solid #ffffff; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:.7rem; font-weight:800; color:#fff; opacity:0.2; transition:all .4s ease; }
+  .seg:last-child{ border-right:none; }
+  /* Warna berbeda untuk tiap pecahan kelompok potongan */
+  .seg.cut1.on{ background:var(--royal); opacity:1; box-shadow: inset 0 0 10px rgba(0,0,0,0.15); }
+  .seg.cut2.on{ background:var(--gold-bg); opacity:1; color:var(--royal-dk); box-shadow: inset 0 0 10px rgba(0,0,0,0.15); }
+  /* Area sisa meter ke-1 yang berada di luar batas 3/4 m */
+  .ghost{ background:repeating-linear-gradient(45deg,#cbd5e1,#cbd5e1 5px,#f1f5f9 5px,#f1f5f9 10px) !important; opacity:0.9 !important; color:#64748b !important; font-weight:normal; }
+  .home-btn{ display:flex; align-items:center; gap:6px; font-size:0.9rem; font-weight:700; color:var(--royal-dk); background:#dbe3f5; padding:6px 14px; border-radius:99px; transition:all 0.2s; }
+  .home-btn:hover{ background:var(--royal); color:#fff; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+      <div>
+        <h1 class="text-lg font-bold" style="color:var(--royal)">VisualMath.Lim</h1>
+        <p class="text-[11px] text-slate-500">Mission C3 • Kelas 6</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:#e8eefc; border:1px solid var(--royal); color:var(--royal-dk)">👀 Pos 2/8: See</span>
+      <a href="index.html" class="home-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full" style="background:#dbe3f5"><div class="h-full" style="width:25%; background:linear-gradient(to right,var(--royal),var(--gold-bg))"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--royal); background:#e8eefc; color:var(--royal-dk)">👀 See (Explore)</div>
+    <h2 class="text-3xl font-extrabold" style="color:var(--royal-dk)">Taksir Dulu, Potong Kemudian</h2>
+    <p class="max-w-md mx-auto text-sm text-slate-600">Pita Luna hanya sepanjang 
+      <span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> meter — perhatikan, ini BUKAN pita 1 meter penuh.
+    </p>
+  </section>
+
+  <!-- Taksiran -->
+  <section class="card rounded-2xl p-6 space-y-4">
+    <div class="flex gap-4 items-start">
+      <img src="assets/Luna.png" alt="Luna" class="w-14 h-14 rounded-full border-2 shrink-0 object-cover bg-slate-100" style="border-color:var(--gold-bg)" onerror="this.outerHTML='<div class=\'w-14 h-14 rounded-full border-2 border-amber-400 shrink-0 flex items-center justify-center font-bold text-amber-600 bg-slate-100\'>LU</div>'">
+      <p class="text-sm text-slate-700"><b style="color:var(--royal-dk)">Luna:</b> "Potongan yang kubuat 
+        (<span class="math-frac"><span class="math-num">3</span><span class="math-den">8</span></span> m) hampir sama panjang dengan pitaku 
+        (<span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> m) — jadi jumlah potongannya pasti sedikit, bukan banyak!"
+      </p>
+    </div>
+    <p class="text-sm text-center font-medium">Menurutmu, ada berapa potongan pita yang akan didapat?
+      <select id="guess" class="font-bold ml-2">
+        <option>1</option><option>2</option><option>3</option><option>4</option><option>6</option>
+      </select>
+    </p>
+    <div class="text-center"><button id="lock" class="btn shadow-md hover:opacity-95" style="background:var(--gold-bg); color:var(--royal-dk)">Kunci Tebakan</button></div>
+    <p id="est-fb" class="text-sm text-center text-slate-600 hidden font-semibold"></p>
+  </section>
+
+  <!-- Potong Bertahap -->
+  <section class="card rounded-2xl p-6 space-y-5">
+    <p id="stage" class="text-center text-sm text-slate-600 font-semibold">Kunci tebakanmu dulu, lalu potong pitanya.</p>
+    
+    <div class="space-y-1">
+      <div id="ribbon"></div>
+      <div class="flex justify-between text-[11px] text-slate-400 px-2 max-w-[400px] mx-auto font-bold">
+        <span>0 m</span>
+        <span class="text-blue-600">Batas 3/4 m (6/8 m)</span>
+        <span>1 meter utuh</span>
+      </div>
+    </div>
+
+    <p class="text-center text-xs text-slate-500 italic">Bagian bergaris abu-abu = di luar panjang pita asli (<span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> m).</p>
+    
+    <div class="flex flex-wrap justify-center gap-3 pt-2">
+      <button id="s1" class="btn shadow-md" style="background:var(--royal)" disabled>Ambil Potongan 1 (<span class="math-frac"><span class="math-num">3</span><span class="math-den">8</span></span> m)</button>
+      <button id="s2" class="btn shadow-md" style="background:var(--gold-bg); color:var(--royal-dk)" disabled>Ambil Potongan 2 (<span class="math-frac"><span class="math-num">3</span><span class="math-den">8</span></span> m)</button>
+      <button id="reset" class="btn shadow-md" style="background:#64748b">↺ Ulangi Potongan</button>
+    </div>
+    
+    <p id="running" class="text-center text-base font-bold min-h-[24px]" style="color:var(--gold)"></p>
+    <p id="final-fb" class="text-center text-sm hidden p-3 rounded-xl bg-slate-50 border border-slate-200"></p>
+  </section>
+
+  <div class="flex justify-between items-center pt-2">
+    <a href="mission-c3-pos1-brief.html" class="text-slate-500 hover:text-slate-800 text-sm font-semibold">⬅ Kembali ke Brief</a>
+    <a href="mission-c3-pos3-visualize.html" class="inline-block font-bold py-3 px-8 rounded-full text-white shadow-md transition-transform hover:-translate-y-0.5" style="background:linear-gradient(to right,var(--royal),var(--royal-dk))">Lanjut ke Visualize ➔</a>
+  </div>
+
+</main>
+
+<script>
+try{ const p=+localStorage.getItem('vm_c3_progress')||0; if(p<2) localStorage.setItem('vm_c3_progress',2); }catch(e){}
+
+let guess=null, step=0;
+const b1=document.getElementById('s1'), b2=document.getElementById('s2');
+const runs=['','Potongan 1: ⅜ m pertama diambil (warna Biru).','Potongan 2: ⅜ m kedua diambil (warna Kuning). Pita ¾ m habis pas!'];
+const labels=['Kunci tebakanmu di atas, lalu uji potongannya di sini.','1 potongan sudah terambil. Lanjutkan potongan kedua!','2 potongan sudah selesai — pita ¾ m habis tanpa sisa!'];
+
+function renderRibbon(){
+  const el = document.getElementById('ribbon'); el.innerHTML='';
+  // 8 segmen total merepresentasikan 1 meter; 6 segmen pertama adalah bagian pita (3/4 m), 2 terakhir ghost
+  for(let i=0; i<8; i++){
+    const seg = document.createElement('div'); seg.className='seg';
+    if(i>=6){ 
+      seg.classList.add('ghost'); 
+      seg.innerHTML = `<span style="font-size:9px">Sisa 1m</span>`;
+    } else {
+      const cls = i<3 ? 'cut1' : 'cut2'; // 3 kotak pertama biru (3/8), 3 kotak berikutnya kuning (3/8)
+      seg.classList.add(cls);
+      if((cls==='cut1' && step>=1) || (cls==='cut2' && step>=2)) {
+        seg.classList.add('on');
+      }
+      seg.innerHTML = `<span>1/8</span>`;
+    }
+    el.appendChild(seg);
+  }
+}
+
+function refresh(){
+  renderRibbon();
+  document.getElementById('stage').textContent = guess===null ? 'Kunci tebakanmu dulu di atas, lalu uji potongan pitanya.' : labels[step];
+  document.getElementById('running').textContent = runs[step];
+  b1.disabled = guess===null || step!==0;
+  b2.disabled = guess===null || step!==1;
+  const fb = document.getElementById('final-fb');
+  
+  if(step===2){
+    fb.classList.remove('hidden');
+    const ok = guess===2;
+    fb.innerHTML = ok
+      ? `✅ <b>Tepat Sekali!</b> <span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> m ÷ <span class="math-frac"><span class="math-num">3</span><span class="math-den">8</span></span> m = <b>2</b> potongan, habis tanpa sisa. Tebakanmu benar!`
+      : `Hasil akhirnya adalah <b>2</b> potongan (habis pas). Tebakanmu tadi ${guess}. Karena <span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> m sama dengan dua kali <span class="math-frac"><span class="math-num">3</span><span class="math-den">8</span></span> m, maka pas menghasilkan 2 kelompok bagian!`;
+    fb.style.color = ok ? 'var(--teal)' : 'var(--gold)';
+  } else {
+    fb.classList.add('hidden');
+  }
+}
+
+document.getElementById('lock').addEventListener('click', ()=>{
+  guess = +document.getElementById('guess').value;
+  const fb = document.getElementById('est-fb'); fb.classList.remove('hidden');
+  fb.textContent = `Tebakan terkunci: ${guess} potongan. Sekarang coba klik tombol ambil potongan di bawah!`;
+  fb.style.color = 'var(--royal)';
+  refresh();
+});
+
+b1.addEventListener('click', ()=>{ step=1; refresh(); });
+b2.addEventListener('click', ()=>{ step=2; refresh(); });
+document.getElementById('reset').addEventListener('click', ()=>{ step=0; refresh(); });
+
+refresh();
+</script>
+</body>
+</html>
