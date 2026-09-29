@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 7: Boss Battle HOTS - Mission C3 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --royal:#2563eb; --royal-dk:#1e40af; --bg:#eef2fb; --card:#ffffff; --ink:#0f172a; --line:#dbe3f5; --teal:#0d9488; --gold:#a16207; --gold-bg:#f4b400; --red:#dc2626; --purple:#7c3aed; }
+  body{ background-color:var(--bg); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card{ background-color:var(--card); border:1px solid var(--line); box-shadow:0 1px 4px rgba(30,64,175,.06); }
+  .boss{ background:linear-gradient(135deg,#1e3a8a,#312e81); color:#fff; border:1px solid #3730a3; }
+  
+  /* Tampilan matematika */
+  .m{ font-family:'Cambria Math','STIX Two Math','Latin Modern Math','Times New Roman',serif; font-size:1.1em; white-space:nowrap; }
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .18em; line-height:1.15; font-size:.95em; }
+  .math-num{ border-bottom:1.5px solid currentColor; padding:0 .3em; width:100%; text-align:center; }
+  .math-den{ padding:0 .3em; width:100%; text-align:center; }
+  .whole{ margin-right:.05em; }
+  
+  /* Input Formula Pecahan Vertikal untuk Siswa (Dark Mode) */
+  .math-input-box { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); border-radius: 0.5rem; padding: 2px; margin: 0 4px; overflow: hidden; }
+  .math-input-box input { width: 45px; text-align: center; font-weight: bold; font-size: 1rem; border: none; outline: none; background: transparent; padding: 2px 0; color: #fff; }
+  .math-input-box input::placeholder { color: rgba(255,255,255,0.4); }
+  .math-input-box .input-num { border-bottom: 2px solid rgba(255,255,255,0.5); }
+
+  .eq{ display:block; text-align:center; font-size:1.1rem; padding:.45rem .4rem; margin:.35rem 0; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:.6rem; overflow-x:auto; }
+  .ans{ display:block; text-align:center; font-size:1.2rem; padding:.55rem; margin-top:.6rem; background:#fff8e6; border:2px solid var(--gold-bg); border-radius:.6rem; color:var(--gold); font-weight:700; white-space:normal; }
+  
+  .input-dark{ background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.35); color:#fff; border-radius:.5rem; padding:.5rem .7rem; width:5rem; text-align:center; font-weight:bold; font-size:1rem; }
+  .input-dark::placeholder{ color:rgba(255,255,255,.55); font-weight:normal; font-size:0.9rem;}
+  
+  .btn{ padding:.6rem 1.3rem; border-radius:9999px; font-weight:bold; color:#fff; cursor:pointer; }
+  .pill{ font-size:.75rem; padding:.15rem .65rem; border-radius:9999px; font-weight:700; color:#fff; }
+  .why{ font-size:.8rem; color:#475569; margin:.1rem 0 0; }
+  
+  ol.steps{ list-style:none; padding:0; counter-reset:s; }
+  ol.steps li{ counter-increment:s; margin:.8rem 0; padding-left:1.9rem; position:relative; font-size:.9rem; }
+  ol.steps li::before{ content:counter(s); position:absolute; left:0; top:0; width:1.3rem; height:1.3rem; border-radius:50%; background:var(--teal); color:#fff; font-size:.72rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  ol.cross li::before{ background:var(--purple); color:#fff; }
+  
+  .home-btn{ display:flex; align-items:center; gap:6px; font-size:0.9rem; font-weight:700; color:var(--royal-dk); background:#dbe3f5; padding:6px 14px; border-radius:99px; transition:all 0.2s; }
+  .home-btn:hover{ background:var(--royal); color:#fff; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+      <div>
+        <h1 class="text-lg font-bold" style="color:var(--royal)">VisualMath.Lim</h1>
+        <p class="text-[11px] text-slate-500">Mission C3 • Kelas 6</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:#e8eefc; border:1px solid var(--royal); color:var(--royal-dk)">👾 Pos 7/8: Boss Battle</span>
+      <a href="index.html" class="home-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full" style="background:#dbe3f5"><div class="h-full" style="width:87.5%; background:linear-gradient(to right,var(--royal),var(--gold-bg))"></div></div>
+</header>
+
+<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-6">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--royal); background:#e8eefc; color:var(--royal-dk)">👾 Boss Battle</div>
+    <h2 class="text-3xl font-extrabold" style="color:var(--royal-dk)">Soal HOTS: Menghitung Sisa Pecahan</h2>
+    <p class="text-sm text-slate-600 font-medium">KKM 70 • Kerjakan 3 langkah bertahap secara teliti</p>
+  </section>
+
+  <div id="hots-area"></div>
+  <div id="result-area" class="hidden space-y-4"></div>
+
+  <div class="flex justify-between items-center pt-2">
+    <a href="mission-c3-pos6-quiz.html" class="text-slate-500 hover:text-slate-800 text-sm font-semibold">⬅ Kembali ke Quest</a>
+    <a id="nav-next" href="mission-c3-pos8-log.html" class="hidden inline-block font-bold py-3 px-8 rounded-full text-white shadow-md transition-transform hover:-translate-y-0.5" style="background:linear-gradient(to right,var(--royal),var(--royal-dk))">Lanjut ke Mission Log ➔</a>
+  </div>
+
+</main>
+
+<script>
+/* ---------- Fungsi bantu ---------- */
+function gcd(x,y){return y===0?x:gcd(y,x%y);}
+function lcm(x,y){return x*y/gcd(x,y);}
+function reduce(n,d){const g=gcd(n,d);return [n/g,d/g];}
+function fr(n,d){return `<span class="math-frac"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`;}
+function fracHTML(n,d){[n,d]=reduce(n,d);return d===1?`${n}`:fr(n,d);}
+function mixedHTML(n,d){[n,d]=reduce(n,d);const w=Math.floor(n/d),r=n%d;return r===0?`${w}`:(w>0?`<span class="whole">${w}</span>`:'')+fr(r,d);}
+function M(s){return `<span class="m">${s}</span>`;}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+function eq(a,b){return !!(a&&b&&a[1]!==0&&a[0]*b[1]===b[0]*a[1]);}
+
+/* ---------- Bank soal ---------- */
+const HOTS=[
+  { name:'Tepung dan Kue', item:'resep kue', unit:'kg',
+    text:p=>`Ibu memiliki tepung sebanyak ${M(fr(p.a,p.b))} ${q.unit}. Setiap ${q.item} membutuhkan ${M(fr(p.c,p.d))} ${q.unit} tepung. Berapa ${q.item} <b>utuh</b> yang bisa dibuat, dan berapa ${q.unit} tepung yang tersisa tidak terpakai?`,
+    p:{a:7,b:8,c:1,d:6} },
+  { name:'Tali dan Ikatan', item:'ikatan', unit:'m',
+    text:p=>`Seorang tukang kebun mempunyai seutas tali sepanjang ${M(fr(p.a,p.b))} ${q.unit}. Setiap ${q.item} tanaman membutuhkan ${M(fr(p.c,p.d))} ${q.unit} tali. Berapa ${q.item} <b>utuh</b> yang bisa dibuat, dan berapa ${q.unit} sisa panjang tali tersebut?`,
+    p:{a:5,b:6,c:1,d:4} }
+];
+let q; // current question reference
+const PTS=[35,35,30];
+const LOG_KEY='vm_c3_pos7';
+function getLog(){ try{ return JSON.parse(localStorage.getItem(LOG_KEY))||{attempts:[],bestScore:0,lastScore:0,passed:false}; }catch(e){ return {attempts:[],bestScore:0,lastScore:0,passed:false}; } }
+function saveLog(l){ try{ localStorage.setItem(LOG_KEY,JSON.stringify(l)); }catch(e){} }
+
+function solve(p){
+  const L=lcm(p.b,p.d), A=p.a*(L/p.b), C=p.c*(L/p.d);
+  const whole=Math.floor(A/C), r=A-whole*C;
+  return {L,A,C,whole,r,remReal:reduce(r,L),remFrac:reduce(r,C)};
+}
+
+/* ---------- Pembahasan: 2 Cara Paling Efektif ---------- */
+function explain(q,s){
+  const {a,b,c,d}=q.p, {L,A,C,whole,r,remReal,remFrac}=s, u=q.unit, it=q.item;
+  const raw=[a*d,b*c], red=reduce(raw[0],raw[1]), g=gcd(raw[0],raw[1]);
+  const conv=(n,dd,k,N)=> k===1 ? `${fr(n,dd)} = ${fr(N,L)}` : `${fr(n,dd)} = ${fr(n+' × '+k,dd+' × '+k)} = ${fr(N,L)}`;
+  const k1=L/b, k2=L/d;
+  const rN=whole*c*remReal[1]+remReal[0]*d, rD=d*remReal[1];
+
+  const cara1=[
+    `<b>Cari KPK penyebut:</b> ${M('KPK('+b+', '+d+') = '+L)}.`,
+    `<b>Ubah agar penyebutnya sama-sama ${L}:</b><span class="eq m">${conv(a,b,k1,A)} ${u}</span><span class="eq m">${conv(c,d,k2,C)} ${u}</span>`,
+    `<b>Bagi pembilangnya:</b><br>${A} bagian akan dikelompokkan tiap ${C} bagian:<span class="eq m">${A} ÷ ${C} = ${whole} sisa ${r}</span><span class="why">Artinya, didapat ${whole} ${it} utuh dengan sisa ${r} satuan.</span>`,
+    `<b>Ubah nilai sisa ke pecahan dari 1 ${it} (Jawaban Soal 3):</b><span class="eq m">${r} ÷ ${C} = ${fracHTML(r,C)} ${it}</span>`,
+    `<b>Hitung real sisa dalam ${u} (Jawaban Soal 2):</b><br>Sisa ${r} satuan dikalikan dengan besaran tiap satuan dasar yaitu ${M(fr(1,L)+' '+u)}:<span class="eq m">${r} × ${fr(1,L)} = ${fracHTML(r,L)} ${u}</span>`
+  ];
+  const cara4=[
+    `<b>Lakukan operasi Kali Silang secara kilat:</b><br>Bawah-kiri kali atas-kanan jadi penyebut, atas-kiri kali bawah-kanan jadi pembilang.<span class="eq m">${fr(a,b)} ÷ ${fr(c,d)} = ${fr(a+' × '+d, b+' × '+c)} = ${fr(raw[0],raw[1])}${g>1?' = '+fr(red[0],red[1]):''} = <b>${mixedHTML(red[0],red[1])}</b></span>`,
+    `<b>Baca hasil pecahannya:</b><br>Angka bulat adalah <b>jumlah ${it} utuh</b> = ${whole} ${it}.<br>Pecahannya adalah <b>sisa dalam bagian ${it}</b> = ${fracHTML(remFrac[0],remFrac[1])} ${it}.`,
+    `<b>Ubah pecahan sisa ke satuan ${u} awal:</b><br>Kalikan pecahan sisa tadi dengan nilai satuan 1 ${it} utuh.<span class="eq m">${fr(remFrac[0],remFrac[1])} × ${fr(c,d)} = ${fracHTML(remFrac[0]*c,remFrac[1]*d)} ${u}</span>`
+  ];
+  
+  const li=arr=>arr.map(x=>`<li>${x}</li>`).join('');
+  return `<div class="eq m font-bold text-slate-700 bg-blue-50 border-blue-200">Model Matematika: ${fr(a,b)} ÷ ${fr(c,d)}</div>
+    <p class="text-sm font-medium pt-2 text-slate-700">Karena ${M(fr(a,b)+' > '+fr(c,d))}, hasil baginya pasti lebih dari 1. Bagian utuhnya adalah <b>${it} utuh</b>, dan sisanya mewakili bagian yang <b>tidak cukup dipakai jadi 1 ${it} utuh lagi</b>.</p>
+    
+    <div class="grid md:grid-cols-2 gap-4 mt-4">
+      <div class="rounded-xl p-4 bg-white shadow-sm" style="border:1px solid var(--line)">
+        <p class="font-bold text-[0.95rem] mb-2"><span class="pill" style="background:var(--teal)">Cara 1</span> Samakan Penyebut <span class="text-[0.7rem] font-normal text-slate-500">(Paling Kuat Konsep)</span></p>
+        <ol class="steps">${li(cara1)}</ol>
+      </div>
+      <div class="rounded-xl p-4 bg-white shadow-sm" style="border:1px solid var(--line)">
+        <p class="font-bold text-[0.95rem] mb-2"><span class="pill" style="background:var(--purple); color:#fff">Cara 2</span> Kali Silang <span class="text-[0.7rem] font-normal text-slate-500">(Paling Cepat / Pintas)</span></p>
+        <ol class="steps cross">${li(cara4)}</ol>
+      </div>
+    </div>
+    
+    <div class="ans m shadow-sm">
+      Kesimpulan: ${whole} ${it} utuh, sisa ${fracHTML(remReal[0],remReal[1])} ${u} 
+      <br><span class="text-sm text-slate-500">(atau jika disebut bagian, sama dengan ${fracHTML(remFrac[0],remFrac[1])} dari 1 ${it})</span>
+    </div>
+    <p class="why text-center font-semibold pt-1">Cek Hitungan: ${M(whole+' × '+fr(c,d)+' + '+fracHTML(remReal[0],remReal[1])+' = '+fracHTML(a,b)+' ✓')}</p>`;
+}
+
+/* ---------- Tampilan soal ---------- */
+const area=document.getElementById('hots-area'), resultArea=document.getElementById('result-area'), navNext=document.getElementById('nav-next');
+
+function pick(){ 
+  q = HOTS[getLog().attempts.length % HOTS.length]; 
+  // Custom text fix inside pick to ensure `q` is loaded
+  q.text = p => q.name.includes("Kue") 
+    ? `Ibu memiliki tepung sebanyak ${M(fr(p.a,p.b))} ${q.unit}. Setiap ${q.item} membutuhkan ${M(fr(p.c,p.d))} ${q.unit} tepung. Berapa ${q.item} <b>utuh</b> yang bisa dibuat, dan berapa ${q.unit} tepung yang tersisa tidak terpakai?`
+    : `Seorang tukang kebun mempunyai seutas tali sepanjang ${M(fr(p.a,p.b))} ${q.unit}. Setiap ${q.item} tanaman membutuhkan ${M(fr(p.c,p.d))} ${q.unit} tali. Berapa ${q.item} <b>utuh</b> yang bisa dibuat, dan berapa ${q.unit} sisa panjang tali tersebut?`;
+  render(q); 
+}
+
+function render(q){
+  const it=q.item;
+  resultArea.classList.add('hidden'); resultArea.innerHTML=''; navNext.classList.add('hidden'); area.classList.remove('hidden');
+  
+  area.innerHTML=`<div class="boss rounded-2xl p-6 md:p-8 space-y-6 shadow-md">
+    <div class="border-b border-indigo-500/30 pb-3">
+      <p class="text-xs text-blue-200 uppercase tracking-widest font-bold mb-1">Misi Tersulit: ${q.name}</p>
+      <p class="text-[0.95rem] leading-relaxed font-medium">${q.text(q.p)}</p>
+    </div>
+    
+    <div class="space-y-4">
+      <div class="bg-white/10 rounded-xl p-5 border border-indigo-400/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <label class="font-semibold text-sm">1) Berapa ${it} <b>utuh</b> yang bisa dibuat?</label>
+        <div class="flex items-center gap-2">
+          <input id="a1" type="number" class="input-dark w-20" placeholder="Angka bulat" autocomplete="off">
+          <span class="text-sm font-medium text-blue-200">${it}</span>
+        </div>
+      </div>
+      
+      <div class="bg-white/10 rounded-xl p-5 border border-indigo-400/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <label class="font-semibold text-sm">2) Berapa ${q.unit} <b>sisa murni</b> yang tidak cukup dipakai?</label>
+        <div class="flex items-center gap-3">
+          <div class="math-input-box">
+            <input type="number" id="a2_n" class="input-num" placeholder="?" autocomplete="off">
+            <input type="number" id="a2_d" placeholder="?" autocomplete="off">
+          </div>
+          <span class="text-sm font-medium text-blue-200">${q.unit}</span>
+        </div>
+      </div>
+      
+      <div class="bg-white/10 rounded-xl p-5 border border-indigo-400/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <label class="font-semibold text-sm">3) Sisa tersebut bernilai berapa <b>bagian</b> jika diukur dari kebutuhan 1 ${it}?</label>
+        <div class="flex items-center gap-3">
+          <div class="math-input-box">
+            <input type="number" id="a3_n" class="input-num" placeholder="?" autocomplete="off">
+            <input type="number" id="a3_d" placeholder="?" autocomplete="off">
+          </div>
+          <span class="text-sm font-medium text-blue-200">bagian ${it}</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-indigo-900/40 p-3 rounded-lg border border-indigo-700/50">
+      <p class="text-xs text-blue-200 text-center font-medium italic">Petunjuk: Pertanyaan 2 dan 3 sama-sama membicarakan nilai sisa, tetapi <b>satuannya berbeda</b>.</p>
+    </div>
+    
+    <button id="sub" class="btn w-full text-lg py-3 shadow-lg hover:opacity-95 hover:scale-[1.01] transition-all" style="background:var(--gold-bg); color:var(--royal-dk)">🔥 Kumpulkan Jawaban Boss Battle</button>
+  </div>`;
+  
+  document.getElementById('sub').addEventListener('click',()=>grade(q));
+}
+
+function getFracVal(nid, did) {
+  const n = parseInt(document.getElementById(nid).value, 10);
+  const d = parseInt(document.getElementById(did).value, 10);
+  if (!isNaN(n) && !isNaN(d) && d !== 0) return [n, d];
+  return null;
+}
+
+function grade(q){
+  const s=solve(q.p), {remReal,remFrac,whole}=s;
+  
+  const got1 = document.getElementById('a1').value;
+  const val2 = getFracVal('a2_n', 'a2_d');
+  const val3 = getFracVal('a3_n', 'a3_d');
+  
+  const okWhole = /^\s*\d+\s*$/.test(got1) && parseInt(got1,10)===whole;
+  const oks = [okWhole, eq(val2,remReal), eq(val3,remFrac)];
+  
+  const score = oks.reduce((sum,ok,i)=>sum+(ok?PTS[i]:0),0);
+  const passed = score>=70;
+
+  const log=getLog();
+  log.attempts.push({score,passed,date:new Date().toLocaleString('id-ID'),variant:q.name});
+  log.bestScore=Math.max(log.bestScore||0,score); log.lastScore=score; log.passed=!!(log.passed||passed);
+  saveLog(log);
+
+  area.classList.add('hidden'); resultArea.classList.remove('hidden');
+  
+  const showErr = (v) => v ? fr(v[0], v[1]) : '<span class="text-xs">(kosong)</span>';
+  
+  const mk = (i, l, val, gotV) => {
+    let wrongHTML = '';
+    if(!oks[i]) {
+       wrongHTML = i === 0 ? `<br><span class="text-slate-500 text-xs mt-1 block">Jawabanmu: ${got1||'(kosong)'}</span>` : `<br><span class="text-slate-500 text-xs mt-1 block flex items-center gap-1">Jawabanmu: <span class="m">${showErr(gotV)}</span></span>`;
+    }
+    return `<li class="bg-slate-50 p-3 rounded-lg border ${oks[i]?'border-teal-200':'border-red-200'}">
+       <span class="flex justify-between items-center w-full">
+         <span>${oks[i]?'✅':'❌'} ${l}</span>
+         <span class="font-bold text-sm ${oks[i]?'text-teal-700':'text-red-700'}">+${oks[i]?PTS[i]:0} / ${PTS[i]} poin</span>
+       </span>
+       <div class="mt-1">Kunci: <b style="color:var(--gold)" class="m inline-block">${i===0 ? M(val) : M(val)}</b> ${wrongHTML}</div>
+    </li>`;
+  };
+  
+  resultArea.innerHTML=`<div class="card rounded-2xl p-6 text-center space-y-3 shadow-md border-t-4" style="border-top-color:${passed?'var(--teal)':'var(--red)'}">
+      <p class="text-3xl font-extrabold" style="color:${passed?'var(--teal)':'var(--red)'}">${passed?'✅ LULUS MISSION C3!':'❌ MISSION FAILED'}</p>
+      <p class="text-lg font-bold text-slate-700">Skor Akhir: ${score} / 100</p>
+      <p class="text-sm text-slate-600 font-medium bg-slate-50 p-2 rounded-lg border border-slate-100">Percobaan ke-${log.attempts.length} tersimpan. Pelajari pembahasan lengkap di bawah sebelum lanjut.</p>
+    </div>
+    
+    <div class="card rounded-2xl p-6 shadow-sm"><p class="font-bold text-lg mb-3" style="color:var(--royal-dk)">Rincian Evaluasi</p><ul class="text-sm space-y-3">
+      ${mk(0, 'Jumlah ' + q.item + ' utuh', whole, got1)}
+      ${mk(1, 'Sisa murni dalam ' + q.unit, fracHTML(remReal[0],remReal[1]) + ' ' + q.unit, val2)}
+      ${mk(2, 'Sisa pecahan untuk 1 ' + q.item, fracHTML(remFrac[0],remFrac[1]) + ' bagian', val3)}
+    </ul></div>
+    
+    <div class="card rounded-2xl p-6 space-y-4 shadow-sm">
+       <p class="font-bold text-lg border-b border-slate-100 pb-2" style="color:var(--royal-dk)">Pembahasan Master Class</p>
+       ${explain(q,s)}
+    </div>`
+    +(passed?`<p class="text-center text-[0.9rem] font-bold text-slate-600 bg-green-50 p-3 rounded-lg border border-teal-200">🏆 Luar biasa! Kamu telah menguasai materi pembagian pecahan tingkat HOTS. Lanjut ke Mission Log untuk mengklaim badge-mu!</p>`:`<div class="text-center bg-red-50 p-4 rounded-xl border border-red-200 space-y-3"><p class="text-sm font-bold text-red-700">Nilaimu belum mencapai batas aman (70). Pelajari baik-baik letak kesalahanmu pada pembahasan di atas.</p><button id="retry" class="btn shadow-md hover:scale-[1.02] transition-transform" style="background:var(--gold-bg); color:var(--royal-dk)">🔄 Coba Battle Ulang</button></div>`);
+  
+  if(passed) navNext.classList.remove('hidden');
+  else document.getElementById('retry').addEventListener('click',()=>{ window.scrollTo({top:0,behavior:'smooth'}); pick(); });
+  
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+pick();
+</script>
+</body>
+</html>
