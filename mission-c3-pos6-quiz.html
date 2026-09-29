@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 6: Quest Kuis - Mission C3 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --royal:#2563eb; --royal-dk:#1e40af; --bg:#eef2fb; --card:#ffffff; --ink:#0f172a; --line:#dbe3f5; --teal:#0d9488; --gold:#a16207; --gold-bg:#f4b400; --red:#dc2626; }
+  body{ background-color:var(--bg); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card{ background-color:var(--card); border:1px solid var(--line); box-shadow:0 1px 4px rgba(30,64,175,.06); }
+  /* Tampilan matematika */
+  .m{ font-family:'Cambria Math','STIX Two Math','Latin Modern Math','Times New Roman',serif; font-size:1.1em; white-space:nowrap; }
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .18em; line-height:1.15; font-size:.95em; }
+  .math-num{ border-bottom:1.5px solid currentColor; padding:0 .3em; width:100%; text-align:center; }
+  .math-den{ padding:0 .3em; width:100%; text-align:center; }
+  .whole{ margin-right:.05em; }
+  .eq{ display:block; text-align:center; font-size:1.1rem; padding:.45rem .4rem; margin:.35rem 0; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:.6rem; overflow-x:auto; }
+  .ans{ display:block; text-align:center; font-size:1.25rem; padding:.5rem; margin-top:.5rem; background:#fff8e6; border:2px solid var(--gold-bg); border-radius:.6rem; color:var(--gold); font-weight:700; }
+  .opt{ display:block; background:#f8fafc; border:1px solid var(--line); border-radius:.5rem; padding:.6rem .9rem; cursor:pointer; margin-top:.4rem; }
+  .opt:hover{ border-color:var(--royal); }
+  .opt.chosen{ border-color:var(--gold-bg); background:#fff8e6; }
+  .btn{ padding:.6rem 1.3rem; border-radius:9999px; font-weight:bold; color:#fff; }
+  .pill{ font-size:.75rem; padding:.15rem .65rem; border-radius:9999px; font-weight:700; color:#fff; }
+  .why{ font-size:.8rem; color:#475569; margin:.1rem 0 0; }
+  ol.steps{ list-style:none; padding:0; counter-reset:s; }
+  ol.steps li{ counter-increment:s; margin:.6rem 0; padding-left:1.9rem; position:relative; font-size:.88rem; }
+  ol.steps li::before{ content:counter(s); position:absolute; left:0; top:0; width:1.3rem; height:1.3rem; border-radius:50%; background:var(--teal); color:#fff; font-size:.72rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  ol.kcf li::before{ background:var(--gold-bg); color:var(--royal-dk); }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto">
+      <div><h1 class="text-lg font-bold" style="color:var(--royal)">VisualMath.Lim</h1><p class="text-[11px] text-slate-500">Mission C3 • Kelas 6</p></div>
+    </div>
+    <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:#e8eefc; border:1px solid var(--royal); color:var(--royal-dk)">🎮 Pos 6/8: Quest</span>
+  </div>
+  <div class="h-1.5 w-full" style="background:#dbe3f5"><div class="h-full" style="width:75%; background:linear-gradient(to right,var(--royal),var(--gold-bg))"></div></div>
+</header>
+
+<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-6">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--royal); background:#e8eefc; color:var(--royal-dk)">🎮 Quest Kuis</div>
+    <h2 class="text-3xl font-extrabold" style="color:var(--royal-dk)">Uji Kemampuanmu</h2>
+    <p class="text-sm text-slate-600">5 soal • KKM 70 (minimal 4 benar) • Hasil dan pembahasan selalu tersimpan</p>
+  </section>
+
+  <div id="quiz-area" class="space-y-5"></div>
+  <div id="result-area" class="hidden space-y-4"></div>
+
+  <div class="flex justify-between items-center pt-2">
+    <a href="mission-c3-pos5-skillunlock.html" class="text-slate-500 hover:text-slate-800 text-sm">⬅ Skill Unlock</a>
+    <a id="nav-next" href="mission-c3-pos7-boss.html" class="hidden inline-block font-bold py-3 px-8 rounded-full text-white" style="background:linear-gradient(to right,var(--royal),var(--royal-dk))">Lanjut ke Boss Battle ➔</a>
+  </div>
+
+</main>
+
+<script>
+try{ const p=+localStorage.getItem('vm_c3_progress')||0; if(p<5) localStorage.setItem('vm_c3_progress',5); }catch(e){}
+
+/* ---------- Fungsi bantu ---------- */
+function gcd(x,y){return y===0?x:gcd(y,x%y);}
+function lcm(x,y){return x*y/gcd(x,y);}
+function reduce(n,d){const g=gcd(n,d);return [n/g,d/g];}
+function fr(n,d){return `<span class="math-frac"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`;}
+function fracHTML(n,d){[n,d]=reduce(n,d);return d===1?`${n}`:fr(n,d);}
+function mixedHTML(n,d){[n,d]=reduce(n,d);const w=Math.floor(n/d),r=n%d;return r===0?`${w}`:(w>0?`<span class="whole">${w}</span>`:'')+fr(r,d);}
+function M(s){return `<span class="m">${s}</span>`;}
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function calc(p){ return reduce(p.a*p.d, p.b*p.c); }
+function makeOptions(p){
+  const correct=calc(p), flipFirst=reduce(p.b*p.c,p.a*p.d), noFlip=reduce(p.a*p.c,p.b*p.d), plus1=reduce(correct[0]+correct[1],correct[1]);
+  const cand=[{v:correct,k:'ok'},{v:flipFirst,k:'flip'},{v:noFlip,k:'noflip'},{v:plus1,k:'plus1'}];
+  const out=[]; cand.forEach(o=>{ if(out.length<4 && !out.some(x=>x.v[0]*o.v[1]===o.v[0]*x.v[1])) out.push(o); });
+  return shuffle(out);
+}
+
+/* ---------- Pembahasan: 2 cara paling efektif ---------- */
+const UNIT={pita:'potongan',tepung:'kue'};
+function explain(p){
+  const {a,b,c,d}=p;
+  const L=lcm(b,d), k1=L/b, k2=L/d, A=a*k1, C=c*k2, whole=Math.floor(A/C), rem=A%C;
+  const raw=[a*d,b*c], red=reduce(raw[0],raw[1]), g=gcd(raw[0],raw[1]);
+  const unit=UNIT[p.story]?' '+UNIT[p.story]:'';
+  const conv=(n,dd,k,N)=> k===1
+    ? `${fr(n,dd)} = ${fr(N,L)} <span class="why">(penyebut sudah ${L})</span>`
+    : `${fr(n,dd)} = ${fr(n+' × '+k,dd+' × '+k)} = ${fr(N,L)}`;
+  const cmp = raw[0]>raw[1] ? '>' : (raw[0]<raw[1] ? '<' : '=');
+  const est = cmp==='>' ? `${M(fr(a,b))} lebih besar dari ${M(fr(c,d))}, jadi hasilnya <b>lebih dari 1</b>.`
+            : cmp==='<' ? `${M(fr(a,b))} lebih kecil dari ${M(fr(c,d))}, jadi hasilnya <b>kurang dari 1</b>.`
+            : `Kedua pecahan sama besar, jadi hasilnya tepat <b>1</b>.`;
+
+  const finalStep1 = rem===0
+    ? `<span class="eq m">${A} ÷ ${C} = <b>${whole}</b></span>`
+    : (whole===0
+        ? `<span class="eq m">${A} ÷ ${C} = ${fracHTML(A,C)}</span>`
+        : `<span class="eq m">${A} ÷ ${C} = ${whole} sisa ${rem} ⟹ ${whole} + ${fracHTML(rem,C)} = <b>${mixedHTML(A,C)}</b></span><span class="why">Sisa ${rem} dari ${C} berarti ${M(fracHTML(rem,C))} kelompok.</span>`);
+
+  const cara1=[
+    `Cari KPK penyebut: ${M('KPK('+b+', '+d+') = '+L)}.`,
+    `Ubah kedua pecahan ke penyebut ${L}:<span class="eq m">${conv(a,b,k1,A)}</span><span class="eq m">${conv(c,d,k2,C)}</span>`,
+    `Bagi pembilangnya (penyebut sudah sama):<span class="eq m">${fr(A,L)} ÷ ${fr(C,L)} = ${A} ÷ ${C}</span>${finalStep1}`
+  ];
+  const cara2=[
+    `<b>Keep</b> ${M(fr(a,b))}, <b>Change</b> ÷ menjadi ×, <b>Flip</b> pembagi ${M(fr(c,d))} menjadi ${M(fr(d,c))}.`,
+    `Kalikan lurus:<span class="eq m">${fr(a,b)} × ${fr(d,c)} = ${fr(a+' × '+d,b+' × '+c)} = ${fr(raw[0],raw[1])}</span>`,
+    `Sederhanakan${g>1?` (bagi ${g}) `:' '}dan ubah ke campuran bila perlu:<span class="eq m">${g>1?fr(raw[0],raw[1])+' = '+fr(red[0],red[1]):fr(raw[0],raw[1])}${red[0]>red[1]&&red[0]%red[1]!==0?' = <b>'+mixedHTML(red[0],red[1])+'</b>':(red[1]===1?' = <b>'+red[0]+'</b>':'')}</span>`
+  ];
+  const li=arr=>arr.map(s=>`<li>${s}</li>`).join('');
+  const note = whole===0 && p.story==='tepung' ? `<p class="why">Hasil kurang dari 1, artinya bahan hanya cukup untuk ${M(fracHTML(A,C))} kue (belum cukup 1 kue penuh).</p>` : '';
+
+  return `
+    <div class="eq m">Model: ${fr(a,b)} ÷ ${fr(c,d)}</div>
+    <p class="text-sm"><b>Taksir dulu:</b> ${est}</p>
+    <div class="grid md:grid-cols-2 gap-3 mt-2">
+      <div class="rounded-xl p-3" style="border:1px solid var(--line)">
+        <p class="font-bold text-sm"><span class="pill" style="background:var(--teal)">Cara 1</span> Samakan Penyebut</p>
+        <ol class="steps">${li(cara1)}</ol></div>
+      <div class="rounded-xl p-3" style="border:1px solid var(--line)">
+        <p class="font-bold text-sm"><span class="pill" style="background:var(--gold-bg); color:var(--royal-dk)">Cara 2</span> Keep-Change-Flip</p>
+        <ol class="steps kcf">${li(cara2)}</ol></div>
+    </div>
+    <span class="ans m">${fr(a,b)} ÷ ${fr(c,d)} = ${mixedHTML(red[0],red[1])}${unit}</span>
+    <p class="why text-center">Cek: ${M(fr(red[0],red[1])+' × '+fr(c,d)+' = '+fracHTML(red[0]*c,red[1]*d)+' = '+fracHTML(a,b)+' ✓')}</p>${note}`;
+}
+
+function qHTML(p){
+  if(p.story==='pita') return `Sebuah pita sepanjang ${M(fr(p.a,p.b)+' m')} akan dipotong menjadi potongan ${M(fr(p.c,p.d)+' m')}. Ada berapa potongan?`;
+  if(p.story==='tepung') return `Sebuah wadah berisi ${M(fr(p.a,p.b)+' kg')} tepung. Setiap kue membutuhkan ${M(fr(p.c,p.d)+' kg')}. Berapa kue yang bisa dibuat?`;
+  return `${M(fr(p.a,p.b)+' ÷ '+fr(p.c,p.d)+' = ?')}`;
+}
+
+const BANK=[
+  {a:3,b:4,c:3,d:8},{a:5,b:6,c:2,d:3},{a:7,b:8,c:1,d:4},{a:4,b:5,c:3,d:10},{a:5,b:4,c:5,d:8},
+  {a:2,b:3,c:5,d:6,story:'tepung'},{a:9,b:10,c:3,d:5},{a:7,b:12,c:1,d:3},{a:5,b:8,c:5,d:12},{a:3,b:4,c:1,d:8,story:'pita'}
+];
+const LOG_KEY='vm_c3_pos6';
+function getLog(){ try{ return JSON.parse(localStorage.getItem(LOG_KEY))||{attempts:[],bestScore:0,lastScore:0,passed:false}; }catch(e){ return {attempts:[],bestScore:0,lastScore:0,passed:false}; } }
+function saveLog(l){ try{ localStorage.setItem(LOG_KEY,JSON.stringify(l)); }catch(e){} }
+
+const quizArea=document.getElementById('quiz-area'), resultArea=document.getElementById('result-area'), navNext=document.getElementById('nav-next');
+let cur=[];
+function pickSet(){
+  const n=getLog().attempts.length;
+  const block=(n%2===0)?BANK.slice(0,5):BANK.slice(5,10);
+  cur=shuffle(block).map(p=>({p,opts:makeOptions(p)}));
+  renderQuiz();
+}
+function renderQuiz(){
+  resultArea.classList.add('hidden'); resultArea.innerHTML=''; navNext.classList.add('hidden');
+  quizArea.innerHTML=''; quizArea.classList.remove('hidden');
+  cur.forEach((q,qi)=>{
+    const d=document.createElement('div'); d.className='card rounded-2xl p-5';
+    d.innerHTML=`<p class="font-bold mb-2">Soal ${qi+1}. ${qHTML(q.p)}</p>`+q.opts.map((o,oi)=>`<label class="opt" data-q="${qi}" data-o="${oi}">${String.fromCharCode(65+oi)}. ${M(mixedHTML(o.v[0],o.v[1]))}</label>`).join('');
+    quizArea.appendChild(d);
+  });
+  quizArea.querySelectorAll('.opt').forEach(el=>el.addEventListener('click',()=>{
+    quizArea.querySelectorAll(`.opt[data-q="${el.dataset.q}"]`).forEach(x=>x.classList.remove('chosen')); el.classList.add('chosen');
+  }));
+  const b=document.createElement('button'); b.className='btn w-full'; b.style.background='var(--royal)'; b.textContent='Kumpulkan Jawaban'; b.addEventListener('click',grade); quizArea.appendChild(b);
+}
+function grade(){
+  let correct=0; const cards=[];
+  cur.forEach((q,qi)=>{
+    const ch=quizArea.querySelector(`.opt.chosen[data-q="${qi}"]`);
+    const chosen=ch?q.opts[+ch.dataset.o]:null;
+    const ok=!!(chosen&&chosen.k==='ok'); if(ok) correct++;
+    cards.push({q,ok,chosen});
+  });
+  const score=correct*20, passed=score>=70;
+  const log=getLog();
+  log.attempts.push({score,correct,total:5,passed,date:new Date().toLocaleString('id-ID')});
+  log.bestScore=Math.max(log.bestScore||0,score); log.lastScore=score; log.passed=!!(log.passed||passed);
+  saveLog(log);
+
+  quizArea.classList.add('hidden'); resultArea.classList.remove('hidden');
+  const hint={flip:'Kamu membalik pecahan pertama. Seharusnya yang dibalik adalah pembagi (pecahan kedua).',noflip:'Pecahan kedua belum dibalik. Ingat: ÷ menjadi × dan pembagi dibalik.',plus1:'Periksa lagi langkah membagi pembilang setelah penyebut disamakan.'};
+  let html=`<div class="card rounded-2xl p-6 text-center space-y-2">
+    <p class="text-2xl font-bold" style="color:${passed?'var(--teal)':'var(--red)'}">${passed?'✅':'❌'} Skor: ${score} — ${passed?'Lulus KKM!':'Belum mencapai KKM 70'}</p>
+    <p class="text-sm text-slate-600">Benar ${correct} dari 5 soal. Percobaan ke-${log.attempts.length} tersimpan. Baca pembahasan lengkap di bawah.</p></div>`;
+  cards.forEach((x,i)=>{
+    const c=calc(x.q.p);
+    html+=`<div class="card rounded-2xl p-5 space-y-2" style="border-left:4px solid ${x.ok?'var(--teal)':'var(--red)'}">
+      <p class="font-bold">Soal ${i+1}. ${qHTML(x.q.p)}</p>
+      <p class="text-sm">${x.ok?'✅ Jawabanmu benar':'❌ Jawabanmu: '+(x.chosen?M(mixedHTML(x.chosen.v[0],x.chosen.v[1])):'(kosong)')} • Jawaban benar: <b style="color:var(--gold)">${M(mixedHTML(c[0],c[1]))}</b></p>
+      ${!x.ok&&x.chosen?`<p class="text-xs text-slate-500">${hint[x.chosen.k]||''}</p>`:''}
+      ${explain(x.q.p)}
+    </div>`;
+  });
+  html+= passed
+    ? `<p class="text-center text-sm text-slate-600">Kamu boleh lanjut ke Boss Battle.</p>`
+    : `<div class="text-center"><button id="retry" class="btn" style="background:var(--gold-bg); color:var(--royal-dk)">🔄 Coba Lagi dengan Soal Baru</button></div>`;
+  resultArea.innerHTML=html;
+  if(passed) navNext.classList.remove('hidden');
+  else document.getElementById('retry').addEventListener('click',()=>{ window.scrollTo({top:0,behavior:'smooth'}); pickSet(); });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+pickSet();
+</script>
+</body>
+</html>
