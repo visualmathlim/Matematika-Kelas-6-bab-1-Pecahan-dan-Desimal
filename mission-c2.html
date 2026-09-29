@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mission C2: Bilangan Asli ÷ Pecahan | VisualMath.Lim</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2563EB; --blue-d:#1D4ED8; --blue-dd:#1E3A8A; --blue-l:#DBEAFE; --bg:#F8FAFC; --card:#fff;
+  --ink:#0F172A; --muted:#475569; --ok:#10B981; --hint:#F59E0B; --bad:#F43F5E; --line:#CBD5E1;
+  --r:18px; --f-head:'Baloo 2','Nunito',system-ui,sans-serif; --f-body:'Nunito',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+body{font-family:var(--f-body);color:var(--ink);background:var(--bg);font-size:18px;line-height:1.6}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--hint);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+
+/* Format Simbol Matematika Fraksi Vertikal */
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.1;font-weight:800;margin:0 .15em}
+.frac>span:first-child{border-bottom:.09em solid currentColor;padding:0 .2em .05em}
+.frac>span:last-child{padding-top:.05em}
+.math{font-family:var(--f-head);font-weight:800;font-size:1.25em;white-space:nowrap}
+
+/* Header & Navbar */
+header{background:#fff;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:5}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px;max-width:1040px;margin:0 auto}
+.logo-container{display:flex;align-items:center;gap:15px;}
+.bar img{height:44px;display:block}
+.home-btn{display:flex;align-items:center;gap:4px;font-size:0.9rem;font-weight:700;color:var(--blue-d);background:var(--blue-l);padding:6px 14px;border-radius:99px;transition:all 0.2s;}
+.home-btn:hover{background:var(--blue);color:#fff;}
+
+.prog{flex:1;max-width:340px}
+.prog small{font-weight:700;color:var(--muted);font-size:.8rem}
+.track{height:10px;background:var(--blue-l);border-radius:9px;overflow:hidden}
+.track i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--blue-d));border-radius:9px;transition:width .6s}
+
+/* Hero Section */
+.hero{background:linear-gradient(160deg,var(--blue-dd),var(--blue));color:#fff;padding:44px 0 0;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.3fr 1fr;gap:20px;align-items:end}
+.tag{display:inline-block;background:rgba(255,255,255,.2);padding:4px 14px;border-radius:99px;font-weight:800;font-size:.9rem}
+h1{font-family:var(--f-head);font-size:clamp(2rem,5vw,3.3rem);line-height:1.1;margin:12px 0}
+.hero p{max-width:46ch;opacity:.95;margin-bottom:22px}
+.btn{display:inline-block;background:#fff;color:var(--blue-d);font-weight:800;padding:12px 26px;border-radius:99px;box-shadow:0 4px 0 rgba(29,78,216,.35);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.team{display:flex;justify-content:center;align-items:flex-end;gap:6px}
+.team img{width:23%;max-width:110px;height:auto;display:block}
+
+/* Section Styling */
+section{padding:48px 0 8px}
+h2{font-family:var(--f-head);font-size:1.9rem;color:var(--blue-dd);margin-bottom:6px}
+.lead{color:var(--muted);margin-bottom:22px;max-width:60ch}
+.card{background:var(--card);border:2px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 4px 12px rgba(0,0,0,0.03)}
+
+/* Big Idea Concept */
+.idea{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:center}
+.eq{font-size:2.3rem;text-align:center;color:var(--blue-d)}
+.cap{color:var(--muted);font-size:.95rem;line-height:1.5}
+
+/* Learning Goals */
+.goals{list-style:none;padding:0;display:grid;gap:12px}
+.goals li{display:flex;gap:14px;align-items:flex-start;background:#fff;border:2px solid var(--line);border-radius:var(--r);padding:14px 18px}
+.goals b{flex:none;width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-family:var(--f-head)}
+
+/* Vocabulary Grid */
+.vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.v{background:#fff;border:2px solid var(--line);border-radius:var(--r);padding:16px;border-top:6px solid var(--blue)}
+.v .en{font-family:var(--f-head);font-size:1.25rem;color:var(--blue-d);line-height:1.2}
+.v .id{font-weight:800}
+.v p{font-size:.88rem;color:var(--muted);margin-top:4px;line-height:1.4}
+
+/* Peta Pos (8 Pos) */
+.map{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.pos{position:relative;background:#fff;border:2px solid var(--line);border-radius:var(--r);padding:18px 16px 16px;display:flex;flex-direction:column;gap:6px;transition:border-color .2s,box-shadow .2s}
+.pos:hover{border-color:var(--blue);box-shadow:0 6px 0 var(--line)}
+.pos .n{width:38px;height:38px;border-radius:50%;background:var(--blue-l);color:var(--blue-d);display:grid;place-items:center;font-family:var(--f-head);font-size:1.2rem}
+.pos h3{font-family:var(--f-head);font-size:1.15rem;line-height:1.2;color:var(--blue-dd)}
+.pos p{font-size:.88rem;color:var(--muted);line-height:1.4;flex:1}
+.pos .st{font-size:.8rem;font-weight:800;color:var(--muted)}
+.pos.done{border-color:var(--ok)}
+.pos.done .n{background:var(--ok);color:#fff}
+.pos.done .st{color:var(--ok)}
+.pos.boss .n{background:var(--hint);color:#fff}
+
+footer{margin-top:56px;background:var(--blue-dd);color:#E2E8F0;text-align:center;padding:24px 20px;font-size:.9rem}
+
+@media(max-width:820px){
+  .hero .wrap,.idea{grid-template-columns:1fr}
+  .map{grid-template-columns:repeat(2,1fr)}
+  .prog{max-width:160px}
+}
+@media(max-width:480px){
+  .map{grid-template-columns:1fr}
+  body{font-size:17px}
+  .home-btn span{display:none;}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <div class="logo-container">
+      <img src="assets/logo.png" alt="VisualMath.Lim" onerror="this.outerHTML='<div style=\'height:44px;width:44px;background:var(--blue-d);border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:bold;\'>VM</div>'">
+      <a href="index.html" class="home-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </a>
+    </div>
+    
+    <div class="prog">
+      <small id="progText">Progres misi: 0 dari 8 pos</small>
+      <div class="track"><i id="progBar"></i></div>
+    </div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <span class="tag">Kelas 6 · Misi C2</span>
+      <h1>Bilangan Asli <span class="math">÷</span> Pecahan</h1>
+      <p>Punya 3 pita utuh dan ingin dipotong masing-masing sepanjang setengah meter? Berapa banyak potongan pita yang dihasilkan? Mari temukan keajaiban saat pembagian justru menghasilkan angka yang lebih besar!</p>
+      <a class="btn" href="mission-c2-pos1-hook.html">Mulai Pos 1</a>
+    </div>
+    <div class="team" aria-label="Tim VisualMath.Lim">
+      <img src="assets/Kian.png" alt="Kian" onerror="this.style.display='none'">
+      <img src="assets/Luna.png" alt="Luna" onerror="this.style.display='none'">
+      <img src="assets/Pixel.png" alt="Pixel" onerror="this.style.display='none'">
+      <img src="assets/Sigma.png" alt="Sigma" onerror="this.style.display='none'">
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section>
+    <h2>Big Idea: Konsep Pengelompokan (Measurement / Grouping)</h2>
+    <p class="lead">Membagi bilangan asli dengan pecahan berarti mencari berapa banyak potongan pecahan yang muat di dalam bilangan utuh tersebut.</p>
+    <div class="card idea">
+      <div>
+        <div class="eq">
+          3 ÷ <span class="frac"><span>1</span><span>2</span></span> = 6
+        </div>
+      </div>
+      <div>
+        <p class="cap">
+          <b>Keajaiban Matematika:</b> Dari 3 benda utuh, jika kita potong menjadi ukuran <span class="frac"><span>1</span><span>2</span></span>, kita mendapatkan total <b>6 bagian</b>. Angka hasil bagi menjadi lebih besar dari angka awalnya!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Learning Goals</h2>
+    <p class="lead">Di akhir misi C2 ini, kamu mampu:</p>
+    <ul class="goals">
+      <li><b>1</b><span>Memahami makna pengelompokan (<span style="color:var(--blue-d); font-weight:bold;">Grouping</span>) saat bilangan utuh dibagi pecahan.</span></li>
+      <li><b>2</b><span>Menggunakan model batang dan simulasi pemotongan digital untuk menemukan hasil pembagian.</span></li>
+      <li><b>3</b><span>Menguasai aturan ubah bilangan asli ke pecahan biasa dan menerapkan metode kebalikan (<span style="color:var(--blue-d); font-weight:bold;">Keep-Change-Flip</span>).</span></li>
+      <li><b>4</b><span>Menyelesaikan soal cerita pengukuran tingkat lanjut (HOTS) dengan teliti.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Kosakata Misi</h2>
+    <p class="lead">Istilah penting dalam bahasa Inggris dan Indonesia.</p>
+    <div class="vocab">
+      <div class="v"><div class="en">Grouping</div><div class="id">Pengelompokan</div><p>Menghitung berapa banyak kelompok kecil yang muat.</p></div>
+      <div class="v"><div class="en">Measurement division</div><div class="id">Pembagian ukuran</div><p>Membagi benda berdasarkan panjang/ukuran tertentu.</p></div>
+      <div class="v"><div class="en">Whole number</div><div class="id">Bilangan asli</div><p>Bilangan bulat positif seperti 1, 2, 3, dst.</p></div>
+      <div class="v"><div class="en">Reciprocal</div><div class="id">Kebalikan</div><p>Kebalikan pecahan, misal <span class="frac"><span>1</span><span>2</span></span> menjadi <span class="frac"><span>2</span><span>1</span></span>.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Peta 8 Pos Petualangan C2</h2>
+    <p class="lead">Selesaikan pos satu per satu secara berurutan. Capai KKM 70 di Kuis Pos 6!</p>
+    <div class="map" id="map"></div>
+  </section>
+
+</main>
+
+<footer>© VisualMath.Lim Academy · Matematika Konseptual & Visual</footer>
+
+<script>
+var POS=[
+  ["mission-c2-pos1-hook.html","Real-World Hook","Teka-teki pita dan kejutan angka yang membesar."],
+  ["mission-c2-pos2-concrete.html","Concrete","Game Gunting Pita Ajaib (Simulasi langsung)."],
+  ["mission-c2-pos3-visualize.html","Visualize","Lab Eksplorasi Bar Model Pengelompokan."],
+  ["mission-c2-pos4-discover.html","Think & Discover","Menemukan pola hubungan perkalian kebalikan."],
+  ["mission-c2-pos5-skill.html","Skill Unlock","Metode Keep-Change-Flip (KCF) & Aturan Emas."],
+  ["mission-c2-pos6-quiz.html","Quest Kuis","5 soal latihan interaktif (Target KKM 70)."],
+  ["mission-c2-pos7-boss.html","Boss Battle","Soal cerita HOTS pengukuran resep & sisa."],
+  ["mission-c2-pos8-log.html","Mission Log","Rekam jejak nilai dan klaim Grouper Badge."]
+];
+var KEY="vml_c2_done_";
+function get(k){try{return localStorage.getItem(k)}catch(e){return null}}
+var map=document.getElementById("map"),done=0;
+POS.forEach(function(p,i){
+  var ok=get(KEY+(i+1))==="1"; if(ok)done++;
+  var a=document.createElement("a");
+  a.href=p[0];
+  a.className="pos"+(ok?" done":"")+(i===6?" boss":"");
+  a.innerHTML='<div class="n">'+(ok?"✓":i+1)+'</div><h3>'+p[1]+'</h3><p>'+p[2]+'</p><span class="st">'+(ok?"Selesai":"Belum dimulai")+'</span>';
+  map.appendChild(a);
+});
+document.getElementById("progText").textContent="Progres misi: "+done+" dari 8 pos";
+document.getElementById("progBar").style.width=(done/8*100)+"%";
+</script>
+</body>
+</html>
