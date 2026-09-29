@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 4: Think - Mission C4 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --royal: #2563eb; 
+    --royal-dk: #1e40af; 
+    --bg: #eef2fb; 
+    --card: #ffffff; 
+    --ink: #0f172a; 
+    --line: #dbe3f5; 
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+    --red: #dc2626; 
+  }
+  body { background-color: var(--bg); color: var(--ink); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; overflow-x: hidden; }
+  
+  /* Header & Cards */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 700; color: var(--royal-dk); background: #dbe3f5; padding: 6px 16px; border-radius: 99px; transition: all 0.2s; }
+  .home-btn:hover { background: var(--royal); color: #fff; }
+
+  /* Math UI */
+  .m { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', serif; white-space: nowrap; font-weight: bold; }
+  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.15rem; line-height: 1.1; font-size: 0.95em; }
+  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.2rem; width: 100%; text-align: center; }
+  .math-den { padding: 0 0.2rem; width: 100%; text-align: center; }
+  .whole { margin-right: 0.1rem; }
+  .eq { display: block; text-align: center; font-size: 1.25rem; padding: 0.75rem; margin: 1rem 0; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 0.6rem; }
+
+  /* Input Vertical Pecahan */
+  .math-input-box { display: inline-flex; flex-direction: column; align-items: center; background: #ffffff; border: 2px solid var(--royal); border-radius: 0.5rem; padding: 2px; margin: 0 5px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
+  .math-input-box input { width: 45px; text-align: center; font-weight: bold; font-size: 1.1rem; border: none; outline: none; background: transparent; color: var(--ink); padding: 2px 0; -moz-appearance: textfield; }
+  .math-input-box input::-webkit-outer-spin-button, .math-input-box input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  .math-input-box .input-num { border-bottom: 2px solid var(--royal); }
+
+  /* Tombol */
+  .btn { display: inline-block; text-align: center; padding: 0.8rem 1.5rem; border-radius: 99px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
+  .btn-check { background: linear-gradient(to right, var(--teal), #0f766e); box-shadow: 0 4px 10px rgba(13, 148, 136, 0.3); }
+  .btn-check:hover { transform: scale(1.02); box-shadow: 0 6px 15px rgba(13, 148, 136, 0.4); }
+  .btn-next { background: linear-gradient(to right, var(--royal), var(--royal-dk)); box-shadow: 0 4px 10px rgba(37,99,235,0.3); width: 100%; }
+  .btn-next:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(37,99,235,0.4); }
+
+  /* Jurnal Detektif Theme */
+  .detective-journal { 
+    background-color: #fdfbf7; 
+    background-image: linear-gradient(#e5e7eb 1px, transparent 1px);
+    background-size: 100% 2rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 2rem 2rem 3rem 2rem;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.05), inset 4px 0 0 rgba(220, 38, 38, 0.6); 
+    position: relative;
+  }
+  .paper-clip {
+    position: absolute; top: -15px; right: 30px; width: 30px; height: 60px;
+    border: 3px solid #94a3b8; border-radius: 20px;
+    background: transparent; z-index: 10;
+  }
+  
+  .case-row { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 1.2rem; position: relative; }
+  .case-badge { position: absolute; top: -12px; left: -12px; background: var(--gold-bg); color: var(--royal-dk); font-weight: bold; font-size: 0.75rem; padding: 4px 12px; border-radius: 99px; border: 2px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+
+  .hidden-area { opacity: 0; max-height: 0; overflow: hidden; transition: all 0.8s ease; }
+  .show-area { opacity: 1; max-height: 2000px; padding-top: 1.5rem; margin-top: 1.5rem; border-top: 2px dashed #cbd5e1; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-20">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--royal)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Kelas 6 • Mission C4</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="px-3 py-1 rounded-full text-xs font-semibold hidden md:inline-block" style="background:#e8eefc; border:1px solid var(--royal); color:var(--royal-dk)">🧠 Pos 4/8: Think</span>
+      <a href="mission-c4.html" class="home-btn shadow-sm">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>Peta Misi</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full" style="background:var(--line)"><div class="h-full" style="width:50%; background:linear-gradient(to right,var(--royal),var(--teal))"></div></div>
+</header>
+
+<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-6">
+  
+  <section class="text-center space-y-2 mb-4">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--teal); background:#ccfbf1; color:var(--teal)">🧠 Think & Discover</div>
+    <h2 class="text-3xl font-extrabold" style="color:var(--royal-dk)">Menemukan Pola Rahasia</h2>
+    <p class="text-sm text-slate-600 max-w-2xl mx-auto">
+      Mari kita catat apa yang baru saja terjadi di pabrik pemotong. Lengkapi 3 kasus di jurnal detektif ini untuk membuktikan teorimu!
+    </p>
+  </section>
+
+  <!-- JURNAL DETEKTIF -->
+  <div class="detective-journal mt-8">
+    <div class="paper-clip"></div>
+    <h3 class="font-bold text-xl text-slate-800 mb-4 font-serif italic text-center">Catatan Investigasi Prof. Sigma</h3>
+    
+    <div class="space-y-6 font-medium text-slate-700 leading-relaxed">
+      <p class="text-center text-sm md:text-base">Berdasarkan pengamatan di meja laser (Pos 3), kita sepakat bahwa pembagian <b>tidak bisa</b> langsung dilakukan saat angka masih berbentuk Pecahan Campuran.</p>
+      
+      <div class="bg-amber-50 p-4 md:p-6 rounded-xl border border-amber-200 shadow-sm relative">
+        <p class="font-bold text-amber-800 mb-2 text-center text-lg">Misi Konversi: Ubah Semua ke Pecahan Biasa</p>
+        <p class="mb-6 text-center text-sm text-slate-600">Rumus: <b>(Bulat × Bawah) + Atas</b>. Ketik hasil konversinya di kotak yang kosong!</p>
+        
+        <div class="space-y-8">
+          
+          <!-- KASUS 1 -->
+          <div class="case-row shadow-sm">
+            <div class="case-badge">Kasus 1</div>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+              <!-- Pecahan 1 -->
+              <div class="flex items-center gap-2">
+                <span class="m text-2xl"><span class="whole">2</span><span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span></span>
+                <span class="mx-2 text-xl text-slate-400 font-bold">=</span>
+                <div class="math-input-box">
+                  <input type="number" id="k1-n1" class="input-num chk-inp" placeholder="?">
+                  <input type="number" id="k1-d1" class="chk-inp" placeholder="?">
+                </div>
+              </div>
+              <span class="text-2xl font-bold text-slate-300 md:mx-4">÷</span>
+              <!-- Pecahan 2 -->
+              <div class="flex items-center gap-2">
+                <span class="m text-2xl"><span class="whole">1</span><span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span></span>
+                <span class="mx-2 text-xl text-slate-400 font-bold">=</span>
+                <div class="math-input-box border-teal-600">
+                  <input type="number" id="k1-n2" class="input-num !border-teal-600 chk-inp" placeholder="?">
+                  <input type="number" id="k1-d2" class="chk-inp" placeholder="?">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- KASUS 2 -->
+          <div class="case-row shadow-sm">
+            <div class="case-badge">Kasus 2</div>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+              <!-- Pecahan 1 -->
+              <div class="flex items-center gap-2">
+                <span class="m text-2xl"><span class="whole">3</span><span class="math-frac"><span class="math-num">1</span><span class="math-den">3</span></span></span>
+                <span class="mx-2 text-xl text-slate-400 font-bold">=</span>
+                <div class="math-input-box">
+                  <input type="number" id="k2-n1" class="input-num chk-inp" placeholder="?">
+                  <input type="number" id="k2-d1" class="chk-inp" placeholder="?">
+                </div>
+              </div>
+              <span class="text-2xl font-bold text-slate-300 md:mx-4">÷</span>
+              <!-- Pecahan 2 -->
+              <div class="flex items-center gap-2">
+                <span class="m text-2xl"><span class="whole">1</span><span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span></span>
+                <span class="mx-2 text-xl text-slate-400 font-bold">=</span>
+                <div class="math-input-box border-teal-600">
+                  <input type="number" id="k2-n2" class="input-num !border-teal-600 chk-inp" placeholder="?">
+                  <input type="number" id="k2-d2" class="chk-inp" placeholder="?">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- KASUS 3 -->
+          <div class="case-row shadow-sm">
+            <div class="case-badge">Kasus 3</div>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+              <!-- Pecahan 1 -->
+              <div class="flex items-center gap-2">
+                <span class="m text-2xl"><span class="whole">1</span><span class="math-frac"><span class="math-num">3</span><span class="math-den">5</span></span></span>
+                <span class="mx-2 text-xl text-slate-400 font-bold">=</span>
+                <div class="math-input-box">
+                  <input type="number" id="k3-n1" class="input-num chk-inp" placeholder="?">
+                  <input type="number" id="k3-d1" class="chk-inp" placeholder="?">
+                </div>
+              </div>
+              <span class="text-2xl font-bold text-slate-300 md:mx-4">÷</span>
+              <!-- Pecahan 2 -->
+              <div class="flex items-center gap-2">
+                <span class="m text-2xl"><span class="whole">2</span><span class="math-frac"><span class="math-num">1</span><span class="math-den">5</span></span></span>
+                <span class="mx-2 text-xl text-slate-400 font-bold">=</span>
+                <div class="math-input-box border-teal-600">
+                  <input type="number" id="k3-n2" class="input-num !border-teal-600 chk-inp" placeholder="?">
+                  <input type="number" id="k3-d2" class="chk-inp" placeholder="?">
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        
+        <div class="text-center mt-8">
+          <button id="btn-check" class="btn btn-check px-8 py-3 text-lg">Verifikasi 3 Kasus ➔</button>
+          <p id="msg-error" class="text-red-600 text-sm font-bold mt-3 hidden">Ups! Ada angka yang belum tepat. Cek kembali perkalian (Bulat × Bawah) + Atas.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- KESIMPULAN (MUNCUL JIKA BENAR) -->
+    <div id="conclusion-area" class="hidden-area">
+      <div class="bg-teal-50 p-5 md:p-8 rounded-xl border border-teal-200 mb-6">
+        <h4 class="font-bold text-teal-800 text-xl mb-4 text-center">🎉 Luar Biasa! Semua Kasus Terpecahkan!</h4>
+        <p class="text-slate-700 text-center text-sm md:text-base">Sekarang coba perhatikan wujud baru dari soal-soal di atas:</p>
+        
+        <div class="flex flex-wrap justify-center gap-6 my-6">
+          <div class="bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-200 eq m text-royal-dk text-xl font-bold m-0">
+            <span class="math-frac"><span class="math-num">5</span><span class="math-den">2</span></span> ÷ <span class="math-frac"><span class="math-num">5</span><span class="math-den">4</span></span>
+          </div>
+          <div class="bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-200 eq m text-royal-dk text-xl font-bold m-0">
+            <span class="math-frac"><span class="math-num">10</span><span class="math-den">3</span></span> ÷ <span class="math-frac"><span class="math-num">5</span><span class="math-den">3</span></span>
+          </div>
+          <div class="bg-white px-4 py-2 rounded-lg shadow-sm border border-slate-200 eq m text-royal-dk text-xl font-bold m-0">
+            <span class="math-frac"><span class="math-num">8</span><span class="math-den">5</span></span> ÷ <span class="math-frac"><span class="math-num">11</span><span class="math-den">5</span></span>
+          </div>
+        </div>
+        
+        <div class="flex flex-col md:flex-row gap-4 items-center md:items-start bg-white p-5 rounded-lg shadow-sm border border-slate-100 mt-6">
+          <div class="text-5xl drop-shadow-sm">💡</div>
+          <div class="text-center md:text-left">
+            <p class="font-bold text-royal-dk text-lg mb-1">Momen "Aha!"</p>
+            <p class="text-sm md:text-base text-slate-600 leading-relaxed">Tunggu dulu... membagi Pecahan Biasa dengan Pecahan Biasa? <b>Ini kan persis sama dengan pelajaran kita di Mission C3!</b> Berarti kita tidak perlu belajar rumus baru untuk membaginya!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-slate-800 text-white p-6 rounded-xl shadow-lg border-2 border-gold-bg text-center">
+        <p class="font-bold text-gold-bg tracking-widest text-sm mb-2">ATURAN EMAS MISSION C4:</p>
+        <p class="text-lg md:text-xl font-medium leading-relaxed italic">
+          "Pembagian Pecahan Campuran itu sebenarnya <b>tidak ada</b>. Kita hanya perlu mengubah mereka menjadi Pecahan Biasa, lalu serang dengan jurus Mission C3 (Kali Silang / Samakan Penyebut)."
+        </p>
+      </div>
+
+      <div class="mt-8">
+        <a href="mission-c4-pos5.html" id="btn-next" class="btn btn-next py-4 text-lg">Lanjut ke Pos 5: Master Class (Jurus & Jebakan) ➔</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script>
+  const btnCheck = document.getElementById('btn-check');
+  const msgError = document.getElementById('msg-error');
+  const conclusionArea = document.getElementById('conclusion-area');
+
+  // Mengambil semua input form
+  const inputs = document.querySelectorAll('.chk-inp');
+  
+  // Sembunyikan pesan error jika anak mulai mengetik ulang
+  inputs.forEach(input => {
+    input.addEventListener('input', () => {
+      msgError.classList.add('hidden');
+      input.classList.remove('bg-red-50', 'text-red-600');
+    });
+  });
+
+  // Kunci Jawaban
+  const answers = {
+    'k1-n1': 5, 'k1-d1': 2, 'k1-n2': 5, 'k1-d2': 4,
+    'k2-n1': 10, 'k2-d1': 3, 'k2-n2': 5, 'k2-d2': 3,
+    'k3-n1': 8, 'k3-d1': 5, 'k3-n2': 11, 'k3-d2': 5
+  };
+
+  btnCheck.addEventListener('click', () => {
+    let allCorrect = true;
+
+    // Periksa setiap input terhadap kunci jawaban
+    for (let id in answers) {
+      let el = document.getElementById(id);
+      if (parseInt(el.value) === answers[id]) {
+        el.classList.add('bg-green-50');
+      } else {
+        allCorrect = false;
+        el.classList.add('bg-red-50', 'text-red-600'); // Beri highlight merah pada kotak yang salah
+      }
+    }
+
+    if (allCorrect) {
+      // Jika semua BENAR
+      msgError.classList.add('hidden');
+      btnCheck.style.display = 'none';
+      
+      // Kunci semua input
+      inputs.forEach(inp => {
+        inp.disabled = true;
+        inp.classList.remove('bg-green-50');
+        inp.classList.add('bg-slate-100', 'text-teal-700');
+      });
+
+      // Tampilkan kesimpulan
+      conclusionArea.classList.add('show-area');
+      
+      // Simpan Progress ke LocalStorage
+      let currentProgress = parseInt(localStorage.getItem('vm_c4_progress')) || 1;
+      if (currentProgress < 5) localStorage.setItem('vm_c4_progress', 5);
+      
+      // Auto Scroll ke kesimpulan
+      setTimeout(() => {
+        conclusionArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 300);
+
+    } else {
+      // Jika ada yang SALAH
+      msgError.classList.remove('hidden');
+      
+      // Animasi getar pada tombol
+      btnCheck.animate([
+        { transform: 'translateX(0px)' },
+        { transform: 'translateX(-5px)' },
+        { transform: 'translateX(5px)' },
+        { transform: 'translateX(-5px)' },
+        { transform: 'translateX(5px)' },
+        { transform: 'translateX(0px)' }
+      ], { duration: 400, iterations: 1 });
+    }
+  });
+</script>
+</body>
+</html>
