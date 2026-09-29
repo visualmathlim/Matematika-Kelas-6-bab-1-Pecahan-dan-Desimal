@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pos 8: Mission Log | Mission C2</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{ --blue:#2563EB; --blue-d:#1D4ED8; --blue-dd:#1E3A8A; --bg:#F8FAFC; --ink:#0F172A; --line:#CBD5E1; --f-head:'Baloo 2',sans-serif; --f-body:'Nunito',sans-serif; --gold:#F59E0B;}
+*{box-sizing:border-box;margin:0} body{font-family:var(--f-body);color:var(--ink);background:var(--bg); overflow-x:hidden;} a{text-decoration:none}
+header{background:#fff;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:5} .bar{display:flex;justify-content:space-between;padding:12px 20px;max-width:800px;margin:0 auto; align-items:center;} .back-btn{font-weight:700;color:var(--blue-d)} 
+.wrap{max-width:700px;margin:0 auto;padding:30px 20px} .card{background:#fff;border:2px solid var(--line);border-radius:18px;padding:24px;margin-bottom:20px;box-shadow:0 4px 12px rgba(37,99,235,0.05);}
+h2{font-family:var(--f-head);color:var(--blue-dd);text-align:center;font-size:1.8rem;margin-bottom:20px;}
+
+.log-table{width:100%;border-collapse:collapse;margin-top:10px;}
+.log-table th,.log-table td{padding:10px;border-bottom:1px solid var(--line);text-align:left;font-size:0.9rem;}
+.log-table th{background:#DBEAFE;color:var(--blue-dd);}
+
+.btn{display:block;background:var(--gold);color:#fff;font-family:var(--f-head);font-weight:800;padding:16px;border-radius:99px;text-align:center;width:100%;border:none;cursor:pointer;font-size:1.2rem;box-shadow:0 4px 0 #D97706;}
+.avatar-msg{display:flex;gap:15px;align-items:center;background:#F8FAFC;padding:15px;border-radius:12px;margin-bottom:15px;border:1px solid #E2E8F0;}
+.avatar-msg img{width:50px;height:50px;border-radius:50%;object-fit:contain;background:#fff;border:2px solid var(--line);}
+
+/* Confetti */
+.confetti{position:fixed;top:-10px;width:10px;height:20px;z-index:99;animation:fall linear forwards;}
+@keyframes fall{ to{transform:translateY(105vh) rotate(360deg);} }
+</style>
+</head>
+<body>
+<header><div class="bar"><a href="mission-c2.html" class="back-btn">Kembali ke Dashboard</a><div style="font-weight:bold;color:var(--blue-d)">📖 Mission Log</div></div></header>
+<main class="wrap">
+  <h2>Laporan Misi C2 Selesai!</h2>
+
+  <div class="card" id="claim-box" style="text-align:center;">
+    <div style="font-size:5rem; margin-bottom:10px;">🎁</div>
+    <p style="font-weight:bold; color:var(--blue-dd); margin-bottom:20px;">Luar Biasa! Misi Bilangan Asli ÷ Pecahan telah kamu taklukkan sepenuhnya.</p>
+    <button class="btn" id="claimBtn">🎉 Klaim Grouper Master Badge!</button>
+  </div>
+
+  <div class="card">
+    <h3 style="color:var(--blue-d); margin-bottom:15px;">💬 Pesan Tim VisualMath</h3>
+    <div class="avatar-msg">
+      <img src="assets/Pixel.png" alt="Pixel" onerror="this.outerHTML='<div style=\'width:50px;height:50px;display:grid;place-items:center;font-weight:bold;background:#fff;border-radius:50%\'>PX</div>'">
+      <div><b style="color:var(--blue-d)">Pixel sang Robot</b><br><small>"Sistem mencatat rekor luar biasa! Angka pembagianmu terbukti bisa membesar saat dikelompokkan dengan benar."</small></div>
+    </div>
+    <div class="avatar-msg">
+      <img src="assets/logo.png" alt="Logo" onerror="this.outerHTML='<div style=\'width:50px;height:50px;display:grid;place-items:center;font-weight:bold;background:#fff;border-radius:50%\'>VM</div>'">
+      <div><b style="color:var(--blue-d)">Coach & Tim VisualMath</b><br><small>"Pertahankan fokusmu! Kita akan melangkah ke level berikutnya di Mission C3 (Pecahan ÷ Pecahan)."</small></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="color:var(--blue-d);">Rekam Jejak Kuis (Pos 6)</h3>
+    <table class="log-table" id="table-q"></table>
+  </div>
+  
+  <div class="card">
+    <h3 style="color:var(--blue-d);">Rekam Jejak Boss Battle (Pos 7)</h3>
+    <table class="log-table" id="table-b"></table>
+  </div>
+</main>
+
+<script>
+function renderLog(key, tableId) {
+  const log = JSON.parse(localStorage.getItem(key) || '{"attempts":[]}');
+  const tb = document.getElementById(tableId);
+  if(log.attempts.length === 0) {
+    tb.innerHTML = '<tr><td>Belum ada data rekaman.</td></tr>'; return;
+  }
+  let html = '<tr><th>Ke-</th><th>Tanggal</th><th>Skor</th></tr>';
+  log.attempts.forEach((a, i) => {
+    html += `<tr><td>${i+1}</td><td>${a.date}</td><td><b>${a.score}</b></td></tr>`;
+  });
+  tb.innerHTML = html;
+}
+renderLog('vml_c2_done_6_log', 'table-q');
+renderLog('vml_c2_done_7_log', 'table-b');
+
+document.getElementById('claimBtn').addEventListener('click', function() {
+  this.style.display = 'none';
+  document.getElementById('claim-box').innerHTML = `
+    <div style="text-align:center;">
+      <div style="font-size:6rem;">🏅</div>
+      <h3 style="color:#D97706; font-size:1.6rem; font-family:var(--f-head);">Grouper Master Badge Terbuka!</h3>
+      <p style="color:#10B981; font-weight:bold; font-size:1.3rem; margin-top:10px;">+150 XP</p>
+      <a href="mission-c3.html" style="display:inline-block; margin-top:20px; background:var(--blue-d); color:#fff; padding:12px 28px; border-radius:99px; font-weight:bold;">Lanjut ke Mission C3: Pecahan ÷ Pecahan ➔</a>
+    </div>
+  `;
+  try{ localStorage.setItem('vml_c2_done_8', '1'); }catch(e){}
+
+  // Confetti effect
+  const colors = ['#2563EB', '#10B981', '#F59E0B', '#3B82F6'];
+  for(let i=0; i<60; i++) {
+    let c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.background = colors[Math.floor(Math.random() * colors.length)];
+    c.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 5000);
+  }
+});
+</script>
+</body>
+</html>
