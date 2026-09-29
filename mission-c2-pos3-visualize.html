@@ -5,146 +5,149 @@
 <title>Pos 3: Lab Grouping | Mission C2</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
-:root{ --blue:#2563EB; --blue-d:#1D4ED8; --blue-dd:#1E3A8A; --blue-l:#DBEAFE; --bg:#F8FAFC; --card:#fff; --ink:#0F172A; --muted:#475569; --ok:#10B981; --hint:#F59E0B; --line:#CBD5E1; --f-head:'Baloo 2',sans-serif; --f-body:'Nunito',sans-serif; }
+:root{ --blue:#2563EB; --blue-d:#1D4ED8; --blue-dd:#1E3A8A; --bg:#F8FAFC; --ink:#0F172A; --muted:#475569; --line:#CBD5E1; --f-head:'Baloo 2',sans-serif; --f-body:'Nunito',sans-serif; }
 *{box-sizing:border-box;margin:0} body{font-family:var(--f-body);color:var(--ink);background:var(--bg);padding-bottom:60px;} a{text-decoration:none;color:inherit} 
 .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.1;font-weight:800;margin:0 .15em;font-size:1em} .frac>span:first-child{border-bottom:.09em solid currentColor;padding:0 .2em .05em} .frac>span:last-child{padding-top:.05em} .math{font-family:var(--f-head);font-weight:800; font-size:1.2em;}
-header{background:#fff;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:5} .bar{display:flex;justify-content:space-between;padding:12px 20px;max-width:800px;margin:0 auto; align-items:center;} .back-btn{font-weight:700;color:var(--blue-d)} .pos-badge{background:var(--blue-l);color:var(--blue-d);font-weight:800;padding:4px 12px;border-radius:99px;}
-.wrap{max-width:800px;margin:0 auto;padding:30px 20px} .card{background:#fff;border:2px solid var(--line);border-radius:18px;padding:26px;margin-bottom:24px;box-shadow:0 4px 12px rgba(37,99,235,0.05);} h2{font-family:var(--f-head);color:var(--blue-dd);font-size:1.8rem;line-height:1.2;margin-bottom:10px;text-align:center;}
+header{background:#fff;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:5} .bar{display:flex;justify-content:space-between;padding:12px 20px;max-width:800px;margin:0 auto; align-items:center;} .back-btn{font-weight:700;color:var(--blue-d)}
+.wrap{max-width:800px;margin:0 auto;padding:30px 20px} .card{background:#fff;border:2px solid var(--line);border-radius:18px;padding:26px;margin-bottom:24px;} h2{font-family:var(--f-head);color:var(--blue-dd);font-size:1.8rem;text-align:center;margin-bottom:10px;}
 
-/* Lab Controls */
-.game-controls{background:#F8FAFC; border:2px dashed var(--blue); border-radius:12px; padding:20px; margin-bottom:20px; text-align:center;}
-.story-text{font-size:1.1rem; font-weight:700; color:var(--blue-dd); margin-bottom:15px; line-height:1.8;}
-select{appearance:none; background:#fff; border:2px solid var(--blue); border-radius:8px; padding:6px 12px; font-weight:bold; font-size:1.1rem; color:var(--blue-d); cursor:pointer; outline:none; text-align:center;}
+/* Lab Input Kustom Pecahan Vertikal */
+.game-controls{background:#F1F5F9; border:2px dashed var(--blue); border-radius:12px; padding:20px; margin-bottom:20px; display:flex; justify-content:center; align-items:center; gap:15px; flex-wrap:wrap;}
+.input-big{font-size:1.5rem; font-family:var(--f-head); font-weight:bold; color:var(--blue-dd); border:2px solid var(--blue); border-radius:8px; width:60px; text-align:center; padding:5px; outline:none;}
+.frac-input{display:inline-flex; flex-direction:column; background:#fff; border:2px solid var(--blue); border-radius:8px; overflow:hidden;}
+.frac-input input{width:50px; text-align:center; font-family:var(--f-head); font-weight:bold; font-size:1.3rem; border:none; outline:none; padding:4px;}
+.frac-input input:first-child{border-bottom:3px solid var(--blue-d);}
 
 /* Dynamic Bar Model */
-.lab-stage{margin:30px 0; display:flex; flex-direction:column; gap:15px;}
-.lab-row{display:flex; align-items:center; gap:10px;}
-.row-label{font-weight:bold; color:var(--muted); width:40px;}
-.bar-wrap{flex:1; height:45px; background:var(--blue-l); border:3px solid var(--blue-d); border-radius:6px; display:flex; overflow:hidden;}
+.lab-stage{margin:30px 0; display:flex; flex-direction:column; gap:12px;}
+.bar-wrap{height:45px; background:#DBEAFE; border:3px solid var(--blue-d); border-radius:6px; display:flex; overflow:hidden;}
 .bar-slice{flex:1; border-right:2px dashed transparent; display:flex; justify-content:center; align-items:center; font-weight:bold; color:transparent; transition:all 0.3s;}
 .bar-slice:last-child{border-right:none;}
 
-.lab-stage.cut .bar-slice{border-right:2px solid var(--blue-dd); color:var(--blue-dd); background:rgba(255,255,255,0.4);}
-.lab-stage.cut .bar-slice:nth-child(odd){background:rgba(255,255,255,0.1);}
-
-/* Buttons & MSG */
-.btn-group{display:flex; justify-content:center; gap:10px; flex-wrap:wrap;}
-.btn{display:inline-block;background:var(--blue-d);color:#fff;font-family:var(--f-head);font-weight:800;padding:12px 28px;border-radius:99px;border:none;cursor:pointer;box-shadow:0 4px 0 var(--blue-dd); font-size:1.1rem;} 
-.btn:active{transform:translateY(4px);box-shadow:none}
-.btn-reset{background:#F1F5F9; color:var(--muted); box-shadow:0 4px 0 #CBD5E1; border:2px solid #CBD5E1;}
-.btn-next{display:none; background:var(--ok); box-shadow:0 4px 0 #047857; margin-top:20px; width:100%;}
-.msg{display:none;background:#ECFDF5;border:2px solid var(--ok);color:#065F46;padding:16px;border-radius:12px;margin-top:20px; text-align:center; font-size:1.1rem;} .msg.show{display:block;}
+.btn{display:inline-block;background:var(--blue-d);color:#fff;font-family:var(--f-head);font-weight:800;padding:12px 28px;border-radius:99px;border:none;cursor:pointer; font-size:1.1rem; width:100%; max-width:300px; margin:0 auto; display:block; text-align:center;} 
+.msg{display:none;background:#ECFDF5;border:2px solid #10B981;color:#065F46;padding:16px;border-radius:12px;margin-top:20px; text-align:center; font-size:1.1rem;} .msg.show{display:block;}
 </style>
 </head>
 <body>
-<header><div class="bar"><a href="mission-c2.html" class="back-btn">Kembali</a><div class="pos-badge">Pos 3 / 8</div></div></header>
+<header><div class="bar"><a href="mission-c2.html" class="back-btn">Kembali</a><div style="font-weight:bold;color:var(--blue-d);background:#DBEAFE;padding:4px 12px;border-radius:99px">Pos 3 / 8</div></div></header>
 <main class="wrap">
   <section class="card">
-    <h2>Lab Pengelompokan Bar Model</h2>
-    <p style="text-align:center; margin-bottom:20px;">Tentukan sendiri angkamu! Berapa banyak kotak kecil yang akan dihasilkan?</p>
+    <h2>Lab Pecahan Bebas</h2>
+    <p style="text-align:center; margin-bottom:20px; color:var(--muted);">Ketik angkamu sendiri! Ubah pembilang dan penyebut sesuai keinginanmu.</p>
     
     <div class="game-controls">
-      <div class="story-text">
-        "Aku punya 
-        <select id="selWhole">
-          <option value="1">1</option>
-          <option value="2" selected>2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-        batang utuh. Aku ingin memotong semuanya menjadi ukuran 
-        <select id="selFrac">
-          <option value="2">1/2</option>
-          <option value="3" selected>1/3</option>
-          <option value="4">1/4</option>
-          <option value="5">1/5</option>
-        </select>
-        bagian."
+      <div style="font-size:1.2rem; font-weight:bold;">Aku punya</div>
+      <input type="number" id="inW" class="input-big" value="2" min="1" max="5">
+      <div style="font-size:1.2rem; font-weight:bold;">batang. Dibagi per:</div>
+      
+      <!-- Input Pecahan Vertikal -->
+      <div class="frac-input">
+        <input type="number" id="inN" value="2" min="1" max="10">
+        <input type="number" id="inD" value="3" min="2" max="10">
       </div>
     </div>
     
     <div id="labStage" class="lab-stage"></div>
     
-    <div class="btn-group">
-      <button id="sliceBtn" class="btn">📏 Muat ke Dalam Kotak!</button>
-      <button id="resetBtn" class="btn btn-reset" style="display:none;">🔄 Eksperimen Lagi</button>
-    </div>
-
+    <button id="sliceBtn" class="btn">📏 Kelompokkan!</button>
     <div id="msg" class="msg"></div>
 
-    <a href="mission-c2-pos4-discover.html" id="nextBtn" class="btn btn-next" onclick="markDone()">Kamu Menemukan Polanya! Lanjut ke Pos 4 ➔</a>
+    <a href="mission-c2-pos4-discover.html" id="nextBtn" class="btn" style="display:none; background:#10B981; margin-top:15px;">Pola Ditemukan! Lanjut ke Pos 4 ➔</a>
   </section>
 </main>
 
 <script>
-  const selWhole = document.getElementById('selWhole');
-  const selFrac = document.getElementById('selFrac');
+  const inW = document.getElementById('inW');
+  const inN = document.getElementById('inN');
+  const inD = document.getElementById('inD');
   const labStage = document.getElementById('labStage');
-  const sliceBtn = document.getElementById('sliceBtn');
-  const resetBtn = document.getElementById('resetBtn');
   const msg = document.getElementById('msg');
+  const sliceBtn = document.getElementById('sliceBtn');
   const nextBtn = document.getElementById('nextBtn');
 
-  let whole = 2, frac = 3, isCut = false, hasExplored = false;
+  // Palette warna untuk pengelompokan
+  const colors = ['#FCA5A5', '#6EE7B7', '#93C5FD', '#FDE047', '#C4B5FD', '#F9A8D4', '#67E8F9', '#D9F99D'];
 
   function drawStage() {
-    whole = parseInt(selWhole.value);
-    frac = parseInt(selFrac.value);
-    isCut = false;
-    labStage.classList.remove('cut');
+    let W = parseInt(inW.value); let D = parseInt(inD.value);
+    if(W < 1) W = 1; if(D < 2) D = 2; // Batasan agar tidak rusak visualnya
     labStage.innerHTML = '';
     
-    for(let w = 1; w <= whole; w++) {
-      let row = document.createElement('div'); row.className = 'lab-row';
-      row.innerHTML = `<div class="row-label">#${w}</div>`;
+    for(let w = 0; w < W; w++) {
       let bar = document.createElement('div'); bar.className = 'bar-wrap';
-      for(let f = 1; f <= frac; f++) {
+      for(let f = 0; f < D; f++) {
         let slice = document.createElement('div'); slice.className = 'bar-slice';
         bar.appendChild(slice);
       }
-      row.appendChild(bar);
-      labStage.appendChild(row);
+      labStage.appendChild(bar);
     }
     
-    sliceBtn.style.display = 'inline-block'; resetBtn.style.display = 'none'; msg.classList.remove('show');
+    sliceBtn.innerText = '📏 Kelompokkan!';
+    msg.classList.remove('show');
+    sliceBtn.style.background = 'var(--blue-d)';
   }
 
-  selWhole.addEventListener('change', drawStage);
-  selFrac.addEventListener('change', drawStage);
+  // Tiap ada angka yang diketik/diubah, otomatis mereset gambar
+  inW.addEventListener('input', drawStage);
+  inN.addEventListener('input', drawStage);
+  inD.addEventListener('input', drawStage);
 
   sliceBtn.addEventListener('click', function() {
-    if(isCut) return;
-    labStage.classList.add('cut');
+    if(this.innerText === '🔄 Coba Angka Lain') {
+      drawStage();
+      return;
+    }
+
+    let W = parseInt(inW.value); let N = parseInt(inN.value); let D = parseInt(inD.value);
+    let totalPieces = W * D;
+    let fullGroups = Math.floor(totalPieces / N);
+    let remainder = totalPieces % N;
     
-    // Beri nomor berurutan pada semua slice
-    const slices = labStage.querySelectorAll('.bar-slice');
-    slices.forEach((s, i) => s.innerText = i + 1);
-    
-    const total = whole * frac;
+    let slices = labStage.querySelectorAll('.bar-slice');
+    slices.forEach((slice, i) => {
+      let groupIdx = Math.floor(i / N);
+      slice.style.borderRight = '2px solid #fff';
+      
+      // Warnai per kelompok. Jika ini sisa (bukan kelompok utuh), beri garis miring / arsiran
+      if (groupIdx >= fullGroups) {
+        slice.style.background = `repeating-linear-gradient(45deg, #e2e8f0, #e2e8f0 10px, #cbd5e1 10px, #cbd5e1 20px)`;
+        slice.style.color = '#475569';
+      } else {
+        slice.style.background = colors[groupIdx % colors.length];
+        slice.style.color = '#0F172A';
+      }
+      slice.innerText = (i % N) + 1;
+    });
+
+    // Generate output matematika dengan fraksi vertikal murni
+    let resultHTML = `<span class="math">${fullGroups}</span>`;
+    if(remainder > 0) {
+      resultHTML = `<span class="math">${fullGroups} <span class="frac"><span>${remainder}</span><span>${N}</span></span></span>`;
+    }
+
     msg.innerHTML = `
-      Terdapat <b>${whole}</b> benda utuh. Masing-masing terpotong menjadi <b>${frac}</b>.<br>
-      Total potongan: <b style="color:var(--hint)">${whole} × ${frac} = ${total} potongan</b>.<br><br>
-      <div style="background:#fff; padding:10px; border-radius:8px; border:2px dashed var(--ok); display:inline-block;">
+      Total ada <b>${totalPieces} potongan kecil</b>.<br>
+      Dikelompokkan tiap <b>${N} potongan</b>. <br>
+      Ternyata membentuk <b>${fullGroups} kelompok warna utuh</b> ${remainder > 0 ? `dan sisa <b>${remainder} potong</b> (yaitu ${remainder}/${N} kelompok)` : ''}.<br><br>
+      <div style="background:#fff; padding:10px; border-radius:8px; display:inline-block;">
         <span class="math">
-          ${whole} ÷ <span class="frac"><span>1</span><span>${frac}</span></span> 
-          = ${whole} <b>×</b> ${frac} 
-          = ${total}
+          ${W} ÷ <span class="frac"><span>${N}</span><span>${D}</span></span> = 
+          <span class="frac"><span>${W} × ${D}</span><span>${N}</span></span> =
+          <span class="frac"><span>${totalPieces}</span><span>${N}</span></span> = 
+          ${resultHTML}
         </span>
       </div>
-      <br><small style="color:var(--muted)">Lihat polanya? Tanda bagi (÷) berubah jadi kali (×), dan pecahan penyebut naik ke atas!</small>
     `;
     msg.classList.add('show');
+    this.innerText = '🔄 Coba Angka Lain';
+    this.style.background = '#64748B'; // Abu-abu
     
-    sliceBtn.style.display = 'none'; resetBtn.style.display = 'inline-block';
-    if(!hasExplored) { hasExplored = true; nextBtn.style.display = 'block'; }
-    isCut = true;
+    nextBtn.style.display = 'block';
+    setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 200);
+    try{ localStorage.setItem("vml_c2_done_3", "1"); }catch(e){}
   });
 
-  resetBtn.addEventListener('click', drawStage);
-  drawStage();
-
-  function markDone(){ try{ localStorage.setItem("vml_c2_done_3", "1"); }catch(e){} }
+  drawStage(); // Gambar saat pertama kali load
 </script>
 </body>
 </html>
