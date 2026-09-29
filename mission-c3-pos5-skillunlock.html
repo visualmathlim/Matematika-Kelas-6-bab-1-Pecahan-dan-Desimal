@@ -37,6 +37,7 @@
   ol.steps li{ counter-increment:s; margin:.7rem 0; padding-left:2rem; position:relative; font-size:.92rem; }
   ol.steps li::before{ content:counter(s); position:absolute; left:0; top:0; width:1.4rem; height:1.4rem; border-radius:50%; background:var(--teal); color:#fff; font-size:.75rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
   ol.kcf li::before{ background:var(--gold-bg); color:var(--royal-dk); }
+  ol.cross li::before{ background:var(--purple); color:#fff; }
   table.cmp td, table.cmp th{ padding:.45rem .6rem; border-bottom:1px solid var(--line); font-size:.85rem; text-align:left; vertical-align:top; }
   .home-btn{ display:flex; align-items:center; gap:6px; font-size:0.9rem; font-weight:700; color:var(--royal-dk); background:#dbe3f5; padding:6px 14px; border-radius:99px; transition:all 0.2s; }
   .home-btn:hover{ background:var(--royal); color:#fff; }
@@ -68,19 +69,20 @@
 
   <section class="text-center space-y-2">
     <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--royal); background:#e8eefc; color:var(--royal-dk)">🔓 Skill Unlock</div>
-    <h2 class="text-3xl font-extrabold" style="color:var(--royal-dk)">Satu Soal, Tiga Cara</h2>
+    <h2 class="text-3xl font-extrabold" style="color:var(--royal-dk)">Satu Soal, Empat Cara</h2>
   </section>
 
   <section class="card rounded-2xl p-5 flex gap-4 items-start">
     <img src="assets/Sigma.png" alt="Prof. Sigma" class="w-16 h-16 rounded-full border-2 shrink-0 object-cover bg-slate-100" style="border-color:var(--gold-bg)" onerror="this.outerHTML='<div class=\'w-16 h-16 rounded-full border-2 border-amber-400 shrink-0 flex items-center justify-center font-bold text-amber-600 bg-slate-100\'>PS</div>'">
     <div class="text-sm text-slate-700 space-y-2">
-      <p><b style="color:var(--royal-dk)">Prof. Sigma:</b> "Membagi pecahan artinya bertanya: <i>ada berapa kelompok</i> pecahan pembagi di dalam pecahan yang dibagi. Tiga cara ini bertingkat, bukan tiga hal yang terpisah:"</p>
-      <p class="flex flex-wrap items-center gap-2">
+      <p><b style="color:var(--royal-dk)">Prof. Sigma:</b> "Membagi pecahan artinya memahami berapa kelompok pembagi di dalam pecahan yang dibagi. Sekarang kita buka <b>Empat Cara</b> sekaligus dari konsep hingga jalan pintas tercepat:"</p>
+      <p class="flex flex-wrap items-center gap-1.5">
         <span class="pill" style="background:var(--royal)">1. Bar Model</span> ➜
         <span class="pill" style="background:var(--teal)">2. Samakan Penyebut</span> ➜
-        <span class="pill" style="background:var(--gold-bg); color:var(--royal-dk)">3. Keep-Change-Flip</span>
+        <span class="pill" style="background:var(--gold-bg); color:var(--royal-dk)">3. Keep-Change-Flip</span> ➜
+        <span class="pill" style="background:var(--purple)">4. Kali Silang</span>
       </p>
-      <p class="text-slate-600">Keep-Change-Flip adalah jalan pintas dari cara 2. Hasilnya selalu sama, asalkan yang dibalik adalah <b>pembagi</b>.</p>
+      <p class="text-slate-600">Semua cara ini menghasilkan jawaban yang sama persis! Pilih cara yang paling kamu kuasai.</p>
     </div>
   </section>
 
@@ -111,6 +113,7 @@
       <tr><td>Bar Model</td><td>Memahami konsep, angka kecil</td><td>Terlihat langsung "berapa potongan termuat"</td><td>Lambat untuk angka besar</td></tr>
       <tr><td>Samakan Penyebut</td><td>Hampir semua soal</td><td>Logikanya jelas, mudah diperiksa</td><td>Perlu mencari KPK dulu</td></tr>
       <tr><td>Keep-Change-Flip</td><td>Sudah paham konsepnya, ingin cepat</td><td>Langkahnya pendek</td><td>Mudah salah membalik pecahan yang salah</td></tr>
+      <tr><td>Kali Silang</td><td>Ujian cepat / soal latihan standar</td><td>Sangat cepat tanpa ubah tanda awal</td><td>Harus teliti arah menyilangkannya</td></tr>
     </table>
   </section>
 
@@ -119,7 +122,7 @@
     <ul class="text-sm text-slate-700 space-y-1.5 list-disc list-inside">
       <li><b>Taksir dulu:</b> jika pembagi lebih kecil dari yang dibagi, hasilnya lebih besar dari <span class="m">1</span>.</li>
       <li>Samakan penyebut dulu, baru bagi pembilangnya. Jangan langsung membagi pembilang dengan pembilang bila penyebutnya berbeda.</li>
-      <li>Pada Keep-Change-Flip, yang dibalik adalah <b>pembagi</b> (pecahan kedua), bukan yang dibagi.</li>
+      <li>Pada Keep-Change-Flip & Kali Silang, perkalian silang mendahulukan pembilang pertama dikali penyebut kedua.</li>
       <li>Hasil bagi tidak harus bulat. Sisanya adalah <i>pecahan dari satu kelompok</i>, bukan sisa dalam meter atau kg.</li>
     </ul>
   </section>
@@ -178,7 +181,7 @@ document.getElementById('why-cd2').innerHTML = fr('c','d');
 document.getElementById('why-dc').innerHTML = fr('d','c');
 document.getElementById('why-ab').innerHTML = fr('a','b');
 
-/* ---------- Tiga cara ---------- */
+/* ---------- Empat cara (termasuk Kali Silang) ---------- */
 function renderWays(p, el, stepper){
   const {a,b,c,d}=p;
   const L=lcm(b,d), k1=L/b, k2=L/d, A=a*k1, C=c*k2, whole=Math.floor(A/C), rem=A%C;
@@ -214,6 +217,15 @@ function renderWays(p, el, stepper){
    {t:`Kalikan pembilang dengan pembilang, penyebut dengan penyebut.`, h:`<span class="eq m">${fr(a,b)} × ${fr(d,c)} = ${fr(a+' × '+d,b+' × '+c)} = ${fr(raw[0],raw[1])}</span>`},
    {t:`Sederhanakan, lalu ubah ke pecahan campuran bila perlu.`, h:`<span class="eq m">${(red[0]!==raw[0]?fr(raw[0],raw[1])+' = ':'')+fracHTML(raw[0],raw[1])} = <b>${mixedHTML(raw[0],raw[1])}</b></span>`}
   ];
+
+  const cross=[
+   {t:`Tulis posisi soal pembagian pecahan secara berdampingan.`, h:`${M(fr(a,b))} ÷ ${M(fr(c,d))}`},
+   {t:`Kalikan secara menyilang ke atas untuk pembilang baru: Pembilang pertama (${a}) dikali Penyebut kedua (${d}).`, h:`<span class="eq m">${a} × ${d} = <b>${a*d}</b> (sebagai pembilang)</span>`},
+   {t:`Kalikan secara menyilang ke bawah untuk penyebut baru: Penyebut pertama (${b}) dikali Pembilang kedua (${c}).`, h:`<span class="eq m">${b} × ${c} = <b>${b*c}</b> (sebagai penyebut)</span>`},
+   {t:`Gabungkan hasil silang menjadi bentuk pecahan baru.`, h:`<span class="eq m">${fr(a*d, b*c)}</span>`},
+   {t:`Sederhanakan pecahan ke bentuk paling sederhana / pecahan campuran.`, h:`<span class="eq m">${fracHTML(raw[0],raw[1])} = <b>${mixedHTML(raw[0],raw[1])}</b></span>`}
+  ];
+
   const li=(s,i,hideIt)=>`<li class="${hideIt&&i>0?'hide':''}">${s.t}<p class="why">${s.h}</p></li>`;
 
   el.innerHTML=`<div class="space-y-4">
@@ -222,15 +234,21 @@ function renderWays(p, el, stepper){
       <div class="bar">${bar}</div>
       <p class="text-sm text-center">Ada <b>${whole}</b> kelompok penuh${rem>0?`, sisa ${rem} kotak =${M(fracHTML(rem,C))} kelompok`:''}.</p>
       <p class="text-center text-lg"><span class="m">${fr(a,b)} ÷ ${fr(c,d)} = <b style="color:var(--gold)">${mixedHTML(A,C)}</b></span></p></div>
+    
     <div class="card rounded-2xl p-4"><p class="font-bold"><span class="pill" style="background:var(--teal)">2</span> Samakan Penyebut: langkah demi langkah</p>
       <ol class="steps">${steps.map((s,i)=>li(s,i,stepper)).join('')}</ol>
       ${stepper?'<button class="btn text-xs nxt shadow-sm mt-2" style="background:var(--teal)">Langkah berikutnya ➔</button>':''}</div>
+    
     <div class="card rounded-2xl p-4"><p class="font-bold"><span class="pill" style="background:var(--gold-bg); color:var(--royal-dk)">3</span> Keep-Change-Flip <span class="text-[11px] text-slate-400">(jalan pintas cara 2)</span></p>
       <ol class="steps kcf">${kcf.map((s,i)=>li(s,i,false)).join('')}</ol>
-      <p class="why">Yang dibalik adalah ${M(fr(c,d))} (pembagi), bukan ${M(fr(a,b))}.</p></div>
+      <p class="why">Yang dibalik adalah ${M(fr(c,d))} (pembagi), bukan ${M(fr(a,b))}}.</p></div>
+
+    <div class="card rounded-2xl p-4"><p class="font-bold"><span class="pill" style="background:var(--purple)">4</span> Cara Kali Silang <span class="text-[11px] text-slate-400">(Jalan pintas kilat)</span></p>
+      <ol class="steps cross">${cross.map((s,i)=>li(s,i,false)).join('')}</ol>
+      <p class="why">Atas-kiri kali bawah-kanan jadi pembilang; bawah-kiri kali atas-kanan jadi penyebut.</p></div>
  </div>`;
   if(stepper){
-    const lis=el.querySelectorAll('ol.steps:not(.kcf) li'), btn=el.querySelector('.nxt'); let k=1;
+    const lis=el.querySelectorAll('ol.steps:not(.kcf):not(.cross) li'), btn=el.querySelector('.nxt'); let k=1;
     if(btn){
       btn.addEventListener('click',()=>{ if(k<lis.length){ lis[k].classList.remove('hide'); k++; } if(k>=lis.length) btn.style.display='none'; });
     }
@@ -280,8 +298,8 @@ document.getElementById('pr-chk').addEventListener('click',()=>{
   const flipErr = (nVal * wrong[1] === wrong[0] * dVal);
 
   fb.innerHTML = ok ? '✅ <b>Hebat! Jawabanmu benar!</b>'
-    : flipErr ? `❌ <b>Hampir tepat.</b> Sepertinya kamu membalik pecahan pertama. Ingat, yang dibalik harus pecahan pembagi <span class="m">${fr(ppr.c,ppr.d)}</span>.`
-    : `❌ <b>Belum tepat.</b> Jawabanmu <span class="m">${fr(nVal, dVal)}</span>. Lihat pembahasan lengkap tiga cara di bawah ini untuk memahami langkahnya.`;
+    : flipErr ? `❌ <b>Hampir tepat.</b> Sepertinya kamu keliru arah kali silang atau membalik pecahan yang salah.`
+    : `❌ <b>Belum tepat.</b> Jawabanmu <span class="m">${fr(nVal, dVal)}</span>. Lihat pembahasan lengkap empat cara di bawah ini untuk memahami langkahnya.`;
   
   fb.style.color = ok ? 'var(--teal)' : 'var(--red)';
   const w = document.getElementById('pr-ways'); 
