@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 4: Think & Discover - Mission C3 | VisualMath.Lim</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{ --royal:#2563eb; --royal-dk:#1e40af; --bg:#eef2fb; --card:#ffffff; --ink:#0f172a; --line:#dbe3f5; --teal:#0d9488; --gold:#ca8a04; --gold-bg:#f4b400; --green-dk:#0f766e; --red:#dc2626; }
+  body{ background-color:var(--bg); color:var(--ink); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; }
+  .card{ background-color:var(--card); border:1px solid var(--line); box-shadow:0 1px 4px rgba(30,64,175,.06); }
+  .math-frac{ display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .2rem; font-weight:bold; line-height:1.1; font-size:.9em; }
+  .math-num{ border-bottom:2px solid currentColor; padding:0 .3rem; width:100%; text-align:center; }
+  .math-den{ padding:0 .3rem; width:100%; text-align:center; }
+  
+  /* Input Formula Matematika Vertikal yang Ditingkatkan */
+  .math-input-box { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; background: #f8fafc; border: 2px solid var(--royal); border-radius: 0.5rem; padding: 2px; margin: 0 4px; overflow: hidden; }
+  .math-input-box input { width: 45px; text-align: center; font-weight: bold; font-size: 0.95rem; border: none; outline: none; background: transparent; padding: 2px 0; color: var(--ink); }
+  .math-input-box .input-num { border-bottom: 2px solid var(--royal); }
+
+  .input-light{ background:#f8fafc; border:1px solid #cbd5e1; color:var(--ink); border-radius:.5rem; padding:.4rem .6rem; }
+  .btn{ padding:.55rem 1.2rem; border-radius:9999px; font-weight:bold; color:#fff; cursor:pointer; }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; }
+  select{ background:#f8fafc; border:1px solid #cbd5e1; color:var(--ink); border-radius:.5rem; padding:.35rem .6rem; }
+  .opt{ display:flex; align-items:center; justify-content:center; background:#f8fafc; border:1px solid var(--line); border-radius:.6rem; padding:.7rem; cursor:pointer; font-weight:700; min-height:3rem; }
+  .opt:hover{ border-color:var(--royal); }
+  .opt.ok{ border-color:var(--teal); background:#e6f7f5; }
+  .opt.bad{ border-color:var(--red); background:#fdecec; }
+  .hint-box{ border-left:3px solid var(--gold-bg); background:#fff8e6; }
+  .hint-box.strong{ border-left-color:var(--royal); background:#e8eefc; }
+  .fade-in{ animation:fadeIn .4s ease-in; } @keyframes fadeIn{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
+  ol.steps{ list-style:decimal; padding-left:1.3rem; } ol.steps li{ margin:.5rem 0; } ol.steps li.hide{ display:none; }
+  .home-btn{ display:flex; align-items:center; gap:6px; font-size:0.9rem; font-weight:700; color:var(--royal-dk); background:#dbe3f5; padding:6px 14px; border-radius:99px; transition:all 0.2s; }
+  .home-btn:hover{ background:var(--royal); color:#fff; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="VisualMath.Lim" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400\'>VM</div>'">
+      <div>
+        <h1 class="text-lg font-bold" style="color:var(--royal)">VisualMath.Lim</h1>
+        <p class="text-[11px] text-slate-500">Mission C3 • Kelas 6</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="px-3 py-1 rounded-full text-xs font-semibold" style="background:#e8eefc; border:1px solid var(--royal); color:var(--royal-dk)">🧠 Pos 4/8: Think & Discover</span>
+      <a href="index.html" class="home-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full" style="background:#dbe3f5"><div class="h-full" style="width:50%; background:linear-gradient(to right,var(--royal),var(--gold-bg))"></div></div>
+</header>
+
+<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--royal); background:#e8eefc; color:var(--royal-dk)">🧠 Think & Discover</div>
+    <h2 class="text-3xl font-extrabold" style="color:var(--royal-dk)">Dari Penyebut Sama ke Rumus</h2>
+  </section>
+
+  <!-- Contoh -->
+  <section class="card rounded-2xl p-6 space-y-4">
+    <h3 class="font-bold text-base" style="color:var(--gold)">📘 Contoh: Langkah Demi Langkah Menyamakan Penyebut</h3>
+    <p class="text-center text-xl font-bold">
+      <span class="math-frac"><span class="math-num">5</span><span class="math-den">6</span></span> ÷
+      <span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span> = ?
+    </p>
+    <ol class="steps text-sm space-y-2">
+      <li>Samakan penyebut menjadi 6: 
+        <span class="math-frac"><span class="math-num">5</span><span class="math-den">6</span></span> tetap, dan 
+        <span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span> = <span class="math-frac"><span class="math-num">4</span><span class="math-den">6</span></span> (pembilang & penyebut dikali 2)
+      </li>
+      <li class="hide">Karena penyebut sudah sama, sekarang tinggal membagi pembilangnya: 5 ÷ 4</li>
+      <li class="hide">Hasil akhir: 
+        <span class="math-frac"><span class="math-num">5</span><span class="math-den">6</span></span> ÷ 
+        <span class="math-frac"><span class="math-num">2</span><span class="math-den">3</span></span> = 
+        <span class="math-frac"><span class="math-num">5</span><span class="math-den">4</span></span> = 
+        1<span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span>
+      </li>
+    </ol>
+    <div class="text-center pt-2">
+      <button id="ex-next" class="btn text-xs shadow-md" style="background:var(--royal)">Langkah Berikutnya ➔</button>
+    </div>
+  </section>
+
+  <div class="grid md:grid-cols-2 gap-6 items-start">
+    <!-- THINK -->
+    <section class="card rounded-2xl p-6 space-y-4">
+      <h3 class="font-bold text-base" style="color:var(--royal-dk)">🧠 Think — Pola Umum Rumus</h3>
+      <p class="text-sm text-slate-700">Untuk 
+        <span class="math-frac"><span class="math-num">a</span><span class="math-den">b</span></span> ÷ 
+        <span class="math-frac"><span class="math-num">c</span><span class="math-den">d</span></span>, 
+        setelah penyebut disamakan menjadi KPK ($L$), lengkapi rumus matematika di bawah ini:
+      </p>
+      
+      <div class="space-y-4 text-sm bg-slate-50 p-4 rounded-xl border border-slate-200">
+        <p class="flex items-center justify-between">
+          <span>Pembilang pecahan 1 menjadi:</span>
+          <span>$a \times (L \div$ 
+            <span class="math-input-box"><input type="text" id="tk1" placeholder="?"></span> 
+            $)$
+          </span>
+        </p>
+        <p class="flex items-center justify-between">
+          <span>Pembilang pecahan 2 menjadi:</span>
+          <span>$c \times (L \div$ 
+            <span class="math-input-box"><input type="text" id="tk2" placeholder="?"></span> 
+            $)$
+          </span>
+        </p>
+        <p class="flex items-center justify-between">
+          <span>Hasil bagi akhir =</span>
+          <span>Pembilang 1 
+            <select id="tk3" class="font-bold mx-1">
+              <option value="">pilih</option>
+              <option value="bagi">÷</option>
+              <option value="kali">×</option>
+            </select> 
+            Pembilang 2
+          </span>
+        </p>
+      </div>
+
+      <button id="think-chk" class="btn w-full shadow-md hover:opacity-95" style="background:var(--royal)">Periksa Rumus</button>
+      <p id="think-fb" class="text-sm font-bold hidden p-3 rounded-lg text-center"></p>
+    </section>
+
+    <!-- PIXEL ALERT -->
+    <section class="card rounded-2xl p-6 space-y-4 border-2" style="border-color:#fca5a5">
+      <h3 class="font-bold text-base flex items-center gap-2" style="color:var(--red)">
+        <span>⚠ Pixel Alert</span>
+      </h3>
+      <p class="text-sm text-slate-600">Seorang agen memakai rumus Keep-Change-Flip dengan cara seperti ini. Benar atau salah?</p>
+      
+      <div class="bg-slate-50 rounded-xl p-4 text-center text-lg font-bold border border-slate-200">
+        <span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> ÷
+        <span class="math-frac"><span class="math-num">3</span><span class="math-den">8</span></span> =
+        <span class="math-frac"><span class="math-num">4</span><span class="math-den">3</span></span> ×
+        <span class="math-frac"><span class="math-num">3</span><span class="math-den">8</span></span> =
+        <span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span>
+      </div>
+      <p class="text-xs text-slate-500 text-center italic">(Pecahan pertama yang dibalik oleh agen tersebut)</p>
+      
+      <div class="grid grid-cols-2 gap-3 pt-2">
+        <div class="opt" data-v="benar">✅ Benar</div>
+        <div class="opt" data-v="salah">❌ Salah</div>
+      </div>
+      <div id="alert-fb" class="hidden text-sm rounded-lg p-3 fade-in text-center font-medium"></div>
+    </section>
+  </div>
+
+  <!-- DISCOVER -->
+  <section class="card rounded-2xl p-6 space-y-4">
+    <h3 class="font-bold text-base" style="color:var(--gold)">💡 Discover (Kesimpulan)</h3>
+    <p class="text-sm text-slate-700">Tuliskan kesimpulanmu: pada aturan <b>Keep-Change-Flip</b>, pecahan <b>mana</b> yang harus dibalik — pecahan yang dibagi (pertama) atau pecahan pembagi (kedua)? Mengapa membalik pecahan yang salah membuat hasil perhitungannya keliru?</p>
+    <textarea id="disc" class="w-full input-light resize-none text-sm p-3 border border-slate-300 rounded-xl" rows="4" placeholder="Ketik kesimpulan hebatmu di sini..."></textarea>
+    
+    <div id="h1" class="hidden hint-box rounded-xl p-4 text-sm fade-in">💭 <b>Petunjuk halus:</b> Ingat lagi Pos 3 — kita menghitung berapa banyak potongan <i>pembagi</i> yang termuat di dalam pita utama. Coba hubungkan dengan metode "samakan penyebut lalu bagi pembilang".</div>
+    <div id="h2" class="hidden hint-box strong rounded-xl p-4 text-sm fade-in">💡 <b>Petunjuk lebih jelas:</b> Yang dibalik adalah pecahan pembagi (bilangan KEDUA / setelah tanda ÷), bukan yang dibagi. Kalau yang dibalik salah, hasil akhirnya menjadi kebalikan dari jawaban yang benar!</div>
+  </section>
+
+  <!-- GAME -->
+  <section class="card rounded-2xl p-6 space-y-4 border-2" style="border-color:var(--gold-bg)">
+    <div class="flex items-center justify-between">
+      <h3 class="font-bold text-base" style="color:var(--gold)">🎮 Game: Jebakan Pixel — Balik yang Mana?</h3>
+      <span class="text-sm font-semibold">Skor: <b id="g-score" style="color:var(--teal)">0</b> • 🔥 <b id="g-streak">0</b></span>
+    </div>
+    <div id="g-area" class="bg-slate-50 p-5 rounded-xl border border-slate-200"></div>
+  </section>
+
+  <div class="flex justify-between items-center pt-2">
+    <a href="mission-c3-pos3-visualize.html" class="text-slate-500 hover:text-slate-800 text-sm font-semibold">⬅ Kembali ke Visualize</a>
+    <a href="mission-c3-pos5-skillunlock.html" class="inline-block font-bold py-3 px-8 rounded-full text-white shadow-md transition-transform hover:-translate-y-0.5" style="background:linear-gradient(to right,var(--royal),var(--royal-dk))">Lanjut ke Skill Unlock ➔</a>
+  </div>
+
+</main>
+
+<script>
+try{ const p=+localStorage.getItem('vm_c3_progress')||0; if(p<3) localStorage.setItem('vm_c3_progress',3); }catch(e){}
+
+function gcd(x,y){return y===0?x:gcd(y,x%y);}
+function reduce(n,d){const g=gcd(n,d);return [n/g,d/g];}
+function fr(n,d){return `<span class="math-frac"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`;}
+function fracHTML(n,d){[n,d]=reduce(n,d);return d===1?`${n}`:fr(n,d);}
+function mixedHTML(n,d){[n,d]=reduce(n,d);const w=Math.floor(n/d),r=n%d;return r===0?`${w}`:(w>0?`${w}`:'')+fr(r,d);}
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+// Contoh: Step Reveal
+document.getElementById('ex-next').addEventListener('click', function(){
+  const hidden = document.querySelector('.steps li.hide');
+  if(hidden) hidden.classList.remove('hide');
+  if(!document.querySelector('.steps li.hide')) this.style.display='none';
+});
+
+// THINK
+document.getElementById('think-chk').addEventListener('click', ()=>{
+  const ok = document.getElementById('tk1').value.trim().toLowerCase()==='b' && document.getElementById('tk2').value.trim().toLowerCase()==='d' && document.getElementById('tk3').value==='bagi';
+  const fb = document.getElementById('think-fb'); fb.classList.remove('hidden');
+  fb.innerHTML = ok ? '✅ <b>Betul Sekali!</b> $a \\times (L \\div b)$ dibagi $[c \\times (L \\div d)]$ — penyebut sama, tinggal bagi pembilang.' : '❌ <b>Belum Tepat.</b> Ingat: $L \\div b$ dan $L \\div d$ adalah faktor pengali supaya penyebutnya jadi $L$. Hasil akhirnya dibagi, bukan dikali.';
+  fb.className = ok ? 'text-sm font-bold p-3 rounded-lg text-center bg-green-50 text-emerald-700 border border-teal-300' : 'text-sm font-bold p-3 rounded-lg text-center bg-red-50 text-rose-700 border border-red-300';
+});
+
+// PIXEL ALERT
+document.querySelectorAll('.opt[data-v]').forEach(o=>o.addEventListener('click',()=>{
+  document.querySelectorAll('.opt[data-v]').forEach(x=>x.classList.remove('ok','bad'));
+  const good = o.dataset.v==='salah'; o.classList.add(good?'ok':'bad');
+  const fb=document.getElementById('alert-fb'); fb.classList.remove('hidden');
+  fb.className='text-sm rounded-lg p-3 fade-in '+(good?'bg-green-50 border border-teal-300 text-emerald-800 font-semibold':'bg-red-50 border border-red-300 text-rose-800 font-semibold');
+  fb.innerHTML = good
+    ? '✅ <b>Tepat! Ini pernyataan yang SALAH!</b> Yang seharusnya dibalik adalah pembaginya (<span class="math-frac"><span class="math-num">3</span><span class="math-den">8</span></span>), bukan yang dibagi (<span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span>). Jawaban benar: <span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> ÷ <span class="math-frac"><span class="math-num">3</span><span class="math-den">8</span></span> = <span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span> × <span class="math-frac"><span class="math-num">8</span><span class="math-den">3</span></span> = 2.'
+    : '❌ <b>Cek lagi!</b> Pada aturan Keep-Change-Flip, yang dibalik adalah bilangan KEDUA (pembagi), bukan yang pertama.';
+}));
+
+// DISCOVER Hints
+(function(){
+  const inp=document.getElementById('disc'); let typed=false;
+  const t1=setTimeout(()=>{ if(!typed) document.getElementById('h1').classList.remove('hidden'); },30000);
+  const t2=setTimeout(()=>{ if(!typed) document.getElementById('h2').classList.remove('hidden'); },60000);
+  inp.addEventListener('input',()=>{ if(inp.value.trim().length>15){ typed=true; clearTimeout(t1); clearTimeout(t2); } });
+})();
+
+/* ---------- GAME ---------- */
+const GAME=[{a:3,b:4,c:1,d:2},{a:5,b:6,c:2,d:3},{a:7,b:8,c:3,d:4},{a:4,b:5,c:3,d:10},{a:9,b:10,c:3,d:5}];
+function makeOptions(p){
+  const correct = reduce(p.a*p.d, p.b*p.c);
+  const flipFirst = reduce(p.b*p.c, p.a*p.d);
+  const noFlip = reduce(p.a*p.c, p.b*p.d);
+  const cand=[{v:correct,k:'ok'},{v:flipFirst,k:'flip'},{v:noFlip,k:'noflip'},{v:reduce(correct[0]+correct[1],correct[1]),k:'plus1'}];
+  const out=[]; cand.forEach(o=>{ if(out.length<4 && !out.some(x=>x.v[0]*o.v[1]===o.v[0]*x.v[1])) out.push(o); });
+  return shuffle(out);
+}
+let gi=0, gscore=0, gstreak=0;
+const gArea=document.getElementById('g-area');
+function gRender(){
+  document.getElementById('g-score').textContent=gscore; document.getElementById('g-streak').textContent=gstreak;
+  if(gi>=GAME.length){
+    const stars=gscore>=55?3:(gscore>=35?2:1);
+    gArea.innerHTML=`<div class="text-center space-y-3"><p class="text-4xl">${'⭐'.repeat(stars)}${'☆'.repeat(3-stars)}</p><p class="font-bold text-lg">Game selesai! Skor akhir: ${gscore}</p><button id="g-again" class="btn shadow-md" style="background:var(--gold-bg); color:var(--royal-dk)">🔄 Main Lagi</button></div>`;
+    document.getElementById('g-again').addEventListener('click',()=>{gi=0;gscore=0;gstreak=0;gRender();}); return;
+  }
+  const p=GAME[gi], opts=makeOptions(p);
+  gArea.innerHTML=`<p class="text-xs text-slate-500 mb-2 font-semibold">Ronde ${gi+1} dari ${GAME.length}</p>
+    <p class="text-center text-xl font-bold mb-4">${fr(p.a,p.b)} ÷ ${fr(p.c,p.d)} = ?</p>
+    <div class="grid grid-cols-2 gap-3" id="g-opts">${opts.map((o,i)=>`<div class="opt shadow-sm" data-i="${i}">${mixedHTML(o.v[0],o.v[1])}</div>`).join('')}</div>
+    <div id="g-fb" class="mt-4"></div>`;
+  gArea.querySelectorAll('.opt').forEach(el=>el.addEventListener('click',()=>{
+    const o=opts[+el.dataset.i];
+    gArea.querySelectorAll('.opt').forEach((x,i)=>{ x.style.pointerEvents='none'; if(opts[i].k==='ok') x.classList.add('ok'); });
+    let msg;
+    if(o.k==='ok'){ gstreak++; gscore+=10+(gstreak>=3?5:0); msg='✅ <b>Tepat!</b> Penyebut disamakan dulu, baru bagi pembilangnya (atau balik pecahan KEDUA saja).'; }
+    else { gstreak=0; el.classList.add('bad');
+      if(o.k==='flip') msg='❌ <b>Jebakan Pixel!</b> Ini hasil kalau membalik pecahan yang dibagi (pertama), bukan pembaginya. Jawabannya jadi kebalikan!';
+      else if(o.k==='noflip') msg='❌ <b>Hampir!</b> Ini hasil kalau pecahan kedua tidak dibalik sama sekali (dikalikan langsung).';
+      else msg='❌ <b>Belum tepat.</b> Samakan penyebut dulu, baru bagi pembilangnya.'; }
+    document.getElementById('g-score').textContent=gscore; document.getElementById('g-streak').textContent=gstreak;
+    document.getElementById('g-fb').innerHTML=`<div class="fade-in text-sm text-center space-y-3 bg-white p-4 rounded-xl border border-slate-200 shadow-sm"><p>${msg}</p><button id="g-next" class="btn shadow-md" style="background:var(--royal)">${gi===GAME.length-1?'Lihat Hasil Akhir':'Ronde Berikutnya ➔'}</button></div>`;
+    document.getElementById('g-next').addEventListener('click',()=>{gi++;gRender();});
+  }));
+}
+gRender();
+</script>
+</body>
+</html>
