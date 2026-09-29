@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pos 3: Lab Grouping | Mission C2</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{ --blue:#2563EB; --blue-d:#1D4ED8; --blue-dd:#1E3A8A; --blue-l:#DBEAFE; --bg:#F8FAFC; --card:#fff; --ink:#0F172A; --muted:#475569; --ok:#10B981; --hint:#F59E0B; --line:#CBD5E1; --f-head:'Baloo 2',sans-serif; --f-body:'Nunito',sans-serif; }
+*{box-sizing:border-box;margin:0} body{font-family:var(--f-body);color:var(--ink);background:var(--bg);padding-bottom:60px;} a{text-decoration:none;color:inherit} 
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1.1;font-weight:800;margin:0 .15em;font-size:1em} .frac>span:first-child{border-bottom:.09em solid currentColor;padding:0 .2em .05em} .frac>span:last-child{padding-top:.05em} .math{font-family:var(--f-head);font-weight:800; font-size:1.2em;}
+header{background:#fff;border-bottom:2px solid var(--line);position:sticky;top:0;z-index:5} .bar{display:flex;justify-content:space-between;padding:12px 20px;max-width:800px;margin:0 auto; align-items:center;} .back-btn{font-weight:700;color:var(--blue-d)} .pos-badge{background:var(--blue-l);color:var(--blue-d);font-weight:800;padding:4px 12px;border-radius:99px;}
+.wrap{max-width:800px;margin:0 auto;padding:30px 20px} .card{background:#fff;border:2px solid var(--line);border-radius:18px;padding:26px;margin-bottom:24px;box-shadow:0 4px 12px rgba(37,99,235,0.05);} h2{font-family:var(--f-head);color:var(--blue-dd);font-size:1.8rem;line-height:1.2;margin-bottom:10px;text-align:center;}
+
+/* Lab Controls */
+.game-controls{background:#F8FAFC; border:2px dashed var(--blue); border-radius:12px; padding:20px; margin-bottom:20px; text-align:center;}
+.story-text{font-size:1.1rem; font-weight:700; color:var(--blue-dd); margin-bottom:15px; line-height:1.8;}
+select{appearance:none; background:#fff; border:2px solid var(--blue); border-radius:8px; padding:6px 12px; font-weight:bold; font-size:1.1rem; color:var(--blue-d); cursor:pointer; outline:none; text-align:center;}
+
+/* Dynamic Bar Model */
+.lab-stage{margin:30px 0; display:flex; flex-direction:column; gap:15px;}
+.lab-row{display:flex; align-items:center; gap:10px;}
+.row-label{font-weight:bold; color:var(--muted); width:40px;}
+.bar-wrap{flex:1; height:45px; background:var(--blue-l); border:3px solid var(--blue-d); border-radius:6px; display:flex; overflow:hidden;}
+.bar-slice{flex:1; border-right:2px dashed transparent; display:flex; justify-content:center; align-items:center; font-weight:bold; color:transparent; transition:all 0.3s;}
+.bar-slice:last-child{border-right:none;}
+
+.lab-stage.cut .bar-slice{border-right:2px solid var(--blue-dd); color:var(--blue-dd); background:rgba(255,255,255,0.4);}
+.lab-stage.cut .bar-slice:nth-child(odd){background:rgba(255,255,255,0.1);}
+
+/* Buttons & MSG */
+.btn-group{display:flex; justify-content:center; gap:10px; flex-wrap:wrap;}
+.btn{display:inline-block;background:var(--blue-d);color:#fff;font-family:var(--f-head);font-weight:800;padding:12px 28px;border-radius:99px;border:none;cursor:pointer;box-shadow:0 4px 0 var(--blue-dd); font-size:1.1rem;} 
+.btn:active{transform:translateY(4px);box-shadow:none}
+.btn-reset{background:#F1F5F9; color:var(--muted); box-shadow:0 4px 0 #CBD5E1; border:2px solid #CBD5E1;}
+.btn-next{display:none; background:var(--ok); box-shadow:0 4px 0 #047857; margin-top:20px; width:100%;}
+.msg{display:none;background:#ECFDF5;border:2px solid var(--ok);color:#065F46;padding:16px;border-radius:12px;margin-top:20px; text-align:center; font-size:1.1rem;} .msg.show{display:block;}
+</style>
+</head>
+<body>
+<header><div class="bar"><a href="mission-c2.html" class="back-btn">Kembali</a><div class="pos-badge">Pos 3 / 8</div></div></header>
+<main class="wrap">
+  <section class="card">
+    <h2>Lab Pengelompokan Bar Model</h2>
+    <p style="text-align:center; margin-bottom:20px;">Tentukan sendiri angkamu! Berapa banyak kotak kecil yang akan dihasilkan?</p>
+    
+    <div class="game-controls">
+      <div class="story-text">
+        "Aku punya 
+        <select id="selWhole">
+          <option value="1">1</option>
+          <option value="2" selected>2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        batang utuh. Aku ingin memotong semuanya menjadi ukuran 
+        <select id="selFrac">
+          <option value="2">1/2</option>
+          <option value="3" selected>1/3</option>
+          <option value="4">1/4</option>
+          <option value="5">1/5</option>
+        </select>
+        bagian."
+      </div>
+    </div>
+    
+    <div id="labStage" class="lab-stage"></div>
+    
+    <div class="btn-group">
+      <button id="sliceBtn" class="btn">📏 Muat ke Dalam Kotak!</button>
+      <button id="resetBtn" class="btn btn-reset" style="display:none;">🔄 Eksperimen Lagi</button>
+    </div>
+
+    <div id="msg" class="msg"></div>
+
+    <a href="mission-c2-pos4-discover.html" id="nextBtn" class="btn btn-next" onclick="markDone()">Kamu Menemukan Polanya! Lanjut ke Pos 4 ➔</a>
+  </section>
+</main>
+
+<script>
+  const selWhole = document.getElementById('selWhole');
+  const selFrac = document.getElementById('selFrac');
+  const labStage = document.getElementById('labStage');
+  const sliceBtn = document.getElementById('sliceBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const msg = document.getElementById('msg');
+  const nextBtn = document.getElementById('nextBtn');
+
+  let whole = 2, frac = 3, isCut = false, hasExplored = false;
+
+  function drawStage() {
+    whole = parseInt(selWhole.value);
+    frac = parseInt(selFrac.value);
+    isCut = false;
+    labStage.classList.remove('cut');
+    labStage.innerHTML = '';
+    
+    for(let w = 1; w <= whole; w++) {
+      let row = document.createElement('div'); row.className = 'lab-row';
+      row.innerHTML = `<div class="row-label">#${w}</div>`;
+      let bar = document.createElement('div'); bar.className = 'bar-wrap';
+      for(let f = 1; f <= frac; f++) {
+        let slice = document.createElement('div'); slice.className = 'bar-slice';
+        bar.appendChild(slice);
+      }
+      row.appendChild(bar);
+      labStage.appendChild(row);
+    }
+    
+    sliceBtn.style.display = 'inline-block'; resetBtn.style.display = 'none'; msg.classList.remove('show');
+  }
+
+  selWhole.addEventListener('change', drawStage);
+  selFrac.addEventListener('change', drawStage);
+
+  sliceBtn.addEventListener('click', function() {
+    if(isCut) return;
+    labStage.classList.add('cut');
+    
+    // Beri nomor berurutan pada semua slice
+    const slices = labStage.querySelectorAll('.bar-slice');
+    slices.forEach((s, i) => s.innerText = i + 1);
+    
+    const total = whole * frac;
+    msg.innerHTML = `
+      Terdapat <b>${whole}</b> benda utuh. Masing-masing terpotong menjadi <b>${frac}</b>.<br>
+      Total potongan: <b style="color:var(--hint)">${whole} × ${frac} = ${total} potongan</b>.<br><br>
+      <div style="background:#fff; padding:10px; border-radius:8px; border:2px dashed var(--ok); display:inline-block;">
+        <span class="math">
+          ${whole} ÷ <span class="frac"><span>1</span><span>${frac}</span></span> 
+          = ${whole} <b>×</b> ${frac} 
+          = ${total}
+        </span>
+      </div>
+      <br><small style="color:var(--muted)">Lihat polanya? Tanda bagi (÷) berubah jadi kali (×), dan pecahan penyebut naik ke atas!</small>
+    `;
+    msg.classList.add('show');
+    
+    sliceBtn.style.display = 'none'; resetBtn.style.display = 'inline-block';
+    if(!hasExplored) { hasExplored = true; nextBtn.style.display = 'block'; }
+    isCut = true;
+  });
+
+  resetBtn.addEventListener('click', drawStage);
+  drawStage();
+
+  function markDone(){ try{ localStorage.setItem("vml_c2_done_3", "1"); }catch(e){} }
+</script>
+</body>
+</html>
