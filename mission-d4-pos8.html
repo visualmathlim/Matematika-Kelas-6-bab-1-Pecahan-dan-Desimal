@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 8: Mission Log & Badge - Mission D4 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Library Confetti untuk Efek Perayaan -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<style>
+  :root { 
+    --indigo: #6366f1; 
+    --indigo-dk: #4f46e5;
+    --navy: #0f172a; 
+    --bg: #f8fafc; 
+    --card: #ffffff; 
+    --line: #e2e8f0;
+    --violet: #8b5cf6; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--indigo-dk); background: #e0e7ff; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #c7d2fe; }
+  .home-btn:hover { background: var(--indigo-dk); color: #fff; transform: translateY(-1px); }
+
+  /* Kartu Lencana (Badge) */
+  .badge-card { background: linear-gradient(135deg, #eef2ff, #f3e8ff); border: 3px solid var(--indigo); border-radius: 1.5rem; padding: 2.5rem 2rem; text-align: center; box-shadow: 0 15px 30px rgba(99,102,241,0.15); position: relative; overflow: hidden; }
+  .badge-emblem { width: 110px; height: 110px; background: linear-gradient(to bottom right, var(--indigo-dk), var(--violet)); border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; box-shadow: 0 8px 20px rgba(99,102,241,0.4); border: 4px solid white; animation: floatBadge 3s ease-in-out infinite; }
+
+  @keyframes floatBadge {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1.02); }
+  }
+
+  /* Tombol Perayaan Unlimited */
+  .btn-claim { background: linear-gradient(to right, var(--indigo-dk), var(--violet)); box-shadow: 0 6px 20px rgba(99,102,241,0.4); font-size: 1.15rem; font-weight: 900; color: white; border: none; padding: 1rem 2.5rem; border-radius: 99px; cursor: pointer; transition: all 0.2s; }
+  .btn-claim:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 25px rgba(99,102,241,0.5); }
+  .btn-claim:active { transform: translateY(1px) scale(0.98); }
+
+  /* Tombol Navigasi Akhir */
+  .btn-nav-final { background: white; border: 2px solid var(--line); color: var(--navy); font-weight: 800; padding: 1rem 2rem; border-radius: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+  .btn-nav-final:hover { border-color: var(--indigo); background: #eef2ff; color: var(--indigo-dk); transform: translateY(-2px); }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-20">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D4 • Pos 8 (Mission Log)</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#eef2ff; border:1px solid #818cf8; color:var(--indigo-dk)">🏅 Pos 8/8: Mission Log</span>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 100%; background: linear-gradient(to right, var(--indigo-dk), var(--violet));"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+  
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-indigo-50 border-indigo-300 text-indigo-900">
+      🏅 Laporan Akhir & Penghargaan
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Misi D4 Selesai, Agen!</h2>
+    <p class="text-sm text-slate-600 max-w-xl mx-auto font-medium">
+      Kamu telah menaklukkan "The Grand Sorting Matrix" dan menguasai teknik pengurutan campuran desimal serta pecahan dengan gemilang.
+    </p>
+  </section>
+
+  <!-- KARTU RAPOR / RINGKASAN SKOR -->
+  <section class="card rounded-3xl p-6 md:p-8 space-y-6">
+    <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+      <div>
+        <h3 class="font-extrabold text-lg text-slate-900">📊 Rapor Hasil Misi D4</h3>
+        <p class="text-xs text-slate-500 font-medium">Spesialisasi: Mengurutkan Desimal & Pecahan Campuran</p>
+      </div>
+      <span class="px-4 py-1.5 bg-green-100 text-green-800 text-xs font-black rounded-full uppercase tracking-wider shadow-sm">Lulus KKM</span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 text-center space-y-1">
+        <p class="text-xs font-bold text-slate-500 uppercase">Skor Quest (Pos 6)</p>
+        <p class="text-4xl font-black font-mono text-indigo-600" id="display-score-6">100</p>
+        <p class="text-[11px] text-slate-500 mt-1">Status: Lulus Uji Matrix</p>
+      </div>
+
+      <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 text-center space-y-1">
+        <p class="text-xs font-bold text-slate-500 uppercase">Boss Battle (Pos 7)</p>
+        <p class="text-4xl font-black font-mono text-emerald-600 mt-1">LULUS</p>
+        <p class="text-[11px] text-slate-500 mt-1">Status: Audit Kargo Kritis Terpecahkan</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PESAN GROWTH MINDSET DARI PROF. SIGMA -->
+  <section class="card rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-center border-l-4 border-indigo-500 bg-gradient-to-r from-white to-indigo-50/40">
+    <img src="assets/Sigma.png" alt="Prof. Sigma" class="w-20 h-20 rounded-full border-4 border-indigo-400 shrink-0 object-cover shadow-md bg-indigo-100" onerror="this.outerHTML='<div class=\'w-20 h-20 rounded-full bg-indigo-600 border-4 border-white flex-shrink-0 flex items-center justify-center text-3xl shadow-md text-white\'>👨‍🏫</div>'">
+    <div class="text-sm text-slate-700 space-y-2 flex-grow">
+      <div class="flex items-center gap-2">
+        <span class="font-extrabold text-slate-900 text-base">Prof. Sigma & Tim Lab</span>
+        <span class="text-[10px] bg-indigo-100 text-indigo-900 font-bold px-2 py-0.5 rounded-full">Pesan Khusus</span>
+      </div>
+      <p class="leading-relaxed font-medium">
+        "Mengubah pecahan menjadi desimal dan menyamakan digit nol menuntut ketelitian tingkat tinggi. Jika awalnya kamu merasa tertantang atau sempat salah, <b class='text-indigo-700'>itu adalah bukti nyata bahwa otakmu sedang memperkuat jalur saraf analitisnya!</b>"
+      </p>
+      <p class="leading-relaxed font-bold text-indigo-950 bg-indigo-100/50 p-2 rounded">
+        "Kecerdasan bukanlah bakat bawaan, melainkan hasil dari latihan konsisten menghadapi soal-soal tingkat tinggi. Teruslah berkembang, Agen!"
+      </p>
+    </div>
+  </section>
+
+  <!-- KARTU LENCANA (BADGE) & KLAIM KONFETI -->
+  <section class="badge-card">
+    <div class="badge-emblem">📊</div>
+    <h3 class="text-3xl font-black text-indigo-950 mb-1">Grand Sorter</h3>
+    <p class="text-xs text-indigo-800 font-extrabold uppercase tracking-widest mb-4">Lencana Master Pengurutan - Kelas 6</p>
+    <p class="text-sm text-slate-700 max-w-md mx-auto mb-8 font-medium">
+      Dianugerahkan atas penguasaan mutlak dalam mengonversi pecahan, menyamakan digit, dan menata berbagai format angka galaksi secara presisi.
+    </p>
+    <div>
+      <!-- Tombol ini bisa diklik berkali-kali -->
+      <button onclick="claimBadge()" class="btn-claim">🎉 Rayakan Lencanamu! 🎉</button>
+      <p class="text-xs text-indigo-700 mt-3 font-semibold">*Klik sebanyak yang kamu mau untuk menikmati pesta konfeti!</p>
+    </div>
+  </section>
+
+  <!-- NAVIGASI BAWAH: HOME & DASHBOARD -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 pb-12">
+    <a href="mission-d.html" class="btn-nav-final">
+      <span class="text-xl">🧪</span>
+      <span>Kembali ke Peta Bab D</span>
+    </a>
+    <a href="index.html" class="btn-nav-final" style="background:#fef3c7; border-color:#fde68a; color:#b45309;">
+      <span class="text-xl">🏠</span>
+      <span>Menu Utama (Home)</span>
+    </a>
+  </section>
+
+</main>
+
+<script>
+  // Ambil skor pos 6 dari localStorage jika ada
+  try {
+    let score6 = localStorage.getItem('vm_d4_pos6_score') || '100';
+    document.getElementById('display-score-6').innerText = score6;
+  } catch(e) {}
+
+  // Tandai progres keseluruhan Misi D4 selesai (progress = 8)
+  try {
+    localStorage.setItem('vm_d4_progress', 8);
+  } catch(e) {}
+
+  // Fungsi Konfeti (Bisa dipanggil berulang kali tanpa dibatasi)
+  function claimBadge() {
+    // Tembakan tengah
+    confetti({
+      particleCount: 150,
+      spread: 100,
+      origin: { y: 0.6 },
+      colors: ['#6366f1', '#8b5cf6', '#4f46e5', '#ffffff']
+    });
+
+    // Tembakan dari sisi Kiri & Kanan
+    setTimeout(() => {
+      confetti({
+        particleCount: 80,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0, y: 0.7 },
+        colors: ['#6366f1', '#10b981']
+      });
+      confetti({
+        particleCount: 80,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1, y: 0.7 },
+        colors: ['#8b5cf6', '#10b981']
+      });
+    }, 300);
+    
+    // Tembakan kejutan tambahan
+    setTimeout(() => {
+      confetti({
+        particleCount: 50,
+        spread: 120,
+        origin: { y: 0.4 },
+        colors: ['#ffffff', '#eef2ff']
+      });
+    }, 600);
+  }
+</script>
+</body>
+</html>
