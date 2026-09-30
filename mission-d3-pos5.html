@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 5: Skill Unlock - Mission D3 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--teal); background: #ccfbf1; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #5eead4; }
+  .home-btn:hover { background: var(--teal); color: #fff; transform: translateY(-1px); }
+
+  /* Tombol Aksi */
+  .btn { padding: .75rem 1.8rem; border-radius: 9999px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; font-size: 1rem; }
+  .btn-action { background: linear-gradient(to right, var(--cyan-dk), var(--teal)); box-shadow: 0 4px 15px rgba(13,148,136,0.3); }
+  .btn-action:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(13,148,136,0.4); }
+  .btn-action:disabled { background: #94a3b8; box-shadow: none; cursor: not-allowed; transform: none; }
+  
+  .btn-scan { background: linear-gradient(to right, #b45309, #d97706); box-shadow: 0 4px 15px rgba(180,83,9,0.3); font-size: 1.1rem; }
+  .btn-scan:hover { transform: scale(1.05); }
+
+  /* Mesin Scanner Visual */
+  .scanner-board { background: #1e293b; border-radius: 1.5rem; padding: 2rem; position: relative; border: 4px solid #cbd5e1; box-shadow: inset 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; }
+  
+  /* Grid Angka Bertumpuk */
+  .digit-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; justify-items: center; align-items: center; position: relative; z-index: 10; }
+  .digit-col { display: flex; flex-direction: column; gap: 1rem; align-items: center; padding: 0.5rem; border-radius: 0.5rem; transition: all 0.3s ease; }
+  .digit-box { width: 50px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-family: monospace; font-weight: 900; color: #cbd5e1; background: #334155; border-radius: 8px; border: 2px solid #475569; transition: all 0.3s; }
+  .digit-koma { font-size: 3rem; color: #94a3b8; font-weight: bold; line-height: 1; padding: 0 0.5rem; }
+  
+  /* Animasi X-Ray Scanner */
+  .xray-beam { position: absolute; top: 0; bottom: 0; width: 80px; background: linear-gradient(to right, transparent, rgba(6,182,212,0.4), transparent); border-left: 2px solid #22d3ee; border-right: 2px solid #22d3ee; left: -100px; transition: left 0.5s ease-in-out; z-index: 5; opacity: 0; pointer-events: none; box-shadow: 0 0 20px rgba(6,182,212,0.6); }
+
+  /* Status Active & Winner */
+  .digit-col.active { background: rgba(6, 182, 212, 0.15); box-shadow: inset 0 0 10px rgba(6,182,212,0.3); }
+  .digit-col.active .digit-box { color: white; border-color: #22d3ee; background: #0891b2; box-shadow: 0 0 15px rgba(34, 211, 238, 0.5); transform: scale(1.1); }
+  
+  .digit-box.winner { background: var(--gold-bg) !important; color: #fff !important; border-color: #fff !important; box-shadow: 0 0 25px rgba(244,180,0,0.8) !important; animation: pulseWin 1s infinite; }
+  .digit-box.loser { opacity: 0.4; }
+
+  @keyframes pulseWin { 0%, 100% { transform: scale(1.1); } 50% { transform: scale(1.2); } }
+
+  .status-panel { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 1rem; padding: 1.5rem; text-align: center; min-height: 100px; display: flex; flex-direction: column; justify-content: center; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D3 • Pos 5</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#f0fdf4; border:1px solid var(--teal); color:var(--teal)">🔓 Pos 5/8: Skill Unlock</span>
+      <a href="mission-d3.html" class="home-btn shadow-sm"><span>← Peta D3</span></a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 62.5%; background: linear-gradient(to right, var(--cyan-dk), var(--teal));"></div></div>
+</header>
+
+<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-teal-50 border-teal-300 text-teal-800">
+      🔓 Master Class Prof. Sigma
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Jurus Pindai X-Ray (Kiri ke Kanan)</h2>
+    <p class="text-sm text-slate-600 max-w-2xl mx-auto font-medium">Jurus tercepat membandingkan desimal tanpa perlu kloning nol! Cukup pindai angkanya dari depan ke belakang seperti membaca buku.</p>
+  </section>
+
+  <!-- DIALOG PROF. SIGMA -->
+  <section class="card rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-center border-l-4 border-amber-400 bg-amber-50/30">
+    <img src="assets/Sigma.png" alt="Prof. Sigma" class="w-20 h-20 rounded-full border-4 border-amber-400 shrink-0 object-cover shadow-md bg-amber-100" onerror="this.outerHTML='<div class=\'w-20 h-20 rounded-full bg-amber-400 border-4 border-white flex-shrink-0 flex items-center justify-center text-3xl shadow-md text-slate-900\'>👨‍🏫</div>'">
+    <div class="text-sm text-slate-700 space-y-2 flex-grow">
+      <div class="flex items-center gap-2">
+        <span class="font-extrabold text-slate-900 text-base">Prof. Sigma</span>
+        <span class="text-[10px] bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded-full">Kepala Laboratorium</span>
+      </div>
+      <p class="leading-relaxed font-medium">
+        "Menyamakan jumlah nol sangat bagus, tapi saya punya trik yang jauh lebih cepat! Susun dua angka secara vertikal dengan koma yang sejajar. Lalu <b>pindai kolom demi kolom dari KIRI ke KANAN</b>. Begitu kamu menemukan angka yang berbeda, langsung tentukan pemenangnya dan BERHENTI memindai!"
+      </p>
+    </div>
+  </section>
+
+  <!-- VISUALISASI MESIN SCANNER -->
+  <section class="space-y-6 max-w-2xl mx-auto">
+    <div class="text-center">
+      <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Simulasi Mesin X-Ray: Siapa yang lebih besar?</p>
+      <div class="inline-block bg-white border border-slate-300 rounded-lg px-4 py-1.5 font-mono font-black text-xl text-slate-800 shadow-sm">
+        5,42 <span class="text-slate-400 mx-2">vs</span> 5,419
+      </div>
+    </div>
+
+    <!-- Papan Scanner -->
+    <div class="scanner-board">
+      <div class="xray-beam" id="xray"></div>
+      
+      <div class="flex justify-center items-center gap-2">
+        
+        <!-- Kolom Satuan -->
+        <div class="digit-col" id="col-0">
+          <p class="text-[10px] text-cyan-300 font-bold uppercase mb-[-10px] opacity-70">Satuan</p>
+          <div class="digit-box" id="b1-0">5</div>
+          <div class="digit-box" id="b2-0">5</div>
+        </div>
+
+        <!-- Kolom Koma (Pemisah) -->
+        <div class="flex flex-col gap-1 items-center px-1">
+          <div class="h-[15px]"></div>
+          <div class="digit-koma">,</div>
+          <div class="digit-koma">,</div>
+        </div>
+
+        <!-- Kolom Persepuluhan -->
+        <div class="digit-col" id="col-1">
+          <p class="text-[10px] text-cyan-300 font-bold uppercase mb-[-10px] opacity-70">Persepuluhan</p>
+          <div class="digit-box" id="b1-1">4</div>
+          <div class="digit-box" id="b2-1">4</div>
+        </div>
+
+        <!-- Kolom Perseratusan -->
+        <div class="digit-col" id="col-2">
+          <p class="text-[10px] text-cyan-300 font-bold uppercase mb-[-10px] opacity-70">Perseratusan</p>
+          <div class="digit-box" id="b1-2">2</div>
+          <div class="digit-box" id="b2-2">1</div>
+        </div>
+
+        <!-- Kolom Perseribuan -->
+        <div class="digit-col opacity-50 transition-opacity" id="col-3">
+          <p class="text-[10px] text-cyan-300 font-bold uppercase mb-[-10px] opacity-70">Perseribuan</p>
+          <div class="digit-box bg-slate-800 text-slate-600" id="b1-3">0</div> <!-- Phantom zero -->
+          <div class="digit-box" id="b2-3">9</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Panel Status -->
+    <div class="status-panel shadow-sm">
+      <p id="status-text" class="text-slate-700 font-medium text-sm md:text-base">Tekan tombol <b>Mulai Pemindaian</b> untuk menyalakan X-Ray dan mengecek kolom dari paling kiri!</p>
+      <div id="winner-text" class="hidden mt-3 text-xl font-black text-amber-600 uppercase tracking-widest">
+        🎉 5,42 Menang!
+      </div>
+    </div>
+
+    <!-- Tombol Kontrol -->
+    <div class="text-center">
+      <button id="btn-scan" onclick="nextScanStep()" class="btn btn-scan px-10 py-4 shadow-xl text-white">⚙️ Mulai Pemindaian</button>
+      <button id="btn-reset" onclick="resetScanner()" class="btn hidden bg-slate-500 hover:bg-slate-600 text-sm mt-3 px-6 py-2 shadow">↺ Ulangi Pemindaian</button>
+    </div>
+  </section>
+
+  <!-- TOMBOL LANJUT KE POS 6 -->
+  <div class="flex justify-between items-center pt-8 pb-12">
+    <a href="mission-d3-pos4.html" class="home-btn shadow-sm">⬅ Kembali ke Pos 4</a>
+    <a href="mission-d3-pos6.html" id="btn-next" class="btn hidden" style="background:linear-gradient(to right,var(--cyan-dk),var(--teal)); box-shadow: 0 4px 15px rgba(6,182,212,0.3); padding: .8rem 2rem;">Lanjut ke Pos 6: Quest Ujian ➔</a>
+  </div>
+
+</main>
+
+<script>
+  let step = 0;
+  
+  // Posisi X-ray (kira-kira persentase lebar layar untuk CSS left)
+  // Menyesuaikan dengan grid (0: Satuan, 1: Persepuluh, 2: Perseratus, 3: Perseribu)
+  const xrayPositions = ['15%', '43%', '68%', '90%'];
+
+  function nextScanStep() {
+    const xray = document.getElementById('xray');
+    const statusText = document.getElementById('status-text');
+    const btnScan = document.getElementById('btn-scan');
+
+    // Reset warna kolom aktif sebelumnya
+    document.querySelectorAll('.digit-col').forEach(col => col.classList.remove('active'));
+    
+    // Tampilkan & gerakkan sinar X-Ray
+    xray.style.opacity = '1';
+    xray.style.left = xrayPositions[step];
+
+    if (step === 0) {
+      document.getElementById('col-0').classList.add('active');
+      statusText.innerHTML = "<b>Langkah 1:</b> Mengecek <b>Satuan</b>. Atas (5) vs Bawah (5). <br>Karena sama (5 = 5), kita harus lanjut memindai ke kanan!";
+      btnScan.innerHTML = "Pindai Kolom Berikutnya ➔";
+      step++;
+    } 
+    else if (step === 1) {
+      document.getElementById('col-1').classList.add('active');
+      statusText.innerHTML = "<b>Langkah 2:</b> Mengecek <b>Persepuluhan</b>. Atas (4) vs Bawah (4). <br>Masih sama (4 = 4), mari kita pindai lagi ke kanan!";
+      step++;
+    } 
+    else if (step === 2) {
+      document.getElementById('col-2').classList.add('active');
+      statusText.innerHTML = "<b>Langkah 3:</b> Mengecek <b>Perseratusan</b>! Atas (2) vs Bawah (1). <br><span class='text-teal-700 font-bold'>Berhenti memindai! Kita temukan perbedaannya (2 > 1).</span>";
+      
+      // Highlight winner
+      document.getElementById('b1-2').classList.add('winner');
+      document.getElementById('b2-2').classList.add('loser');
+      document.getElementById('col-3').style.opacity = '0.2'; // Redupkan kolom tak terpakai
+      
+      btnScan.style.display = 'none';
+      document.getElementById('winner-text').classList.remove('hidden');
+      document.getElementById('btn-reset').classList.remove('hidden');
+      document.getElementById('btn-next').classList.remove('hidden');
+
+      xray.style.boxShadow = '0 0 30px rgba(244,180,0,0.8)';
+      xray.style.borderColor = '#f4b400';
+      xray.style.background = 'linear-gradient(to right, transparent, rgba(244,180,0,0.4), transparent)';
+
+      // Simpan progress
+      try {
+        let p = +localStorage.getItem('vm_d3_progress') || 0;
+        if(p < 5) localStorage.setItem('vm_d3_progress', 5);
+      } catch(e) {}
+    }
+  }
+
+  function resetScanner() {
+    step = 0;
+    
+    // Reset Styles
+    document.querySelectorAll('.digit-col').forEach(col => col.classList.remove('active'));
+    document.getElementById('b1-2').classList.remove('winner');
+    document.getElementById('b2-2').classList.remove('loser');
+    document.getElementById('col-3').style.opacity = '0.5';
+    
+    const xray = document.getElementById('xray');
+    xray.style.opacity = '0';
+    xray.style.left = '-100px';
+    xray.style.boxShadow = '0 0 20px rgba(6,182,212,0.6)';
+    xray.style.borderColor = '#22d3ee';
+    xray.style.background = 'linear-gradient(to right, transparent, rgba(6,182,212,0.4), transparent)';
+
+    document.getElementById('status-text').innerHTML = "Tekan tombol <b>Mulai Pemindaian</b> untuk menyalakan X-Ray dan mengecek kolom dari paling kiri!";
+    document.getElementById('winner-text').classList.add('hidden');
+    
+    const btnScan = document.getElementById('btn-scan');
+    btnScan.style.display = 'inline-block';
+    btnScan.innerHTML = "⚙️ Mulai Pemindaian";
+    
+    document.getElementById('btn-reset').classList.add('hidden');
+  }
+</script>
+</body>
+</html>
