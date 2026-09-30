@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 5: Skill Unlock - Mission D4 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --indigo: #6366f1; 
+    --indigo-dk: #4f46e5;
+    --navy: #0f172a; 
+    --bg: #f8fafc; 
+    --card: #ffffff; 
+    --line: #e2e8f0;
+    --violet: #8b5cf6; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--indigo-dk); background: #e0e7ff; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #c7d2fe; }
+  .home-btn:hover { background: var(--indigo-dk); color: #fff; transform: translateY(-1px); }
+
+  /* Format Pecahan Matematika Vertikal */
+  .m { font-family: 'Cambria Math', 'STIX Two Math', serif; white-space: nowrap; font-weight: bold; display: inline-block; vertical-align: middle; }
+  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.2rem; line-height: 1.1; font-size: 1em; }
+  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
+  .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+
+  /* Tombol Aksi */
+  .btn { padding: .75rem 1.8rem; border-radius: 9999px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; font-size: 1rem; }
+  .btn-action { background: linear-gradient(to right, var(--indigo-dk), var(--violet)); box-shadow: 0 4px 15px rgba(99,102,241,0.3); }
+  .btn-action:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,102,241,0.4); }
+
+  /* Kotak Langkah Wizard */
+  .step-panel { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 1.25rem; padding: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.03); display: none; }
+  .step-panel.active { display: block; animation: fadeIn 0.4s ease-in-out; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-badge { display: inline-block; background: #eef2ff; color: var(--indigo-dk); font-weight: 800; font-size: 0.85rem; padding: 4px 12px; border-radius: 99px; border: 1px solid #c7d2fe; margin-bottom: 1rem; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D4 • Pos 5</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#eef2ff; border:1px solid var(--indigo); color:var(--indigo-dk)">🔓 Pos 5/8: Skill Unlock</span>
+      <a href="mission-d4.html" class="home-btn shadow-sm">
+        <span>← Peta D4</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 62.5%; background: linear-gradient(to right, var(--indigo-dk), var(--violet));"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-indigo-50 border-indigo-300 text-indigo-900">
+      🔓 Master Class Prof. Sigma
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">SOP 3 Langkah Algoritma Urut</h2>
+    <p class="text-sm text-slate-600 max-w-2xl mx-auto font-medium">Metode standar operasional laboratorium untuk menyusun berbagai format angka dengan akurasi 100%.</p>
+  </section>
+
+  <!-- DIALOG PROF. SIGMA -->
+  <section class="card rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-center border-l-4 border-indigo-600 bg-gradient-to-r from-white to-indigo-50/30">
+    <img src="assets/Sigma.png" alt="Prof. Sigma" class="w-20 h-20 rounded-full border-4 border-indigo-400 shrink-0 object-cover shadow-md bg-indigo-100" onerror="this.outerHTML='<div class=\'w-20 h-20 rounded-full bg-indigo-600 border-4 border-white flex-shrink-0 flex items-center justify-center text-3xl shadow-md text-white\'>👨‍🏫</div>'">
+    <div class="text-sm text-slate-700 space-y-2 flex-grow">
+      <div class="flex items-center gap-2">
+        <span class="font-extrabold text-slate-900 text-base">Prof. Sigma</span>
+        <span class="text-[10px] bg-indigo-100 text-indigo-900 font-bold px-2 py-0.5 rounded-full">Kepala Laboratorium</span>
+      </div>
+      <p class="leading-relaxed font-medium">
+        "Agen, sebelum kamu menghadapi ujian tanding di Pos 6, mari kita kuasai SOP 3 Langkah baku: <br>
+        1️⃣ <b class='text-indigo-700'>Ubah</b> semua bentuk pecahan ke desimal.<br>
+        2️⃣ <b class='text-indigo-700'>Samakan</b> jumlah digit belakang koma dengan kloning nol.<br>
+        3️⃣ <b class='text-indigo-700'>Pindai</b> dan urutkan dari terkecil ke terbesar (<span class='m'>Ascending</span>).<br>
+        Klik tombol di bawah untuk menjalankan simulasi Wizard langkah demi langkah!"
+      </p>
+    </div>
+  </section>
+
+  <!-- WIZARD SIMULASI STEP-BY-STEP -->
+  <section class="space-y-6">
+    <div class="text-center">
+      <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Contoh Kasus: Mengurutkan <span class="m"><span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span></span>, <span class="font-mono font-bold text-indigo-700">0,7</span>, dan <span class="font-mono font-bold text-indigo-700">0,72</span></p>
+    </div>
+
+    <!-- PANEL LANGKAH 1 -->
+    <div class="step-panel active" id="panel-1">
+      <span class="step-badge">Langkah 1 dari 3</span>
+      <h3 class="text-xl font-extrabold text-slate-900 mb-2">Konversi Semua ke Bentuk Desimal</h3>
+      <p class="text-sm text-slate-600 mb-4">Ubah pecahan biasa menjadi bentuk desimal menggunakan jembatan penyebut 100.</p>
+      
+      <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-200 text-center space-y-2 font-mono">
+        <p class="text-slate-800"><span class="m"><span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span></span> $\times \frac{25}{25} =$ <b class="text-indigo-700">0,75</b></p>
+        <p class="text-slate-800">0,7 sudah berupa desimal</p>
+        <p class="text-slate-800">0,72 sudah berupa desimal</p>
+      </div>
+
+      <div class="text-right pt-4">
+        <button onclick="nextStep(2)" class="btn btn-action px-8 py-3">Lanjut ke Langkah 2 ➔</button>
+      </div>
+    </div>
+
+    <!-- PANEL LANGKAH 2 -->
+    <div class="step-panel" id="panel-2">
+      <span class="step-badge">Langkah 2 dari 3</span>
+      <h3 class="text-xl font-extrabold text-slate-900 mb-2">Samakan Digit (Kloning Nol)</h3>
+      <p class="text-sm text-slate-600 mb-4">Digit terpanjang adalah 2 angka di belakang koma (0,72 dan 0,75). Tambahkan nol pada 0,7.</p>
+      
+      <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-200 text-center space-y-2 font-mono text-lg font-bold">
+        <p class="text-indigo-900"><span class="m"><span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span></span> $\rightarrow$ 0,75</p>
+        <p class="text-indigo-900">0,7 $\rightarrow$ 0,7<span class="text-red-600 font-black">0</span> (Kloning Nol)</p>
+        <p class="text-indigo-900">0,72 $\rightarrow$ 0,72</p>
+      </div>
+
+      <div class="flex justify-between pt-4">
+        <button onclick="nextStep(1)" class="btn bg-slate-400 hover:bg-slate-500 text-sm">⬅ Kembali</button>
+        <button onclick="nextStep(3)" class="btn btn-action px-8 py-3">Lanjut ke Langkah 3 ➔</button>
+      </div>
+    </div>
+
+    <!-- PANEL LANGKAH 3 -->
+    <div class="step-panel" id="panel-3">
+      <span class="step-badge">Langkah 3 dari 3</span>
+      <h3 class="text-xl font-extrabold text-slate-900 mb-2">Pindai dan Urutkan</h3>
+      <p class="text-sm text-slate-600 mb-4">Bandingkan bentuk setara: <b>0,75</b>, <b>0,70</b>, dan <b>0,72</b> dari yang terkecil ke terbesar.</p>
+      
+      <div class="bg-indigo-900 text-white p-5 rounded-2xl text-center space-y-2 shadow-inner border-2 border-indigo-400">
+        <p class="text-xs text-indigo-300 uppercase tracking-widest font-bold">Hasil Akhir Pengurutan (<span class="m">Ascending</span>):</p>
+        <div class="font-mono font-black text-2xl text-emerald-300">
+          0,70 &lt; 0,72 &lt; 0,75
+        </div>
+        <p class="text-xs text-slate-300 pt-1">
+          Kembalikan ke bentuk asal: <b class="text-white">0,7 &lt; 0,72 &lt; <span class="m"><span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span></span></b>
+        </p>
+      </div>
+
+      <div class="flex justify-between items-center pt-6">
+        <button onclick="nextStep(2)" class="btn bg-slate-400 hover:bg-slate-500 text-sm">⬅ Kembali</button>
+        <a href="mission-d4-pos6.html" onclick="completePos5()" class="btn btn-action px-10 py-3.5 shadow-xl">Buka Ujian Quest (Pos 6) ⚔️</a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- TOMBOL NAVIGASI BAWAH -->
+  <div class="flex justify-between items-center pt-4 pb-12">
+    <a href="mission-d4-pos4.html" class="home-btn shadow-sm">⬅ Kembali ke Pos 4</a>
+    <a href="mission-d4-pos6.html" class="home-btn shadow-sm" style="background:#e0e7ff; color:#3730a3;">Lanjut ke Pos 6 ➔</a>
+  </div>
+
+</main>
+
+<script>
+  function nextStep(stepNum) {
+    document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(`panel-${stepNum}`).classList.add('active');
+    window.scrollTo({ top: 200, behavior: 'smooth' });
+
+    // Simpan progres Pos 5
+    try {
+      let p = +localStorage.getItem('vm_d4_progress') || 0;
+      if(p < 5) localStorage.setItem('vm_d4_progress', 5);
+    } catch(e) {}
+  }
+
+  function completePos5() {
+    try {
+      let p = +localStorage.getItem('vm_d4_progress') || 0;
+      if(p < 6) localStorage.setItem('vm_d4_progress', 6);
+    } catch(e) {}
+  }
+</script>
+</body>
+</html>
