@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 8: Mission Log & Badge - Mission D2 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Library Confetti untuk Efek Perayaan Kelulusan -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--cyan-dk); background: #cffafe; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #67e8f9; }
+  .home-btn:hover { background: var(--cyan-dk); color: #fff; transform: translateY(-1px); }
+
+  /* Kartu Lencana (Badge) */
+  .badge-card { background: linear-gradient(135deg, #fffbeb, #fef3c7); border: 3px solid var(--gold-bg); border-radius: 1.5rem; padding: 2rem; text-align: center; box-shadow: 0 15px 30px rgba(244,180,0,0.2); position: relative; overflow: hidden; }
+  .badge-emblem { width: 100px; height: 100px; background: linear-gradient(to bottom right, var(--gold-bg), #d97706); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 3rem; box-shadow: 0 8px 20px rgba(217,119,6,0.4); border: 4px solid white; animation: floatBadge 3s ease-in-out infinite; }
+
+  @keyframes floatBadge {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .btn { display: inline-block; text-align: center; padding: 0.8rem 1.8rem; border-radius: 99px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
+  .btn-claim { background: linear-gradient(to right, #d97706, #b45309); box-shadow: 0 4px 15px rgba(217,119,6,0.4); font-size: 1.1rem; }
+  .btn-claim:hover { transform: scale(1.03); }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-20">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D2 • Pos 8 (Mission Log)</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#ccfbf1; border:1px solid #2dd4bf; color:var(--teal)">🏅 Pos 8/8: Mission Log</span>
+      <a href="mission-d2.html" class="home-btn shadow-sm">
+        <span>← Peta D2</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 100%; background: linear-gradient(to right, var(--cyan), var(--gold-bg));"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+  
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-teal-50 border-teal-300 text-teal-800">
+      🏅 Laporan Akhir & Penghargaan
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Misi D2 Selesai, Agen!</h2>
+    <p class="text-sm text-slate-600 max-w-xl mx-auto font-medium">
+      Seluruh pos dari Mikroskop Desimal hingga Boss Battle telah berhasil kamu taklukkan dengan gemilang.
+    </p>
+  </section>
+
+  <!-- KARTU RAPOR / RINGKASAN SKOR -->
+  <section class="card rounded-3xl p-6 md:p-8 space-y-6">
+    <div class="flex items-center justify-between border-b pb-4">
+      <div>
+        <h3 class="font-extrabold text-lg text-slate-900">📊 Rapor Hasil Misi D2</h3>
+        <p class="text-xs text-slate-500 font-medium">Nilai Tempat Desimal hingga Perseribuan</p>
+      </div>
+      <span class="px-4 py-1.5 bg-green-100 text-green-800 text-xs font-black rounded-full uppercase tracking-wider">Lulus KKM</span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-center space-y-1">
+        <p class="text-xs font-bold text-slate-500 uppercase">Skor Quest (Pos 6)</p>
+        <p class="text-3xl font-black font-mono text-teal-700" id="display-score-6">100 / 100</p>
+        <p class="text-[11px] text-slate-500">Status: Tuntas (KKM 70)</p>
+      </div>
+
+      <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 text-center space-y-1">
+        <p class="text-xs font-bold text-slate-500 uppercase">Boss Battle (Pos 7)</p>
+        <p class="text-3xl font-black font-mono text-amber-600">LULUS</p>
+        <p class="text-[11px] text-slate-500">Status: Kalibrasi Lab Sempurna</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PESAN DARI PROF. SIGMA -->
+  <section class="card rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-center border-l-4 border-amber-400">
+    <img src="assets/Sigma.png" alt="Prof. Sigma" class="w-20 h-20 rounded-full border-4 border-amber-400 shrink-0 object-cover shadow-md bg-amber-100" onerror="this.outerHTML='<div class=\'w-20 h-20 rounded-full bg-amber-400 border-4 border-white flex-shrink-0 flex items-center justify-center text-3xl shadow-md text-slate-900\'>👨‍🏫</div>'">
+    <div class="text-sm text-slate-700 space-y-2 flex-grow">
+      <div class="flex items-center gap-2">
+        <span class="font-extrabold text-slate-900 text-base">Prof. Sigma</span>
+        <span class="text-[10px] bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded-full">Kepala Laboratorium</span>
+      </div>
+      <p class="leading-relaxed font-medium">
+        "Luar biasa! Kamu sudah menguasai identitas ganda setiap angka di belakang koma—baik nilai tempat maupun nilai angkanya. Kemampuanmu membaca alat ukur presisi tinggi kini sudah setara dengan ilmuwan laboratorium utama. Pertahankan prestasi ini di bab berikutnya!"
+      </p>
+    </div>
+  </section>
+
+  <!-- KARTU LENCANA (BADGE) & KLAIM KONFETI -->
+  <section class="badge-card">
+    <div class="badge-emblem">🏅</div>
+    <h3 class="text-2xl font-black text-amber-900 mb-1">Place Value Analyst</h3>
+    <p class="text-xs text-amber-800 font-bold uppercase tracking-widest mb-4">Lencana Resmi Math Mastery - Kelas 6</p>
+    <p class="text-sm text-slate-700 max-w-md mx-auto mb-6 font-medium">
+      Lencana ini membuktikan keahlianmu dalam menganalisis komponen desimal hingga tingkat perseribuan dengan akurat dan presisi.
+    </p>
+    <div>
+      <button onclick="claimBadge()" class="btn btn-claim px-10 py-3.5 shadow-lg">Klaim Lencana & Rayakan Misi 🎉</button>
+    </div>
+  </section>
+
+  <!-- NAVIGASI BAWAH KELUAR -->
+  <div class="flex justify-between items-center pt-4 pb-12">
+    <a href="mission-d2.html" class="home-btn shadow-sm">⬅ Kembali ke Peta D2</a>
+    <a href="mission-d.html" class="home-btn shadow-sm" style="background:#fef3c7; color:#b45309; border-color:#fde68a;">🧪 Peta Bab D ➔</a>
+  </div>
+
+</main>
+
+<script>
+  // Ambil skor pos 6 dari localStorage jika ada
+  try {
+    let score6 = localStorage.getItem('vm_d2_pos6_score') || '100';
+    document.getElementById('display-score-6').innerText = `${score6} / 100`;
+  } catch(e) {}
+
+  // Tandai progres keseluruhan Misi D2 selesai (progress = 8)
+  try {
+    localStorage.setItem('vm_d2_progress', 8);
+  } catch(e) {}
+
+  function claimBadge() {
+    // Jalankan efek konfeti pesta perayaan
+    confetti({
+      particleCount: 150,
+      spread: 80,
+      origin: { y: 0.6 }
+    });
+
+    // Pemicu tambahan konfeti sisi kiri kanan
+    setTimeout(() => {
+      confetti({
+        particleCount: 80,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 }
+      });
+      confetti({
+        particleCount: 80,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 }
+      });
+    }, 400);
+
+    alert("🎉 Selamat! Lencana 'Place Value Analyst' berhasil diklaim dan dicatat di Rapor Utama Bimbel Math Mastery!");
+  }
+</script>
+</body>
+</html>
