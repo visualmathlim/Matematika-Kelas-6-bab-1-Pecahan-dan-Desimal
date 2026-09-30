@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 6: Quest - Mission D4 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --indigo: #6366f1; 
+    --indigo-dk: #4f46e5;
+    --navy: #0f172a; 
+    --bg: #f8fafc; 
+    --card: #ffffff; 
+    --line: #e2e8f0;
+    --violet: #8b5cf6; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--indigo-dk); background: #e0e7ff; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #c7d2fe; }
+  .home-btn:hover { background: var(--indigo-dk); color: #fff; transform: translateY(-1px); }
+
+  /* Format Pecahan Matematika Vertikal */
+  .m { font-family: 'Cambria Math', 'STIX Two Math', serif; white-space: nowrap; font-weight: bold; display: inline-block; vertical-align: middle; }
+  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.2rem; line-height: 1.1; font-size: 1em; }
+  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
+  .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+
+  /* Tombol Aksi */
+  .btn { display: inline-block; text-align: center; padding: 0.8rem 1.8rem; border-radius: 9999px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
+  .btn-submit { background: linear-gradient(to right, var(--indigo-dk), var(--violet)); box-shadow: 0 4px 15px rgba(99,102,241,0.3); font-size: 1.1rem; }
+  .btn-submit:hover { transform: scale(1.02); }
+  .btn-retry { background: linear-gradient(to right, #475569, #1e293b); box-shadow: 0 4px 10px rgba(71,85,105,0.3); font-size: 1.1rem; }
+  .btn-next-boss { background: linear-gradient(to right, #059669, #10b981); box-shadow: 0 4px 10px rgba(16,185,129,0.3); font-size: 1.1rem; }
+
+  /* Kartu Soal Kuis */
+  .quiz-card { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 1.25rem; padding: 1.5rem; transition: all 0.3s; margin-bottom: 1.5rem; }
+  .quiz-card.card-correct { border-color: #86efac; background-color: #f0fdf4; }
+  .quiz-card.card-incorrect { border-color: #fca5a5; background-color: #fef2f2; }
+
+  /* Opsi Pilihan Ganda */
+  .opt-label { display: flex; align-items: center; gap: 0.75rem; background: #f8fafc; border: 2px solid #cbd5e1; padding: 0.75rem 1rem; border-radius: 0.75rem; cursor: pointer; transition: all 0.2s; font-weight: 600; font-family: monospace; font-size: 1.1rem; }
+  .opt-label:hover { background: #eef2ff; border-color: var(--indigo); }
+  .opt-label input { accent-color: var(--indigo-dk); width: 18px; height: 18px; }
+
+  /* Pembahasan */
+  .expl-box { background: white; border-left: 4px solid var(--indigo); padding: 1.2rem; border-radius: 0 8px 8px 0; margin-top: 1rem; text-align: left; display: none; font-size: 0.95rem; }
+  
+  .result-banner { border-radius: 1.5rem; padding: 2rem; margin-top: 2rem; text-align: center; display: none; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+  .result-banner.pass { background: #f0fdf4; border: 2px solid #86efac; color: #166534; }
+  .result-banner.fail { background: #fef2f2; border: 2px solid #fca5a5; color: #991b1b; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D4 • Pos 6</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#eef2ff; border:1px solid var(--indigo); color:var(--indigo-dk)">⚔️ Pos 6/8: Quest</span>
+      <a href="mission-d4.html" class="home-btn shadow-sm"><span>← Peta D4</span></a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 75%; background: linear-gradient(to right, var(--indigo-dk), var(--violet));"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+  
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-indigo-50 border-indigo-300 text-indigo-900">
+      ⚔️️ Ujian Pemantapan Quest
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Uji Tanding Matrix Kargo</h2>
+    <p class="text-sm text-slate-600 max-w-xl mx-auto font-medium">
+      Urutkan bilangan campuran dari yang <b>terkecil ke terbesar</b> (<span class="m">Ascending</span>). Standar KKM adalah <b>70</b> (Minimal 4 dari 5 soal benar).
+    </p>
+  </section>
+
+  <!-- PANDUAN KIAN -->
+  <section class="card rounded-3xl p-6 flex items-center gap-5 border-l-4 border-indigo-600 bg-gradient-to-r from-white to-indigo-50/40">
+    <img src="assets/Kian.png" alt="Kian" class="w-16 h-16 rounded-full border-3 border-indigo-500 shrink-0 object-cover shadow-md bg-indigo-100" onerror="this.outerHTML='<div class=\'w-16 h-16 rounded-full bg-indigo-600 border-3 border-white flex-shrink-0 flex items-center justify-center text-2xl shadow-md text-white\'>👦</div>'">
+    <div class="text-sm text-slate-700 space-y-1">
+      <span class="font-extrabold text-slate-900">Kian Berpesan:</span>
+      <p class="font-medium">"Ubah semua pecahan ke desimal terlebih dahulu, lalu samakan jumlah digit belakang koma dengan kloning nol sebelum memilih urutan yang benar!"</p>
+    </div>
+  </section>
+
+  <!-- FORM KUIS -->
+  <form id="quiz-form" onsubmit="submitQuiz(event)">
+    <div id="questions-container">
+      <!-- Digenerate oleh JS -->
+    </div>
+
+    <!-- TOMBOL SUBMIT -->
+    <div class="text-center py-6" id="submit-section">
+      <button type="submit" class="btn btn-submit px-12 py-4 shadow-lg">Kirim Jawaban Quest 🚀</button>
+      <p id="unanswered-msg" class="text-red-500 font-bold text-sm mt-3 hidden">⚠️ Harap pilih jawaban untuk semua soal sebelum mengirim!</p>
+    </div>
+  </form>
+
+  <!-- BANNER HASIL -->
+  <div id="result-banner" class="result-banner">
+    <h3 class="text-2xl font-extrabold mb-2" id="res-title">Hasil Ujian Quest</h3>
+    <p class="text-lg font-semibold mb-4" id="res-score-text">Skor Anda: 0 / 100</p>
+    <p class="text-sm mb-6 max-w-lg mx-auto" id="res-msg">Pembahasan.</p>
+    
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <button id="btn-action-retry" onclick="initQuiz()" class="btn btn-retry px-8 py-3 hidden">🔄 Coba Ujian Lagi (Soal Diacak)</button>
+      <button id="btn-action-next" onclick="goToBoss()" class="btn btn-next-boss px-8 py-3 hidden">Lanjut ke Boss Battle (Pos 7) ➔</button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // BANK SOAL MASTER (Mengurutkan dari terkecil ke terbesar)
+  const masterQuestions = [
+    {
+      question: "Urutkan dari terkecil ke terbesar: <span class='m'>0,4</span>, <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">2</span></span></span>, <span class='m'>0,35</span>",
+      options: [
+        "0,35 < 0,4 < <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">2</span></span></span>",
+        "0,4 < 0,35 < <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">2</span></span></span>",
+        "<span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">2</span></span></span> < 0,4 < 0,35"
+      ],
+      correctIdx: 0,
+      expl: "Konversi: <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">2</span></span></span> = 0,50. Bentuk setara dengan kloning nol: 0,35; 0,40; 0,50. Urutan terkecil: 0,35 < 0,4 < 0,5."
+    },
+    {
+      question: "Urutkan dari terkecil ke terbesar: <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">4</span></span></span>, <span class='m'>0,3</span>, <span class='m'>0,28</span>",
+      options: [
+        "0,3 < <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">4</span></span></span> < 0,28",
+        "<span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">4</span></span></span> < 0,28 < 0,3",
+        "0,28 < 0,3 < <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">4</span></span></span>"
+      ],
+      correctIdx: 1,
+      expl: "Konversi: <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">4</span></span></span> = 0,25. Bentuk kloning nol: 0,25; 0,30; 0,28. Urutan terkecil: 0,25 < 0,28 < 0,30."
+    },
+    {
+      question: "Urutkan dari terkecil ke terbesar: <span class='m'>0,7</span>, <span class='m'><span class='math-frac'><span class='math-num'>3</span><span class='math-den">4</span></span></span>, <span class='m'>0,72</span>",
+      options: [
+        "0,7 < 0,72 < <span class='m'><span class='math-frac'><span class='math-num'>3</span><span class='math-den">4</span></span></span>",
+        "<span class='m'><span class='math-frac'><span class='math-num'>3</span><span class='math-den">4</span></span></span> < 0,72 < 0,7",
+        "0,72 < 0,7 < <span class='m'><span class='math-frac'><span class='math-num'>3</span><span class='math-den">4</span></span></span>"
+      ],
+      correctIdx: 0,
+      expl: "Konversi: <span class='m'><span class='math-frac'><span class='math-num'>3</span><span class='math-den">4</span></span></span> = 0,75. Bentuk kloning nol: 0,70; 0,75; 0,72. Urutan terkecil: 0,70 < 0,72 < 0,75."
+    },
+    {
+      question: "Urutkan dari terkecil ke terbesar: <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">5</span></span></span>, <span class='m'>0,15</span>, <span class='m'>0,22</span>",
+      options: [
+        "<span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">5</span></span></span> < 0,15 < 0,22",
+        "0,15 < <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">5</span></span></span> < 0,22",
+        "0,22 < 0,15 < <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">5</span></span></span>"
+      ],
+      correctIdx: 1,
+      expl: "Konversi: <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">5</span></span></span> = 0,20. Bentuk kloning nol: 0,20; 0,15; 0,22. Urutan terkecil: 0,15 < 0,20 < 0,22."
+    },
+    {
+      question: "Urutkan dari terkecil ke terbesar: <span class='m'>0,6</span>, <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">2</span></span></span>, <span class='m'>0,55</span>",
+      options: [
+        "0,6 < <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">2</span></span></span> < 0,55",
+        "<span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">2</span></span></span> < 0,55 < 0,6",
+        "0,55 < <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">2</span></span></span> < 0,6"
+      ],
+      correctIdx: 1,
+      expl: "Konversi: <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">2</span></span></span> = 0,50. Bentuk kloning nol: 0,60; 0,50; 0,55. Urutan terkecil: 0,50 < 0,55 < 0,60."
+    }
+  ];
+
+  let shuffledQuestions = [];
+
+  function initQuiz() {
+    // Acak urutan soal
+    shuffledQuestions = [...masterQuestions].sort(() => Math.random() - 0.5);
+
+    let container = document.getElementById('questions-container');
+    container.innerHTML = '';
+
+    shuffledQuestions.forEach((qObj, qIndex) => {
+      // Acak urutan opsi jawaban dalam setiap soal agar posisi benar tidak selalu sama
+      let optionsWithIndex = qObj.options.map((opt, idx) => ({ opt, idx }));
+      optionsWithIndex.sort(() => Math.random() - 0.5);
+
+      let optsHtml = optionsWithIndex.map((item, optNum) => `
+        <label class="opt-label">
+          <input type="radio" name="q_${qIndex}" value="${item.idx}">
+          <span>${item.opt}</span>
+        </label>
+      `).join('');
+
+      let cardHtml = `
+        <div class="quiz-card" id="q-card-${qIndex}">
+          <p class="font-extrabold text-slate-400 text-xs uppercase mb-2 tracking-wider">Soal ${qIndex + 1} dari 5</p>
+          <p class="font-bold text-slate-900 text-lg mb-4">${qObj.question}</p>
+          
+          <div class="space-y-3">
+            ${optsHtml}
+          </div>
+
+          <div id="expl_${qIndex}" class="expl-box">
+            <p class="font-bold text-indigo-900 mb-1">💡 Pembahasan Langkah demi Langkah:</p>
+            <p class="text-slate-700">${qObj.expl}</p>
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', cardHtml);
+    });
+
+    document.getElementById('result-banner').style.display = 'none';
+    document.getElementById('submit-section').style.display = 'block';
+    document.getElementById('unanswered-msg').classList.add('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function submitQuiz(e) {
+    e.preventDefault();
+    let errMsg = document.getElementById('unanswered-msg');
+    
+    // Validasi: pastikan semua soal terjawab
+    for (let i = 0; i < shuffledQuestions.length; i++) {
+      let radios = document.getElementsByName(`q_${i}`);
+      let answered = Array.from(radios).some(r => r.checked);
+      if (!answered) {
+        errMsg.classList.remove('hidden');
+        return;
+      }
+    }
+    errMsg.classList.add('hidden');
+
+    let correctCount = 0;
+
+    shuffledQuestions.forEach((qObj, qIndex) => {
+      let radios = document.getElementsByName(`q_${qIndex}`);
+      let selectedVal = -1;
+      radios.forEach(r => {
+        if (r.checked) selectedVal = parseInt(r.value);
+      });
+
+      let isCorrect = (selectedVal === qObj.correctIdx);
+      if (isCorrect) correctCount++;
+
+      let card = document.getElementById(`q-card-${qIndex}`);
+      let explBox = document.getElementById(`expl_${qIndex}`);
+      explBox.style.display = 'block';
+
+      // Nonaktifkan radio setelah disubmit
+      radios.forEach(r => r.disabled = true);
+
+      if (isCorrect) {
+        card.classList.add('card-correct');
+      } else {
+        card.classList.add('card-incorrect');
+      }
+    });
+
+    let finalScore = correctCount * 20; // 5 soal * 20 = 100
+
+    let banner = document.getElementById('result-banner');
+    let resTitle = document.getElementById('res-title');
+    let resScoreText = document.getElementById('res-score-text');
+    let resMsg = document.getElementById('res-msg');
+    let btnRetry = document.getElementById('btn-action-retry');
+    let btnNext = document.getElementById('btn-action-next');
+
+    banner.style.display = 'block';
+    document.getElementById('submit-section').style.display = 'none';
+    resScoreText.innerText = `Skor Ujian: ${finalScore} / 100 (${correctCount} dari 5 soal benar)`;
+
+    if (finalScore >= 70) { // KKM 70 (minimal 4 benar = 80 atau 70 jika 3.5 tapi karena 20 poin per soal, 4 benar = 80 lolos KKM)
+      banner.className = "result-banner pass";
+      resTitle.innerText = "🎉 SELAMAT! LULUS KKM!";
+      resMsg.innerText = "Luar biasa! Kamu berhasil menguasai konversi pecahan dan pengurutan desimal. Pintu Boss Battle (Pos 7) resmi terbuka!";
+      btnRetry.classList.add('hidden');
+      btnNext.classList.remove('hidden');
+
+      // Simpan kelulusan ke localStorage
+      try {
+        localStorage.setItem('vm_d4_pos6_score', finalScore);
+        localStorage.setItem('vm_d4_pos6', JSON.stringify({passed: true}));
+        let p = parseInt(localStorage.getItem('vm_d4_progress')) || 0;
+        if (p < 7) localStorage.setItem('vm_d4_progress', 7);
+      } catch (e) {}
+
+    } else {
+      banner.className = "result-banner fail";
+      resTitle.innerText = "💥 BELUM MENCAPAI KKM 70";
+      resMsg.innerText = "Nilaimu di bawah 70. Pelajari pembahasan di setiap soal, pahami cara konversi dan kloning nol, lalu klik Coba Ujian Lagi!";
+      btnRetry.classList.remove('hidden');
+      btnNext.classList.add('hidden');
+    }
+
+    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function goToBoss() {
+    window.location.href = "mission-d4-pos7.html";
+  }
+
+  // Inisialisasi kuis saat halaman dimuat
+  initQuiz();
+</script>
+</body>
+</html>
