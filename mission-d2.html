@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission D2: Nilai Tempat Desimal | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+    --red: #dc2626; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); transition: all 0.3s ease; }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--cyan-dk); background: #cffafe; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #67e8f9; }
+  .home-btn:hover { background: var(--cyan-dk); color: #fff; transform: translateY(-1px); }
+
+  /* Garis Peta Node */
+  .path-line { position: absolute; top: 32px; bottom: 32px; left: 32px; width: 4px; background: linear-gradient(to bottom, var(--cyan-dk), var(--gold-bg)); z-index: 0; border-radius: 99px; }
+  .node { position: relative; z-index: 1; }
+  
+  /* Lingkaran Nomor Pos */
+  .node-dot { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; font-weight: 800; border: 3px solid #e2e8f0; background: var(--card); flex: none; color: #94a3b8; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+  
+  .node.active .node-dot { border-color: var(--gold-bg); background: #fffbeb; box-shadow: 0 0 0 5px rgba(244,180,0,0.25); color: var(--gold); animation: pulseActive 2s infinite; }
+  .node.done .node-dot { border-color: var(--teal); background: #ccfbf1; color: var(--teal); }
+  .node.locked .node-dot { opacity: 0.7; background: #f8fafc; }
+
+  @keyframes pulseActive {
+    0% { box-shadow: 0 0 0 0 rgba(244, 180, 0, 0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(244, 180, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(244, 180, 0, 0); }
+  }
+
+  /* Avatar Karakter */
+  .avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--cyan); background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-shrink: 0; }
+  
+  /* Efek Kartu Node */
+  .node-card:hover { transform: translateX(4px); border-color: var(--cyan); box-shadow: 0 10px 20px -5px rgba(6, 182, 212, 0.15); }
+  .node.locked .node-card { background: rgba(248, 250, 252, 0.8); cursor: not-allowed; }
+  .node.locked .node-card:hover { transform: none; border-color: var(--line); box-shadow: none; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- DEKORASI BACKGROUND -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-30">
+  <div class="absolute top-20 right-10 text-7xl font-mono text-cyan-800 opacity-20 font-black tracking-widest" style="transform: rotate(10deg);">3.425</div>
+  <div class="absolute bottom-20 left-10 text-6xl font-mono text-teal-800 opacity-20 font-black tracking-widest" style="transform: rotate(-10deg);">0.01</div>
+</div>
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-20">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Kelas 6 • Mission D2</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <a href="mission-d.html" class="home-btn shadow-sm" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd;">
+        <span>← Menu Bab D</span>
+      </a>
+      <a href="index.html" class="home-btn shadow-sm">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-10 relative z-10">
+
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-3 bg-white/80 p-8 rounded-3xl border border-cyan-100 shadow-sm backdrop-blur-sm">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm font-bold border-2 shadow-sm bg-cyan-50 border-cyan-300 text-cyan-800">
+      🔬 MISSION D2: MIKROSKOP DESIMAL
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Nilai Tempat Desimal</h2>
+    
+    <div class="inline-block bg-slate-900 text-amber-400 font-mono text-4xl md:text-5xl font-black px-8 py-3 rounded-2xl shadow-inner border-2 border-amber-400/50 my-2 tracking-wider">
+      3.425
+    </div>
+    
+    <p class="max-w-lg mx-auto text-sm md:text-base text-slate-600 italic font-medium">
+      Big Idea: "Setiap angka punya dua identitas: <b>nilai angka</b> (dirinya sendiri) dan <b>nilai tempat</b> (nilainya karena posisi di belakang koma)."
+    </p>
+  </section>
+
+  <!-- PETA POS (NODES) -->
+  <section class="relative py-2">
+    <div class="path-line"></div>
+    <div id="nodes" class="space-y-6"></div>
+  </section>
+
+  <!-- CTA KARTU BAWAH -->
+  <section class="card rounded-3xl p-8 text-center space-y-4 bg-gradient-to-b from-white to-cyan-50/50 border-2 border-cyan-200">
+    <div class="space-y-1">
+      <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Target Akhir Misi</p>
+      <p class="text-xl font-extrabold text-amber-600 flex items-center justify-center gap-2">
+        <span>🏅</span> <span>Klaim Badge: Place Value Analyst</span>
+      </p>
+    </div>
+    
+    <div class="pt-2">
+      <a id="cta" href="mission-d2-pos1.html" class="inline-block font-bold py-4 px-10 rounded-full text-white shadow-lg transition-transform hover:scale-105" style="background:linear-gradient(to right, var(--cyan-dk), var(--teal))">
+        Mulai Misi Sekarang ➔
+      </a>
+    </div>
+
+    <div class="flex justify-center gap-6 text-xs text-slate-500 font-semibold pt-2">
+      <a href="mission-d.html" class="hover:text-cyan-700 transition-colors">🧪 Peta Bab D</a>
+      <span>•</span>
+      <a href="index.html" class="hover:text-cyan-700 transition-colors">🏠 Home Utama</a>
+    </div>
+  </section>
+
+</main>
+
+<script>
+function readLog(key){ try{ return JSON.parse(localStorage.getItem(key)) || {passed:false}; }catch(e){ return {passed:false}; } }
+
+let progress = 0;
+try{ progress = +localStorage.getItem('vm_d2_progress') || 0; }catch(e){}
+const log6 = readLog('vm_d2_pos6');
+const log7 = readLog('vm_d2_pos7');
+
+const NODES = [
+  {t:'Pos 1: Briefing', s:'Mikroskop Desimal bersama Prof. Sigma', img:'Sigma', href:'mission-d2-pos1.html'},
+  {t:'Pos 2: See', s:'Blok Base-10: Satuan hingga Perseribuan bersama Luna', img:'Luna', href:'mission-d2-pos2.html'},
+  {t:'Pos 3: Visualize', s:'Sandbox Tabel Hologram Nilai Tempat bersama Luna', img:'Luna', href:'mission-d2-pos3.html'},
+  {t:'Pos 4: Think', s:'Jurnal Detektif: Nilai Angka vs Nilai Tempat bersama Kian', img:'Kian', href:'mission-d2-pos4.html'},
+  {t:'Pos 5: Skill Unlock', s:'Master Class Prof. Sigma: Bentuk Panjang & Cara Baca', img:'Sigma', href:'mission-d2-pos5.html'},
+  {t:'Pos 6: Quest', s:'Kuis Pemantapan KKM 70 bersama Kian', img:'Kian', href:'mission-d2-pos6.html'},
+  {t:'Pos 7: Boss Battle', s:'Studi Kasus HOTS Alat Ukur Presisi bersama Kian', img:'Kian', href:'mission-d2-pos7.html'},
+  {t:'Pos 8: Mission Log', s:'Rapor Kelulusan & Klaim Badge bersama Prof. Sigma', img:'Sigma', href:'mission-d2-pos8.html'}
+];
+
+function isDone(n){
+  if(n <= 5) return n <= progress;
+  if(n === 6) return !!log6.passed;
+  if(n === 7) return !!log7.passed;
+  return !!(log6.passed && log7.passed);
+}
+
+let activeIdx = NODES.findIndex((_, i) => !isDone(i + 1));
+const wrap = document.getElementById('nodes');
+
+NODES.forEach((nd, i) => {
+  const n = i + 1;
+  const done = isDone(n);
+  const state = done ? 'done' : (i === activeIdx ? 'active' : (i < activeIdx || activeIdx === -1 ? 'unlocked' : 'locked'));
+  
+  // Logika akses klik pos: Pos bisa dibuka jika sudah selesai, sedang aktif, atau jika pos sebelumnya sudah terbuka
+  const isAccessible = (n === 1) || done || (i === activeIdx) || (i <= activeIdx);
+  
+  const div = document.createElement('div');
+  div.className = `node ${done ? 'done' : (i === activeIdx ? 'active' : (isAccessible ? 'active' : 'locked'))} flex items-center gap-4`;
+  
+  let dotContent = done ? '✓' : n;
+  
+  div.innerHTML = `
+    <div class="node-dot shadow-sm">${dotContent}</div>
+    <a href="${isAccessible ? nd.href : '#'}" onclick="${isAccessible ? '' : 'alert(\"⚠️ Selesaikan pos sebelumnya terlebih dahulu!\"); return false;'}" class="card node-card rounded-2xl px-5 py-4 flex-1 flex items-center justify-between">
+      <div class="space-y-0.5">
+        <p class="font-extrabold text-slate-800 text-base">${nd.t}</p>
+        <p class="text-xs text-slate-500 font-medium">${nd.s}</p>
+      </div>
+      <img src="assets/${nd.img}.png" alt="${nd.img}" class="avatar" onerror="this.outerHTML='<div class=\'w-[42px] h-[42px] rounded-full bg-cyan-700 text-white flex items-center justify-center font-bold text-sm shadow-sm flex-shrink-0\'>👤</div>'">
+    </a>
+  `;
+  wrap.appendChild(div);
+});
+
+// Update Tombol CTA Utama
+const cta = document.getElementById('cta');
+if (activeIdx >= 0) {
+  cta.href = NODES[activeIdx].href;
+  cta.textContent = activeIdx === 0 ? 'Mulai Misi Sekarang ➔' : 'Lanjutkan Misi ➔';
+} else {
+  cta.href = 'mission-d2-pos8.html';
+  cta.textContent = 'Lihat Badge & Rapor Kelulusanmu 🏅';
+}
+</script>
+</body>
+</html>
