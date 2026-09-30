@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 7: Boss Battle - Mission D2 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+    --red: #dc2626; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--cyan-dk); background: #cffafe; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #67e8f9; }
+  .home-btn:hover { background: var(--cyan-dk); color: #fff; transform: translateY(-1px); }
+
+  /* Kartu Kasus Boss */
+  .boss-card { background: linear-gradient(to bottom right, #ffffff, #f8fafc); border: 2px solid #cbd5e1; border-radius: 1.25rem; padding: 1.5rem; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.03); transition: all 0.3s; }
+  .boss-card.success { border-color: #86efac; background: #f0fdf4; }
+  .boss-card.error { border-color: #fca5a5; background: #fef2f2; }
+
+  /* Input & Select */
+  .boss-input, .boss-select { background: white; border: 2px solid #cbd5e1; border-radius: 0.5rem; padding: 0.6rem 0.75rem; font-weight: bold; font-size: 1rem; color: var(--navy); width: 100%; outline: none; transition: all 0.2s; }
+  .boss-input:focus, .boss-select:focus { border-color: var(--amber-500); box-shadow: 0 0 0 3px rgba(245,158,11,0.15); }
+
+  /* Tombol */
+  .btn { display: inline-block; text-align: center; padding: 0.8rem 1.8rem; border-radius: 99px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
+  .btn-boss { background: linear-gradient(to right, #b45309, #d97706); box-shadow: 0 4px 15px rgba(180,83,9,0.3); font-size: 1.1rem; }
+  .btn-boss:hover { transform: scale(1.02); }
+  .btn-retry { background: linear-gradient(to right, #475569, #1e293b); box-shadow: 0 4px 10px rgba(71,85,105,0.3); font-size: 1.1rem; }
+  .btn-next-badge { background: linear-gradient(to right, var(--cyan-dk), var(--teal)); box-shadow: 0 4px 15px rgba(6,182,212,0.3); font-size: 1.1rem; }
+
+  /* Pembahasan & Visualisasi */
+  .expl-box { background: #f8fafc; border-left: 4px solid var(--amber-600); padding: 1.2rem; border-radius: 0 8px 8px 0; margin-top: 1rem; text-align: left; display: none; font-size: 0.95rem; }
+  .expl-visual { background: #ffffff; border: 1px dashed var(--amber-500); border-radius: 8px; padding: 10px 14px; margin-top: 8px; font-size: 0.85rem; color: #334155; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-20">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D2 • Pos 7 (Boss Battle)</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#fef3c7; border:1px solid #f59e0b; color:var(--gold)">⚡ Pos 7/8: Boss Battle</span>
+      <a href="mission-d2.html" class="home-btn shadow-sm">
+        <span>← Peta D2</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 87.5%; background: linear-gradient(to right, var(--cyan), var(--gold-bg));"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+  
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-amber-50 border-amber-300 text-amber-800">
+      ⚡ Boss Battle (Studi Kasus HOTS)
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Kalibrasi Alat Ukur Presisi Lab</h2>
+    <p class="text-sm text-slate-600 max-w-xl mx-auto font-medium">
+      Selesaikan 3 tantangan studi kasus HOTS. Standar KKM kelulusan adalah <b>70</b> (minimal 2 kasus benar). Jika kurang, Anda harus mencoba kembali!
+    </p>
+  </section>
+
+  <!-- PANDUAN KIAN -->
+  <section class="card rounded-3xl p-6 flex items-center gap-5 border-l-4 border-amber-500 bg-gradient-to-r from-white to-amber-50/40">
+    <img src="assets/Kian.png" alt="Kian" class="w-16 h-16 rounded-full border-3 border-amber-400 shrink-0 object-cover shadow-md bg-amber-100" onerror="this.outerHTML='<div class=\'w-16 h-16 rounded-full bg-amber-400 border-3 border-white flex-shrink-0 flex items-center justify-center text-2xl shadow-md text-slate-900\'>👦</div>'">
+    <div class="text-sm text-slate-700 space-y-1">
+      <span class="font-extrabold text-slate-900">Kian Berpesan:</span>
+      <p class="font-medium">"Mesin laboratorium mendeteksi galat kalibrasi. Analisis ketiga kasus di bawah ini dengan teliti. Soal dan pilihan diacak setiap kali kamu mengulang!"</p>
+    </div>
+  </section>
+
+  <!-- FORM BOSS BATTLE -->
+  <form id="boss-form" onsubmit="submitBoss(event)" class="space-y-6">
+    <div id="boss-container" class="space-y-6">
+      <!-- Di-generate dinamis oleh JavaScript -->
+    </div>
+
+    <!-- TOMBOL KIRIM -->
+    <div class="text-center pt-4" id="submit-section">
+      <button type="submit" class="btn btn-boss px-12 py-3.5 shadow-lg">Verifikasi Kalibrasi Lab ⚡</button>
+    </div>
+  </form>
+
+  <!-- BANNER HASIL / KKM -->
+  <div id="result-banner" class="card rounded-3xl p-8 text-center space-y-4 hidden">
+    <div class="text-4xl" id="res-icon">🏆</div>
+    <h3 class="text-2xl font-extrabold" id="res-title">HASIL EVALUASI</h3>
+    <p class="text-lg font-bold text-slate-800" id="res-score">Skor: 0 / 100</p>
+    <p class="text-sm text-slate-700 max-w-md mx-auto font-medium" id="res-msg">Pesan sistem...</p>
+    
+    <div class="pt-2 flex flex-col sm:flex-row justify-center gap-4">
+      <button id="btn-retry" onclick="initBoss()" class="btn btn-retry px-8 py-3 hidden">🔄 Coba Ujian Lagi (Soal Diacak)</button>
+      <button id="btn-next" onclick="goToBadge()" class="btn btn-next-badge px-8 py-3 hidden">Klaim Badge "Place Value Analyst" (Pos 8) ➔</button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // MASTER KASUS BOSS BATTLE (3 SOAL DENGAN OPSI DIACAK)
+  const masterBossCases = [
+    {
+      id: 1,
+      title: "Kasus 1: Analisis Ketebalan Lelehan Titanium",
+      text: "Dua sampel lempeng titanium diukur menggunakan jangka sorong digital. Sampel A tercatat setebal <b>3,425 mm</b>, sedangkan Sampel B setebal <b>3,452 mm</b>. Manakah sampel yang memiliki nilai angka pada tempat <b>perseratusan</b> yang lebih besar?",
+      type: "select",
+      options: [
+        { text: "Sampel A (3,425 mm)", val: "A" },
+        { text: "Sampel B (3,452 mm)", val: "B" }
+      ],
+      answer: "B",
+      expl: "Pada Sampel A (3,<b>42</b>5) angka perseratusannya adalah 2. Pada Sampel B (3,<b>45</b>2) angka perseratusannya adalah 5. Karena 5 > 2, maka Sampel B lebih besar.",
+      visual: "🔍 <b>Analisis Posisi Perseratusan:</b><br>• Sampel A = 3,4<b>2</b>5 (Nilai angka 2 = 0,02)<br>• Sampel B = 3,4<b>5</b>2 (Nilai angka 5 = 0,05)<br><b>Kesimpulan: Sampel B lebih besar.</b>"
+    },
+    {
+      id: 2,
+      title: "Kasus 2: Teka-Teki Kalibrasi Timbangan",
+      text: "Layar timbangan analitik menunjukkan massa senyawa kimia sebesar <b>8,092 gram</b>. Berapakah nilai bentuk panjang (expanded form) yang tepat untuk bagian desimalnya?",
+      type: "select",
+      options: [
+        { text: "0,8 + 0,09 + 0,002", val: "opt1" },
+        { text: "0,09 + 0,002 (tanpa persepuluhan karena nol)", val: "opt2" },
+        { text: "0,9 + 0,02", val: "opt3" }
+      ],
+      answer: "opt2",
+      expl: "Karena digit persepuluhannya adalah 0 (8,<b>0</b>92), maka bagian persepuluhannya bernilai 0 dan boleh dilewati. Uraiannya menjadi 0,09 (perseratusan) + 0,002 (perseribuan).",
+      visual: "🔍 <b>Uraian Nilai Tempat 8,092:</b><br>• Satuan = 8<br>• Persepuluhan = 0 (0,0)<br>• Perseratusan = 9 (0,09)<br>• Perseribuan = 2 (0,002)<br><b>Hasil: 0,09 + 0,002</b>"
+    },
+    {
+      id: 3,
+      title: "Kasus 3: Perbaikan Digit Mikroskop Hologram",
+      text: "Sistem mikroskop mencatat kode error pada posisi <b>perseribuan</b> dari bilangan <b>12,649</b>. Berapakah nilai angka dari digit yang menempati posisi perseribuan tersebut? (Tuliskan dalam bentuk desimal)",
+      type: "input",
+      answer: "0,009",
+      expl: "Angka 9 berada tepat di tempat perseribuan (posisi ke-3 di kanan koma), sehingga nilai angkanya adalah 0,009.",
+      visual: "🔍 <b>Penelusuran Posisi 12,649:</b><br>• 6 = Persepuluhan (0,6)<br>• 4 = Perseratusan (0,04)<br>• <b>9 = Perseribuan (0,009)</b>"
+    }
+  ];
+
+  let currentCases = [];
+
+  function initBoss() {
+    // Acak urutan kasus
+    currentCases = [...masterBossCases].sort(() => Math.random() - 0.5);
+
+    let container = document.getElementById('boss-container');
+    container.innerHTML = '';
+
+    currentCases.forEach((item, index) => {
+      let inputHtml = '';
+      if (item.type === 'select') {
+        // Acak opsi jawaban dalam kasus pilihan ganda
+        let shuffledOpts = [...item.options].sort(() => Math.random() - 0.5);
+        let optsHtml = shuffledOpts.map(o => `<option value="${o.val}">${o.text}</option>`).join('');
+        inputHtml = `
+          <select id="case-ans-${index}" class="boss-select">
+            <option value="">-- Pilih Jawaban yang Tepat --</option>
+            ${optsHtml}
+          </select>
+        `;
+      } else {
+        inputHtml = `
+          <input type="text" id="case-ans-${index}" class="boss-input" placeholder="Contoh: 0,009">
+        `;
+      }
+
+      let cardHtml = `
+        <div class="boss-card space-y-3" id="case-card-${index}" data-id="${item.id}">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-amber-700 bg-amber-100 px-3 py-1 rounded-full uppercase tracking-wider">${item.title}</span>
+          </div>
+          <p class="text-sm text-slate-700 font-medium leading-relaxed">${item.text}</p>
+          <div>${inputHtml}</div>
+          <div id="case-expl-${index}" class="expl-box">
+            <p class="font-bold text-slate-800 mb-1">💡 Pembahasan:</p>
+            <p class="text-slate-700">${item.expl}</p>
+            <div class="expl-visual mt-2">${item.visual}</div>
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', cardHtml);
+    });
+
+    document.getElementById('result-banner').style.display = 'none';
+    document.getElementById('submit-section').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function submitBoss(e) {
+    e.preventDefault();
+
+    let correctCount = 0;
+
+    currentCases.forEach((item, index) => {
+      let inputElem = document.getElementById(`case-ans-${index}`);
+      let userVal = inputElem.value.trim().replace('.', ',');
+      let card = document.getElementById(`case-card-${index}`);
+      let explBox = document.getElementById(`case-expl-${index}`);
+
+      let isCorrect = false;
+      if (item.type === 'select') {
+        isCorrect = (userVal === item.answer);
+      } else {
+        // Toleransi format titik atau koma untuk desimal
+        let normalizedAns = item.answer.replace('.', ',');
+        isCorrect = (userVal === normalizedAns);
+      }
+
+      explBox.style.display = 'block';
+
+      if (isCorrect) {
+        correctCount++;
+        card.className = "boss-card success space-y-3";
+      } else {
+        card.className = "boss-card error space-y-3";
+      }
+    });
+
+    let finalScore = correctCount * 33.34; // 3 soal setara 100
+    if (correctCount === 3) finalScore = 100;
+
+    let banner = document.getElementById('result-banner');
+    let resTitle = document.getElementById('res-title');
+    let resScore = document.getElementById('res-score');
+    let resResMsg = document.getElementById('res-msg');
+    let btnRetry = document.getElementById('btn-retry');
+    let btnNext = document.getElementById('btn-next');
+    let resIcon = document.getElementById('res-icon');
+
+    banner.style.display = 'block';
+    document.getElementById('submit-section').style.display = 'none';
+
+    resScore.innerText = `Skor Anda: ${Math.round(finalScore)} / 100 (${correctCount} dari 3 kasus benar)`;
+
+    if (correctCount >= 2) { // KKM 70 tercapai (2 dari 3 benar)
+      resIcon.innerText = "🏆";
+      resTitle.innerText = "🎉 SISTEM LABORATORIUM PULIH!";
+      resScore.className = "text-lg font-bold text-green-700 mb-1";
+      resResMsg.innerText = "Luar biasa! Kamu berhasil menaklukkan Boss Battle HOTS dengan skor >= 70. Pintu menuju Lencana Kelulusan resmi terbuka!";
+      btnRetry.classList.add('hidden');
+      btnNext.classList.remove('hidden');
+      banner.className = "card rounded-3xl p-8 text-center space-y-4 bg-gradient-to-br from-white to-green-50 border-2 border-green-300";
+
+      // Simpan progres kelulusan Pos 7
+      try {
+        localStorage.setItem('vm_d2_pos7', JSON.stringify({ passed: true }));
+        let currentProgress = parseInt(localStorage.getItem('vm_d2_progress')) || 1;
+        if (currentProgress < 8) localStorage.setItem('vm_d2_progress', 8);
+      } catch (e) {}
+
+    } else {
+      resIcon.innerText = "💥";
+      resTitle.innerText = "⚠️ BELUM MENCAPAI KKM 70";
+      resScore.className = "text-lg font-bold text-red-700 mb-1";
+      resResMsg.innerText = "Skor kurang dari 70. Analisis kembali pembahasan berwarna merah di atas, lalu klik Coba Ujian Lagi!";
+      btnRetry.classList.remove('hidden');
+      btnNext.classList.add('hidden');
+      banner.className = "card rounded-3xl p-8 text-center space-y-4 bg-gradient-to-br from-white to-red-50 border-2 border-red-300";
+    }
+
+    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function goToBadge() {
+    window.location.href = "mission-d2-pos8.html";
+  }
+
+  // Inisialisasi saat halaman dimuat
+  initBoss();
+</script>
+</body>
+</html>
