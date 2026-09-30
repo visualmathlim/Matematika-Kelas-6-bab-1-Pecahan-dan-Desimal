@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 1: Briefing - Mission D1 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Header & Buttons */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); position: relative; z-index: 10; }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--cyan-dk); background: #cffafe; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #67e8f9; }
+  .home-btn:hover { background: var(--cyan-dk); color: #fff; transform: translateY(-1px); }
+
+  /* Math UI */
+  .m { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', serif; white-space: nowrap; font-weight: bold; }
+  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.2rem; line-height: 1.1; font-size: 0.9em; }
+  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
+  .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+
+  /* Terminal Style Box */
+  .terminal-box { background: var(--navy); color: #38bdf8; border-radius: 12px; padding: 1.5rem; font-family: monospace; border: 2px solid #334155; box-shadow: inset 0 2px 10px rgba(0,0,0,0.5); }
+  
+  /* Tombol */
+  .btn { display: inline-block; text-align: center; padding: 0.8rem 1.8rem; border-radius: 99px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
+  .btn-next { background: linear-gradient(to right, var(--cyan-dk), var(--teal)); box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3); font-size: 1.1rem; }
+  .btn-next:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5); }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-20">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Kelas 6 • Mission D1 • Pos 1</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <a href="mission-d1.html" class="home-btn shadow-sm" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd;">
+        <span>← Peta D1</span>
+      </a>
+      <a href="index.html" class="home-btn shadow-sm">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full bg-cyan-600" style="width: 12.5%;"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-8 space-y-6">
+  
+  <!-- HEADER POS -->
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--cyan); color:var(--cyan-dk); background:#cffafe">
+      🚨 Pos 1/8: Briefing & Darurat Sistem
+    </div>
+    <h2 class="text-3xl font-extrabold text-slate-800">Pusat Komando Laboratorium</h2>
+  </section>
+
+  <!-- DIALOG PROF. SIGMA -->
+  <div class="card rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-6 border-2" style="border-color: #a5f3fc;">
+    <!-- FOTO PROF. SIGMA -->
+    <img src="assets/Sigma.png" alt="Prof. Sigma" class="w-28 h-28 rounded-full border-4 border-cyan-400 object-cover shadow-md flex-shrink-0 bg-cyan-100" onerror="this.outerHTML='<div class=\'w-28 h-28 rounded-full bg-cyan-700 border-4 border-white flex-shrink-0 flex items-center justify-center text-4xl shadow-md text-white\'>👨‍🏫</div>'">
+    
+    <div class="space-y-3">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-slate-800 text-lg">Prof. Sigma</span>
+        <span class="text-xs bg-cyan-100 text-cyan-800 font-bold px-2 py-0.5 rounded-full">Kepala Laboratorium</span>
+      </div>
+      <p class="text-slate-600 text-sm md:text-base leading-relaxed">
+        "Halo, Agen! Komputer pusat logistik kita mendadak berbunyi alarm merah. Mesin pabrik pengukur presisi tinggi menolak data yang dikirim karena masih menggunakan bentuk pecahan biasa seperti <span class='m font-bold text-cyan-700'><span class='math-frac'><span class='math-num'>1</span><span class='math-den'>4</span></span></span> atau <span class='m font-bold text-cyan-700'><span class='math-frac'><span class='math-num'>3</span><span class='math-den'>5</span></span></span>."
+      </p>
+    </div>
+  </div>
+
+  <!-- TERMINAL ERROR LOG -->
+  <div class="terminal-box space-y-2">
+    <div class="flex items-center justify-between border-b border-slate-700 pb-2 mb-3 text-xs text-slate-400">
+      <span>SYSTEM STATUS: ERROR 404</span>
+      <span>SECURE_CHANNEL // LAB_D1</span>
+    </div>
+    <p>>>> [ALERT] Komputer digital hanya memproses angka berbasis <b>Persepuluhan (10), Perseratusan (100), atau Perseribuan (1000)</b>.</p>
+    <p class="text-emerald-400">>>> [INFO] Tugas Agen: Kuasai teknik konversi agar wujud pecahan berubah menjadi bentuk <b>Desimal (Berkoma)</b>!</p>
+    <p class="text-amber-400 animate-pulse">>>> [WAITING] Masukkan perintah untuk membuka Simulator Lab Visual...</p>
+  </div>
+
+  <!-- TOMBOL LANJUT -->
+  <div class="text-center pt-4">
+    <button onclick="completePos1()" class="btn btn-next px-10 py-3.5 shadow-lg">
+      Mulai Diagnostik & Masuk ke Pos 2 (See) ➔
+    </button>
+  </div>
+
+</main>
+
+<script>
+  function completePos1() {
+    // Update progress ke Pos 2 jika saat ini masih Pos 1
+    let currentProgress = parseInt(localStorage.getItem('vm_d1_progress')) || 1;
+    if (currentProgress < 2) {
+      localStorage.setItem('vm_d1_progress', 2);
+    }
+    window.location.href = "mission-d1-pos2.html";
+  }
+</script>
+</body>
+</html>
