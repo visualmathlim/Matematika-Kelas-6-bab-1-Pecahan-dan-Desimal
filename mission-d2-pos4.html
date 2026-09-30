@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 4: Think - Mission D2 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+    --red: #dc2626; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--cyan-dk); background: #cffafe; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #67e8f9; }
+  .home-btn:hover { background: var(--cyan-dk); color: #fff; transform: translateY(-1px); }
+
+  /* Jurnal Detektif Theme */
+  .detective-journal { 
+    background-color: #fdfbf7; 
+    background-image: linear-gradient(#e5e7eb 1px, transparent 1px);
+    background-size: 100% 2.4rem;
+    border: 1px solid #d1d5db;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 6px 6px 20px rgba(0,0,0,0.05), inset 4px 0 0 var(--teal); 
+    position: relative;
+  }
+  .paper-clip {
+    position: absolute; top: -15px; right: 35px; width: 28px; height: 55px;
+    border: 3px solid #94a3b8; border-radius: 15px; background: transparent; z-index: 10;
+  }
+
+  /* Input Jurnal */
+  .journal-select, .journal-input { background: white; border: 2px solid #cbd5e1; border-radius: .5rem; padding: .4rem .6rem; font-weight: bold; font-size: 0.95rem; color: var(--navy); outline: none; transition: all 0.2s; }
+  .journal-select:focus, .journal-input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px rgba(13,148,136,0.15); }
+
+  .btn { padding: .75rem 1.8rem; border-radius: 9999px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; font-size: 1rem; }
+  .btn-check { background: linear-gradient(to right, var(--teal), #0f766e); box-shadow: 0 4px 15px rgba(13,148,136,0.3); }
+  .btn-check:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(13,148,136,0.4); }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D2 • Pos 4</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#ecfeff; border:1px solid var(--cyan); color:var(--cyan-dk)">🔍 Pos 4/8: Think</span>
+      <a href="mission-d2.html" class="home-btn shadow-sm">
+        <span>← Peta D2</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 50%; background: linear-gradient(to right, var(--cyan), var(--gold-bg));"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-cyan-50 border-cyan-300 text-cyan-800">
+      🔍 Think (Jurnal Detektif Analitis)
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Nilai Angka vs Nilai Tempat</h2>
+    <p class="max-w-lg mx-auto text-sm text-slate-600 font-medium">
+      Mari selidiki perbedaan mendasar antara rumah tempat angka itu berada dan besar nilai dari angka tersebut!
+    </p>
+  </section>
+
+  <!-- DIALOG KIAN -->
+  <section class="card rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-center border-l-4 border-teal-600">
+    <!-- ASSET KIAN DENGAN FALLBACK -->
+    <img src="assets/Kian.png" alt="Kian" class="w-20 h-20 rounded-full border-4 border-teal-500 shrink-0 object-cover shadow-md bg-teal-100" onerror="this.outerHTML='<div class=\'w-20 h-20 rounded-full bg-teal-600 border-4 border-white flex-shrink-0 flex items-center justify-center text-3xl shadow-md text-white\'>👦</div>'">
+    
+    <div class="text-sm text-slate-700 space-y-2 flex-grow">
+      <div class="flex items-center gap-2">
+        <span class="font-extrabold text-slate-900 text-base">Kian</span>
+        <span class="text-[10px] bg-teal-100 text-teal-900 font-bold px-2 py-0.5 rounded-full">Penjelajah Strategi</span>
+      </div>
+      <p class="leading-relaxed font-medium">
+        "Perhatian, Agen! Pada bilangan <span class='font-mono font-bold text-teal-800'>3,425</span>, coba perhatikan angka <span class='font-mono font-bold text-amber-600'>2</span>. Sebagai detektif, kamu harus bisa menjawab: di mana posisi rumahnya (*Nilai Tempat*) dan berapa besar nilainya (*Nilai Angka*)?"
+      </p>
+    </div>
+  </section>
+
+  <!-- JURNAL DETEKTIF INTERAKTIF -->
+  <div class="detective-journal space-y-6">
+    <div class="paper-clip"></div>
+    
+    <div class="text-center border-b border-slate-300 pb-3">
+      <h3 class="font-serif italic font-bold text-xl text-slate-800">Buku Catatan Investigasi Bilangan: 3,425</h3>
+      <p class="text-xs text-slate-500 font-mono mt-1">Lengkapi kolom investigasi di bawah ini dengan cermat!</p>
+    </div>
+
+    <!-- SOAL 1: ANGKA 4 -->
+    <div class="bg-white/90 p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <span class="font-bold text-slate-800">1. Pada bilangan 3,<span class="text-cyan-700 font-bold underline">4</span>25, untuk angka <span class="text-cyan-700 font-bold">4</span>:</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm">
+        <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-lg border">
+          <span class="font-medium text-slate-600">Nilai Tempat:</span>
+          <select id="tp-4" class="journal-select">
+            <option value="">-- Pilih --</option>
+            <option value="persepuluhan">Persepuluhan</option>
+            <option value="perseratusan">Perseratusan</option>
+            <option value="perseribuan">Perseribuan</option>
+          </select>
+        </div>
+        <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-lg border">
+          <span class="font-medium text-slate-600">Nilai Angka:</span>
+          <input type="text" id="va-4" class="journal-input" placeholder="Contoh: 0,4">
+        </div>
+      </div>
+    </div>
+
+    <!-- SOAL 2: ANGKA 2 -->
+    <div class="bg-white/90 p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <span class="font-bold text-slate-800">2. Pada bilangan 3,4<span class="text-amber-600 font-bold underline">2</span>5, untuk angka <span class="text-amber-600 font-bold">2</span>:</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm">
+        <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-lg border">
+          <span class="font-medium text-slate-600">Nilai Tempat:</span>
+          <select id="tp-2" class="journal-select">
+            <option value="">-- Pilih --</option>
+            <option value="persepuluhan">Persepuluhan</option>
+            <option value="perseratusan">Perseratusan</option>
+            <option value="perseribuan">Perseribuan</option>
+          </select>
+        </div>
+        <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-lg border">
+          <span class="font-medium text-slate-600">Nilai Angka:</span>
+          <input type="text" id="va-2" class="journal-input" placeholder="Contoh: 0,02">
+        </div>
+      </div>
+    </div>
+
+    <!-- SOAL 3: ANGKA 5 -->
+    <div class="bg-white/90 p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <span class="font-bold text-slate-800">3. Pada bilangan 3,42<span class="text-teal-700 font-bold underline">5</span>, untuk angka <span class="text-teal-700 font-bold">5</span>:</span>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs md:text-sm">
+        <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-lg border">
+          <span class="font-medium text-slate-600">Nilai Tempat:</span>
+          <select id="tp-5" class="journal-select">
+            <option value="">-- Pilih --</option>
+            <option value="persepuluhan">Persepuluhan</option>
+            <option value="perseratusan">Perseratusan</option>
+            <option value="perseribuan">Perseribuan</option>
+          </select>
+        </div>
+        <div class="flex items-center justify-between bg-slate-50 p-2.5 rounded-lg border">
+          <span class="font-medium text-slate-600">Nilai Angka:</span>
+          <input type="text" id="va-5" class="journal-input" placeholder="Contoh: 0,005">
+        </div>
+      </div>
+    </div>
+
+    <!-- SOAL 4: TANTANGAN TAMBAHAN MANDIRI -->
+    <div class="bg-white/90 p-4 rounded-xl border border-teal-200 shadow-sm space-y-3 bg-gradient-to-r from-teal-50/40 to-white">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <span class="font-bold text-teal-900">🎯 Tantangan Uji Mandiri:</span>
+      </div>
+      <p class="text-xs text-slate-700">
+        Pada bilangan <span class="font-mono font-bold">7,086</span>, berapakah <b>Nilai Angka</b> dari angka <span class="font-bold text-teal-700">8</span>?
+      </p>
+      <div class="flex items-center gap-3 pt-1">
+        <span class="text-xs font-semibold text-slate-600">Jawaban Nilai Angka:</span>
+        <input type="text" id="va-extra" class="journal-input" placeholder="Contoh: 0,08">
+      </div>
+    </div>
+
+    <div class="text-center pt-2">
+      <button onclick="verifyJournal()" class="btn btn-check px-8 py-3 text-sm">Periksa Catatan Detektif 🔍</button>
+      <p id="msg-error" class="text-red-600 text-xs font-bold mt-2 hidden">⚠️ Ada catatan atau jawaban tantangan yang kurang tepat. Periksa kembali!</p>
+    </div>
+
+    <!-- KESIMPULAN (MUNCUL JIKA BENAR) -->
+    <div id="conclusion-area" class="hidden bg-teal-50 border-2 border-teal-300 rounded-2xl p-5 space-y-3">
+      <h4 class="font-bold text-teal-900 text-base flex items-center gap-2">
+        <span>✨</span> <span>Investigasi Sukses! Momen "Aha!" Terungkap</span>
+      </h4>
+      <p class="text-xs md:text-sm text-slate-700 leading-relaxed font-medium">
+        Keren, Agen! Kamu berhasil membedakan dengan sempurna:
+      </p>
+      <ul class="text-xs md:text-sm text-slate-700 space-y-1 pl-4 list-disc font-semibold">
+        <li><b>Nilai Tempat</b> adalah posisi rumahnya (contoh: perseratusan).</li>
+        <li><b>Nilai Angka</b> adalah besar nilai riilnya (contoh: 0,02 atau 0,08).</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- TOMBOL LANJUT KE POS 5 (MUNCUL SETELAH JURNAL SELESAI) -->
+  <div class="text-center pt-2 hidden" id="next-pos-container">
+    <a href="mission-d2-pos5.html" onclick="completePos4()" class="inline-block font-bold py-4 px-10 rounded-full text-white shadow-xl transition-transform hover:scale-105" style="background:linear-gradient(to right,var(--cyan-dk),var(--teal))">
+      Lanjut ke Pos 5: Skill Unlock (Master Class Prof. Sigma) ➔
+    </a>
+  </div>
+
+</main>
+
+<script>
+function verifyJournal(){
+  let tp4 = document.getElementById('tp-4').value;
+  let va4 = document.getElementById('va-4').value.trim().replace('.', ',');
+  
+  let tp2 = document.getElementById('tp-2').value;
+  let va2 = document.getElementById('va-2').value.trim().replace('.', ',');
+  
+  let tp5 = document.getElementById('tp-5').value;
+  let va5 = document.getElementById('va-5').value.trim().replace('.', ',');
+
+  let vaExtra = document.getElementById('va-extra').value.trim().replace('.', ',');
+
+  let c1 = (tp4 === 'persepuluhan' && (va4 === '0,4' || va4 === '0.4'));
+  let c2 = (tp2 === 'perseratusan' && (va2 === '0,02' || va2 === '0.02'));
+  let c3 = (tp5 === 'perseribuan' && (va5 === '0,005' || va5 === '0.005'));
+  let cExtra = (vaExtra === '0,08' || vaExtra === '0.08');
+
+  let errorMsg = document.getElementById('msg-error');
+  let conclusion = document.getElementById('conclusion-area');
+  let nextContainer = document.getElementById('next-pos-container');
+
+  if(c1 && c2 && c3 && cExtra){
+    errorMsg.classList.add('hidden');
+    conclusion.classList.remove('hidden');
+    nextContainer.classList.remove('hidden');
+    
+    // Kunci input
+    document.querySelectorAll('.journal-select, .journal-input').forEach(el => el.disabled = true);
+    
+    // Simpan progres pos 4 ke localStorage
+    try{
+      let p = +localStorage.getItem('vm_d2_progress') || 0;
+      if(p < 4) localStorage.setItem('vm_d2_progress', 4);
+    }catch(e){}
+
+    conclusion.scrollIntoView({ behavior: 'smooth' });
+  } else {
+    errorMsg.classList.remove('hidden');
+  }
+}
+
+function completePos4(){
+  try{
+    let p = +localStorage.getItem('vm_d2_progress') || 0;
+    if(p < 5) localStorage.setItem('vm_d2_progress', 5);
+  }catch(e){}
+}
+</script>
+</body>
+</html>
