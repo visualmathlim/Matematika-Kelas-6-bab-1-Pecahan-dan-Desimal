@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 2: See - Mission D2 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+    --red: #dc2626; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--cyan-dk); background: #cffafe; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #67e8f9; }
+  .home-btn:hover { background: var(--cyan-dk); color: #fff; transform: translateY(-1px); }
+
+  /* Tombol Aksi */
+  .btn { padding: .75rem 1.4rem; border-radius: 9999px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; font-size: 0.9rem; }
+  .btn:disabled { opacity: .4; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+  .btn:hover:not(:disabled) { transform: translateY(-2px); }
+
+  /* Grid Blok Base-10 2D */
+  .flat { width: 200px; height: 200px; margin: 0 auto; display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr); border: 3px solid var(--navy); border-radius: 8px; overflow: hidden; background: #f8fafc; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+  .flat .u { border: .5px solid #e2e8f0; transition: background 0.3s; }
+  .flat .u.col-on { background: var(--cyan); }
+  .flat .u.cell-on { background: var(--gold-bg); }
+  .flat .u.thou-on { background: var(--teal); }
+
+  .scope { position: relative; display: inline-block; padding: 10px; }
+  .scope::before { content: '🔬'; position: absolute; top: -5px; right: 0px; font-size: 1.8rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D2 • Pos 2</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#ecfeff; border:1px solid var(--cyan); color:var(--cyan-dk)">👀 Pos 2/8: See</span>
+      <a href="mission-d2.html" class="home-btn shadow-sm">
+        <span>← Peta D2</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 25%; background: linear-gradient(to right, var(--cyan), var(--gold-bg));"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-cyan-50 border-cyan-300 text-cyan-800">
+      👀 See (Eksplorasi Konkrit)
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Blok yang Dibalik</h2>
+    <p class="max-w-lg mx-auto text-sm text-slate-600 font-medium">
+      Kalau biasanya blok besar bernilai 100, kali ini blok besar bernilai <b>1 satuan utuh</b>. Semakin kecil potongannya, semakin ke kanan posisinya di belakang koma!
+    </p>
+  </section>
+
+  <!-- KARTU UTAMA SIMULASI LUNA -->
+  <section class="card rounded-3xl p-6 md:p-8 space-y-6">
+    
+    <!-- DIALOG LUNA -->
+    <div class="flex gap-4 items-start bg-cyan-50/60 p-4 rounded-2xl border border-cyan-200">
+      <img src="assets/Luna.png" alt="Luna" class="w-16 h-16 rounded-full border-4 border-amber-400 shrink-0 object-cover shadow-md bg-amber-100" onerror="this.outerHTML='<div class=\'w-16 h-16 rounded-full bg-amber-400 border-4 border-white flex-shrink-0 flex items-center justify-center text-2xl shadow-lg text-slate-900\'>👧</div>'">
+      <div class="space-y-1">
+        <div class="flex items-center gap-2">
+          <span class="font-extrabold text-slate-900 text-sm">Luna</span>
+          <span class="text-[10px] bg-cyan-200 text-cyan-900 font-bold px-2 py-0.5 rounded-full">Penjelajah Visual</span>
+        </div>
+        <p class="text-sm text-slate-700 leading-relaxed font-medium">
+          "Ayo kita susun bilangan <span class='font-mono font-bold text-cyan-800'>0,125</span> selangkah demi selangkah menggunakan mikroskop hologram. Tiap langkah memperbesar bagian yang lebih kecil!"
+        </p>
+      </div>
+    </div>
+
+    <!-- PETUNJUK TAHAPAN -->
+    <div class="text-center space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+      <p id="stage" class="text-sm text-slate-700 font-bold">Tekan Langkah 1 untuk mulai.</p>
+      <div class="scope pt-2">
+        <div class="flat" id="flat"></div>
+      </div>
+      <p id="running" class="text-2xl font-mono font-black tracking-wider pt-2" style="color:var(--gold)">0</p>
+    </div>
+
+    <!-- KUMPULAN TOMBOL LANGKAH -->
+    <div class="flex flex-wrap justify-center gap-3 pt-2">
+      <button id="s1" class="btn" style="background:var(--cyan); box-shadow: 0 4px 10px rgba(6,182,212,0.3)">Langkah 1: 1 kolom = 0,1</button>
+      <button id="s2" class="btn" style="background:var(--gold-bg); color:var(--navy); box-shadow: 0 4px 10px rgba(244,180,0,0.3)" disabled>Langkah 2: 2 kotak = 0,02</button>
+      <button id="s3" class="btn" style="background:var(--teal); box-shadow: 0 4px 10px rgba(13,148,136,0.3)" disabled>🔬 Langkah 3: 5 garis = 0,005</button>
+      <button id="reset" class="btn bg-slate-500 shadow-md">↺ Ulangi</button>
+    </div>
+
+    <!-- FEEDBACK AKHIR -->
+    <div id="final-fb" class="text-center text-sm font-bold p-4 rounded-2xl hidden shadow-sm"></div>
+
+  </section>
+
+  <!-- TOMBOL NAVIGASI BAWAH -->
+  <div class="flex justify-between items-center pt-4 pb-12">
+    <a href="mission-d2-pos1.html" class="home-btn shadow-sm">⬅ Kembali ke Briefing</a>
+    <a href="mission-d2-pos3.html" class="btn" style="background:linear-gradient(to right,var(--cyan-dk),var(--teal)); box-shadow: 0 4px 15px rgba(6,182,212,0.3)">Lanjut ke Pos 3 (Visualize) ➔</a>
+  </div>
+
+</main>
+
+<script>
+try{ const p=+localStorage.getItem('vm_d2_progress')||0; if(p<2) localStorage.setItem('vm_d2_progress',2); }catch(e){}
+
+let step = 0;
+const flat = document.getElementById('flat');
+
+function renderFlat(){
+  flat.innerHTML = '';
+  // Grid 10x10 (100 kotak kecil)
+  for(let r = 0; r < 10; r++){
+    for(let c = 0; c < 10; c++){
+      const u = document.createElement('div'); 
+      u.className = 'u';
+      const idx = r * 10 + c;
+      
+      // Langkah 1: Kolom pertama penuh (10 kotak) = 0.1 (Persepuluhan)
+      if(step >= 1 && c === 0) u.classList.add('col-on'); 
+      
+      // Langkah 2: 2 kotak tambahan di kolom ke-2 (baris ke-0 dan ke-1) = 0.02 (Perseratusan)
+      if(step >= 2 && r < 2 && c === 1) u.classList.add('cell-on'); 
+      
+      // Langkah 3: Efek visual perseribuan (0.005)
+      if(step >= 3 && r === 2 && c === 1) u.classList.add('thou-on');
+
+      flat.appendChild(u);
+    }
+  }
+
+  const labels = [
+    'Tekan <b>Langkah 1</b> di bawah untuk melihat nilai persepuluhan.',
+    '<b>Langkah 1:</b> Satu kolom penuh (10 dari 100 bagian) menyala = <span class="font-mono text-cyan-700">0,1</span> (Persepuluhan).',
+    '<b>Langkah 2:</b> Dua kotak kecil tambahan di sebelah kolom pertama = <span class="font-mono text-amber-600">0,02</span> (Perseratusan).',
+    '<b>Langkah 3:</b> Mikroskop memperbesar hingga tingkat perseribuan (0,005). Total nilainya menjadi <b>0,125</b>!'
+  ];
+  document.getElementById('stage').innerHTML = labels[step];
+
+  const runs = [
+    '0', 
+    '0,1', 
+    '0,1 + 0,02 = 0,12', 
+    '0,1 + 0,02 + 0,005 = 0,125'
+  ];
+  document.getElementById('running').textContent = runs[step];
+
+  document.getElementById('s1').disabled = step !== 0;
+  document.getElementById('s2').disabled = step !== 1;
+  document.getElementById('s3').disabled = step !== 2;
+
+  const fb = document.getElementById('final-fb');
+  if(step === 3){ 
+    fb.classList.remove('hidden'); 
+    fb.innerHTML = '✨ <b>Eksplorasi Selesai!</b> Bilangan lengkapnya adalah <b>0,125</b> — terdiri dari 1 persepuluhan, 2 perseratusan, dan 5 perseribuan.'; 
+    fb.className = 'text-center text-sm font-bold p-4 rounded-2xl bg-teal-50 border border-teal-200 text-teal-800 shadow-sm';
+  } else { 
+    fb.classList.add('hidden'); 
+  }
+}
+
+document.getElementById('s1').addEventListener('click', ()=>{ step = 1; renderFlat(); });
+document.getElementById('s2').addEventListener('click', ()=>{ step = 2; renderFlat(); });
+document.getElementById('s3').addEventListener('click', ()=>{ step = 3; renderFlat(); });
+document.getElementById('reset').addEventListener('click', ()=>{ step = 0; renderFlat(); });
+
+renderFlat();
+</script>
+</body>
+</html>
