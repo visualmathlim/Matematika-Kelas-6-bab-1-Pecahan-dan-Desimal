@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 1: Briefing - Mission D3 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+    --red: #dc2626; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--teal); background: #ccfbf1; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #5eead4; }
+  .home-btn:hover { background: var(--teal); color: #fff; transform: translateY(-1px); }
+
+  /* Tombol Aksi */
+  .btn { padding: .75rem 1.5rem; border-radius: 9999px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
+  .btn-check { background: linear-gradient(to right, var(--cyan-dk), var(--teal)); box-shadow: 0 4px 10px rgba(13,148,136,0.3); }
+  .btn-check:hover { transform: translateY(-1px); box-shadow: 0 6px 15px rgba(13,148,136,0.4); }
+
+  /* Tabung Reaksi (Polling) */
+  .flask-card { background: white; border: 2px solid #cbd5e1; border-radius: 1rem; padding: 1.5rem; text-align: center; cursor: pointer; transition: all 0.3s; position: relative; overflow: hidden; }
+  .flask-card:hover { border-color: var(--teal); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(13,148,136,0.1); }
+  .flask-card.selected { border-color: var(--teal); background: #f0fdf4; box-shadow: 0 0 0 4px rgba(13,148,136,0.2); }
+  
+  .flask-icon { font-size: 3.5rem; line-height: 1; margin-bottom: 0.5rem; display: inline-block; transition: transform 0.3s; }
+  .flask-card:hover .flask-icon { transform: scale(1.1) rotate(5deg); }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D3 • Pos 1</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#f0fdf4; border:1px solid var(--teal); color:var(--teal)">🎯 Pos 1/8: Briefing</span>
+      <a href="mission-d3.html" class="home-btn shadow-sm">
+        <span>← Peta D3</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 12.5%; background: linear-gradient(to right, var(--cyan-dk), var(--teal));"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-teal-50 border-teal-300 text-teal-800">
+      ⚖️ Briefing The Comparator Room
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Jebakan Ilusi Panjang Angka</h2>
+    <p class="text-sm text-slate-600 max-w-md mx-auto">Selamat datang di Ruang Penimbang. Mari kita tes intuisimu terlebih dahulu!</p>
+  </section>
+
+  <!-- DIALOG PROF. SIGMA -->
+  <section class="card rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-center border-l-4 border-teal-600 bg-gradient-to-r from-white to-teal-50/30">
+    <img src="assets/Sigma.png" alt="Prof. Sigma" class="w-20 h-20 rounded-full border-4 border-teal-400 shrink-0 object-cover shadow-md bg-teal-100" onerror="this.outerHTML='<div class=\'w-20 h-20 rounded-full bg-teal-500 border-4 border-white flex-shrink-0 flex items-center justify-center text-3xl shadow-md text-slate-900\'>👨‍🏫</div>'">
+    <div class="text-sm text-slate-700 space-y-3 flex-grow">
+      <div class="flex items-center gap-2">
+        <span class="font-extrabold text-slate-900 text-base">Prof. Sigma</span>
+        <span class="text-[10px] bg-teal-100 text-teal-800 font-bold px-2 py-0.5 rounded-full">Kepala Laboratorium</span>
+      </div>
+      <p class="leading-relaxed font-medium">
+        "Agen, saya memiliki dua tabung reaksi berisi cairan energi mutakhir. <b>Tabung A</b> berisi <span class="font-mono font-bold text-teal-700">0,4 liter</span> dan <b>Tabung B</b> berisi <span class="font-mono font-bold text-amber-600">0,125 liter</span>. Coba tebak, mana yang isinya lebih banyak?"
+      </p>
+    </div>
+  </section>
+
+  <!-- POLLING / TEBAKAN INTERAKTIF -->
+  <section class="space-y-4">
+    <p class="text-center font-bold text-slate-700 uppercase tracking-wider text-sm">Pilih Tabung Berdasarkan Instingmu:</p>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <!-- Opsi A -->
+      <div class="flask-card" id="opt-a" onclick="makeGuess('A')">
+        <div class="flask-icon">🧪</div>
+        <p class="font-extrabold text-lg text-slate-900">Tabung A</p>
+        <div class="inline-block bg-teal-50 text-teal-800 font-mono font-black text-xl px-4 py-1.5 rounded-lg border border-teal-200 mt-2">
+          0,4 Liter
+        </div>
+      </div>
+
+      <!-- Opsi B -->
+      <div class="flask-card" id="opt-b" onclick="makeGuess('B')">
+        <div class="flask-icon">⚗️</div>
+        <p class="font-extrabold text-lg text-slate-900">Tabung B</p>
+        <div class="inline-block bg-amber-50 text-amber-800 font-mono font-black text-xl px-4 py-1.5 rounded-lg border border-amber-200 mt-2">
+          0,125 Liter
+        </div>
+      </div>
+    </div>
+
+    <!-- Feedback Area -->
+    <div id="feedback" class="hidden mt-6 bg-slate-900 text-white p-5 rounded-2xl text-center shadow-lg border-2 border-teal-400">
+      <h3 class="text-lg font-bold text-teal-300">Pilihanmu Telah Disimpan!</h3>
+      <p class="text-sm mt-2 text-slate-300 leading-relaxed" id="feedback-text"></p>
+    </div>
+  </section>
+
+  <!-- TARGET MISI -->
+  <section class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3">
+    <p class="font-extrabold text-slate-800 text-sm uppercase tracking-wider">🎯 Target Misi D3:</p>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-semibold text-slate-600">
+      <li class="flex items-start gap-2"><span>✅</span> <span>Memahami mengapa jumlah angka di belakang koma tidak menentukan besar nilainya.</span></li>
+      <li class="flex items-start gap-2"><span>✅</span> <span>Membandingkan desimal menggunakan blok visual dan garis bilangan.</span></li>
+      <li class="flex items-start gap-2"><span>✅</span> <span>Menguasai "Jurus Kloning Nol" (*Phantom Zeros*).</span></li>
+      <li class="flex items-start gap-2"><span>✅</span> <span>Menerapkan aturan perbandingan digit dari kiri ke kanan.</span></li>
+    </ul>
+  </section>
+
+  <!-- TOMBOL NAVIGASI BAWAH -->
+  <div class="flex justify-between items-center pt-4 pb-12">
+    <a href="mission-d3.html" class="home-btn shadow-sm">⬅ Kembali ke Peta D3</a>
+    <a href="mission-d3-pos2.html" class="btn btn-check px-8 py-3.5 shadow-lg" id="btn-next" style="display: none;">Lanjut ke Pos 2 (See) ➔</a>
+  </div>
+
+</main>
+
+<script>
+// Fungsi untuk memproses tebakan siswa (polling)
+function makeGuess(choice) {
+  // Reset style
+  document.getElementById('opt-a').classList.remove('selected');
+  document.getElementById('opt-b').classList.remove('selected');
+
+  // Highlight pilihan
+  if(choice === 'A') {
+    document.getElementById('opt-a').classList.add('selected');
+  } else {
+    document.getElementById('opt-b').classList.add('selected');
+  }
+
+  // Tampilkan feedback misterius
+  const feedback = document.getElementById('feedback');
+  const feedbackText = document.getElementById('feedback-text');
+  
+  if (choice === 'B') {
+    feedbackText.innerHTML = "Kamu memilih <b>Tabung B (0,125)</b> karena angkanya terlihat lebih panjang (ada 3 angka di belakang koma dibandingkan 1 angka).<br><br><b>Tetapi, apakah di dunia desimal 'lebih panjang' pasti 'lebih besar'?</b> Mari kita buktikan di lab visual!";
+  } else {
+    feedbackText.innerHTML = "Insting yang menarik! Kamu memilih <b>Tabung A (0,4)</b> meskipun angkanya terlihat lebih pendek.<br><br>Mari kita lihat buktinya menggunakan mikroskop hologram di lab visual pada pos berikutnya!";
+  }
+  
+  feedback.classList.remove('hidden');
+  
+  // Tampilkan tombol lanjut
+  document.getElementById('btn-next').style.display = 'inline-block';
+
+  // Simpan progress Misi D3 ke LocalStorage
+  try {
+    let p = +localStorage.getItem('vm_d3_progress') || 0;
+    if(p < 1) localStorage.setItem('vm_d3_progress', 1);
+  } catch(e) {}
+}
+</script>
+</body>
+</html>
