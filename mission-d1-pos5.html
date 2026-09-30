@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 5: Skill Unlock - Mission D1 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { --cyan:#06b6d4; --cyan-dk:#0891b2; --navy:#0f172a; --bg:#f0fdfa; --card:#fff; --line:#cffafe; --teal:#0d9488; --red:#dc2626; --purple:#7c3aed; --amber:#f4b400; }
+  body { background:var(--bg); color:var(--navy); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; overflow-x:hidden; }
+  .card { background:var(--card); border:1px solid var(--line); box-shadow:0 4px 6px -1px rgba(0,0,0,.05); }
+  .home-btn { display:inline-flex; align-items:center; gap:6px; font-size:.85rem; font-weight:700; color:var(--cyan-dk); background:#cffafe; padding:6px 14px; border-radius:99px; transition:all .2s; border:1px solid #67e8f9; }
+  .home-btn:hover { background:var(--cyan-dk); color:#fff; transform:translateY(-1px); }
+
+  /* Tampilan matematika */
+  .m { font-family:'Cambria Math','STIX Two Math','Latin Modern Math','Times New Roman',serif; white-space:nowrap; font-weight:bold; }
+  .math-frac { display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .18em; line-height:1.15; font-size:.95em; }
+  .math-num { border-bottom:1.5px solid currentColor; padding:0 .3em; width:100%; text-align:center; }
+  .math-den { padding:0 .3em; width:100%; text-align:center; }
+  .eq { display:block; text-align:center; font-size:1.3rem; padding:.55rem .4rem; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:.6rem; overflow-x:auto; }
+
+  /* Jebakan */
+  .alert-box { background:#fef2f2; border:2px dashed var(--red); border-radius:12px; padding:1.5rem; position:relative; overflow:hidden; cursor:pointer; }
+  .alert-box::before { content:"⚠️ JEBAKAN FATAL!"; position:absolute; top:0; left:0; background:var(--red); color:#fff; padding:4px 12px; font-size:.75rem; font-weight:bold; border-bottom-right-radius:8px; letter-spacing:1px; }
+  .boom-overlay { position:absolute; inset:0; background:rgba(220,38,38,.95); color:#fff; display:flex; flex-direction:column; justify-content:center; align-items:center; font-size:1.8rem; font-weight:900; opacity:0; pointer-events:none; transition:opacity .3s; z-index:20; text-align:center; padding:1rem; }
+  .boom-overlay.show { opacity:1; pointer-events:auto; animation:shake .5s; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-10px)} 40%,80%{transform:translateX(10px)} }
+  .highlight-red { color:var(--red); text-decoration:line-through; text-decoration-thickness:3px; }
+
+  /* Tab */
+  .method-tab { cursor:pointer; padding:12px 16px; font-weight:bold; text-align:center; border-radius:8px 8px 0 0; border:2px solid transparent; border-bottom:none; background:#f1f5f9; color:#64748b; }
+  .method-tab.active-teal { background:#fff; color:var(--teal); border-color:var(--teal); }
+  .method-tab.active-purple { background:#fff; color:var(--purple); border-color:var(--purple); }
+  .method-content { background:#fff; border-radius:0 0 8px 8px; padding:1.5rem; border:2px solid var(--line); display:none; }
+  .method-content.active { display:block; animation:fadeIn .4s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
+  .step-row { display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.25rem; padding-bottom:1.25rem; border-bottom:1px dashed #e2e8f0; }
+  .step-row:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .step-num { flex-shrink:0; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; color:#fff; }
+
+  /* Porogapit (bagi akar) */
+  .pg { display:grid; grid-template-columns:2rem 2.2rem 1rem 2.2rem 2.2rem; grid-auto-rows:2.3rem; margin:0 auto; width:max-content; font-family:'Cambria Math','STIX Two Math','Times New Roman',serif; font-size:1.5rem; font-weight:700; }
+  .pc { display:flex; align-items:center; justify-content:center; color:#1e293b; animation:pop .35s ease; }
+  .pc.q { color:var(--purple); }
+  .pc.div { justify-content:flex-end; padding-right:.3rem; color:var(--teal); }
+  .pc.dv { border-top:3px solid #334155; }
+  .pc.first { border-left:3px solid #334155; border-top-left-radius:10px; }
+  .pc.ul { border-bottom:2px solid #334155; }
+  .pc.sg { color:#94a3b8; font-size:1.1rem; justify-content:flex-end; padding-right:.3rem; }
+  .pc.hl { background:#fef3c7; border-radius:6px; }
+  @keyframes pop { from{transform:scale(.6);opacity:0} to{transform:scale(1);opacity:1} }
+
+  .btn { display:inline-block; text-align:center; padding:.7rem 1.6rem; border-radius:99px; font-weight:bold; color:#fff; cursor:pointer; border:none; transition:all .2s; }
+  .btn:disabled { opacity:.4; cursor:default; }
+  .btn-next { background:linear-gradient(to right,var(--cyan-dk),var(--teal)); box-shadow:0 4px 15px rgba(6,182,212,.3); font-size:1.1rem; width:100%; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Kelas 6 • Mission D1 • Pos 5</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="mission-d1.html" class="home-btn shadow-sm" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd;"><span>← Peta D1</span></a>
+      <a href="index.html" class="home-btn shadow-sm">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full bg-cyan-600" style="width:62.5%;"></div></div>
+</header>
+
+<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-8 space-y-8">
+
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--cyan); color:var(--cyan-dk); background:#cffafe">🔓 Pos 5/8: Skill Unlock</div>
+    <h2 class="text-3xl font-extrabold text-slate-800">Master Class: Dua Jurus Konversi Sakti</h2>
+    <p class="text-sm text-slate-600 max-w-2xl mx-auto font-medium">Ada dua cara mengubah pecahan ke desimal. Tapi waspadai dulu jebakan paling fatal berikut!</p>
+  </section>
+
+  <!-- Jebakan -->
+  <div class="alert-box shadow-md" onclick="document.getElementById('boom').classList.add('show')">
+    <div class="boom-overlay" id="boom">
+      <span>💥 SALAH BESAR! 💥</span>
+      <span class="text-sm font-normal mt-2 px-4"></span>
+      <button class="mt-4 px-6 py-2 bg-white text-red-600 rounded-full text-sm font-bold shadow" onclick="resetTrap(event)">Saya Mengerti</button>
+    </div>
+    <div class="pt-6 text-center">
+      <p class="font-medium text-slate-700 mb-4 text-sm">Kesalahan paling umum: mengira penyebut 4 langsung menjadi desimal 0,4.<br><span class="text-red-600 font-bold animate-pulse">Klik kotak ini untuk melihat peringatan!</span></p>
+      <div class="flex flex-col md:flex-row items-center justify-center gap-4 bg-white p-4 rounded-xl border border-red-200">
+        <div class="text-2xl m" id="trap-frac"></div>
+        <div class="text-xl font-bold text-slate-400">➜</div>
+        <div class="bg-red-50 p-3 rounded border border-red-200 text-center">
+          <span class="text-xs text-red-500 font-bold block mb-1 uppercase">Asumsi Keliru</span>
+          <span class="m text-xl highlight-red">0,4</span>
+        </div>
+        <div class="text-xl font-bold text-slate-400">➜</div>
+        <div class="text-xl font-bold text-teal-700 bg-teal-50 p-2 border border-teal-300 rounded-lg">Hasil Benar: <span class="m">0,25</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Master class -->
+  <div class="bg-white rounded-2xl p-5 md:p-8 border-2 border-cyan-600 shadow-xl relative mt-10">
+    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-cyan-700 text-white px-8 py-1 rounded-full font-bold tracking-widest text-sm shadow-md whitespace-nowrap">SOP RUMUS MATEMATIKA</div>
+
+    <div class="flex justify-center gap-2 mt-4" style="border-bottom:2px solid var(--line)">
+      <div class="method-tab active-teal" id="tab-1" onclick="switchTab(1)">Jurus 1: Pecahan Senilai</div>
+      <div class="method-tab" id="tab-2" onclick="switchTab(2)">Jurus 2: Porogapit (Bagi Akar)</div>
+    </div>
+
+    <!-- JURUS 1 -->
+    <div id="content-1" class="method-content active space-y-5" style="border-color:var(--teal)">
+      <p class="text-sm text-slate-600 text-center font-medium bg-teal-50 py-2 rounded">Gunakan cara ini jika penyebut bisa dikali menjadi 10, 100, atau 1000.</p>
+      <div class="text-center bg-slate-50 py-3 rounded-lg border border-slate-200">
+        <p class="text-xs text-slate-500 font-bold uppercase">Contoh soal:</p>
+        <p class="m text-3xl text-cyan-800 mt-1" id="ex1"></p>
+      </div>
+      <div class="step-row">
+        <div class="step-num bg-teal-600">1</div>
+        <div class="flex-grow">
+          <p class="font-bold text-teal-800 mb-1">Cari pengali agar penyebut menjadi 10, 100, atau 1000</p>
+          <p class="text-sm text-slate-700">4 tidak bisa dikali bilangan bulat menjadi 10, tetapi bisa menjadi <b>100</b>.</p>
+          <span class="eq m mt-2">4 × <span style="color:var(--teal)">25</span> = 100</span>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num bg-teal-600">2</div>
+        <div class="flex-grow">
+          <p class="font-bold text-teal-800 mb-1">Kalikan pembilang dan penyebut dengan angka yang sama</p>
+          <p class="text-sm text-slate-700">Atas dan bawah harus dikali angka yang sama supaya nilainya tidak berubah.</p>
+          <span class="eq m mt-2" id="ex1b"></span>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num bg-teal-600">3</div>
+        <div class="flex-grow">
+          <p class="font-bold text-teal-800 mb-1">Tulis sebagai desimal</p>
+          <p class="text-sm text-slate-700">Penyebut 100 punya 2 angka nol, jadi desimalnya punya <b style="color:var(--teal)">2 angka di belakang koma</b>.</p>
+          <span class="eq m mt-2" id="ex1c" style="background:#f0fdfa;border-color:#99f6e4"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- JURUS 2: POROGAPIT -->
+    <div id="content-2" class="method-content space-y-4" style="border-color:var(--purple)">
+      <p class="text-sm text-slate-600 text-center font-medium bg-purple-50 py-2 rounded">Cara ini sama dengan <b>bagi akar</b> yang sudah kamu kenal, dan bisa dipakai untuk semua pecahan.</p>
+      <div class="text-center bg-slate-50 py-3 rounded-lg border border-slate-200">
+        <p class="text-xs text-slate-500 font-bold uppercase">Ingat: garis pecahan artinya bagi</p>
+        <p class="m text-3xl text-purple-800 mt-1" id="ex2"></p>
+      </div>
+
+      <div class="rounded-xl p-4" style="background:#faf5ff;border:1px solid #e9d5ff">
+        <div class="pg" id="pg"></div>
+      </div>
+
+      <div class="rounded-lg p-3 text-sm text-slate-700 min-h-[4.5rem]" style="background:#fffbeb;border:1px solid #fde68a" id="pg-cap"></div>
+
+      <div class="flex justify-center gap-3">
+        <button class="btn" style="background:var(--purple)" id="pg-next" onclick="pgStep(1)">Langkah berikutnya ➔</button>
+        <button class="btn" style="background:#64748b" onclick="pgStep(-99)">↺ Ulangi</button>
+      </div>
+      <p class="text-center text-xs text-slate-500" id="pg-count"></p>
+      <div id="pg-final" class="hidden text-center"><span class="eq m" style="background:#faf5ff;border-color:#c4b5fd" id="pg-final-eq"></span></div>
+    </div>
+  </div>
+
+  <div class="mt-10 max-w-md mx-auto text-center space-y-3">
+    <p class="text-sm font-bold text-slate-600 uppercase tracking-widest">Master Class Selesai</p>
+    <a href="mission-d1-pos6.html" onclick="setProgress()" class="btn btn-next py-4 shadow-lg block">Lanjut ke Pos 6: Quest Ujian Konversi ➔</a>
+  </div>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+function fr(n,d){return `<span class="math-frac"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`;}
+function setProgress(){ try{ const p=parseInt(localStorage.getItem('vm_d1_progress'))||1; if(p<6) localStorage.setItem('vm_d1_progress',6); }catch(e){} }
+
+/* Bagian statis bermatematika */
+$('trap-frac').innerHTML = fr(1,4);
+$('boom').children[1].innerHTML = `<span class="m">${fr(1,4)}</span> bukan 0,4, melainkan <b>0,25</b>!<br>Karena 4 × 25 = 100, maka ${fr(1,4)} = ${fr('1 × 25','4 × 25')} = ${fr(25,100)} = 0,25`;
+$('ex1').innerHTML = `${fr(3,4)} = ? &nbsp;(ubah ke desimal)`;
+$('ex1b').innerHTML = `${fr('3 <span style="color:var(--teal)">× 25</span>','4 <span style="color:var(--teal)">× 25</span>')} = ${fr(75,100)}`;
+$('ex1c').innerHTML = `${fr(75,100)} = <b>0,75</b>`;
+$('ex2').innerHTML = `${fr(3,4)} = 3 ÷ 4 = 4 ⟌ 3`;
+
+function resetTrap(e){ e.stopPropagation(); $('boom').classList.remove('show'); setProgress(); }
+function switchTab(t){
+  $('tab-1').className='method-tab'+(t===1?' active-teal':''); $('tab-2').className='method-tab'+(t===2?' active-purple':'');
+  $('content-1').classList.toggle('active',t===1); $('content-2').classList.toggle('active',t===2); setProgress();
+}
+
+/* ---------- Porogapit 3 ÷ 4 = 0,75 ----------
+   [baris, kolom, isi, langkah muncul, kelas]
+   kolom: 1 tanda/pembagi | 2 puluhan-satuan | 3 koma | 4 | 5 */
+const CELLS=[
+ [1,2,'0',1,'q'],[1,3,',',1,'q'],[1,4,'7',2,'q'],[1,5,'5',4,'q'],
+ [2,1,'4',-1,'div'],[2,2,'3',-1,'dv first'],[2,3,',',0,'dv'],[2,4,'0',0,'dv'],[2,5,'0',0,'dv'],
+ [3,1,'−',1,'sg'],[3,2,'0',1,'ul'],
+ [4,2,'3',1,''],[4,4,'0',2,''],
+ [5,1,'−',3,'sg'],[5,2,'2',3,'ul'],[5,4,'8',3,'ul'],
+ [6,4,'2',3,''],[6,5,'0',4,''],
+ [7,1,'−',5,'sg'],[7,4,'2',5,'ul'],[7,5,'0',5,'ul'],
+ [8,5,'0',5,'']
+];
+const CAP=[
+ `Soal <b>3 ÷ 4</b> ditulis porogapit (bagi akar): pembagi <b>4</b> di luar, yang dibagi <b>3</b> di dalam.`,
+ `3 lebih kecil dari 4, jadi belum bisa dibagi habis. Tambahkan koma dan nol: <span class="m">3 = 3,00</span> (nilainya tetap).`,
+ `4 tidak muat di 3, jadi hasilnya <b>0</b>. Tulis <span class="m">0,</span> di atas. Hitung <span class="m">0 × 4 = 0</span>, lalu <span class="m">3 − 0 = 3</span>.`,
+ `Turunkan angka 0 di sebelahnya, jadi <b>30</b>. Berapa kali 4 muat di 30? <b>7</b> kali. Tulis <b>7</b> di hasil.`,
+ `Hitung <span class="m">7 × 4 = 28</span>, tulis di bawah 30. Kurangkan: <span class="m">30 − 28 = 2</span>.`,
+ `Turunkan angka 0 lagi, jadi <b>20</b>. Berapa kali 4 muat di 20? <b>5</b> kali. Tulis <b>5</b> di hasil.`,
+ `Hitung <span class="m">5 × 4 = 20</span>. Kurangkan: <span class="m">20 − 20 = 0</span>. Sisa 0 berarti pembagian selesai. Hasilnya <b>0,75</b> ✓`
+];
+let step=-1;
+function pgRender(){
+  $('pg').innerHTML = CELLS.filter(c=>c[3]<=step).map(c=>`<div class="pc ${c[4]} ${c[3]===step?'hl':''}" style="grid-row:${c[0]};grid-column:${c[1]}">${c[2]}</div>`).join('');
+  $('pg-cap').innerHTML = CAP[step+1];
+  $('pg-count').textContent = `Langkah ${step+1} dari ${CAP.length-1}`;
+  $('pg-next').disabled = step>=5;
+  const done=step>=5; $('pg-final').classList.toggle('hidden',!done);
+  if(done) $('pg-final-eq').innerHTML = `${fr(3,4)} = 3 ÷ 4 = <b>0,75</b> &nbsp;| Cek: 0,75 × 4 = 3 ✓`;
+}
+function pgStep(d){ step = d===-99 ? -1 : Math.min(5,step+d); pgRender(); if(step>=0) setProgress(); }
+pgRender();
+</script>
+</body>
+</html>
