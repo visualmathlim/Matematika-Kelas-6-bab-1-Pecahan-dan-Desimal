@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 4: Think - Mission D3 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--teal); background: #ccfbf1; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #5eead4; }
+  .home-btn:hover { background: var(--teal); color: #fff; transform: translateY(-1px); }
+
+  /* Jurnal Detektif Theme */
+  .detective-journal { 
+    background-color: #fdfbf7; 
+    background-image: linear-gradient(#e5e7eb 1px, transparent 1px);
+    background-size: 100% 2.4rem;
+    border: 1px solid #d1d5db;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 6px 6px 20px rgba(0,0,0,0.05), inset 4px 0 0 var(--teal); 
+    position: relative;
+  }
+  .paper-clip {
+    position: absolute; top: -15px; right: 35px; width: 28px; height: 55px;
+    border: 3px solid #94a3b8; border-radius: 15px; background: transparent; z-index: 10;
+  }
+
+  /* Input Kloning Nol */
+  .clone-input { width: 40px; height: 48px; text-align: center; font-size: 1.5rem; font-weight: 900; font-family: monospace; color: var(--teal); border: 2px dashed #94a3b8; border-radius: 8px; background: white; outline: none; transition: all 0.3s; }
+  .clone-input:focus { border-color: var(--teal); border-style: solid; box-shadow: 0 0 0 3px rgba(13,148,136,0.15); background: #f0fdf4; }
+  .clone-input.correct { border-color: var(--teal); border-style: solid; background: #ccfbf1; color: var(--teal); }
+
+  /* Tombol */
+  .btn { padding: .75rem 1.8rem; border-radius: 9999px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; font-size: 1rem; }
+  .btn-check { background: linear-gradient(to right, var(--teal), #0f766e); box-shadow: 0 4px 15px rgba(13,148,136,0.3); }
+  .btn-check:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(13,148,136,0.4); }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D3 • Pos 4</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#f0fdf4; border:1px solid var(--teal); color:var(--teal)">🔍 Pos 4/8: Think</span>
+      <a href="mission-d3.html" class="home-btn shadow-sm">
+        <span>← Peta D3</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 50%; background: linear-gradient(to right, var(--cyan-dk), var(--teal));"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-teal-50 border-teal-300 text-teal-800">
+      🔍 Think (Jurnal Detektif Analitis)
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Jurus Kloning Angka Nol</h2>
+    <p class="max-w-lg mx-auto text-sm text-slate-600 font-medium">
+      Mari pelajari cara menyamakan jumlah digit agar kita tidak pernah terkecoh lagi saat membandingkan angka.
+    </p>
+  </section>
+
+  <!-- DIALOG KIAN -->
+  <section class="card rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-center border-l-4 border-teal-600 bg-teal-50/30">
+    <img src="assets/Kian.png" alt="Kian" class="w-20 h-20 rounded-full border-4 border-teal-500 shrink-0 object-cover shadow-md bg-teal-100" onerror="this.outerHTML='<div class=\'w-20 h-20 rounded-full bg-teal-600 border-4 border-white flex-shrink-0 flex items-center justify-center text-3xl shadow-md text-white\'>👦</div>'">
+    <div class="text-sm text-slate-700 space-y-2 flex-grow">
+      <div class="flex items-center gap-2">
+        <span class="font-extrabold text-slate-900 text-base">Kian</span>
+        <span class="text-[10px] bg-teal-100 text-teal-900 font-bold px-2 py-0.5 rounded-full">Penjelajah Strategi</span>
+      </div>
+      <p class="leading-relaxed font-medium">
+        "Menambahkan angka <b>0</b> di posisi paling kanan desimal <b>TIDAK</b> akan mengubah nilainya! <span class='font-mono font-bold text-teal-700'>0,4</span> itu sama persis dengan <span class='font-mono font-bold text-teal-700'>0,40</span> dan <span class='font-mono font-bold text-teal-700'>0,400</span>. Ayo bantu aku menyamakan digit pada jurnal investigasi di bawah ini!"
+      </p>
+    </div>
+  </section>
+
+  <!-- JURNAL DETEKTIF INTERAKTIF -->
+  <div class="detective-journal space-y-6">
+    <div class="paper-clip"></div>
+    
+    <div class="text-center border-b border-slate-300 pb-3">
+      <h3 class="font-serif italic font-bold text-xl text-slate-800">Catatan Investigasi: Menyamakan Desimal</h3>
+      <p class="text-xs text-slate-500 font-mono mt-1">Tambahkan angka '0' di kotak yang kosong agar jumlah digitnya sama!</p>
+    </div>
+
+    <!-- SOAL 1: 0,4 vs 0,125 -->
+    <div class="bg-white/90 p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+      <p class="font-bold text-slate-800 text-sm">1. Kasus Tabung Cairan: <span class="font-mono text-cyan-700">0,4</span> melawan <span class="font-mono text-amber-600">0,125</span></p>
+      
+      <div class="flex flex-col md:flex-row items-center justify-center gap-8 bg-slate-50 p-4 rounded-xl border">
+        
+        <!-- Pihak A (0,4) -->
+        <div class="text-center">
+          <p class="text-xs font-semibold text-slate-500 mb-2">Pihak A (Butuh 3 digit)</p>
+          <div class="flex items-center gap-1">
+            <span class="font-mono text-3xl font-black text-cyan-800">0,4</span>
+            <input type="text" id="zero1-1" class="clone-input" maxlength="1" autocomplete="off">
+            <input type="text" id="zero1-2" class="clone-input" maxlength="1" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="font-black text-slate-300 text-2xl">VS</div>
+
+        <!-- Pihak B (0,125) -->
+        <div class="text-center">
+          <p class="text-xs font-semibold text-slate-500 mb-2">Pihak B (Sudah 3 digit)</p>
+          <div class="flex items-center gap-1">
+            <span class="font-mono text-3xl font-black text-amber-700">0,125</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SOAL 2: 0,7 vs 0,45 -->
+    <div class="bg-white/90 p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+      <p class="font-bold text-slate-800 text-sm">2. Kasus Uji Coba: Siapa yang lebih besar, <span class="font-mono text-cyan-700">0,7</span> atau <span class="font-mono text-amber-600">0,45</span>?</p>
+      
+      <div class="flex flex-col md:flex-row items-center justify-center gap-8 bg-slate-50 p-4 rounded-xl border">
+        
+        <!-- Pihak A (0,7) -->
+        <div class="text-center">
+          <p class="text-xs font-semibold text-slate-500 mb-2">Pihak A (Butuh 2 digit)</p>
+          <div class="flex items-center gap-1">
+            <span class="font-mono text-3xl font-black text-cyan-800">0,7</span>
+            <input type="text" id="zero2-1" class="clone-input" maxlength="1" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="font-black text-slate-300 text-2xl">VS</div>
+
+        <!-- Pihak B (0,45) -->
+        <div class="text-center">
+          <p class="text-xs font-semibold text-slate-500 mb-2">Pihak B (Sudah 2 digit)</p>
+          <div class="flex items-center gap-1">
+            <span class="font-mono text-3xl font-black text-amber-700">0,45</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Tombol Periksa -->
+    <div class="text-center pt-2">
+      <button onclick="verifyCloning()" class="btn btn-check px-8 py-3 text-sm">Gunakan Jurus Kloning Nol 🪄</button>
+      <p id="msg-error" class="text-red-600 text-xs font-bold mt-2 hidden">⚠️ Isi semua kotak putus-putus dengan angka '0'!</p>
+    </div>
+
+    <!-- KESIMPULAN (MUNCUL JIKA BENAR) -->
+    <div id="conclusion-area" class="hidden bg-teal-50 border-2 border-teal-300 rounded-2xl p-5 space-y-3">
+      <h4 class="font-bold text-teal-900 text-base flex items-center gap-2">
+        <span>✨</span> <span>Jurus Berhasil! Perbandingan Menjadi Jelas</span>
+      </h4>
+      <p class="text-sm text-slate-700 leading-relaxed font-medium">
+        Kini "kelas berat" (jumlah digit) mereka sudah sama! Perhatikan angkanya:
+      </p>
+      <ul class="text-sm text-slate-700 space-y-2 pl-4 list-disc font-semibold">
+        <li>Kasus 1: <b>0,400</b> jauh lebih besar dari <b>0,125</b> (400 > 125).</li>
+        <li>Kasus 2: <b>0,70</b> jauh lebih besar dari <b>0,45</b> (70 > 45).</li>
+      </ul>
+      <p class="text-xs text-teal-800 font-bold mt-2 bg-teal-100 p-2 rounded inline-block">
+        Ingat: Tambahkan nol di ujung kanan sampai jumlah angka di belakang koma sama!
+      </p>
+    </div>
+
+  </div>
+
+  <!-- TOMBOL LANJUT KE POS 5 -->
+  <div class="text-center pt-2 hidden" id="next-pos-container">
+    <a href="mission-d3-pos5.html" onclick="completePos4()" class="inline-block font-bold py-4 px-10 rounded-full text-white shadow-xl transition-transform hover:scale-105" style="background:linear-gradient(to right,var(--cyan-dk),var(--teal))">
+      Lanjut ke Pos 5: Skill Unlock (Master Class Prof. Sigma) ➔
+    </a>
+  </div>
+
+</main>
+
+<script>
+// Pindahkan fokus otomatis saat mengetik (UX Enhancement)
+document.querySelectorAll('.clone-input').forEach((input, index, inputs) => {
+  input.addEventListener('input', function() {
+    if (this.value.length === 1 && index < inputs.length - 1) {
+      inputs[index + 1].focus();
+    }
+  });
+});
+
+function verifyCloning(){
+  let z1_1 = document.getElementById('zero1-1').value;
+  let z1_2 = document.getElementById('zero1-2').value;
+  let z2_1 = document.getElementById('zero2-1').value;
+
+  // Validasi apakah semuanya diisi angka '0'
+  let isValid = (z1_1 === '0' && z1_2 === '0' && z2_1 === '0');
+
+  let errorMsg = document.getElementById('msg-error');
+  let conclusion = document.getElementById('conclusion-area');
+  let nextContainer = document.getElementById('next-pos-container');
+
+  if(isValid){
+    errorMsg.classList.add('hidden');
+    conclusion.classList.remove('hidden');
+    nextContainer.classList.remove('hidden');
+    
+    // Warnai hijau inputnya dan kunci
+    document.querySelectorAll('.clone-input').forEach(el => {
+      el.classList.add('correct');
+      el.disabled = true;
+    });
+    
+    // Simpan progres
+    try{
+      let p = +localStorage.getItem('vm_d3_progress') || 0;
+      if(p < 4) localStorage.setItem('vm_d3_progress', 4);
+    }catch(e){}
+
+    conclusion.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  } else {
+    errorMsg.classList.remove('hidden');
+  }
+}
+
+function completePos4(){
+  try{
+    let p = +localStorage.getItem('vm_d3_progress') || 0;
+    if(p < 5) localStorage.setItem('vm_d3_progress', 5);
+  }catch(e){}
+}
+</script>
+</body>
+</html>
