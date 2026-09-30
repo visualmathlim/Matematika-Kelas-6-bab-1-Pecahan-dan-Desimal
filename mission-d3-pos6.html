@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 6: Quest - Mission D3 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--teal); background: #ccfbf1; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #5eead4; }
+  .home-btn:hover { background: var(--teal); color: #fff; transform: translateY(-1px); }
+
+  /* Tombol Aksi Umum */
+  .btn { display: inline-block; text-align: center; padding: 0.8rem 1.8rem; border-radius: 9999px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
+  .btn-submit { background: linear-gradient(to right, var(--teal), #0f766e); box-shadow: 0 4px 15px rgba(13,148,136,0.3); font-size: 1.1rem; }
+  .btn-submit:hover { transform: scale(1.02); }
+  .btn-retry { background: linear-gradient(to right, #475569, #1e293b); box-shadow: 0 4px 10px rgba(71,85,105,0.3); font-size: 1.1rem; }
+  .btn-next-boss { background: linear-gradient(to right, var(--cyan-dk), var(--teal)); box-shadow: 0 4px 10px rgba(6,182,212,0.3); font-size: 1.1rem; }
+
+  /* Kotak Quest & Simbol Interaktif */
+  .quest-box { display: flex; align-items: center; justify-content: center; gap: 1rem; background: #f8fafc; padding: 1.5rem; border-radius: 1rem; border: 2px dashed #cbd5e1; margin-bottom: 1rem; }
+  .num-plate { font-family: monospace; font-size: 2rem; font-weight: 900; color: var(--navy); background: white; padding: 0.5rem 1rem; border-radius: 0.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 2px solid #e2e8f0; }
+  .symbol-drop { width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 900; color: var(--teal); background: #ccfbf1; border: 3px solid var(--teal); border-radius: 50%; box-shadow: inset 0 2px 4px rgba(13,148,136,0.2); transition: all 0.3s; }
+  
+  /* Pilihan Simbol (Tombol Bawah) */
+  .symbol-btn { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; font-weight: 900; color: white; background: var(--teal); border-radius: 12px; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 6px rgba(13,148,136,0.3); border: none; }
+  .symbol-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(13,148,136,0.4); background: var(--cyan-dk); }
+  .symbol-btn.active { background: var(--navy); transform: scale(0.95); box-shadow: none; }
+
+  /* Status Warna (Setelah Dikirim) */
+  .card-correct { border-color: #86efac !important; background-color: #f0fdf4 !important; }
+  .card-incorrect { border-color: #fca5a5 !important; background-color: #fef2f2 !important; }
+
+  /* Pembahasan */
+  .expl-box { background: white; border-left: 4px solid var(--teal); padding: 1.2rem; border-radius: 0 8px 8px 0; margin-top: 1rem; text-align: left; display: none; font-size: 0.95rem; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+  .expl-visual { background: #f8fafc; border: 1px dashed var(--teal); border-radius: 8px; padding: 10px 14px; margin-top: 8px; font-size: 0.9rem; color: #334155; font-family: monospace; }
+  
+  .result-banner { border-radius: 16px; padding: 2rem; margin-top: 2rem; text-align: center; display: none; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+  .result-banner.pass { background: #f0fdf4; border: 2px solid #86efac; color: #166534; }
+  .result-banner.fail { background: #fef2f2; border: 2px solid #fca5a5; color: #991b1b; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D3 • Pos 6</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#f0fdf4; border:1px solid var(--teal); color:var(--teal)">⚔️ Pos 6/8: Quest</span>
+      <a href="mission-d3.html" class="home-btn shadow-sm"><span>← Peta D3</span></a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 75%; background: linear-gradient(to right, var(--cyan-dk), var(--teal));"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+  
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-teal-50 border-teal-300 text-teal-800">
+      ⚔️ Ujian Pemantapan Quest
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Uji Tanding Desimal</h2>
+    <p class="text-sm text-slate-600 max-w-xl mx-auto font-medium">
+      Gunakan simbol Lebih Kecil (<), Lebih Besar (>), atau Sama Dengan (=). Standar KKM adalah <b>70</b> (Minimal 4 soal benar).
+    </p>
+  </section>
+
+  <!-- PANDUAN KIAN -->
+  <section class="card rounded-3xl p-6 flex items-center gap-5 border-l-4 border-teal-600 bg-gradient-to-r from-white to-teal-50/40">
+    <img src="assets/Kian.png" alt="Kian" class="w-16 h-16 rounded-full border-3 border-teal-500 shrink-0 object-cover shadow-md bg-teal-100" onerror="this.outerHTML='<div class=\'w-16 h-16 rounded-full bg-teal-600 border-3 border-white flex-shrink-0 flex items-center justify-center text-2xl shadow-md text-white\'>👦</div>'">
+    <div class="text-sm text-slate-700 space-y-1">
+      <span class="font-extrabold text-slate-900">Kian Berpesan:</span>
+      <p class="font-medium">"Hati-hati jebakan ilusi angka panjang! Jika ragu, gunakan <b>Jurus Kloning Nol</b> untuk menyamakan digitnya. Pilih simbol yang tepat untuk kelima soal yang diacak ini!"</p>
+    </div>
+  </section>
+
+  <!-- FORM KUIS -->
+  <form id="quiz-form" onsubmit="submitQuiz(event)">
+    <div id="questions-container" class="space-y-6">
+      <!-- Digenerate oleh JS -->
+    </div>
+
+    <!-- TOMBOL SUBMIT -->
+    <div class="text-center py-6" id="submit-section">
+      <button type="submit" class="btn btn-submit px-12 py-4 shadow-lg">Kirim Jawaban Quest 🚀</button>
+      <p id="unanswered-msg" class="text-red-500 font-bold text-sm mt-3 hidden">⚠️ Harap isi semua lambang perbandingan terlebih dahulu!</p>
+    </div>
+  </form>
+
+  <!-- BANNER HASIL -->
+  <div id="result-banner" class="result-banner">
+    <h3 class="text-2xl font-extrabold mb-2" id="res-title">Hasil Ujian Quest</h3>
+    <p class="text-lg font-semibold mb-4" id="res-score-text">Skor Anda: 0 / 100</p>
+    <p class="text-sm mb-6 max-w-lg mx-auto" id="res-msg">Pembahasan.</p>
+    
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <button id="btn-action-retry" onclick="initQuiz()" class="btn btn-retry px-8 py-3 hidden">🔄 Coba Ujian Lagi (Soal Diacak)</button>
+      <button id="btn-action-next" onclick="goToBoss()" class="btn btn-next-boss px-8 py-3 hidden">Lanjut ke Boss Battle (Pos 7) ➔</button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // BANK SOAL
+  const masterQuestions = [
+    {
+      num1: "0,8", num2: "0,75", answer: ">",
+      expl: "Jangan terkecoh angka 75. Gunakan kloning nol pada 0,8 menjadi 0,80.",
+      visual: "0,8<b>0</b> &gt; 0,75"
+    },
+    {
+      num1: "2,34", num2: "2,340", answer: "=",
+      expl: "Angka nol di paling belakang bagian desimal tidak menambah nilai. Keduanya sama persis.",
+      visual: "2,34<b>0</b> = 2,340"
+    },
+    {
+      num1: "15,09", num2: "15,1", answer: "<",
+      expl: "Pindai dari kiri. Di kolom persepuluhan (setelah koma), angka 0 lebih kecil dari angka 1.",
+      visual: "15,<b>0</b>9 &lt; 15,<b>1</b>0"
+    },
+    {
+      num1: "0,065", num2: "0,2", answer: "<",
+      expl: "Jika disamakan 3 digit, 0,2 menjadi 0,200. Jelas bahwa 065 lebih kecil dari 200.",
+      visual: "0,065 &lt; 0,2<b>00</b>"
+    },
+    {
+      num1: "7,502", num2: "7,5", answer: ">",
+      expl: "Gunakan kloning nol untuk menyamakan menjadi 3 digit di belakang koma (7,500).",
+      visual: "7,502 &gt; 7,5<b>00</b>"
+    }
+  ];
+
+  let shuffledQuestions = [];
+  let userAnswers = []; // Menyimpan jawaban user (<, >, =)
+
+  function initQuiz() {
+    // Acak urutan soal
+    shuffledQuestions = [...masterQuestions].sort(() => Math.random() - 0.5);
+    userAnswers = new Array(5).fill("");
+
+    let container = document.getElementById('questions-container');
+    container.innerHTML = '';
+
+    shuffledQuestions.forEach((qObj, qIndex) => {
+      let cardHtml = `
+        <div class="card rounded-2xl p-6" id="q-card-${qIndex}">
+          <p class="font-extrabold text-slate-500 text-sm uppercase mb-3 tracking-wider">Soal ${qIndex + 1}</p>
+          
+          <div class="quest-box">
+            <div class="num-plate">${qObj.num1}</div>
+            <div class="symbol-drop" id="drop-${qIndex}">?</div>
+            <div class="num-plate">${qObj.num2}</div>
+          </div>
+
+          <div class="flex justify-center gap-4 mt-2">
+            <button type="button" class="symbol-btn" onclick="setAnswer(${qIndex}, '<')">&lt;</button>
+            <button type="button" class="symbol-btn" onclick="setAnswer(${qIndex}, '=')">=</button>
+            <button type="button" class="symbol-btn" onclick="setAnswer(${qIndex}, '>')">&gt;</button>
+          </div>
+
+          <div id="expl_${qIndex}" class="expl-box">
+            <p class="font-bold text-slate-800 mb-1">💡 Pembahasan (Kloning Nol / Pemindai):</p>
+            <p class="text-slate-700">${qObj.expl}</p>
+            <div class="expl-visual text-center text-lg">${qObj.visual}</div>
+          </div>
+        </div>
+      `;
+      container.insertAdjacentHTML('beforeend', cardHtml);
+    });
+
+    document.getElementById('result-banner').style.display = 'none';
+    document.getElementById('submit-section').style.display = 'block';
+    document.getElementById('unanswered-msg').classList.add('hidden');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function setAnswer(qIdx, symbol) {
+    userAnswers[qIdx] = symbol;
+    
+    // Update tampilan drop target
+    let dropZone = document.getElementById(`drop-${qIdx}`);
+    dropZone.textContent = symbol;
+    
+    // Animasi pop
+    dropZone.style.transform = 'scale(1.2)';
+    setTimeout(() => { dropZone.style.transform = 'scale(1)'; }, 150);
+  }
+
+  function submitQuiz(e) {
+    e.preventDefault();
+    let errMsg = document.getElementById('unanswered-msg');
+    
+    // Validasi: pastikan semua terjawab
+    if (userAnswers.includes("")) {
+      errMsg.classList.remove('hidden');
+      return;
+    }
+    errMsg.classList.add('hidden');
+
+    let correctCount = 0;
+
+    shuffledQuestions.forEach((qObj, qIndex) => {
+      let isCorrect = (userAnswers[qIndex] === qObj.answer);
+      if (isCorrect) correctCount++;
+
+      let card = document.getElementById(`q-card-${qIndex}`);
+      let explBox = document.getElementById(`expl_${qIndex}`);
+      explBox.style.display = 'block';
+      
+      // Matikan tombol interaksi
+      card.querySelectorAll('.symbol-btn').forEach(btn => btn.style.display = 'none');
+
+      if (isCorrect) {
+        card.classList.add('card-correct');
+      } else {
+        card.classList.add('card-incorrect');
+        // Tunjukkan jawaban salah pada kotak
+        document.getElementById(`drop-${qIndex}`).style.backgroundColor = '#fca5a5';
+        document.getElementById(`drop-${qIndex}`).style.color = '#7f1d1d';
+        document.getElementById(`drop-${qIndex}`).style.borderColor = '#ef4444';
+      }
+    });
+
+    let finalScore = correctCount * 20;
+
+    // Tampilkan Hasil
+    let banner = document.getElementById('result-banner');
+    let resTitle = document.getElementById('res-title');
+    let resScoreText = document.getElementById('res-score-text');
+    let resMsg = document.getElementById('res-msg');
+    let btnRetry = document.getElementById('btn-action-retry');
+    let btnNext = document.getElementById('btn-action-next');
+
+    banner.style.display = 'block';
+    document.getElementById('submit-section').style.display = 'none';
+    resScoreText.innerText = `Skor Ujian: ${finalScore} / 100 (${correctCount} dari 5 soal benar)`;
+
+    if (finalScore >= 70) {
+      banner.className = "result-banner pass";
+      resTitle.innerText = "🎉 SELAMAT! LULUS KKM!";
+      resMsg.innerText = "Luar biasa! Kamu berhasil menguasai perbandingan desimal dan tidak terkecoh. Pintu Boss Battle (Pos 7) resmi terbuka!";
+      btnRetry.classList.add('hidden');
+      btnNext.classList.remove('hidden');
+
+      // Simpan kelulusan
+      try {
+        localStorage.setItem('vm_d3_pos6_score', finalScore);
+        localStorage.setItem('vm_d3_pos6', JSON.stringify({passed: true}));
+        let p = parseInt(localStorage.getItem('vm_d3_progress')) || 0;
+        if (p < 7) localStorage.setItem('vm_d3_progress', 7);
+      } catch (e) {}
+
+    } else {
+      banner.className = "result-banner fail";
+      resTitle.innerText = "💥 BELUM MENCAPAI KKM 70";
+      resMsg.innerText = "Nilaimu di bawah 70. Pelajari pembahasan di bawah setiap soal, pahami 'Jurus Kloning Nol', lalu klik Coba Ujian Lagi!";
+      btnRetry.classList.remove('hidden');
+      btnNext.classList.add('hidden');
+    }
+
+    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function goToBoss() {
+    window.location.href = "mission-d3-pos7.html";
+  }
+
+  // Load Quiz
+  initQuiz();
+</script>
+</body>
+</html>
