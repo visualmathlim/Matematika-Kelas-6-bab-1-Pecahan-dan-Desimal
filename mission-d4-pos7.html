@@ -6,280 +6,272 @@
 <title>Pos 7: Boss Battle - Mission D4 | Math Mastery</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  :root { 
-    --indigo: #6366f1; 
-    --indigo-dk: #4f46e5;
-    --navy: #0f172a; 
-    --bg: #f8fafc; 
-    --card: #ffffff; 
-    --line: #e2e8f0;
-    --violet: #8b5cf6; 
-  }
-  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
-  
-  /* Kartu & Header */
-  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
-  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--indigo-dk); background: #e0e7ff; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #c7d2fe; }
-  .home-btn:hover { background: var(--indigo-dk); color: #fff; transform: translateY(-1px); }
-
-  /* Format Pecahan Matematika Vertikal */
-  .m { font-family: 'Cambria Math', 'STIX Two Math', serif; white-space: nowrap; font-weight: bold; display: inline-block; vertical-align: middle; }
-  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.2rem; line-height: 1.1; font-size: 1em; }
-  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
-  .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
-
-  /* Kartu Kasus Boss */
-  .boss-card { background: linear-gradient(to bottom right, #ffffff, #f8fafc); border: 2px solid #cbd5e1; border-radius: 1.25rem; padding: 1.5rem; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.03); transition: all 0.3s; }
-  .boss-card.success { border-color: #86efac; background: #f0fdf4; }
-  .boss-card.error { border-color: #fca5a5; background: #fef2f2; }
-
-  /* Input & Select */
-  .boss-select { background: white; border: 2px solid #cbd5e1; border-radius: 0.5rem; padding: 0.6rem 0.75rem; font-weight: bold; font-size: 1rem; color: var(--navy); width: 100%; outline: none; transition: all 0.2s; font-family: monospace; }
-  .boss-select:focus { border-color: var(--indigo); box-shadow: 0 0 0 3px rgba(99,102,241,0.15); }
-
-  /* Tombol */
-  .btn { display: inline-block; text-align: center; padding: 0.8rem 1.8rem; border-radius: 99px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
-  .btn-boss { background: linear-gradient(to right, #4338ca, #6366f1); box-shadow: 0 4px 15px rgba(99,102,241,0.3); font-size: 1.1rem; }
-  .btn-boss:hover { transform: scale(1.02); }
-  .btn-retry { background: linear-gradient(to right, #475569, #1e293b); box-shadow: 0 4px 10px rgba(71,85,105,0.3); font-size: 1.1rem; }
-  .btn-next-badge { background: linear-gradient(to right, #059669, #10b981); box-shadow: 0 4px 15px rgba(16,185,129,0.3); font-size: 1.1rem; }
-
-  /* Pembahasan & Visualisasi */
-  .expl-box { background: #f8fafc; border-left: 4px solid var(--indigo); padding: 1.2rem; border-radius: 0 8px 8px 0; margin-top: 1rem; text-align: left; display: none; font-size: 0.95rem; }
-  .expl-visual { background: #ffffff; border: 1px dashed var(--indigo); border-radius: 8px; padding: 12px 14px; margin-top: 8px; font-size: 0.9rem; color: #334155; font-family: monospace; }
+  :root { --indigo:#6366f1; --indigo-dk:#4f46e5; --navy:#0f172a; --bg:#f8fafc; --card:#fff; --line:#e2e8f0; --violet:#8b5cf6; }
+  body { background-color:var(--bg); color:var(--navy); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; overflow-x:hidden; }
+  .card { background-color:var(--card); border:1px solid var(--line); box-shadow:0 4px 6px -1px rgba(0,0,0,.05); }
+  .home-btn { display:inline-flex; align-items:center; gap:6px; font-size:.85rem; font-weight:700; color:var(--indigo-dk); background:#e0e7ff; padding:6px 14px; border-radius:99px; transition:all .2s; border:1px solid #c7d2fe; }
+  .home-btn:hover { background:var(--indigo-dk); color:#fff; }
+  .m { font-family:'Cambria Math','STIX Two Math',serif; white-space:nowrap; font-weight:bold; display:inline-block; vertical-align:middle; }
+  .math-frac { display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .2rem; line-height:1.1; }
+  .math-num { border-bottom:2px solid currentColor; padding:0 .3rem; width:100%; text-align:center; }
+  .math-den { padding:0 .3rem; width:100%; text-align:center; }
+  .boss-card { background:linear-gradient(to bottom right,#fff,#f8fafc); border:2px solid #cbd5e1; border-radius:1.25rem; padding:1.5rem; transition:all .3s; }
+  .boss-card.success { border-color:#86efac; background:#f0fdf4; }
+  .boss-card.error { border-color:#fca5a5; background:#fef2f2; }
+  .boss-select { background:#fff; border:2px solid #cbd5e1; border-radius:.5rem; padding:.6rem .75rem; font-weight:bold; font-size:1rem; width:100%; outline:none; font-family:monospace; }
+  .boss-select:focus { border-color:var(--indigo); box-shadow:0 0 0 3px rgba(99,102,241,.15); }
+  .boss-select:disabled { opacity:.85; cursor:not-allowed; }
+  .btn { display:inline-block; text-align:center; padding:.8rem 1.8rem; border-radius:99px; font-weight:bold; color:#fff; transition:all .2s; cursor:pointer; border:none; }
+  .btn-boss { background:linear-gradient(to right,#4338ca,#6366f1); box-shadow:0 4px 15px rgba(99,102,241,.3); font-size:1.1rem; }
+  .btn-retry { background:linear-gradient(to right,#475569,#1e293b); font-size:1.1rem; }
+  .btn-next-badge { background:linear-gradient(to right,#059669,#10b981); font-size:1.1rem; }
+  .btn:hover { transform:scale(1.02); }
+  .expl-box { background:#f8fafc; border-left:4px solid var(--indigo); padding:1.2rem; border-radius:0 8px 8px 0; margin-top:1rem; display:none; font-size:.95rem; }
+  .expl-visual { background:#fff; border:1px dashed var(--indigo); border-radius:8px; padding:12px 14px; margin-top:8px; font-size:.9rem; color:#334155; font-family:monospace; line-height:1.9; }
+  .verdict { font-weight:800; font-size:.85rem; margin-bottom:.5rem; }
 </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
 
 <header class="card border-b sticky top-0 z-50">
-  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-20">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
     <div class="flex items-center gap-3">
-      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400\'>MM</div>'">
       <div>
-        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <h1 class="text-lg font-bold leading-tight">Math Mastery</h1>
         <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D4 • Pos 7 (Boss Battle)</p>
       </div>
     </div>
     <div class="flex items-center gap-2">
-      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#eef2ff; border:1px solid var(--indigo); color:var(--indigo-dk)">⚡ Pos 7/8: Boss Battle</span>
+      <span class="hidden sm:inline px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#eef2ff;border:1px solid var(--indigo);color:var(--indigo-dk)">⚡ Pos 7/8: Boss Battle</span>
       <a href="mission-d4.html" class="home-btn shadow-sm"><span>← Peta D4</span></a>
     </div>
   </div>
-  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 87.5%; background: linear-gradient(to right, var(--indigo-dk), var(--violet));"></div></div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width:87.5%;background:linear-gradient(to right,var(--indigo-dk),var(--violet))"></div></div>
 </header>
 
 <main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
-  
+
   <section class="text-center space-y-2">
-    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-indigo-50 border-indigo-300 text-indigo-900">
-      ⚡ Boss Battle (Studi Kasus HOTS)
-    </div>
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-indigo-50 border-indigo-300 text-indigo-900">⚡ Boss Battle (Studi Kasus HOTS)</div>
     <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Audit Kargo Kritis Galaksi</h2>
     <p class="text-sm text-slate-600 max-w-xl mx-auto font-medium">
-      Selesaikan 3 tantangan audit tingkat tinggi ini. Standar KKM adalah <b>70</b> (minimal 2 kasus benar). Hati-hati dengan jebakan angka pengecoh!
+      Selesaikan <b>4 tantangan audit</b> ini. Standar KKM adalah <b>70</b> (minimal <b>3 kasus benar</b>). Jika belum lulus, kamu harus mengulang dengan soal baru. Hati-hati dengan angka pengecoh!
     </p>
   </section>
 
-  <!-- PANDUAN KIAN -->
   <section class="card rounded-3xl p-6 flex items-center gap-5 border-l-4 border-indigo-600 bg-gradient-to-r from-white to-indigo-50/40">
-    <img src="assets/Kian.png" alt="Kian" class="w-16 h-16 rounded-full border-3 border-indigo-500 shrink-0 object-cover shadow-md bg-indigo-100" onerror="this.outerHTML='<div class=\'w-16 h-16 rounded-full bg-indigo-600 border-3 border-white flex-shrink-0 flex items-center justify-center text-2xl shadow-md text-white\'>👦</div>'">
+    <img src="assets/Kian.png" alt="Kian" class="w-16 h-16 rounded-full shrink-0 object-cover shadow-md bg-indigo-100" onerror="this.outerHTML='<div class=\'w-16 h-16 rounded-full bg-indigo-600 flex-shrink-0 flex items-center justify-center text-2xl text-white\'>👦</div>'">
     <div class="text-sm text-slate-700 space-y-1">
       <span class="font-extrabold text-slate-900">Kian Berpesan:</span>
-      <p class="font-medium">"Sistem audit galaksi mendeteksi adanya kontainer pengecoh yang memiliki panjang angka menipu. Gunakan konversi penuh dan kloning nol untuk membongkar urutan yang benar dari terkecil ke terbesar!"</p>
+      <p class="font-medium">"Sistem audit mendeteksi kontainer pengecoh dengan panjang angka menipu. Ubah pecahan ke desimal, samakan jumlah digit dengan kloning nol, lalu urutkan dari terkecil ke terbesar!"</p>
     </div>
   </section>
 
-  <!-- FORM BOSS BATTLE -->
-  <form id="boss-form" onsubmit="submitBoss(event)" class="space-y-6">
-    <div id="boss-container" class="space-y-6">
-      <!-- Di-generate dinamis oleh JavaScript -->
-    </div>
-
-    <!-- TOMBOL KIRIM -->
+  <form id="boss-form" class="space-y-6" novalidate>
+    <div id="boss-container" class="space-y-6"></div>
     <div class="text-center pt-4" id="submit-section">
-      <button type="submit" class="btn btn-boss px-12 py-3.5 shadow-lg">Jalankan Sistem Audit ⚡</button>
+      <button type="button" id="btn-submit" class="btn btn-boss px-12 py-3.5 shadow-lg">Jalankan Sistem Audit ⚡</button>
       <p id="error-msg" class="text-red-600 text-xs font-bold mt-2 hidden">⚠️ Harap pilih jawaban untuk semua kasus audit!</p>
     </div>
   </form>
 
-  <!-- BANNER HASIL / KKM -->
-  <div id="result-banner" class="card rounded-3xl p-8 text-center space-y-4 hidden">
+  <div id="result-banner" class="card rounded-3xl p-8 text-center space-y-4" style="display:none">
     <div class="text-4xl" id="res-icon">🏆</div>
     <h3 class="text-2xl font-extrabold" id="res-title">HASIL AUDIT</h3>
-    <p class="text-lg font-bold text-slate-800" id="res-score">Skor: 0 / 100</p>
-    <p class="text-sm text-slate-700 max-w-md mx-auto font-medium" id="res-msg">Pesan sistem...</p>
-    
+    <p class="text-lg font-bold" id="res-score"></p>
+    <p class="text-sm text-slate-700 max-w-md mx-auto font-medium" id="res-msg"></p>
     <div class="pt-2 flex flex-col sm:flex-row justify-center gap-4">
-      <button id="btn-retry" onclick="initBoss()" class="btn btn-retry px-8 py-3 hidden">🔄 Coba Audit Ulang (Acak Soal)</button>
-      <button id="btn-next" onclick="goToBadge()" class="btn btn-next-badge px-8 py-3 hidden">Klaim Badge "Grand Sorter" ➔</button>
+      <button type="button" id="btn-retry" class="btn btn-retry hidden">🔄 Coba Audit Ulang (Soal Diacak)</button>
+      <button type="button" id="btn-next" class="btn btn-next-badge hidden">Klaim Badge "Grand Sorter" ➔</button>
     </div>
   </div>
 
 </main>
 
 <script>
-  // MASTER KASUS BOSS BATTLE (HOTS)
-  const masterBossCases = [
-    {
-      id: 1,
-      title: "Kasus Audit 1: Jebakan Pecahan Delapan",
-      text: "Audit kontainer bahan bakar dengan urutan dari <b>terkecil ke terbesar</b> untuk nilai: <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">8</span></span></span>, <span class='m'>0,12</span>, dan <span class='m'>0,1</span>.",
-      options: [
-        { text: "0,1 < 0,12 < (1/8)", val: "optA" },
-        { text: "(1/8) < 0,1 < 0,12", val: "optB" },
-        { text: "0,1 < (1/8) < 0,12", val: "optC" }
-      ],
-      answer: "optC",
-      expl: "Konversi pecahan <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">8</span></span></span> = 0,125. Bentuk kloning nol (3 digit): 0,100; 0,125; 0,120. Urutan dari terkecil: 0,100 < 0,125 < 0,120.",
-      visual: "🔍 <b>Analisis Presisi:</b><br>• 0,1 = 0,1<b>00</b><br>• <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">8</span></span></span> = 0,1<b>25</b><br>• 0,12 = 0,12<b>0</b><br><br><b>Urutan: 0,1 < (1/8) < 0,12</b>"
-    },
-    {
-      id: 2,
-      title: "Kasus Audit 2: Jebakan Panjang Angka (Length Trap)",
-      text: "Urutkan dari <b>terkecil ke terbesar</b> untuk nilai kontainer: <span class='m'>4,05</span>, <span class='m'>4,5</span>, dan <span class='m'>4,005</span>.",
-      options: [
-        { text: "4,005 < 4,05 < 4,5", val: "optA" },
-        { text: "4,05 < 4,005 < 4,5", val: "optB" },
-        { text: "4,5 < 4,05 < 4,005", val: "optC" }
-      ],
-      answer: "optA",
-      expl: "Jangan terkecoh angka 4,05 yang terlihat pendek. Kloning nol menjadi 3 digit: 4,050; 4,500; 4,005. Urutan terkecil jelas 4,005 < 4,050 < 4,500.",
-      visual: "🔍 <b>Analisis Kloning Nol:</b><br>• 4,05 &rarr; 4,05<b>0</b><br>• 4,5 &rarr; 4,5<b>00</b><br>• 4,005 &rarr; 4,005<br><br><b>Urutan: 4,005 < 4,05 < 4,5</b>"
-    },
-    {
-      id: 3,
-      title: "Kasus Audit 3: Kombinasi Pecahan dan Desimal Kritis",
-      text: "Urutkan dari <b>terkecil ke terbesar</b> untuk nilai: <span class='m'><span class='math-frac'><span class='math-num'>3</span><span class='math-den">5</span></span></span>, <span class='m'>0,58</span>, dan <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">2</span></span></span>.",
-      options: [
-        { text: "(3/5) < (1/2) < 0,58", val: "optA" },
-        { text: "(1/2) < 0,58 < (3/5)", val: "optB" },
-        { text: "0,58 < (1/2) < (3/5)", val: "optC" }
-      ],
-      answer: "optB",
-      expl: "Konversi pecahan: <span class='m'><span class='math-frac'><span class='math-num'>3</span><span class='math-den">5</span></span></span> = 0,60 dan <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">2</span></span></span> = 0,50. Bentuk setara: 0,60; 0,58; 0,50. Urutan terkecil: 0,50 < 0,58 < 0,60.",
-      visual: "🔍 <b>Analisis Konversi:</b><br>• <span class='m'><span class='math-frac'><span class='math-num'>3</span><span class='math-den">5</span></span></span> = 0,60<br>• 0,58 = 0,58<br>• <span class='m'><span class='math-frac'><span class='math-num'>1</span><span class='math-den">2</span></span></span> = 0,50<br><br><b>Urutan: (1/2) < 0,58 < (3/5)</b>"
-    }
+  const KKM = 70, TOTAL = 4;
+  let passed = false;
+
+  // Helper pecahan vertikal
+  const f = (n, d) => `<span class="m"><span class="math-frac"><span class="math-num">${n}</span><span class="math-den">${d}</span></span></span>`;
+  const dec = (s) => `<span class="m">${s}</span>`;
+
+  // Item: h = tampilan HTML, t = teks untuk opsi, d = nilai desimal (koma)
+  const D = (s) => ({ h: dec(s), t: s, d: s });
+  const F = (n, d, val) => ({ h: f(n, d), t: `${n}/${d}`, d: val });
+
+  // BANK SOAL (4 dipilih acak tiap percobaan)
+  const bank = [
+    { title: "Kasus 1: Jebakan Pecahan Delapan", ctx: "Audit kontainer bahan bakar", items: [F(1, 8, "0,125"), D("0,12"), D("0,1")] },
+    { title: "Kasus 2: Jebakan Panjang Angka", ctx: "Audit muatan kristal", items: [D("4,05"), D("4,5"), D("4,005")] },
+    { title: "Kasus 3: Pecahan dan Desimal Kritis", ctx: "Audit tabung oksigen", items: [F(3, 5, "0,6"), D("0,58"), F(1, 2, "0,5")] },
+    { title: "Kasus 4: Tiga Perempat Menipu", ctx: "Audit kapsul energi", items: [F(3, 4, "0,75"), D("0,7"), D("0,075")] },
+    { title: "Kasus 5: Dua Perlima Misterius", ctx: "Audit peti logam mulia", items: [F(2, 5, "0,4"), D("0,39"), D("0,405")] },
+    { title: "Kasus 6: Tujuh Perdelapan", ctx: "Audit tangki air kosmik", items: [F(7, 8, "0,875"), D("0,87"), D("0,9")] },
+    { title: "Kasus 7: Seperempat Pengecoh", ctx: "Audit sabuk asteroid", items: [F(1, 4, "0,25"), D("0,3"), D("0,205")] },
+    { title: "Kasus 8: Jebakan Enam Koma", ctx: "Audit modul navigasi", items: [D("5,6"), D("5,06"), D("5,066")] }
   ];
+
+  const num = (s) => parseFloat(s.replace(",", "."));
+  const shuffle = (a) => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const key = (order) => order.join("-");
+  const label = (items, order) => order.map(i => items[i].t).join(" < ");
+  const labelHtml = (items, order) => order.map(i => items[i].h).join(" &lt; ");
+
+  function permutations(arr) {
+    if (arr.length <= 1) return [arr];
+    return arr.flatMap((x, i) => permutations([...arr.slice(0, i), ...arr.slice(i + 1)]).map(p => [x, ...p]));
+  }
+
+  // Bangun satu kasus lengkap (opsi, kunci jawaban, pembahasan)
+  function buildCase(src) {
+    const items = shuffle(src.items);
+    const idx = items.map((_, i) => i);
+    const correct = [...idx].sort((a, b) => num(items[a].d) - num(items[b].d));
+    const wrong = [...idx].sort((a, b) => num(items[b].d) - num(items[a].d)); // urutan terbalik
+    const others = shuffle(permutations(idx).filter(p => key(p) !== key(correct) && key(p) !== key(wrong)));
+    const options = shuffle([correct, wrong, others[0]]).map(o => ({ val: key(o), order: o }));
+
+    const maxDec = Math.max(...items.map(it => (it.d.split(",")[1] || "").length));
+    const pad = (s) => { const [a, b = ""] = s.split(","); return a + "," + b.padEnd(maxDec, "0"); };
+    const rows = items.map(it => {
+      const isFrac = it.t.includes("/");
+      const step = isFrac ? `${it.h} = ${it.d}` : `${it.h}`;
+      const padded = pad(it.d);
+      return `• ${step} &rarr; <b>${padded}</b>${padded !== it.d && !isFrac ? "" : ""}`;
+    }).join("<br>");
+
+    const hasFrac = items.some(it => it.t.includes("/"));
+    const expl = (hasFrac ? "Langkah 1: ubah pecahan menjadi desimal (bagi pembilang dengan penyebut). " : "") +
+      `Langkah ${hasFrac ? 2 : 1}: samakan banyak digit di belakang koma menjadi <b>${maxDec} digit</b> dengan menambah nol (kloning nol). ` +
+      `Langkah ${hasFrac ? 3 : 2}: bandingkan bilangan setelah koma seperti bilangan bulat, lalu urutkan dari terkecil.`;
+
+    const sorted = correct.map(i => pad(items[i].d)).join(" &lt; ");
+    const visual = `🔍 <b>Analisis Presisi:</b><br>${rows}<br><br>Urutan angka setara: <b>${sorted}</b><br>Urutan asli: <b>${labelHtml(items, correct)}</b>`;
+
+    return { title: src.title, ctx: src.ctx, items, options, answer: key(correct), expl, visual };
+  }
 
   let currentCases = [];
 
   function initBoss() {
-    currentCases = [...masterBossCases].sort(() => Math.random() - 0.5);
+    passed = false;
+    currentCases = shuffle(bank).slice(0, TOTAL).map(buildCase);
+    const container = document.getElementById("boss-container");
+    container.innerHTML = "";
 
-    let container = document.getElementById('boss-container');
-    container.innerHTML = '';
-
-    currentCases.forEach((item, index) => {
-      let shuffledOpts = [...item.options].sort(() => Math.random() - 0.5);
-      let optsHtml = shuffledOpts.map(o => `<option value="${o.val}">${o.text}</option>`).join('');
-      
-      let inputHtml = `
-        <select id="case-ans-${index}" class="boss-select">
-          <option value="">-- Pilih Urutan yang Benar --</option>
-          ${optsHtml}
-        </select>
-      `;
-
-      let cardHtml = `
-        <div class="boss-card space-y-3" id="case-card-${index}">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-indigo-800 bg-indigo-100 px-3 py-1 rounded-full uppercase tracking-wider">${item.title}</span>
-          </div>
-          <p class="text-sm text-slate-700 font-medium leading-relaxed">${item.text}</p>
-          <div>${inputHtml}</div>
-          <div id="case-expl-${index}" class="expl-box">
+    currentCases.forEach((c, i) => {
+      const opts = c.options.map(o => `<option value="${o.val}">${label(c.items, o.order)}</option>`).join("");
+      const list = c.items.map(it => it.h).join(", ");
+      container.insertAdjacentHTML("beforeend", `
+        <div class="boss-card space-y-3" id="case-card-${i}">
+          <span class="inline-block text-xs font-bold text-indigo-800 bg-indigo-100 px-3 py-1 rounded-full uppercase tracking-wider">${i + 1}/${TOTAL} • ${c.title}</span>
+          <p class="text-sm text-slate-700 font-medium leading-relaxed">${c.ctx}: urutkan dari <b>terkecil ke terbesar</b> untuk nilai ${list}.</p>
+          <select id="case-ans-${i}" class="boss-select">
+            <option value="">-- Pilih Urutan yang Benar --</option>${opts}
+          </select>
+          <div id="case-expl-${i}" class="expl-box">
+            <div class="verdict" id="case-verdict-${i}"></div>
             <p class="font-bold text-indigo-900 mb-1">💡 Laporan Audit Teknis:</p>
-            <p class="text-slate-700">${item.expl}</p>
-            <div class="expl-visual mt-2">${item.visual}</div>
+            <p class="text-slate-700">${c.expl}</p>
+            <div class="expl-visual">${c.visual}</div>
           </div>
-        </div>
-      `;
-      container.insertAdjacentHTML('beforeend', cardHtml);
+        </div>`);
     });
 
-    document.getElementById('result-banner').style.display = 'none';
-    document.getElementById('submit-section').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById("result-banner").style.display = "none";
+    document.getElementById("submit-section").style.display = "block";
+    document.getElementById("error-msg").classList.add("hidden");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function submitBoss(e) {
-    e.preventDefault();
-    
-    for(let i = 0; i < currentCases.length; i++){
-      if(document.getElementById(`case-ans-${i}`).value === ""){
-        document.getElementById('error-msg').classList.remove('hidden');
+    if (e && e.preventDefault) e.preventDefault();
+    for (let i = 0; i < currentCases.length; i++) {
+      if (document.getElementById(`case-ans-${i}`).value === "") {
+        document.getElementById("error-msg").textContent = "⚠️ Harap pilih jawaban untuk semua kasus audit!";
+        document.getElementById("error-msg").classList.remove("hidden");
         return;
       }
     }
-    document.getElementById('error-msg').classList.add('hidden');
+    document.getElementById("error-msg").classList.add("hidden");
 
     let correctCount = 0;
-
-    currentCases.forEach((item, index) => {
-      let userVal = document.getElementById(`case-ans-${index}`).value;
-      let card = document.getElementById(`case-card-${index}`);
-      let explBox = document.getElementById(`case-expl-${index}`);
-
-      let isCorrect = (userVal === item.answer);
-      explBox.style.display = 'block';
-
-      if (isCorrect) {
-        correctCount++;
-        card.className = "boss-card success space-y-3";
-      } else {
-        card.className = "boss-card error space-y-3";
-      }
+    currentCases.forEach((c, i) => {
+      const sel = document.getElementById(`case-ans-${i}`);
+      const ok = sel.value === c.answer;
+      const userOrder = sel.value.split("-").map(Number);
+      const correctOrder = c.answer.split("-").map(Number);
+      sel.disabled = true;
+      if (ok) correctCount++;
+      document.getElementById(`case-card-${i}`).className = "boss-card space-y-3 " + (ok ? "success" : "error");
+      document.getElementById(`case-verdict-${i}`).innerHTML = ok
+        ? `<span class="text-green-700">✅ Jawabanmu benar!</span>`
+        : `<span class="text-red-700">❌ Jawabanmu: ${label(c.items, userOrder)}</span><br><span class="text-green-700">✔ Jawaban benar: ${label(c.items, correctOrder)}</span>`;
+      document.getElementById(`case-expl-${i}`).style.display = "block";
     });
 
-    let finalScore = correctCount * 33.34;
-    if (correctCount === 3) finalScore = 100;
+    const score = Math.round((correctCount / TOTAL) * 100);
+    const banner = document.getElementById("result-banner");
+    const resScore = document.getElementById("res-score");
+    const btnRetry = document.getElementById("btn-retry");
+    const btnNext = document.getElementById("btn-next");
 
-    let banner = document.getElementById('result-banner');
-    let resTitle = document.getElementById('res-title');
-    let resScore = document.getElementById('res-score');
-    let resResMsg = document.getElementById('res-msg');
-    let btnRetry = document.getElementById('btn-retry');
-    let btnNext = document.getElementById('btn-next');
-    let resIcon = document.getElementById('res-icon');
+    banner.style.display = "block";
+    document.getElementById("submit-section").style.display = "none";
+    resScore.innerText = `Skor Audit: ${score} / 100 (${correctCount} dari ${TOTAL} kasus benar)`;
 
-    banner.style.display = 'block';
-    document.getElementById('submit-section').style.display = 'none';
-
-    resScore.innerText = `Skor Audit: ${Math.round(finalScore)} / 100 (${correctCount} dari 3 kasus benar)`;
-
-    if (correctCount >= 2) { // LULUS KKM 70
-      resIcon.innerText = "🏆";
-      resTitle.innerText = "🎉 AUDIT KODING BERHASIL!";
-      resScore.className = "text-lg font-bold text-green-700 mb-1";
-      resResMsg.innerText = "Luar biasa! Kamu berhasil melewati jebakan angka pengecoh dan mengurutkan kargo galaksi dengan sempurna. Pintu menuju Lencana Grand Sorter resmi terbuka!";
-      btnRetry.classList.add('hidden');
-      btnNext.classList.remove('hidden');
+    if (score >= KKM) {
+      passed = true;
+      document.getElementById("res-icon").innerText = "🏆";
+      document.getElementById("res-title").innerText = "🎉 AUDIT BERHASIL!";
+      resScore.className = "text-lg font-bold text-green-700";
+      document.getElementById("res-msg").innerText = "Luar biasa! Kamu lolos KKM 70 dan berhasil melewati jebakan angka pengecoh. Pintu menuju Lencana Grand Sorter terbuka!";
+      btnRetry.classList.add("hidden");
+      btnNext.classList.remove("hidden");
       banner.className = "card rounded-3xl p-8 text-center space-y-4 bg-gradient-to-br from-white to-green-50 border-2 border-green-300";
-
       try {
-        localStorage.setItem('vm_d4_pos7', JSON.stringify({ passed: true }));
-        let p = parseInt(localStorage.getItem('vm_d4_progress')) || 0;
-        if (p < 8) localStorage.setItem('vm_d4_progress', 8);
-      } catch (e) {}
-
+        localStorage.setItem("vm_d4_pos7", JSON.stringify({ passed: true, score }));
+        const p = parseInt(localStorage.getItem("vm_d4_progress")) || 0;
+        if (p < 8) localStorage.setItem("vm_d4_progress", 8);
+      } catch (err) {}
     } else {
-      resIcon.innerText = "💥";
-      resTitle.innerText = "⚠️ BELUM MENCAPAI KKM 70";
-      resScore.className = "text-lg font-bold text-red-700 mb-1";
-      resResMsg.innerText = "Skor audit kurang dari 70. Jebakan panjang angka atau pecahan pengecoh mengelabuhimu! Pelajari laporan teknis di atas, lalu coba audit ulang.";
-      btnRetry.classList.remove('hidden');
-      btnNext.classList.add('hidden');
+      passed = false;
+      document.getElementById("res-icon").innerText = "💥";
+      document.getElementById("res-title").innerText = "⚠️ BELUM MENCAPAI KKM 70";
+      resScore.className = "text-lg font-bold text-red-700";
+      document.getElementById("res-msg").innerText = "Skor kamu belum mencapai 70, jadi belum bisa lanjut. Pelajari pembahasan lengkap di setiap kasus di atas, lalu coba lagi dengan soal yang baru.";
+      btnRetry.classList.remove("hidden");
+      btnNext.classList.add("hidden");
       banner.className = "card rounded-3xl p-8 text-center space-y-4 bg-gradient-to-br from-white to-red-50 border-2 border-red-300";
     }
-
-    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Scroll ke kasus pertama agar siswa bisa membaca pembahasan dari atas
+    document.getElementById("case-card-0").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function goToBadge() {
+    if (!passed) return; // penjaga: hanya lulus KKM yang boleh lanjut
     window.location.href = "mission-d4-pos8.html";
   }
 
-  initBoss();
+  // Pasang event tanpa inline handler + tampilkan error jika ada
+  function safe(fn) {
+    return function (e) {
+      try { fn(e); } catch (err) {
+        const m = document.getElementById("error-msg");
+        m.textContent = "⚠️ Terjadi error: " + err.message;
+        m.classList.remove("hidden");
+        console.error(err);
+      }
+    };
+  }
+  document.getElementById("boss-form").addEventListener("submit", safe(submitBoss));
+  document.getElementById("btn-submit").addEventListener("click", safe(submitBoss));
+  document.getElementById("btn-retry").addEventListener("click", safe(initBoss));
+  document.getElementById("btn-next").addEventListener("click", safe(goToBadge));
+
+  safe(initBoss)();
 </script>
 </body>
 </html>
