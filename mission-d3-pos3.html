@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 3: Visualize - Mission D3 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; overflow-x: hidden; }
+  
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--teal); background: #ccfbf1; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #5eead4; }
+  .home-btn:hover { background: var(--teal); color: #fff; transform: translateY(-1px); }
+
+  .btn { padding: .75rem 1.8rem; border-radius: 9999px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; font-size: 1rem; }
+  .btn-action { background: linear-gradient(to right, var(--cyan-dk), var(--teal)); box-shadow: 0 4px 15px rgba(13,148,136,0.3); }
+  .btn-action:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(13,148,136,0.4); }
+
+  /* Input Game Lab */
+  .lab-input { width: 100%; text-align: center; font-size: 1.5rem; font-family: monospace; font-weight: 900; border: 3px solid #cbd5e1; border-radius: 0.75rem; padding: 0.5rem; outline: none; transition: all 0.3s; }
+  .lab-input:focus { border-color: var(--teal); box-shadow: 0 0 0 4px rgba(13,148,136,0.2); }
+  .lab-input.cyan { color: var(--cyan-dk); }
+  .lab-input.amber { color: #b45309; }
+
+  /* Garis Bilangan (Number Line) */
+  .nl-container { position: relative; width: 100%; height: 120px; margin: 3rem 0; padding: 0 20px; }
+  .nl-line { position: absolute; top: 50%; left: 20px; right: 20px; height: 6px; background: #cbd5e1; border-radius: 3px; transform: translateY(-50%); }
+  
+  .nl-tick { position: absolute; top: 50%; width: 2px; height: 16px; background: #64748b; transform: translate(-50%, -50%); }
+  .nl-label { position: absolute; top: 50%; transform: translate(-50%, 15px); font-size: 0.75rem; font-weight: bold; color: #64748b; }
+  
+  /* Titik Balap (Markers) */
+  .marker { position: absolute; top: 50%; width: 28px; height: 28px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transform: translate(-50%, -50%); transition: left 1.5s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: 10; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.7rem; color: white; left: 0%; }
+  
+  .marker-a { background: var(--cyan-dk); top: calc(50% - 25px); }
+  .marker-b { background: var(--gold-bg); top: calc(50% + 25px); }
+
+  /* Garis bantu ke titik */
+  .guide-line { position: absolute; top: 50%; width: 2px; height: 25px; background: dashed 2px currentColor; transform: translate(-50%, 0); z-index: 5; transition: left 1.5s cubic-bezier(0.34, 1.56, 0.64, 1); left: 0%; opacity: 0; }
+  .guide-a { top: calc(50% - 25px); border-left: 2px dashed var(--cyan-dk); }
+  .guide-b { top: 50%; height: 25px; border-left: 2px dashed var(--gold-bg); }
+
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D3 • Pos 3</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#f0fdf4; border:1px solid var(--teal); color:var(--teal)">🔍 Pos 3/8: Visualize</span>
+      <a href="mission-d3.html" class="home-btn shadow-sm"><span>← Peta D3</span></a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 37.5%; background: linear-gradient(to right, var(--cyan-dk), var(--teal));"></div></div>
+</header>
+
+<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-teal-50 border-teal-300 text-teal-800">
+      🔍 Visualize (Game Lab Interaktif)
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Balap Garis Bilangan</h2>
+    <p class="text-sm text-slate-600 max-w-lg mx-auto font-medium">Buktikan sendiri! Bilangan yang posisinya lebih ke kanan di Garis Bilangan selalu bernilai lebih besar.</p>
+  </section>
+
+  <!-- DIALOG LUNA -->
+  <section class="card rounded-3xl p-6 flex flex-col sm:flex-row gap-6 items-center border-l-4 border-amber-400 bg-amber-50/30">
+    <img src="assets/Luna.png" alt="Luna" class="w-16 h-16 rounded-full border-4 border-amber-300 shrink-0 object-cover shadow-md bg-white" onerror="this.outerHTML='<div class=\'w-16 h-16 rounded-full bg-amber-400 border-4 border-white flex-shrink-0 flex items-center justify-center text-3xl shadow-md text-slate-900\'>👧</div>'">
+    <div class="text-sm text-slate-700 space-y-2 flex-grow">
+      <p class="leading-relaxed font-medium">
+        "Halo Agen! Ini adalah <b>Radar Garis Bilangan</b>. <br>
+        <span id="mission-instruction" class="font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded">Misi 1: Masukkan angka 0,4 di kotak A dan 0,125 di kotak B, lalu tekan LUNCURKAN!</span>"
+      </p>
+    </div>
+  </section>
+
+  <!-- GAME LAB INTERAKTIF -->
+  <section class="card rounded-3xl p-6 md:p-8 space-y-6 bg-gradient-to-b from-white to-slate-50 border-2 border-slate-200">
+    
+    <!-- Input Data (Dashboard Operator) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-2xl mx-auto">
+      <div class="bg-cyan-50 p-4 rounded-2xl border-2 border-cyan-200 text-center shadow-inner">
+        <p class="font-extrabold text-sm text-cyan-800 mb-2 uppercase tracking-wider">Titik A (Biru)</p>
+        <input type="text" id="input-a" class="lab-input cyan" placeholder="0,..." value="0,4">
+      </div>
+      <div class="bg-amber-50 p-4 rounded-2xl border-2 border-amber-200 text-center shadow-inner">
+        <p class="font-extrabold text-sm text-amber-800 mb-2 uppercase tracking-wider">Titik B (Kuning)</p>
+        <input type="text" id="input-b" class="lab-input amber" placeholder="0,..." value="0,125">
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button onclick="launchRadar()" class="btn btn-action px-12 py-4 shadow-xl text-lg">🚀 LUNCURKAN KE RADAR</button>
+      <p id="error-msg" class="text-red-500 font-bold text-sm mt-3 hidden">⚠️ Format salah! Masukkan angka desimal antara 0 dan 1 (contoh: 0,4).</p>
+    </div>
+
+    <!-- UI Garis Bilangan -->
+    <div class="nl-container bg-white border border-slate-200 rounded-2xl shadow-sm mt-8">
+      <div class="nl-line"></div>
+      <!-- Ticks generated by JS -->
+      <div id="ticks-container"></div>
+      
+      <!-- Markers -->
+      <div class="guide-line guide-a" id="guide-a"></div>
+      <div class="marker marker-a" id="marker-a">A</div>
+      
+      <div class="guide-line guide-b" id="guide-b"></div>
+      <div class="marker marker-b" id="marker-b">B</div>
+    </div>
+
+    <!-- Hasil / Kesimpulan Dinamis -->
+    <div id="result-box" class="hidden bg-slate-900 text-white p-6 rounded-2xl text-center space-y-3 shadow-lg border-2 border-teal-500">
+      <h3 class="text-xl font-bold text-teal-300" id="res-title">Analisis Selesai!</h3>
+      <div class="inline-block bg-white text-slate-900 font-mono font-black text-3xl px-6 py-2 rounded-xl shadow-inner mt-2 mb-2" id="res-math">
+        0,4 > 0,125
+      </div>
+      <p class="text-sm text-slate-300 font-medium" id="res-desc">
+        Titik A (0,4) berada lebih jauh di sebelah kanan. Terbukti bahwa 0,4 lebih besar dari 0,125!
+      </p>
+    </div>
+
+  </section>
+
+  <!-- TOMBOL NAVIGASI BAWAH -->
+  <div class="flex justify-between items-center pt-4 pb-12">
+    <a href="mission-d3-pos2.html" class="home-btn shadow-sm">⬅ Kembali ke Pos 2 (See)</a>
+    <a href="mission-d3-pos4.html" id="btn-next" class="btn hidden" style="background:linear-gradient(to right,var(--cyan-dk),var(--teal)); box-shadow: 0 4px 15px rgba(6,182,212,0.3); padding: .8rem 2rem;">Lanjut ke Pos 4 (Think) ➔</a>
+  </div>
+
+</main>
+
+<script>
+  let isMission1Complete = false;
+
+  // Generate Ticks (0.0 sampai 1.0)
+  const ticksContainer = document.getElementById('ticks-container');
+  for (let i = 0; i <= 10; i++) {
+    let pct = i * 10; // 0%, 10%, ..., 100%
+    let label = i === 0 ? "0" : (i === 10 ? "1" : `0,${i}`);
+    
+    ticksContainer.innerHTML += `
+      <div class="nl-tick" style="left: ${pct}%"></div>
+      <div class="nl-label" style="left: ${pct}%">${label}</div>
+    `;
+  }
+
+  function launchRadar() {
+    let strA = document.getElementById('input-a').value.trim().replace(',', '.');
+    let strB = document.getElementById('input-b').value.trim().replace(',', '.');
+    
+    let valA = parseFloat(strA);
+    let valB = parseFloat(strB);
+
+    let errMsg = document.getElementById('error-msg');
+    let resultBox = document.getElementById('result-box');
+
+    // Validasi input
+    if (isNaN(valA) || isNaN(valB) || valA < 0 || valA > 1 || valB < 0 || valB > 1) {
+      errMsg.classList.remove('hidden');
+      resultBox.classList.add('hidden');
+      return;
+    }
+
+    errMsg.classList.add('hidden');
+
+    // Hitung persentase posisi (karena rentang 0 sampai 1, valA * 100 = %)
+    let pctA = valA * 100;
+    let pctB = valB * 100;
+
+    // Gerakkan Marker (Mobil Balap)
+    document.getElementById('marker-a').style.left = `${pctA}%`;
+    document.getElementById('guide-a').style.left = `${pctA}%`;
+    document.getElementById('guide-a').style.opacity = 1;
+
+    document.getElementById('marker-b').style.left = `${pctB}%`;
+    document.getElementById('guide-b').style.left = `${pctB}%`;
+    document.getElementById('guide-b').style.opacity = 1;
+
+    // Tunggu animasi selesai (1.5 detik) lalu tampilkan hasil
+    setTimeout(() => {
+      resultBox.classList.remove('hidden');
+      let mathDisplay = document.getElementById('res-math');
+      let descDisplay = document.getElementById('res-desc');
+      
+      let formatA = strA.replace('.', ',');
+      let formatB = strB.replace('.', ',');
+
+      if (valA > valB) {
+        mathDisplay.innerHTML = `<span class="text-cyan-600">${formatA}</span> <span class="text-slate-300 mx-2">&gt;</span> <span class="text-amber-500">${formatB}</span>`;
+        descDisplay.innerHTML = `Titik A (<span class="text-cyan-300 font-bold">${formatA}</span>) berada lebih jauh di sebelah kanan. Terbukti bahwa <span class="text-cyan-300 font-bold">${formatA}</span> lebih besar dari <span class="text-amber-400 font-bold">${formatB}</span>!`;
+      } else if (valA < valB) {
+        mathDisplay.innerHTML = `<span class="text-cyan-600">${formatA}</span> <span class="text-slate-300 mx-2">&lt;</span> <span class="text-amber-500">${formatB}</span>`;
+        descDisplay.innerHTML = `Titik B (<span class="text-amber-400 font-bold">${formatB}</span>) berada lebih jauh di sebelah kanan. Terbukti bahwa <span class="text-amber-400 font-bold">${formatB}</span> lebih besar dari <span class="text-cyan-300 font-bold">${formatA}</span>!`;
+      } else {
+        mathDisplay.innerHTML = `<span class="text-cyan-600">${formatA}</span> <span class="text-slate-300 mx-2">=</span> <span class="text-amber-500">${formatB}</span>`;
+        descDisplay.innerHTML = `Kedua titik berada pada posisi yang SAMA PERSIS di garis bilangan. Nilainya seimbang!`;
+      }
+
+      // Buka Kunci Pos 4 jika Misi 1 selesai
+      if (!isMission1Complete && (formatA === '0,4' && formatB === '0,125')) {
+        isMission1Complete = true;
+        document.getElementById('btn-next').classList.remove('hidden');
+        
+        // Ubah instruksi Luna ke Mode Sandbox (Game Lab)
+        document.getElementById('mission-instruction').className = "font-bold text-teal-800 bg-teal-100 px-2 py-0.5 rounded";
+        document.getElementById('mission-instruction').innerHTML = "🔓 Game Lab Terbuka! Kamu bebas mencoba angka berapapun (antara 0 sampai 1) untuk diadu kecepatannya!";
+        
+        // Simpan progress
+        try {
+          let p = +localStorage.getItem('vm_d3_progress') || 0;
+          if(p < 3) localStorage.setItem('vm_d3_progress', 3);
+        } catch(e) {}
+      }
+
+      resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 1600);
+  }
+</script>
+</body>
+</html>
