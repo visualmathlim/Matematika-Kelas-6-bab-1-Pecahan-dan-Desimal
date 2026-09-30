@@ -6,339 +6,236 @@
 <title>Pos 6: Quest - Mission D1 | Math Mastery</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  :root { 
-    --cyan: #06b6d4; 
-    --cyan-dk: #0891b2;
-    --navy: #0f172a; 
-    --navy-lt: #1e293b;
-    --bg: #f0fdfa; 
-    --card: #ffffff; 
-    --line: #cffafe;
-    --teal: #0d9488; 
-    --gold: #ca8a04; 
-    --red: #dc2626; 
-    --purple: #7c3aed;
-  }
-  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
-  
-  /* Header & Buttons */
-  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); position: relative; z-index: 10; }
-  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--cyan-dk); background: #cffafe; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #67e8f9; }
-  .home-btn:hover { background: var(--cyan-dk); color: #fff; transform: translateY(-1px); }
+  :root { --cyan:#06b6d4; --cyan-dk:#0891b2; --navy:#0f172a; --bg:#f0fdfa; --card:#fff; --line:#cffafe; --teal:#0d9488; --red:#dc2626; --purple:#7c3aed; --amber:#f4b400; }
+  body { background:var(--bg); color:var(--navy); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; overflow-x:hidden; }
+  .card { background:var(--card); border:1px solid var(--line); box-shadow:0 4px 6px -1px rgba(0,0,0,.05); }
+  .home-btn { display:inline-flex; align-items:center; gap:6px; font-size:.85rem; font-weight:700; color:var(--cyan-dk); background:#cffafe; padding:6px 14px; border-radius:99px; transition:all .2s; border:1px solid #67e8f9; }
+  .home-btn:hover { background:var(--cyan-dk); color:#fff; transform:translateY(-1px); }
 
-  /* Math UI Vertikal */
-  .m { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', serif; white-space: nowrap; font-weight: bold; display: inline-block; vertical-align: middle; }
-  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.15rem; line-height: 1.1; font-size: 0.95em; }
-  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
-  .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+  /* Tampilan matematika */
+  .m { font-family:'Cambria Math','STIX Two Math','Latin Modern Math','Times New Roman',serif; font-size:1.1em; white-space:nowrap; }
+  .math-frac { display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .18em; line-height:1.15; font-size:.95em; }
+  .math-num { border-bottom:1.5px solid currentColor; padding:0 .3em; width:100%; text-align:center; }
+  .math-den { padding:0 .3em; width:100%; text-align:center; }
+  .eq { display:block; text-align:center; font-size:1.1rem; padding:.45rem .4rem; margin:.35rem 0; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:.6rem; overflow-x:auto; }
+  .ans { display:block; text-align:center; font-size:1.25rem; padding:.5rem; margin-top:.7rem; background:#fff8e6; border:2px solid var(--amber); border-radius:.6rem; color:#a16207; font-weight:700; }
+  .why { font-size:.8rem; color:#475569; margin:.1rem 0 0; }
+  .pill { font-size:.75rem; padding:.15rem .65rem; border-radius:9999px; font-weight:700; color:#fff; }
+  ol.steps { list-style:none; padding:0; counter-reset:s; }
+  ol.steps li { counter-increment:s; margin:.6rem 0; padding-left:1.9rem; position:relative; font-size:.88rem; text-align:left; }
+  ol.steps li::before { content:counter(s); position:absolute; left:0; top:0; width:1.3rem; height:1.3rem; border-radius:50%; background:var(--teal); color:#fff; font-size:.72rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  ol.pur li::before { background:var(--purple); }
 
-  /* Input Jawaban Desimal */
-  .answer-input-container { display: inline-flex; align-items: center; gap: 4px; background: #f8fafc; border: 2px solid var(--cyan-dk); padding: 4px 12px; border-radius: 8px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
-  .input-decimal { width: 120px; text-align: center; font-weight: bold; font-size: 1.2rem; border: 1px solid #cbd5e1; border-radius: 4px; padding: 4px; outline: none; font-family: monospace; }
-  .input-decimal:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(6,182,212,0.2); }
+  /* Porogapit (bagi akar) */
+  .pg { display:grid; grid-auto-rows:2.2rem; margin:.5rem auto; width:max-content; font-family:'Cambria Math','STIX Two Math','Times New Roman',serif; font-size:1.4rem; font-weight:700; }
+  .pc { display:flex; align-items:center; justify-content:center; color:#1e293b; }
+  .pc.q { color:var(--purple); }
+  .pc.div { justify-content:flex-end; padding-right:.3rem; color:var(--teal); }
+  .pc.dv { border-top:3px solid #334155; }
+  .pc.first { border-left:3px solid #334155; border-top-left-radius:10px; }
+  .pc.ul { border-bottom:2px solid #334155; }
+  .pc.sg { color:#94a3b8; font-size:1.1rem; justify-content:flex-end; padding-right:.3rem; }
 
-  /* Tombol */
-  .btn { display: inline-block; text-align: center; padding: 0.8rem 1.5rem; border-radius: 99px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
-  .btn-submit { background: linear-gradient(to right, var(--teal), #0f766e); box-shadow: 0 4px 10px rgba(13, 148, 136, 0.3); font-size: 1.1rem; }
-  .btn-submit:hover { transform: scale(1.02); box-shadow: 0 6px 15px rgba(13, 148, 136, 0.4); }
-  .btn-retry { background: linear-gradient(to right, var(--red), #991b1b); box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3); font-size: 1.1rem; }
-  .btn-next-mission { background: linear-gradient(to right, var(--cyan-dk), var(--teal)); box-shadow: 0 4px 10px rgba(6,182,212,0.3); font-size: 1.1rem; }
-  
-  /* Panel Kuis */
-  .quest-card { background: white; border-radius: 16px; border: 1px solid var(--line); padding: 1.5rem 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: relative; margin-bottom: 1.5rem; }
-  .badge-q { position: absolute; top: -12px; left: 24px; padding: 4px 14px; border-radius: 99px; font-size: 0.75rem; font-weight: bold; color: white; background: var(--cyan-dk); box-shadow: 0 2px 5px rgba(8,145,178,0.3); }
-
-  /* Kotak Hasil & Pembahasan */
-  .result-banner { border-radius: 16px; padding: 2rem; margin-top: 2rem; text-align: center; display: none; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
-  .result-banner.pass { background: #f0fdf4; border: 2px solid #86efac; color: #166534; }
-  .result-banner.fail { background: #fef2f2; border: 2px solid #fca5a5; color: #991b1b; }
-
-  .expl-box { background: #f8fafc; border-left: 4px solid var(--teal); padding: 1.2rem; border-radius: 0 8px 8px 0; margin-top: 1.2rem; text-align: left; display: none; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02); }
-  .expl-box.wrong-expl { border-left-color: var(--red); background: #fff5f5; }
-  .step-item { background: white; border: 1px solid #e2e8f0; padding: 0.8rem 1rem; border-radius: 8px; margin-bottom: 0.75rem; font-size: 0.95rem; }
-
-  /* Porogapit Visual Box */
-  .porogapit-box { background: #faf5ff; border: 1px solid #d8b4fe; border-radius: 8px; padding: 0.75rem 1rem; font-family: monospace; display: inline-block; text-align: left; }
+  /* Kuis */
+  .answer-input-container { display:inline-flex; align-items:center; background:#f8fafc; border:2px solid var(--cyan-dk); padding:4px 12px; border-radius:8px; }
+  .input-decimal { width:130px; text-align:center; font-weight:bold; font-size:1.2rem; border:1px solid #cbd5e1; border-radius:4px; padding:4px; outline:none; }
+  .input-decimal:focus { border-color:var(--cyan); box-shadow:0 0 0 3px rgba(6,182,212,.2); }
+  .btn { display:inline-block; text-align:center; padding:.8rem 1.5rem; border-radius:99px; font-weight:bold; color:#fff; transition:all .2s; cursor:pointer; border:none; }
+  .btn-submit { background:linear-gradient(to right,var(--teal),#0f766e); box-shadow:0 4px 10px rgba(13,148,136,.3); font-size:1.1rem; }
+  .btn-retry { background:linear-gradient(to right,var(--red),#991b1b); font-size:1.1rem; }
+  .btn-next-mission { background:linear-gradient(to right,var(--cyan-dk),var(--teal)); font-size:1.1rem; }
+  .quest-card { background:#fff; border-radius:16px; border:1px solid var(--line); padding:1.5rem 1.5rem; box-shadow:0 4px 15px rgba(0,0,0,.03); position:relative; margin-bottom:1.5rem; }
+  .badge-q { position:absolute; top:-12px; left:24px; padding:4px 14px; border-radius:99px; font-size:.75rem; font-weight:bold; color:#fff; background:var(--cyan-dk); }
+  .result-banner { border-radius:16px; padding:2rem; margin-top:2rem; text-align:center; display:none; }
+  .result-banner.pass { background:#f0fdf4; border:2px solid #86efac; color:#166534; }
+  .result-banner.fail { background:#fef2f2; border:2px solid #fca5a5; color:#991b1b; }
+  .expl-box { background:#f8fafc; border-left:4px solid var(--teal); padding:1rem; border-radius:0 8px 8px 0; margin-top:1.2rem; text-align:left; display:none; }
+  .expl-box.wrong-expl { border-left-color:var(--red); background:#fff5f5; }
+  .hidden { display:none; }
 </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
 
-<!-- HEADER NAVIGASI -->
 <header class="card border-b sticky top-0 z-50">
-  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-20">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
     <div class="flex items-center gap-3">
       <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
       <div>
-        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <h1 class="text-lg font-bold leading-tight">Math Mastery</h1>
         <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Kelas 6 • Mission D1 • Pos 6</p>
       </div>
     </div>
-    
     <div class="flex items-center gap-2">
-      <a href="mission-d1.html" class="home-btn shadow-sm" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd;">
-        <span>← Peta D1</span>
-      </a>
+      <a href="mission-d1.html" class="home-btn shadow-sm" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd;"><span>← Peta D1</span></a>
       <a href="index.html" class="home-btn shadow-sm">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
         <span>Home</span>
       </a>
     </div>
   </div>
-  <div class="h-1.5 w-full bg-slate-200"><div class="h-full bg-cyan-600" style="width: 75%;"></div></div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full bg-cyan-600" style="width:75%;"></div></div>
 </header>
 
 <main class="flex-grow max-w-3xl mx-auto w-full px-4 py-8 space-y-6">
-  
   <section class="text-center space-y-2 mb-4">
     <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--teal); background:#ccfbf1; color:var(--teal)">⚔️ Ujian Pemantapan Konsep</div>
     <h2 class="text-3xl font-extrabold" style="color:var(--cyan-dk)">Quest Konversi Pecahan ke Desimal</h2>
-    <p class="text-sm text-slate-600 max-w-xl mx-auto font-medium">
-      Selesaikan <b>5 soal</b> konversi di bawah ini sekaligus. Standar Kelulusan KKM adalah <b>70</b> (Minimal 4 soal benar dari 5 soal). Jika di bawah KKM, wajib mengulang dengan soal yang diacak otomatis!
-    </p>
+    <p class="text-sm text-slate-600 max-w-xl mx-auto font-medium">Selesaikan <b>5 soal</b> sekaligus. KKM <b>70</b> (minimal 4 benar dari 5). Jika di bawah KKM, kamu mengulang dengan soal yang diacak. Tulis jawaban dengan koma, misalnya <span class="m">0,5</span>.</p>
   </section>
 
-  <!-- FORM KUIS (5 SOAL SEKALIGUS) -->
-  <form id="quest-form" onsubmit="submitExam(event)">
-    <div id="questions-container">
-      <!-- Di-generate otomatis oleh JavaScript dengan pengacakan -->
-    </div>
-
-    <!-- TOMBOL SUBMIT -->
+  <div id="quest-form">
+    <div id="questions-container"></div>
     <div class="text-center py-6" id="submit-section">
-      <button type="submit" class="btn btn-submit px-12 py-3.5 shadow-lg">Kumpulkan & Periksa Jawaban ⚡</button>
-    </div>
-  </form>
-
-  <!-- BANNER HASIL & REKAP KKM -->
-  <div id="result-banner" class="result-banner">
-    <h3 class="text-2xl font-extrabold mb-2" id="res-title">Hasil Evaluasi</h3>
-    <p class="text-lg font-semibold mb-4" id="res-score-text">Skor Anda: 0 / 100</p>
-    <p class="text-sm mb-6 max-w-lg mx-auto" id="res-msg">Pembahasan lengkap 2 cara dapat disimak di bawah masing-masing soal.</p>
-    
-    <div class="flex flex-col sm:flex-row justify-center gap-4">
-      <button id="btn-action-retry" onclick="restartExam()" class="btn btn-retry px-8 py-3 hidden">🔄 Coba Lagi (Soal Diacak)</button>
-      <button id="btn-action-next" onclick="goToNextMission()" class="btn btn-next-mission px-8 py-3 hidden">Lanjut ke Boss Battle (Pos 7) ➔</button>
+      <button type="button" id="btn-submit" onclick="submitExam()" class="btn btn-submit px-12 py-3.5 shadow-lg">Kumpulkan &amp; Periksa Jawaban ⚡</button>
+      <p id="err" class="text-red-600 text-sm mt-3"></p>
     </div>
   </div>
 
+  <div id="result-banner" class="result-banner">
+    <h3 class="text-2xl font-extrabold mb-2" id="res-title"></h3>
+    <p class="text-lg font-semibold mb-4" id="res-score-text"></p>
+    <p class="text-sm mb-6 max-w-lg mx-auto" id="res-msg"></p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <button id="btn-action-retry" onclick="initExam()" class="btn btn-retry px-8 py-3 hidden">🔄 Coba Lagi (Soal Diacak)</button>
+      <button id="btn-action-next" onclick="location.href='mission-d1-pos7.html'" class="btn btn-next-mission px-8 py-3 hidden">Lanjut ke Boss Battle (Pos 7) ➔</button>
+    </div>
+  </div>
 </main>
 
 <script>
-  // ----------------------------------------------------
-  // BANK SOAL (POOL) DENGAN PEMBAHASAN 2 CARA (PECAHAN SENILAI & POROGAPIT LENGKAP POHON AKAR)
-  // ----------------------------------------------------
-  const questionPool = [
-    {
-      id: 1,
-      desc: "Ubah pecahan berikut ke dalam bentuk desimal:",
-      frac: { n: 1, d: 2 },
-      ans: "0.5",
-      steps: [
-        "<b>Cara 1 (Pecahan Senilai):</b><br>1. Ubah penyebut <span class='m'>2</span> menjadi <span class='m'>10</span> dengan dikali <span class='font-bold text-teal-700'>5</span>.<br>2. Kalikan atas dan bawah: <span class='m'><span class='math-frac'><span class='math-num'>1×5</span><span class='math-den'>2×5</span></span></span> = <span class='m font-bold text-teal-800'><span class='math-frac'><span class='math-num'>5</span><span class='math-den'>10</span></span></span>.<br>3. Pola nol (1 nol): <b>0.5</b>.",
-        "<b>Cara 2 (Porogapit / Pembagian Bersusun):</b><br>Hitung <span class='m'>1 ÷ 2</span> menggunakan pohon porogapit:<br><div class='porogapit-box mt-2'><div class='font-bold text-purple-900 border-b-2 border-purple-700 pl-4 pb-0.5 mb-1'>0.5</div><div class='flex items-center'><span class='font-bold text-slate-800 pr-1'>2</span><span class='border-l-2 border-purple-700 pl-2 text-slate-800'>1,0</span></div><div class='pl-4 text-slate-600 space-y-0.5 pt-1'><div>- 1,0</div><div class='border-t border-slate-400 w-10'></div><div>   0</div></div></div>"
-      ]
-    },
-    {
-      id: 2,
-      desc: "Ubah pecahan berikut ke dalam bentuk desimal:",
-      frac: { n: 3, d: 4 },
-      ans: "0.75",
-      steps: [
-        "<b>Cara 1 (Pecahan Senilai):</b><br>1. Ubah penyebut <span class='m'>4</span> menjadi <span class='m'>100</span> dengan dikali <span class='font-bold text-teal-700'>25</span>.<br>2. Kalikan atas dan bawah: <span class='m'><span class='math-frac'><span class='math-num'>3×25</span><span class='math-den'>4×25</span></span></span> = <span class='m font-bold text-teal-800'><span class='math-frac'><span class='math-num'>75</span><span class='math-den'>100</span></span></span>.<br>3. Pola nol (2 nol): <b>0.75</b>.",
-        "<b>Cara 2 (Porogapit / Pembagian Bersusun):</b><br>Hitung <span class='m'>3 ÷ 4</span> menggunakan pohon porogapit:<br><div class='porogapit-box mt-2'><div class='font-bold text-purple-900 border-b-2 border-purple-700 pl-4 pb-0.5 mb-1'>0.75</div><div class='flex items-center'><span class='font-bold text-slate-800 pr-1'>4</span><span class='border-l-2 border-purple-700 pl-2 text-slate-800'>3,00</span></div><div class='pl-4 text-slate-600 space-y-0.5 pt-1'><div>- 2,8</div><div class='border-t border-slate-400 w-12'></div><div>  20</div><div>- 20</div><div class='border-t border-slate-400 w-12'></div><div>   0</div></div></div>"
-      ]
-    },
-    {
-      id: 3,
-      desc: "Ubah pecahan berikut ke dalam bentuk desimal:",
-      frac: { n: 2, d: 5 },
-      ans: "0.4",
-      steps: [
-        "<b>Cara 1 (Pecahan Senilai):</b><br>1. Ubah penyebut <span class='m'>5</span> menjadi <span class='m'>10</span> dengan dikali <span class='font-bold text-teal-700'>2</span>.<br>2. Kalikan atas dan bawah: <span class='m'><span class='math-frac'><span class='math-num'>2×2</span><span class='math-den'>5×2</span></span></span> = <span class='m font-bold text-teal-800'><span class='math-frac'><span class='math-num'>4</span><span class='math-den'>10</span></span></span>.<br>3. Pola nol (1 nol): <b>0.4</b>.",
-        "<b>Cara 2 (Porogapit / Pembagian Bersusun):</b><br>Hitung <span class='m'>2 ÷ 5</span> menggunakan pohon porogapit:<br><div class='porogapit-box mt-2'><div class='font-bold text-purple-900 border-b-2 border-purple-700 pl-4 pb-0.5 mb-1'>0.4</div><div class='flex items-center'><span class='font-bold text-slate-800 pr-1'>5</span><span class='border-l-2 border-purple-700 pl-2 text-slate-800'>2,0</span></div><div class='pl-4 text-slate-600 space-y-0.5 pt-1'><div>- 2,0</div><div class='border-t border-slate-400 w-10'></div><div>   0</div></div></div>"
-      ]
-    },
-    {
-      id: 4,
-      desc: "Ubah pecahan berikut ke dalam bentuk desimal:",
-      frac: { n: 1, d: 4 },
-      ans: "0.25",
-      steps: [
-        "<b>Cara 1 (Pecahan Senilai):</b><br>1. Ubah penyebut <span class='m'>4</span> menjadi <span class='m'>100</span> dengan dikali <span class='font-bold text-teal-700'>25</span>.<br>2. Kalikan atas dan bawah: <span class='m'><span class='math-frac'><span class='math-num'>1×25</span><span class='math-den'>4×25</span></span></span> = <span class='m font-bold text-teal-800'><span class='math-frac'><span class='math-num'>25</span><span class='math-den'>100</span></span></span>.<br>3. Pola nol (2 nol): <b>0.25</b>.",
-        "<b>Cara 2 (Porogapit / Pembagian Bersusun):</b><br>Hitung <span class='m'>1 ÷ 4</span> menggunakan pohon porogapit:<br><div class='porogapit-box mt-2'><div class='font-bold text-purple-900 border-b-2 border-purple-700 pl-4 pb-0.5 mb-1'>0.25</div><div class='flex items-center'><span class='font-bold text-slate-800 pr-1'>4</span><span class='border-l-2 border-purple-700 pl-2 text-slate-800'>1,00</span></div><div class='pl-4 text-slate-600 space-y-0.5 pt-1'><div>- 0,8</div><div class='border-t border-slate-400 w-12'></div><div>  20</div><div>- 20</div><div class='border-t border-slate-400 w-12'></div><div>   0</div></div></div>"
-      ]
-    },
-    {
-      id: 5,
-      desc: "Ubah pecahan berikut ke dalam bentuk desimal:",
-      frac: { n: 1, d: 5 },
-      ans: "0.2",
-      steps: [
-        "<b>Cara 1 (Pecahan Senilai):</b><br>1. Ubah penyebut <span class='m'>5</span> menjadi <span class='m'>10</span> dengan dikali <span class='font-bold text-teal-700'>2</span>.<br>2. Kalikan atas dan bawah: <span class='m'><span class='math-frac'><span class='math-num'>1×2</span><span class='math-den'>5×2</span></span></span> = <span class='m font-bold text-teal-800'><span class='math-frac'><span class='math-num'>2</span><span class='math-den'>10</span></span></span>.<br>3. Pola nol (1 nol): <b>0.2</b>.",
-        "<b>Cara 2 (Porogapit / Pembagian Bersusun):</b><br>Hitung <span class='m'>1 ÷ 5</span> menggunakan pohon porogapit:<br><div class='porogapit-box mt-2'><div class='font-bold text-purple-900 border-b-2 border-purple-700 pl-4 pb-0.5 mb-1'>0.2</div><div class='flex items-center'><span class='font-bold text-slate-800 pr-1'>5</span><span class='border-l-2 border-purple-700 pl-2 text-slate-800'>1,0</span></div><div class='pl-4 text-slate-600 space-y-0.5 pt-1'><div>- 1,0</div><div class='border-t border-slate-400 w-10'></div><div>   0</div></div></div>"
-      ]
-    },
-    {
-      id: 6,
-      desc: "Ubah pecahan berikut ke dalam bentuk desimal:",
-      frac: { n: 3, d: 5 },
-      ans: "0.6",
-      steps: [
-        "<b>Cara 1 (Pecahan Senilai):</b><br>1. Ubah penyebut <span class='m'>5</span> menjadi <span class='m'>10</span> dengan dikali <span class='font-bold text-teal-700'>2</span>.<br>2. Kalikan atas dan bawah: <span class='m'><span class='math-frac'><span class='math-num'>3×2</span><span class='math-den'>5×2</span></span></span> = <span class='m font-bold text-teal-800'><span class='math-frac'><span class='math-num'>6</span><span class='math-den'>10</span></span></span>.<br>3. Pola nol (1 nol): <b>0.6</b>.",
-        "<b>Cara 2 (Porogapit / Pembagian Bersusun):</b><br>Hitung <span class='m'>3 ÷ 5</span> menggunakan pohon porogapit:<br><div class='porogapit-box mt-2'><div class='font-bold text-purple-900 border-b-2 border-purple-700 pl-4 pb-0.5 mb-1'>0.6</div><div class='flex items-center'><span class='font-bold text-slate-800 pr-1'>5</span><span class='border-l-2 border-purple-700 pl-2 text-slate-800'>3,0</span></div><div class='pl-4 text-slate-600 space-y-0.5 pt-1'><div>- 3,0</div><div class='border-t border-slate-400 w-10'></div><div>   0</div></div></div>"
-      ]
-    },
-    {
-      id: 7,
-      desc: "Ubah pecahan berikut ke dalam bentuk desimal:",
-      frac: { n: 1, d: 8 },
-      ans: "0.125",
-      steps: [
-        "<b>Cara 1 (Pecahan Senilai):</b><br>1. Ubah penyebut <span class='m'>8</span> menjadi <span class='m'>1000</span> dengan dikali <span class='font-bold text-teal-700'>125</span>.<br>2. Kalikan atas dan bawah: <span class='m'><span class='math-frac'><span class='math-num'>1×125</span><span class='math-den'>8×125</span></span></span> = <span class='m font-bold text-teal-800'><span class='math-frac'><span class='math-num'>125</span><span class='math-den'>1000</span></span></span>.<br>3. Pola nol (3 nol): <b>0.125</b>.",
-        "<b>Cara 2 (Porogapit / Pembagian Bersusun):</b><br>Hitung <span class='m'>1 ÷ 8</span> menggunakan pohon porogapit:<br><div class='porogapit-box mt-2'><div class='font-bold text-purple-900 border-b-2 border-purple-700 pl-4 pb-0.5 mb-1'>0.125</div><div class='flex items-center'><span class='font-bold text-slate-800 pr-1'>8</span><span class='border-l-2 border-purple-700 pl-2 text-slate-800'>1,000</span></div><div class='pl-4 text-slate-600 space-y-0.5 pt-1'><div>- 0,8</div><div class='border-t border-slate-400 w-12'></div><div>  20</div><div>-  16</div><div class='border-t border-slate-400 w-12'></div><div>   40</div><div>-  40</div><div class='border-t border-slate-400 w-12'></div><div>    0</div></div></div>"
-      ]
-    }
+const fr=(n,d)=>`<span class="math-frac"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`;
+const M=s=>`<span class="m">${s}</span>`;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* Bank soal: [pembilang, penyebut]. Semua desimalnya berhenti. */
+const POOL=[[1,2],[3,4],[2,5],[1,4],[1,5],[3,5],[1,8]];
+
+/* Cara 1: pecahan senilai */
+function senilai(n,d){
+  let m=1,D=10; while(D%d!==0){m++;D*=10;}
+  const k=D/d, N=n*k, dec='0,'+String(N).padStart(m,'0');
+  const li=[
+    `Ubah penyebut ${M(d)} menjadi ${M(D)}. Cari pengalinya:<span class="eq m">${d} × <b style="color:var(--teal)">${k}</b> = ${D}</span>`,
+    `Kalikan pembilang dan penyebut dengan ${M(k)} (nilainya tidak berubah):<span class="eq m">${fr(n,d)} = ${fr(n+' × '+k,d+' × '+k)} = ${fr(N,D)}</span>`,
+    `Penyebut ${M(D)} punya ${m} angka nol, jadi desimalnya punya <b>${m} angka di belakang koma</b>:<span class="eq m">${fr(N,D)} = ${dec}</span>`
   ];
+  return {dec,li};
+}
 
-  let currentActiveQuestions = [];
-
-  function shuffleArray(array) {
-    let arr = [...array];
-    for (let i = arr.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
+/* Cara 2: porogapit lengkap (bagi akar) */
+function porogapit(n,d){
+  const Q=[],P=[],R=[]; let x=n,K=0;
+  while(x!==0){ x*=10; const q=Math.floor(x/d), p=q*d; Q.push(q);P.push(p);x-=p;R.push(x);K++; }
+  const col=i=>i===0?2:3+i, W=i=>(i===1?n:R[i-2])*10;
+  const c=[[1,2,'0','q'],[1,3,',','q'],[2,1,d,'div'],[2,2,n,'dv first'],[2,3,',','dv'],[3,1,'−','sg'],[3,2,'0','ul']];
+  for(let i=1;i<=K;i++){ c.push([1,col(i),Q[i-1],'q'],[2,col(i),'0','dv']); }
+  let r=4, prev=n;
+  for(let i=1;i<=K;i++){
+    c.push([r,col(i-1),prev,''],[r,col(i),'0','']); r++;
+    const ps=String(P[i-1]);
+    if(ps.length===2) c.push([r,col(i-1),ps[0],'ul'],[r,col(i),ps[1],'ul']); else c.push([r,col(i),ps,'ul']);
+    c.push([r,1,'−','sg']); r++; prev=R[i-1];
   }
+  c.push([r,col(K),prev,'']);
+  const grid=`<div class="overflow-x-auto"><div class="pg" style="grid-template-columns:2rem 2rem 1rem repeat(${K},2rem)">${c.map(v=>`<div class="pc ${v[3]}" style="grid-row:${v[0]};grid-column:${v[1]}">${v[2]}</div>`).join('')}</div></div>`;
+  const dec='0,'+Q.join('');
+  const li=[
+    `Tulis ${M(fr(n,d))} sebagai ${M(n+' ÷ '+d)}. Pada porogapit (bagi akar), pembagi <b>${d}</b> di luar dan yang dibagi <b>${n}</b> di dalam. Karena ${M(n+' < '+d)}, tambahkan koma dan nol: ${M(n+' = '+n+','+'0'.repeat(K))}.`,
+    `${d} tidak muat di ${n}, jadi hasilnya <b>0</b>. Tulis ${M('0,')} di atas. Hitung ${M('0 × '+d+' = 0')}, lalu ${M(n+' − 0 = '+n)}.`
+  ];
+  for(let i=1;i<=K;i++){
+    const w=W(i), last=R[i-1]===0;
+    li.push(`Turunkan angka 0, jadi <b>${w}</b>. Berapa kali ${d} muat di ${w}? <b>${Q[i-1]}</b> kali. Tulis <b>${Q[i-1]}</b> di hasil. Hitung ${M(Q[i-1]+' × '+d+' = '+P[i-1])}, lalu ${M(w+' − '+P[i-1]+' = '+R[i-1])}.${last?' Sisa 0, pembagian selesai.':''}`);
+  }
+  li.push(`Hasilnya <b>${dec}</b>. Cek: ${M(dec+' × '+d+' = '+n+' ✓')}`);
+  return {grid,li,dec};
+}
 
-  function initExam() {
-    let shuffledPool = shuffleArray(questionPool);
-    currentActiveQuestions = shuffledPool.slice(0, 5);
+function explain(n,d){
+  const a=senilai(n,d), b=porogapit(n,d), L=x=>x.map(s=>`<li>${s}</li>`).join('');
+  return `<div class="grid md:grid-cols-2 gap-3">
+    <div class="rounded-xl p-3 bg-white" style="border:1px solid #99f6e4">
+      <p class="font-bold text-sm"><span class="pill" style="background:var(--teal)">Cara 1</span> Pecahan Senilai</p>
+      <ol class="steps">${L(a.li)}</ol></div>
+    <div class="rounded-xl p-3 bg-white" style="border:1px solid #d8b4fe">
+      <p class="font-bold text-sm"><span class="pill" style="background:var(--purple)">Cara 2</span> Porogapit (Bagi Akar)</p>
+      ${b.grid}<ol class="steps pur">${L(b.li)}</ol></div>
+  </div>
+  <span class="ans m">${fr(n,d)} = ${a.dec}</span>`;
+}
 
-    let container = document.getElementById('questions-container');
-    container.innerHTML = '';
+let active=[];
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 
-    currentActiveQuestions.forEach((q, index) => {
-      let fracStr = `<span class="m"><span class="math-frac"><span class="math-num">${q.frac.n}</span><span class="math-den">${q.frac.d}</span></span></span>`;
-      let stepsHtml = q.steps.map(step => `<div class="step-item">• ${step}</div>`).join('');
-
-      let cardHtml = `
-        <div class="quest-card" id="q-card-${index}">
-          <div class="badge-q">Soal No. ${index + 1}</div>
-          <div class="pt-3 space-y-4 text-center">
-            <p class="text-sm text-slate-600 font-medium">${q.desc}</p>
-            <div class="text-3xl py-3 bg-slate-50 rounded-xl border border-slate-200 inline-block px-8">
-              ${fracStr}
-            </div>
-            
-            <div class="flex flex-col items-center justify-center space-y-2 pt-1">
-              <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Jawaban Desimalmu:</span>
-              <div class="answer-input-container">
-                <input type="text" name="ans_${index}" class="input-decimal" placeholder="Contoh: 0.5">
-              </div>
-            </div>
-
-            <!-- Kotak Pembahasan 2 Cara & Porogapit -->
-            <div id="expl_${index}" class="expl-box">
-              <p class="font-bold text-sm mb-2 text-slate-800" id="expl_title_${index}">Pembahasan Lengkap (2 Cara):</p>
-              <div class="space-y-1">${stepsHtml}</div>
-            </div>
-          </div>
+function initExam(){
+  active=shuffle(POOL).slice(0,5);
+  const $c=document.getElementById('questions-container'); $c.innerHTML='';
+  active.forEach(([n,d],i)=>{
+    $c.insertAdjacentHTML('beforeend',`
+    <div class="quest-card" id="q-card-${i}">
+      <div class="badge-q">Soal No. ${i+1}</div>
+      <div class="pt-3 space-y-4 text-center">
+        <p class="text-sm text-slate-600 font-medium">Ubah pecahan berikut ke dalam bentuk desimal:</p>
+        <div class="text-3xl py-3 bg-slate-50 rounded-xl border border-slate-200 inline-block px-8 m">${fr(n,d)} = ?</div>
+        <div class="flex flex-col items-center space-y-2">
+          <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Jawaban desimalmu:</span>
+          <div class="answer-input-container"><input type="text" name="ans_${i}" class="input-decimal" placeholder="mis. 0,5" inputmode="decimal" autocomplete="off"></div>
         </div>
-      `;
-      container.insertAdjacentHTML('beforeend', cardHtml);
-    });
+        <div id="expl_${i}" class="expl-box">
+          <p class="font-bold text-sm mb-2 text-slate-800" id="expl_title_${i}"></p>
+          ${explain(n,d)}
+        </div>
+      </div>
+    </div>`);
+  });
+  document.getElementById('result-banner').style.display='none';
+  document.getElementById('submit-section').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+initExam();
 
-    document.getElementById('result-banner').style.display = 'none';
-    document.getElementById('submit-section').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+function parseDec(s){ s=s.trim().replace(',','.'); return /^\d*\.?\d+$/.test(s)?parseFloat(s):null; }
 
-  initExam();
+function submitExam(e){
+  if(e&&e.preventDefault) e.preventDefault();
+  try{ doSubmit(); document.getElementById('err').textContent=''; }
+  catch(err){ document.getElementById('err').textContent='Terjadi kesalahan saat memeriksa jawaban: '+err.message; }
+}
+document.getElementById('questions-container').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); submitExam(); } });
 
-  function submitExam(e) {
-    e.preventDefault();
-    
-    let correctCount = 0;
-    let questionLogs = [];
-
-    currentActiveQuestions.forEach((q, index) => {
-      let inputElem = document.querySelector(`input[name="ans_${index}"]`);
-      let userAns = inputElem.value.trim().replace(',', '.');
-
-      let isCorrect = (parseFloat(userAns) === parseFloat(q.ans));
-
-      if (isCorrect) correctCount++;
-
-      let box = document.getElementById(`q-card-${index}`);
-      let explBox = document.getElementById(`expl_${index}`);
-      let explTitle = document.getElementById(`expl_title_${index}`);
-
-      explBox.style.display = 'block';
-      if (isCorrect) {
-        box.style.borderColor = '#86efac';
-        box.style.background = '#fcfdfd';
-        explBox.className = "expl-box";
-        explTitle.innerHTML = "✅ Benar! Pembahasan Lengkap (2 Cara):";
-      } else {
-        box.style.borderColor = '#fca5a5';
-        box.style.background = '#fffdfd';
-        explBox.className = "expl-box wrong-expl";
-        explTitle.innerHTML = "❌ Kurang Tepat. Pelajari Pembahasan 2 Cara Berikut:";
-      }
-
-      questionLogs.push({
-        no: index + 1,
-        correct: isCorrect,
-        userAnswer: userAns || "Kosong"
-      });
-    });
-
-    let finalScore = correctCount * 20;
-
-    localStorage.setItem('vm_d1_pos6_score', finalScore);
-    localStorage.setItem('vm_d1_pos6_logs', JSON.stringify(questionLogs));
-
-    let banner = document.getElementById('result-banner');
-    let resTitle = document.getElementById('res-title');
-    let resScoreText = document.getElementById('res-score-text');
-    let resMsg = document.getElementById('res-msg');
-    let btnRetry = document.getElementById('btn-action-retry');
-    let btnNext = document.getElementById('btn-action-next');
-
-    banner.style.display = 'block';
-    document.getElementById('submit-section').style.display = 'none';
-
-    resScoreText.innerText = `Skor Kamu: ${finalScore} / 100 (${correctCount} dari 5 soal benar)`;
-
-    if (finalScore >= 70) {
-      banner.className = "result-banner pass";
-      resTitle.innerText = "🎉 SELAMAT, KAMU LULUS KKM!";
-      resMsg.innerText = "Nilaimu sudah mencapai standar kelulusan (>= 70). Kamu berhak melanjutkan ke Boss Battle!";
-      btnRetry.classList.add('hidden');
-      btnNext.classList.remove('hidden');
-
-      let currentProgress = parseInt(localStorage.getItem('vm_d1_progress')) || 1;
-      if (currentProgress < 7) localStorage.setItem('vm_d1_progress', 7);
-
-    } else {
-      banner.className = "result-banner fail";
-      resTitle.innerText = "⚠️ BELUM MENCAPAI KKM 70";
-      resMsg.innerText = "Nilaimu masih di bawah 70. Pelajari uraian pembahasan 2 cara di bawah masing-masing soal, lalu klik Coba Lagi untuk mengulang!";
-      btnRetry.classList.remove('hidden');
-      btnNext.classList.add('hidden');
+function doSubmit(){
+  let correct=0; const logs=[];
+  active.forEach(([n,d],i)=>{
+    const raw=document.querySelector(`input[name="ans_${i}"]`).value, v=parseDec(raw);
+    const ok=v!==null && Math.abs(v-n/d)<1e-9; if(ok) correct++;
+    const dec=senilai(n,d).dec, box=document.getElementById('q-card-'+i), ex=document.getElementById('expl_'+i), t=document.getElementById('expl_title_'+i);
+    ex.style.display='block';
+    if(ok){ box.style.borderColor='#86efac'; ex.className='expl-box'; t.innerHTML=`✅ Benar! ${M(fr(n,d)+' = '+dec)}. Pembahasan dua cara:`; }
+    else {
+      box.style.borderColor='#fca5a5'; ex.className='expl-box wrong-expl';
+      const trap = v!==null && Math.abs(v-d/10)<1e-9 ? ` Ingat, penyebut ${d} tidak langsung menjadi ${M('0,'+d)}.` : '';
+      t.innerHTML=`❌ Jawabanmu ${M(raw.trim()?esc(raw.trim()):'(kosong)')}, jawaban benar ${M(dec)}.${trap} Pelajari dua cara berikut:`;
     }
+    logs.push({no:i+1,correct:ok,userAnswer:raw.trim()||'Kosong'});
+  });
+  const score=correct*20;
+  try{ localStorage.setItem('vm_d1_pos6_score',score); localStorage.setItem('vm_d1_pos6_logs',JSON.stringify(logs)); }catch(_){}
 
-    banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const b=document.getElementById('result-banner'), rt=document.getElementById('btn-action-retry'), nx=document.getElementById('btn-action-next');
+  b.style.display='block'; document.getElementById('submit-section').style.display='none';
+  document.getElementById('res-score-text').innerText=`Skor Kamu: ${score} / 100 (${correct} dari 5 soal benar)`;
+  if(score>=70){
+    b.className='result-banner pass'; document.getElementById('res-title').innerText='🎉 SELAMAT, KAMU LULUS KKM!';
+    document.getElementById('res-msg').innerText='Nilaimu sudah mencapai standar kelulusan (≥ 70). Kamu berhak melanjutkan ke Boss Battle!';
+    rt.classList.add('hidden'); nx.classList.remove('hidden');
+    try{ const p=parseInt(localStorage.getItem('vm_d1_progress'))||1; if(p<7) localStorage.setItem('vm_d1_progress',7); }catch(_){}
+  } else {
+    b.className='result-banner fail'; document.getElementById('res-title').innerText='⚠️ BELUM MENCAPAI KKM 70';
+    document.getElementById('res-msg').innerText='Nilaimu masih di bawah 70. Pelajari pembahasan dua cara di bawah tiap soal, lalu klik Coba Lagi.';
+    rt.classList.remove('hidden'); nx.classList.add('hidden');
   }
-
-  function restartExam() {
-    initExam();
-  }
-
-  function goToNextMission() {
-    window.location.href = "mission-d1-pos7.html";
-  }
+  b.scrollIntoView({behavior:'smooth',block:'center'});
+}
 </script>
 </body>
 </html>
