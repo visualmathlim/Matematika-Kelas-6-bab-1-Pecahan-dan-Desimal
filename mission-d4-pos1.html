@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 1: Briefing - Mission D4 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --indigo: #6366f1; 
+    --indigo-dk: #4f46e5;
+    --navy: #0f172a; 
+    --bg: #f8fafc; 
+    --card: #ffffff; 
+    --line: #e2e8f0;
+    --violet: #8b5cf6; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--indigo-dk); background: #e0e7ff; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #c7d2fe; }
+  .home-btn:hover { background: var(--indigo-dk); color: #fff; transform: translateY(-1px); }
+
+  /* Format Pecahan Matematika Vertikal */
+  .m { font-family: 'Cambria Math', 'STIX Two Math', serif; white-space: nowrap; font-weight: bold; display: inline-block; vertical-align: middle; }
+  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.2rem; line-height: 1.1; font-size: 1em; }
+  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
+  .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+
+  /* Tombol Aksi */
+  .btn { padding: .75rem 1.8rem; border-radius: 9999px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; font-size: 1rem; }
+  .btn-action { background: linear-gradient(to right, var(--indigo-dk), var(--violet)); box-shadow: 0 4px 15px rgba(99,102,241,0.3); }
+  .btn-action:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,102,241,0.4); }
+
+  /* Kartu Kargo Error */
+  .cargo-box { background: #ffffff; border: 2px dashed #cbd5e1; border-radius: 1rem; padding: 1.5rem; text-align: center; transition: all 0.3s; position: relative; }
+  .cargo-item { display: inline-block; background: #eef2ff; border: 2px solid var(--indigo); color: var(--indigo-dk); padding: 0.5rem 1rem; border-radius: 0.5rem; font-family: monospace; font-size: 1.25rem; font-weight: 900; margin: 0.25rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D4 • Pos 1</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#eef2ff; border:1px solid var(--indigo); color:var(--indigo-dk)">🎯 Pos 1/8: Briefing</span>
+      <a href="mission-d4.html" class="home-btn shadow-sm">
+        <span>← Peta D4</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 12.5%; background: linear-gradient(to right, var(--indigo-dk), var(--violet));"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-indigo-50 border-indigo-300 text-indigo-900">
+      📊 Briefing The Grand Sorting Matrix
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Kekacauan Kargo Galaksi</h2>
+    <p class="text-sm text-slate-600 max-w-md mx-auto">Selamat datang di Pusat Pengurutan. Sistem kargo galaksi sedang mengalami galat format!</p>
+  </section>
+
+  <!-- DIALOG PROF. SIGMA -->
+  <section class="card rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-center border-l-4 border-indigo-600 bg-gradient-to-r from-white to-indigo-50/30">
+    <img src="assets/Sigma.png" alt="Prof. Sigma" class="w-20 h-20 rounded-full border-4 border-indigo-400 shrink-0 object-cover shadow-md bg-indigo-100" onerror="this.outerHTML='<div class=\'w-20 h-20 rounded-full bg-indigo-600 border-4 border-white flex-shrink-0 flex items-center justify-center text-3xl shadow-md text-white\'>👨‍🏫</div>'">
+    <div class="text-sm text-slate-700 space-y-3 flex-grow">
+      <div class="flex items-center gap-2">
+        <span class="font-extrabold text-slate-900 text-base">Prof. Sigma</span>
+        <span class="text-[10px] bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded-full">Kepala Laboratorium</span>
+      </div>
+      <p class="leading-relaxed font-medium">
+        "Agen, robot pemindai kargo kita ngadat! Kontainer bahan bakar datang dalam format yang tercampur aduk antara bentuk desimal dan pecahan, seperti: 
+        <span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span></span>, <span class="font-mono font-bold text-indigo-700">0,3</span>, <span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span></span>, dan <span class="font-mono font-bold text-indigo-700">0,35</span>."
+      </p>
+    </div>
+  </section>
+
+  <!-- KONTEN INTERAKTIF KARGO ERROR -->
+  <section class="card rounded-3xl p-6 md:p-8 space-y-6 text-center bg-white border-2 border-indigo-100">
+    <h3 class="font-extrabold text-xl text-slate-800">⚠️ Status Kontainer Kargo Tercampur</h3>
+    <p class="text-sm text-slate-600">Robot tidak bisa mengurutkannya dari yang terkecil karena jenis satuannya berbeda-beda!</p>
+    
+    <div class="cargo-box space-y-2">
+      <div class="flex flex-wrap justify-center items-center gap-3 my-2">
+        <div class="cargo-item">0,3</div>
+        <div class="cargo-item"><span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span></span></div>
+        <div class="cargo-item">0,35</div>
+        <div class="cargo-item"><span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span></span></div>
+      </div>
+      <p class="text-xs text-red-600 font-bold uppercase tracking-wider animate-pulse">Format Campuran: Desimal & Pecahan</p>
+    </div>
+
+    <!-- Tombol Aktivasi Mesin -->
+    <div class="pt-2">
+      <button onclick="activateMatrix()" class="btn btn-action px-10 py-4 shadow-xl" id="btn-activate">
+        ⚙️ Aktifkan Mesin Konversi Matrix
+      </button>
+    </div>
+
+    <!-- Feedback Sukses -->
+    <div id="feedback-matrix" class="hidden bg-indigo-900 text-white p-5 rounded-2xl text-center shadow-lg border-2 border-indigo-400 space-y-2">
+      <h4 class="text-lg font-bold text-indigo-300">Sistem Konversi Diinisialisasi!</h4>
+      <p class="text-sm text-slate-200">
+        Hebat! Kita harus menyeragamkan seluruh format pecahan menjadi bentuk desimal terlebih dahulu sebelum bisa mengurutkannya. Mari masuki Jembatan Konversi!
+      </p>
+    </div>
+  </section>
+
+  <!-- TARGET MISI -->
+  <section class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm space-y-3">
+    <p class="font-extrabold text-slate-800 text-sm uppercase tracking-wider">🎯 Target Misi D4:</p>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm font-semibold text-slate-600">
+      <li class="flex items-start gap-2"><span>✅</span> <span>Menguasai konversi pecahan umum ($\frac{1}{2}, \frac{1}{4}, \frac{3}{4}$, dll) ke desimal.</span></li>
+      <li class="flex items-start gap-2"><span>✅</span> <span>Menyamakan jumlah digit desimal menggunakan kloning nol.</span></li>
+      <li class="flex items-start gap-2"><span>✅</span> <span>Mengurutkan campuran bilangan dari terkecil ke terbesar (<span class="m">Ascending</span>).</span></li>
+      <li class="flex items-start gap-2"><span>✅</span> <span>Menaklukkan Audit Kargo HOTS berstandar KKM 70.</span></li>
+    </ul>
+  </section>
+
+  <!-- TOMBOL NAVIGASI BAWAH -->
+  <div class="flex justify-between items-center pt-4 pb-12">
+    <a href="mission-d4.html" class="home-btn shadow-sm">⬅ Kembali ke Peta D4</a>
+    <a href="mission-d4-pos2.html" class="btn btn-action px-8 py-3.5 shadow-lg hidden" id="btn-next">Lanjut ke Pos 2 (See) ➔</a>
+  </div>
+
+</main>
+
+<script>
+function activateMatrix() {
+  document.getElementById('btn-activate').style.display = 'none';
+  document.getElementById('feedback-matrix').classList.remove('hidden');
+  document.getElementById('btn-next').classList.remove('hidden');
+
+  // Simpan progres Pos 1
+  try {
+    let p = +localStorage.getItem('vm_d4_progress') || 0;
+    if(p < 1) localStorage.setItem('vm_d4_progress', 1);
+  } catch(e) {}
+}
+</script>
+</body>
+</html>
