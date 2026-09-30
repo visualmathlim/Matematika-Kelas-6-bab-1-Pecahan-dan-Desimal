@@ -32,29 +32,32 @@
   .math-num { border-bottom: 1.5px solid currentColor; padding: 0 0.2rem; width: 100%; text-align: center; }
   .math-den { padding: 0 0.2rem; width: 100%; text-align: center; }
 
-  /* Kolom Tabel Hologram */
-  .col { background: #f8fafc; border: 1px solid var(--line); border-radius: .75rem; padding: 1rem .5rem; text-align: center; transition: all 0.2s; }
-  .col:hover { border-color: var(--cyan); box-shadow: 0 4px 12px rgba(6,182,212,0.1); }
+  /* Kotak Nilai Tempat Terintegrasi */
+  .place-box { background: #f8fafc; border: 2px solid var(--line); border-radius: 1rem; padding: 1.2rem .75rem; text-align: center; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: space-between; }
+  .place-box:hover { border-color: var(--cyan); box-shadow: 0 6px 15px rgba(6,182,212,0.1); transform: translateY(-2px); }
   
   /* Stepper Tombol */
-  .stepper { display: flex; align-items: center; justify-content: center; gap: .5rem; margin-top: .75rem; }
-  .stepbtn { width: 2.2rem; height: 2.2rem; border-radius: .5rem; background: var(--cyan-dk); color: #fff; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-  .stepbtn:hover { background: var(--cyan); transform: scale(1.05); }
+  .stepper { display: flex; align-items: center; justify-content: center; gap: .5rem; margin-top: .75rem; width: 100%; }
+  .stepbtn { width: 2.2rem; height: 2.2rem; border-radius: .5rem; color: #fff; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+  .stepbtn:hover { transform: scale(1.05); }
 
-  /* Grid Blok Visual */
-  .flat { width: 200px; height: 200px; margin: 0 auto; display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr); border: 3px solid var(--navy); border-radius: 8px; overflow: hidden; background: #f8fafc; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
-  .flat .u { border: .5px solid #e2e8f0; }
-  .flat .u.col-on { background: var(--cyan); }
-  .flat .u.cell-on { background: var(--gold-bg); }
+  /* Grid Mini Visualisasi per Panel */
+  .mini-grid { width: 100px; height: 100px; margin: 0 auto; display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr); border: 2px solid var(--navy); border-radius: 6px; overflow: hidden; background: #fff; }
+  .mini-grid .u { border: .3px solid #e2e8f0; }
+  .mini-grid .u.on { background: var(--cyan); }
+
+  .mini-grid-amber { width: 100px; height: 100px; margin: 0 auto; display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr); border: 2px solid var(--navy); border-radius: 6px; overflow: hidden; background: #fff; }
+  .mini-grid-amber .u { border: .3px solid #e2e8f0; }
+  .mini-grid-amber .u.on { background: var(--gold-bg); }
 
   /* Zoom Strip Perseribuan */
-  .zoomstrip { display: flex; width: 220px; margin: .5rem auto 0; height: 24px; border: 2px solid var(--navy); border-radius: 6px; overflow: hidden; background: #f8fafc; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+  .zoomstrip { display: flex; width: 100%; max-width: 160px; margin: 0 auto; height: 22px; border: 2px solid var(--navy); border-radius: 6px; overflow: hidden; background: #fff; }
   .zoomstrip div { flex: 1; border-right: 1px solid #cbd5e1; transition: background 0.3s; }
   .zoomstrip div:last-child { border-right: none; }
   .zoomstrip div.on { background: var(--teal); }
 
-  .unit-row { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; min-height: 28px; }
-  .unit-row span { width: 24px; height: 24px; background: var(--navy); border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+  .unit-row { display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; min-height: 24px; max-width: 140px; margin: 0 auto; }
+  .unit-row span { width: 20px; height: 20px; background: var(--navy); border-radius: 3px; box-shadow: 0 2px 3px rgba(0,0,0,0.1); }
 </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
@@ -80,7 +83,7 @@
   <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 37.5%; background: linear-gradient(to right, var(--cyan), var(--gold-bg));"></div></div>
 </header>
 
-<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-8">
 
   <!-- HERO SECTION -->
   <section class="text-center space-y-2">
@@ -88,59 +91,90 @@
       🎨 Visualize (Sandbox Tabel Hologram)
     </div>
     <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Susun Bilanganmu Sendiri</h2>
-    <p class="max-w-lg mx-auto text-sm text-slate-600 font-medium">
-      Ubah tombol nilai tempat di bawah, dan saksikan tabel hologram merespons secara langsung bentuk angka dan blok visualnya!
+    <p class="max-w-xl mx-auto text-sm text-slate-600 font-medium">
+      Ubah jumlah angka di kotak kontrol atas, dan saksikan panel visualisasi di bawahnya bereaksi secara sinkron sesuai warnanya!
     </p>
   </section>
 
-  <!-- KARTU UTAMA SANDBOX -->
+  <!-- KOTAK BESAR UTAMA (MASTER CONTAINER TABEL HOLOGRAM) -->
   <section class="card rounded-3xl p-6 md:p-8 space-y-6">
     
-    <!-- TABEL KONTROL 4 KOLOM -->
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+    <div class="text-center pb-2 border-b border-slate-100">
+      <h3 class="font-extrabold text-lg text-slate-900">🎛️ Kotak Kontrol Nilai Tempat Hologram</h3>
+      <p class="text-xs text-slate-500 font-medium mt-0.5">Disusun dari kiri ke kanan (sebelum dan sesudah koma)</p>
+    </div>
+
+    <!-- 4 KOTAK KONTROL ATAS -->
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
       
-      <!-- Satuan -->
-      <div class="col border-t-4 border-slate-800">
-        <p class="font-bold text-xs text-slate-500 uppercase">Satuan</p>
-        <p class="text-xs font-mono text-slate-400 my-0.5">1</p>
-        <p id="v-s" class="text-3xl font-black text-slate-900 my-1">3</p>
-        <div class="stepper">
-          <button class="stepbtn" data-k="s" data-d="-1">−</button>
-          <button class="stepbtn" data-k="s" data-d="1">+</button>
+      <!-- 1. Satuan -->
+      <div class="place-box border-t-4 border-slate-700">
+        <div>
+          <p class="font-extrabold text-xs text-slate-700 uppercase tracking-wide">Satuan</p>
+          <p class="text-[11px] font-mono text-slate-500 mt-0.5">Nilai: 1</p>
         </div>
+        <div class="my-3">
+          <p id="v-s" class="text-4xl font-black text-slate-900">3</p>
+        </div>
+        <div class="stepper">
+          <button class="stepbtn bg-slate-700 hover:bg-slate-900" data-k="s" data-d="-1">−</button>
+          <button class="stepbtn bg-slate-700 hover:bg-slate-900" data-k="s" data-d="1">+</button>
+        </div>
+        <p class="text-[10px] text-slate-600 font-semibold mt-3 pt-2 border-t border-slate-200">Bagian utuh di kiri koma</p>
       </div>
 
-      <!-- Persepuluhan -->
-      <div class="col border-t-4 border-cyan-500">
-        <p class="font-bold text-xs text-cyan-700 uppercase">Persepuluhan</p>
-        <p class="text-xs font-mono text-cyan-600 my-0.5"><span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">10</span></span></span> (0,1)</p>
-        <p id="v-p1" class="text-3xl font-black text-cyan-700 my-1">4</p>
-        <div class="stepper">
-          <button class="stepbtn" data-k="p1" data-d="-1">−</button>
-          <button class="stepbtn" data-k="p1" data-d="1">+</button>
+      <!-- 2. Persepuluhan (1/10) -->
+      <div class="place-box border-t-4 border-cyan-500">
+        <div>
+          <p class="font-extrabold text-xs text-cyan-800 uppercase tracking-wide">Persepuluhan</p>
+          <div class="text-xs font-mono text-cyan-700 mt-0.5 flex justify-center items-center">
+            <span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">10</span></span></span> (0,1)
+          </div>
         </div>
+        <div class="my-3">
+          <p id="v-p1" class="text-4xl font-black text-cyan-700">4</p>
+        </div>
+        <div class="stepper">
+          <button class="stepbtn bg-cyan-600 hover:bg-cyan-700" data-k="p1" data-d="-1">−</button>
+          <button class="stepbtn bg-cyan-600 hover:bg-cyan-700" data-k="p1" data-d="1">+</button>
+        </div>
+        <p class="text-[10px] text-cyan-800 font-semibold mt-3 pt-2 border-t border-cyan-200">Tempat ke-1 di kanan koma</p>
       </div>
 
-      <!-- Perseratusan -->
-      <div class="col border-t-4 border-amber-500">
-        <p class="font-bold text-xs text-amber-700 uppercase">Perseratusan</p>
-        <p class="text-xs font-mono text-amber-600 my-0.5"><span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">100</span></span></span> (0,01)</p>
-        <p id="v-p2" class="text-3xl font-black text-amber-700 my-1">2</p>
-        <div class="stepper">
-          <button class="stepbtn" data-k="p2" data-d="-1">−</button>
-          <button class="stepbtn" data-k="p2" data-d="1">+</button>
+      <!-- 3. Perseratusan (1/100) -->
+      <div class="place-box border-t-4 border-amber-500">
+        <div>
+          <p class="font-extrabold text-xs text-amber-800 uppercase tracking-wide">Perseratusan</p>
+          <div class="text-xs font-mono text-amber-700 mt-0.5 flex justify-center items-center">
+            <span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">100</span></span></span> (0,01)
+          </div>
         </div>
+        <div class="my-3">
+          <p id="v-p2" class="text-4xl font-black text-amber-700">2</p>
+        </div>
+        <div class="stepper">
+          <button class="stepbtn bg-amber-600 hover:bg-amber-700" data-k="p2" data-d="-1">−</button>
+          <button class="stepbtn bg-amber-600 hover:bg-amber-700" data-k="p2" data-d="1">+</button>
+        </div>
+        <p class="text-[10px] text-amber-800 font-semibold mt-3 pt-2 border-t border-amber-200">Tempat ke-2 di kanan koma</p>
       </div>
 
-      <!-- Perseribuan -->
-      <div class="col border-t-4 border-teal-600">
-        <p class="font-bold text-xs text-teal-700 uppercase">Perseribuan</p>
-        <p class="text-xs font-mono text-teal-600 my-0.5"><span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">1000</span></span></span> (0,001)</p>
-        <p id="v-p3" class="text-3xl font-black text-teal-700 my-1">5</p>
-        <div class="stepper">
-          <button class="stepbtn" data-k="p3" data-d="-1">−</button>
-          <button class="stepbtn" data-k="p3" data-d="1">+</button>
+      <!-- 4. Perseribuan (1/1000) -->
+      <div class="place-box border-t-4 border-teal-600">
+        <div>
+          <p class="font-extrabold text-xs text-teal-800 uppercase tracking-wide">Perseribuan</p>
+          <div class="text-xs font-mono text-teal-700 mt-0.5 flex justify-center items-center">
+            <span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">1000</span></span></span> (0,001)
+          </div>
         </div>
+        <div class="my-3">
+          <p id="v-p3" class="text-4xl font-black text-teal-700">5</p>
+        </div>
+        <div class="stepper">
+          <button class="stepbtn bg-teal-600 hover:bg-teal-700" data-k="p3" data-d="-1">−</button>
+          <button class="stepbtn bg-teal-600 hover:bg-teal-700" data-k="p3" data-d="1">+</button>
+        </div>
+        <p class="text-[10px] text-teal-800 font-semibold mt-3 pt-2 border-t border-teal-200">Tempat ke-3 di kanan koma</p>
       </div>
 
     </div>
@@ -151,21 +185,42 @@
       <p id="display" class="text-4xl md:text-5xl font-mono font-black text-amber-400 tracking-wider">3,425</p>
     </div>
 
-    <!-- SIMULASI VISUAL BLOK -->
-    <div class="space-y-4 pt-2">
-      <div class="text-center">
-        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Visualisasi Satuan (Kotak Utuh):</p>
-        <div class="unit-row" id="units"></div>
-      </div>
+    <!-- 4 PANEL VISUALISASI DI BAWAH (DISAMAKAN WARNA & POLANYA DENGAN KOTAK ATAS) -->
+    <div class="pt-4 border-t border-slate-100 space-y-3">
+      <p class="text-xs font-bold text-slate-500 uppercase tracking-wider text-center">👁️ Panel Visualisasi Blok (Selaras dengan Kotak Atas):</p>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+        
+        <!-- Panel 1: Satuan -->
+        <div class="rounded-2xl p-4 border-2 border-slate-300 bg-slate-50 text-center flex flex-col justify-between shadow-sm space-y-3">
+          <p class="font-bold text-xs text-slate-700 uppercase">1. Satuan Utuh</p>
+          <div class="unit-row" id="units"></div>
+          <p class="text-[10px] text-slate-500 font-medium">Kotak penuh bernilai 1</p>
+        </div>
 
-      <div class="text-center">
-        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Visualisasi Persepuluhan (Kolom) & Perseratusan (Kotak Kecil):</p>
-        <div class="flat" id="flat"></div>
-      </div>
+        <!-- Panel 2: Persepuluhan -->
+        <div class="rounded-2xl p-4 border-2 border-cyan-300 bg-cyan-50/70 text-center flex flex-col justify-between shadow-sm space-y-3">
+          <p class="font-bold text-xs text-cyan-800 uppercase">2. Persepuluhan (<span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">10</span></span></span>)</p>
+          <div class="mini-grid" id="grid-p1"></div>
+          <p class="text-[10px] text-cyan-800 font-medium">Kolom penuh yang menyala</p>
+        </div>
 
-      <div class="text-center">
-        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Zoom Perseribuan (1 Kotak Dibagi 10 Baris):</p>
-        <div class="zoomstrip" id="zoom"></div>
+        <!-- Panel 3: Perseratusan -->
+        <div class="rounded-2xl p-4 border-2 border-amber-300 bg-amber-50/70 text-center flex flex-col justify-between shadow-sm space-y-3">
+          <p class="font-bold text-xs text-amber-800 uppercase">3. Perseratusan (<span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">100</span></span></span>)</p>
+          <div class="mini-grid-amber" id="grid-p2"></div>
+          <p class="text-[10px] text-amber-800 font-medium">Kotak kecil tambahan</p>
+        </div>
+
+        <!-- Panel 4: Perseribuan -->
+        <div class="rounded-2xl p-4 border-2 border-teal-300 bg-teal-50/70 text-center flex flex-col justify-between shadow-sm space-y-3">
+          <p class="font-bold text-xs text-teal-800 uppercase">4. Perseribuan (<span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">1000</span></span></span>)</p>
+          <div class="flex items-center justify-center flex-grow py-3">
+            <div class="zoomstrip" id="zoom"></div>
+          </div>
+          <p class="text-[10px] text-teal-800 font-medium">Zoom 1 kotak dibagi 10</p>
+        </div>
+
       </div>
     </div>
 
@@ -186,7 +241,7 @@
   <!-- TOMBOL NAVIGASI BAWAH -->
   <div class="flex justify-between items-center pt-4 pb-12">
     <a href="mission-d2-pos2.html" class="home-btn shadow-sm">⬅ Kembali ke Pos 2 (See)</a>
-    <a href="mission-d2-pos4.html" class="btn" style="background:linear-gradient(to right,var(--cyan-dk),var(--teal)); box-shadow: 0 4px 15px rgba(6,182,212,0.3); padding: .8rem 2rem;">Lanjut ke Pos 4 (Think) ➔</a>
+    <a href="mission-d2-pos4.html" class="btn" style="background:linear-gradient(to right,var(--cyan-dk),var(--teal)); box-shadow: 0 4px 15px rgba(6,182,212,0.3); padding: .8rem 2rem; color:#fff; border-radius:9999px; font-weight:bold; border:none; cursor:pointer;">Lanjut ke Pos 4 (Think) ➔</a>
   </div>
 
 </main>
@@ -194,7 +249,6 @@
 <script>
 try{ const p=+localStorage.getItem('vm_d2_progress')||0; if(p<3) localStorage.setItem('vm_d2_progress',3); }catch(e){}
 
-const NAMES_RIBUAN = ['', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan'];
 let v = {s: 3, p1: 4, p2: 2, p3: 5};
 
 function render(){
@@ -204,23 +258,35 @@ function render(){
   document.getElementById('v-p3').textContent = v.p3;
   document.getElementById('display').textContent = `${v.s},${v.p1}${v.p2}${v.p3}`;
 
-  // Render Satuan Kotak
-  document.getElementById('units').innerHTML = Array.from({length: v.s}).map(()=>'<span></span>').join('') || '<span style="background:transparent; border:none;">(0)</span>';
+  // 1. Render Satuan Kotak
+  document.getElementById('units').innerHTML = Array.from({length: v.s}).map(()=>'<span></span>').join('') || '<span style="background:transparent; border:none; color:#64748b; font-size:11px;">(0)</span>';
 
-  // Render Flat Grid 10x10
-  const flat = document.getElementById('flat'); 
-  flat.innerHTML = '';
+  // 2. Render Grid Persepuluhan (p1)
+  const gridP1 = document.getElementById('grid-p1');
+  gridP1.innerHTML = '';
   for(let r = 0; r < 10; r++){
     for(let c = 0; c < 10; c++){
-      const u = document.createElement('div'); 
+      const u = document.createElement('div');
       u.className = 'u';
-      if(c < v.p1) u.classList.add('col-on');
-      else if(c === v.p1 && r < v.p2) u.classList.add('cell-on');
-      flat.appendChild(u);
+      if(c < v.p1) u.classList.add('on');
+      gridP1.appendChild(u);
     }
   }
 
-  // Render Zoom Strip Perseribuan
+  // 3. Render Grid Perseratusan (p2)
+  const gridP2 = document.getElementById('grid-p2');
+  gridP2.innerHTML = '';
+  for(let r = 0; r < 10; r++){
+    for(let c = 0; c < 10; c++){
+      const u = document.createElement('div');
+      u.className = 'u';
+      // Menampilkan kotak-kotak kecil tambahan
+      if(c === v.p1 && r < v.p2) u.classList.add('on');
+      gridP2.appendChild(u);
+    }
+  }
+
+  // 4. Render Zoom Strip Perseribuan (p3)
   const zoom = document.getElementById('zoom'); 
   zoom.innerHTML = '';
   for(let i = 0; i < 10; i++){ 
