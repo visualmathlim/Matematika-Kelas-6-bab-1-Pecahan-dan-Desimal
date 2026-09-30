@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 3: Visualize - Mission D2 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+    --red: #dc2626; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--cyan-dk); background: #cffafe; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #67e8f9; }
+  .home-btn:hover { background: var(--cyan-dk); color: #fff; transform: translateY(-1px); }
+
+  /* Format Pecahan Vertikal */
+  .m { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', serif; white-space: nowrap; font-weight: bold; display: inline-block; vertical-align: middle; }
+  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.1rem; line-height: 1.1; font-size: 0.85em; }
+  .math-num { border-bottom: 1.5px solid currentColor; padding: 0 0.2rem; width: 100%; text-align: center; }
+  .math-den { padding: 0 0.2rem; width: 100%; text-align: center; }
+
+  /* Kolom Tabel Hologram */
+  .col { background: #f8fafc; border: 1px solid var(--line); border-radius: .75rem; padding: 1rem .5rem; text-align: center; transition: all 0.2s; }
+  .col:hover { border-color: var(--cyan); box-shadow: 0 4px 12px rgba(6,182,212,0.1); }
+  
+  /* Stepper Tombol */
+  .stepper { display: flex; align-items: center; justify-content: center; gap: .5rem; margin-top: .75rem; }
+  .stepbtn { width: 2.2rem; height: 2.2rem; border-radius: .5rem; background: var(--cyan-dk); color: #fff; font-weight: bold; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+  .stepbtn:hover { background: var(--cyan); transform: scale(1.05); }
+
+  /* Grid Blok Visual */
+  .flat { width: 200px; height: 200px; margin: 0 auto; display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr); border: 3px solid var(--navy); border-radius: 8px; overflow: hidden; background: #f8fafc; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+  .flat .u { border: .5px solid #e2e8f0; }
+  .flat .u.col-on { background: var(--cyan); }
+  .flat .u.cell-on { background: var(--gold-bg); }
+
+  /* Zoom Strip Perseribuan */
+  .zoomstrip { display: flex; width: 220px; margin: .5rem auto 0; height: 24px; border: 2px solid var(--navy); border-radius: 6px; overflow: hidden; background: #f8fafc; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+  .zoomstrip div { flex: 1; border-right: 1px solid #cbd5e1; transition: background 0.3s; }
+  .zoomstrip div:last-child { border-right: none; }
+  .zoomstrip div.on { background: var(--teal); }
+
+  .unit-row { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; min-height: 28px; }
+  .unit-row span { width: 24px; height: 24px; background: var(--navy); border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D2 • Pos 3</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#ecfeff; border:1px solid var(--cyan); color:var(--cyan-dk)">🎨 Pos 3/8: Visualize</span>
+      <a href="mission-d2.html" class="home-btn shadow-sm">
+        <span>← Peta D2</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 37.5%; background: linear-gradient(to right, var(--cyan), var(--gold-bg));"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-cyan-50 border-cyan-300 text-cyan-800">
+      🎨 Visualize (Sandbox Tabel Hologram)
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Susun Bilanganmu Sendiri</h2>
+    <p class="max-w-lg mx-auto text-sm text-slate-600 font-medium">
+      Ubah tombol nilai tempat di bawah, dan saksikan tabel hologram merespons secara langsung bentuk angka dan blok visualnya!
+    </p>
+  </section>
+
+  <!-- KARTU UTAMA SANDBOX -->
+  <section class="card rounded-3xl p-6 md:p-8 space-y-6">
+    
+    <!-- TABEL KONTROL 4 KOLOM -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      
+      <!-- Satuan -->
+      <div class="col border-t-4 border-slate-800">
+        <p class="font-bold text-xs text-slate-500 uppercase">Satuan</p>
+        <p class="text-xs font-mono text-slate-400 my-0.5">1</p>
+        <p id="v-s" class="text-3xl font-black text-slate-900 my-1">3</p>
+        <div class="stepper">
+          <button class="stepbtn" data-k="s" data-d="-1">−</button>
+          <button class="stepbtn" data-k="s" data-d="1">+</button>
+        </div>
+      </div>
+
+      <!-- Persepuluhan -->
+      <div class="col border-t-4 border-cyan-500">
+        <p class="font-bold text-xs text-cyan-700 uppercase">Persepuluhan</p>
+        <p class="text-xs font-mono text-cyan-600 my-0.5"><span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">10</span></span></span> (0,1)</p>
+        <p id="v-p1" class="text-3xl font-black text-cyan-700 my-1">4</p>
+        <div class="stepper">
+          <button class="stepbtn" data-k="p1" data-d="-1">−</button>
+          <button class="stepbtn" data-k="p1" data-d="1">+</button>
+        </div>
+      </div>
+
+      <!-- Perseratusan -->
+      <div class="col border-t-4 border-amber-500">
+        <p class="font-bold text-xs text-amber-700 uppercase">Perseratusan</p>
+        <p class="text-xs font-mono text-amber-600 my-0.5"><span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">100</span></span></span> (0,01)</p>
+        <p id="v-p2" class="text-3xl font-black text-amber-700 my-1">2</p>
+        <div class="stepper">
+          <button class="stepbtn" data-k="p2" data-d="-1">−</button>
+          <button class="stepbtn" data-k="p2" data-d="1">+</button>
+        </div>
+      </div>
+
+      <!-- Perseribuan -->
+      <div class="col border-t-4 border-teal-600">
+        <p class="font-bold text-xs text-teal-700 uppercase">Perseribuan</p>
+        <p class="text-xs font-mono text-teal-600 my-0.5"><span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">1000</span></span></span> (0,001)</p>
+        <p id="v-p3" class="text-3xl font-black text-teal-700 my-1">5</p>
+        <div class="stepper">
+          <button class="stepbtn" data-k="p3" data-d="-1">−</button>
+          <button class="stepbtn" data-k="p3" data-d="1">+</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAMPILAN BILANGAN UTAMA -->
+    <div class="text-center bg-slate-900 text-white p-5 rounded-2xl shadow-inner border-2 border-cyan-500/50 space-y-1">
+      <p class="text-xs text-cyan-300 font-mono tracking-widest uppercase">HASIL BILANGAN DESIMAL</p>
+      <p id="display" class="text-4xl md:text-5xl font-mono font-black text-amber-400 tracking-wider">3,425</p>
+    </div>
+
+    <!-- SIMULASI VISUAL BLOK -->
+    <div class="space-y-4 pt-2">
+      <div class="text-center">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Visualisasi Satuan (Kotak Utuh):</p>
+        <div class="unit-row" id="units"></div>
+      </div>
+
+      <div class="text-center">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Visualisasi Persepuluhan (Kolom) & Perseratusan (Kotak Kecil):</p>
+        <div class="flat" id="flat"></div>
+      </div>
+
+      <div class="text-center">
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Zoom Perseribuan (1 Kotak Dibagi 10 Baris):</p>
+        <div class="zoomstrip" id="zoom"></div>
+      </div>
+    </div>
+
+    <!-- KOTAK INFORMASI MATEMATIKA -->
+    <div class="bg-gradient-to-br from-slate-50 to-cyan-50/50 rounded-2xl p-5 border border-cyan-200 space-y-3">
+      <div class="space-y-1">
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Bentuk Panjang (Expanded Form):</p>
+        <p id="expanded" class="font-mono font-bold text-slate-800 text-base"></p>
+      </div>
+      <div class="space-y-1 border-t border-slate-200 pt-2">
+        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Cara Baca Akademik:</p>
+        <p id="reading" class="text-sm font-semibold text-teal-800 leading-relaxed"></p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- TOMBOL NAVIGASI BAWAH -->
+  <div class="flex justify-between items-center pt-4 pb-12">
+    <a href="mission-d2-pos2.html" class="home-btn shadow-sm">⬅ Kembali ke Pos 2 (See)</a>
+    <a href="mission-d2-pos4.html" class="btn" style="background:linear-gradient(to right,var(--cyan-dk),var(--teal)); box-shadow: 0 4px 15px rgba(6,182,212,0.3); padding: .8rem 2rem;">Lanjut ke Pos 4 (Think) ➔</a>
+  </div>
+
+</main>
+
+<script>
+try{ const p=+localStorage.getItem('vm_d2_progress')||0; if(p<3) localStorage.setItem('vm_d2_progress',3); }catch(e){}
+
+const NAMES_RIBUAN = ['', 'satu', 'dua', 'tiga', 'empat', 'lima', 'enam', 'tujuh', 'delapan', 'sembilan'];
+let v = {s: 3, p1: 4, p2: 2, p3: 5};
+
+function render(){
+  document.getElementById('v-s').textContent = v.s;
+  document.getElementById('v-p1').textContent = v.p1;
+  document.getElementById('v-p2').textContent = v.p2;
+  document.getElementById('v-p3').textContent = v.p3;
+  document.getElementById('display').textContent = `${v.s},${v.p1}${v.p2}${v.p3}`;
+
+  // Render Satuan Kotak
+  document.getElementById('units').innerHTML = Array.from({length: v.s}).map(()=>'<span></span>').join('') || '<span style="background:transparent; border:none;">(0)</span>';
+
+  // Render Flat Grid 10x10
+  const flat = document.getElementById('flat'); 
+  flat.innerHTML = '';
+  for(let r = 0; r < 10; r++){
+    for(let c = 0; c < 10; c++){
+      const u = document.createElement('div'); 
+      u.className = 'u';
+      if(c < v.p1) u.classList.add('col-on');
+      else if(c === v.p1 && r < v.p2) u.classList.add('cell-on');
+      flat.appendChild(u);
+    }
+  }
+
+  // Render Zoom Strip Perseribuan
+  const zoom = document.getElementById('zoom'); 
+  zoom.innerHTML = '';
+  for(let i = 0; i < 10; i++){ 
+    const d = document.createElement('div'); 
+    if(i < v.p3) d.classList.add('on'); 
+    zoom.appendChild(d); 
+  }
+
+  // Bentuk Panjang
+  let expParts = [];
+  if(v.s > 0) expParts.push(v.s);
+  if(v.p1 > 0) expParts.push(`0,${v.p1}`);
+  if(v.p2 > 0) expParts.push(`0,0${v.p2}`);
+  if(v.p3 > 0) expParts.push(`0,00${v.p3}`);
+  document.getElementById('expanded').textContent = expParts.join(' + ') || '0';
+
+  // Cara Baca Akademik
+  document.getElementById('reading').textContent = `${v.s} satuan, ${v.p1} persepuluhan, ${v.p2} perseratusan, dan ${v.p3} perseribuan. (Dibaca: ${v.s} koma ${v.p1}${v.p2}${v.p3})`;
+}
+
+document.querySelectorAll('.stepbtn').forEach(b => {
+  b.addEventListener('click', ()=>{
+    const k = b.dataset.k, d = +b.dataset.d;
+    v[k] = Math.min(9, Math.max(0, v[k] + d));
+    render();
+  });
+});
+
+render();
+</script>
+</body>
+</html>
