@@ -6,55 +6,51 @@
 <title>Pos 2: See - Mission D1 | Math Mastery</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  :root { 
-    --cyan: #06b6d4; 
-    --cyan-dk: #0891b2;
-    --navy: #0f172a; 
-    --navy-lt: #1e293b;
-    --bg: #f0fdfa; 
-    --card: #ffffff; 
-    --line: #cffafe;
-    --teal: #0d9488; 
-    --gold: #ca8a04; 
-  }
-  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
-  
-  /* Header & Buttons */
-  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); position: relative; z-index: 10; }
-  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--cyan-dk); background: #cffafe; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #67e8f9; }
-  .home-btn:hover { background: var(--cyan-dk); color: #fff; transform: translateY(-1px); }
+  :root { --cyan:#06b6d4; --cyan-dk:#0891b2; --navy:#0f172a; --bg:#f0fdfa; --card:#ffffff; --line:#cffafe; --teal:#0d9488; --amber:#f4b400; }
+  body { background-color:var(--bg); color:var(--navy); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; overflow-x:hidden; }
+  .card { background:var(--card); border:1px solid var(--line); box-shadow:0 4px 6px -1px rgba(0,0,0,.05); }
+  .home-btn { display:inline-flex; align-items:center; gap:6px; font-size:.85rem; font-weight:700; color:var(--cyan-dk); background:#cffafe; padding:6px 14px; border-radius:99px; transition:all .2s; border:1px solid #67e8f9; }
+  .home-btn:hover { background:var(--cyan-dk); color:#fff; transform:translateY(-1px); }
 
-  /* Math UI */
-  .m { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', serif; white-space: nowrap; font-weight: bold; }
-  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.2rem; line-height: 1.1; font-size: 0.95em; }
-  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
-  .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+  /* Tampilan matematika */
+  .m { font-family:'Cambria Math','STIX Two Math','Latin Modern Math','Times New Roman',serif; font-size:1.1em; white-space:nowrap; }
+  .math-frac { display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .18em; line-height:1.15; font-size:.95em; }
+  .math-num { border-bottom:1.5px solid currentColor; padding:0 .3em; width:100%; text-align:center; }
+  .math-den { padding:0 .3em; width:100%; text-align:center; }
+  .eq { display:block; text-align:center; font-size:1.15rem; padding:.5rem .4rem; margin:.4rem 0; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:.6rem; overflow-x:auto; }
+  .lab-eq { display:block; text-align:center; font-size:1.6rem; padding:.6rem; color:#fff; }
+  .why { font-size:.8rem; color:#475569; margin:.1rem 0 0; }
+  ol.steps { list-style:none; padding:0; counter-reset:s; }
+  ol.steps li { counter-increment:s; margin:.8rem 0; padding-left:2rem; position:relative; font-size:.9rem; }
+  ol.steps li::before { content:counter(s); position:absolute; left:0; top:0; width:1.4rem; height:1.4rem; border-radius:50%; background:var(--teal); color:#fff; font-size:.75rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
 
-  /* Lab Screen / Simulator */
-  .lab-screen { background: var(--navy); color: white; border-radius: 16px; padding: 2rem; border: 2px solid #334155; position: relative; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-  
-  /* Visual Grid 10 Kolom (Persepuluhan) */
-  .grid-container { display: flex; gap: 4px; justify-content: center; margin: 1.5rem 0; flex-wrap: wrap; }
-  .grid-box { width: 35px; height: 50px; background: rgba(255,255,255,0.1); border: 2px solid #38bdf8; border-radius: 6px; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #94a3b8; }
-  .grid-box.active { background: var(--cyan); border-color: #67e8f9; color: var(--navy); font-weight: bold; box-shadow: 0 0 10px rgba(6, 182, 212, 0.6); }
+  /* Lab */
+  .lab-screen { background:var(--navy); color:#fff; border-radius:16px; padding:1.5rem; border:2px solid #334155; box-shadow:0 10px 25px rgba(0,0,0,.1); }
+  .lab-title { font-size:.75rem; color:#94a3b8; letter-spacing:.05em; }
+  .bar { display:flex; gap:3px; width:100%; max-width:440px; margin:.4rem auto; }
+  .bar .cell { flex:1; height:42px; }
+  .grid100 { display:grid; grid-template-columns:repeat(10,1fr); grid-template-rows:repeat(10,1fr); grid-auto-flow:column; gap:2px; width:100%; max-width:280px; aspect-ratio:1; margin:.4rem auto; }
+  .cell { background:rgba(255,255,255,.08); border:1.5px solid #38bdf8; border-radius:4px; transition:all .25s ease; }
+  .grid100 .cell { border-width:1px; border-radius:2px; }
+  .cell.on { background:var(--cyan); border-color:#67e8f9; box-shadow:0 0 8px rgba(6,182,212,.6); }
+  .cell.extra { background:var(--amber); border-color:#fde68a; box-shadow:0 0 8px rgba(244,180,0,.6); }
+  .cell.orig.on { background:#14b8a6; border-color:#5eead4; }
 
-  /* Pilihan Tombol Eksperimen */
-  .exp-btn { padding: 0.6rem 1.2rem; border-radius: 99px; font-weight: bold; font-size: 0.9rem; background: #e0f2fe; color: #0369a1; border: 2px solid #bae6fd; cursor: pointer; transition: all 0.2s; }
-  .exp-btn.active { background: var(--cyan-dk); color: white; border-color: var(--cyan); box-shadow: 0 4px 10px rgba(8, 145, 178, 0.3); }
-
-  /* Tombol */
-  .btn { display: inline-block; text-align: center; padding: 0.8rem 1.8rem; border-radius: 99px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
-  .btn-next { background: linear-gradient(to right, var(--cyan-dk), var(--teal)); box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3); font-size: 1.1rem; }
-  .btn-next:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5); }
-  
-  .hidden-area { display: none; }
+  .exp-btn { padding:.6rem 1.2rem; border-radius:99px; font-weight:bold; font-size:.9rem; background:#e0f2fe; color:#0369a1; border:2px solid #bae6fd; cursor:pointer; transition:all .2s; }
+  .exp-btn.active { background:var(--cyan-dk); color:#fff; border-color:var(--cyan); box-shadow:0 4px 10px rgba(8,145,178,.3); }
+  .btn { display:inline-block; text-align:center; padding:.8rem 1.8rem; border-radius:99px; font-weight:bold; color:#fff; transition:all .2s; cursor:pointer; border:none; }
+  .btn-next { background:linear-gradient(to right,var(--cyan-dk),var(--teal)); box-shadow:0 4px 15px rgba(6,182,212,.3); }
+  .btn-next:hover { transform:translateY(-2px); }
+  .btn:disabled { opacity:.5; cursor:default; transform:none; }
+  .guess { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.4); color:#fff; border-radius:.5rem; padding:.4rem .6rem; width:7rem; text-align:center; font-size:1.1rem; }
+  .guess::placeholder { color:rgba(255,255,255,.5); }
+  .hidden-area { display:none; }
 </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
 
-<!-- HEADER NAVIGASI -->
 <header class="card border-b sticky top-0 z-50">
-  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-20">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
     <div class="flex items-center gap-3">
       <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
       <div>
@@ -62,189 +58,166 @@
         <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Kelas 6 • Mission D1 • Pos 2</p>
       </div>
     </div>
-    
     <div class="flex items-center gap-2">
-      <a href="mission-d1.html" class="home-btn shadow-sm" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd;">
-        <span>← Peta D1</span>
-      </a>
+      <a href="mission-d1.html" class="home-btn shadow-sm" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd;"><span>← Peta D1</span></a>
       <a href="index.html" class="home-btn shadow-sm">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
         <span>Home</span>
       </a>
     </div>
   </div>
-  <div class="h-1.5 w-full bg-slate-200"><div class="h-full bg-cyan-600" style="width: 25%;"></div></div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full bg-cyan-600" style="width:25%;"></div></div>
 </header>
 
 <main class="flex-grow max-w-3xl mx-auto w-full px-4 py-8 space-y-6">
-  
-  <!-- HEADER POS -->
+
   <section class="text-center space-y-2">
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--cyan); color:var(--cyan-dk); background:#cffafe">
-      👁️ Pos 2/8: See (Laboratorium Visual)
-    </div>
-    <h2 class="text-3xl font-extrabold text-slate-800">Misteri Pecahan & Desimal</h2>
-    <p class="text-sm text-slate-600 max-w-xl mx-auto">
-      Pilih sampel pecahan di bawah ini dan saksikan bagaimana mesin lab memperbesarnya ke dalam format persepuluhan!
-    </p>
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--cyan); color:var(--cyan-dk); background:#cffafe">👁️ Pos 2/8: See (Laboratorium Visual)</div>
+    <h2 class="text-3xl font-extrabold text-slate-800">Misteri Pecahan &amp; Desimal</h2>
+    <p class="text-sm text-slate-600 max-w-xl mx-auto">Pilih sampel pecahan, tebak bentuk desimalnya, lalu saksikan mesin lab memotong ulang menjadi persepuluhan atau perseratusan.</p>
   </section>
 
-  <!-- PANEL KONTROL EKSPERIMEN -->
-  <div class="card rounded-2xl p-6 space-y-6">
+  <div class="card rounded-2xl p-6 space-y-5">
     <div class="text-center">
-      <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Pilih Sampel Pecahan:</p>
-      <div class="flex flex-wrap justify-center gap-3">
-        <button id="btn-half" onclick="selectFraction('half')" class="exp-btn active">Pecahan <span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span></span></button>
-        <button id="btn-quarter" onclick="selectFraction('quarter')" class="exp-btn">Pecahan <span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span></span></button>
-        <button id="btn-fifth" onclick="selectFraction('fifth')" class="exp-btn">Pecahan <span class="m"><span class="math-frac"><span class="math-num">3</span><span class="math-den">5</span></span></span></button>
-      </div>
+      <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Pilih sampel pecahan:</p>
+      <div class="flex flex-wrap justify-center gap-3" id="picker"></div>
     </div>
 
-    <!-- LAB SCREEN SIMULATOR -->
     <div class="lab-screen text-center space-y-4">
-      <div class="flex justify-between items-center text-xs text-slate-400 border-b border-slate-700 pb-2">
-        <span id="lab-status-title">STATUS: SIAP MEMINDAI</span>
-        <span class="text-cyan-400 font-mono">ZOOM: 10x (PERSEPULUHAN)</span>
+      <div class="flex justify-between items-center border-b border-slate-700 pb-2 lab-title">
+        <span id="lab-status">STATUS: SIAP MEMINDAI</span>
+        <span class="text-cyan-400 font-mono" id="lab-zoom">ZOOM: —</span>
       </div>
 
-      <div class="py-2">
-        <p class="text-sm text-cyan-200" id="lab-instruction">Tekan tombol di bawah untuk mengaktifkan sinar laser pembesar.</p>
+      <div>
+        <p class="text-xs text-cyan-200 mb-1" id="before-label"></p>
+        <div id="before"></div>
       </div>
 
-      <!-- Kotak Visual Grid (10 Kolom) -->
-      <div class="grid-container" id="visual-grid">
-        <!-- Di-generate otomatis oleh JS -->
+      <div class="text-sm">
+        <label>Tebakanmu: <span class="m" id="guess-q"></span> = <input id="guess" class="guess" placeholder="mis. 0,5" inputmode="decimal" autocomplete="off"></label>
       </div>
 
-      <!-- Hasil Konversi Digital -->
-      <div id="result-display" class="hidden-area bg-slate-800 p-4 rounded-xl border border-cyan-500/50 space-y-2">
-        <div class="text-sm text-slate-300" id="conversion-text"></div>
-        <div class="text-3xl font-mono font-black text-amber-400 tracking-wider" id="decimal-output"></div>
+      <div>
+        <p class="text-xs text-cyan-200 mb-1" id="after-label">Potongan baru akan muncul di sini setelah dipindai.</p>
+        <div id="after"></div>
+        <p class="text-xs text-slate-300 mt-1" id="counter"></p>
       </div>
 
-      <div class="pt-2">
-        <button id="btn-scan" onclick="runScan()" class="btn btn-next px-8 py-3 text-sm">
-          🔍 AKTIFKAN MESIN PEMBESAR (ZOOM)
-        </button>
+      <div id="result" class="hidden-area bg-slate-800 p-4 rounded-xl border border-cyan-500/50 space-y-1">
+        <div class="lab-eq m" id="result-eq"></div>
+        <p class="text-sm font-bold" id="guess-fb"></p>
       </div>
+
+      <button id="btn-scan" onclick="runScan()" class="btn btn-next text-sm">🔍 AKTIFKAN MESIN PEMBESAR (ZOOM)</button>
     </div>
   </div>
 
-  <!-- CATATAN PROF. SIGMA -->
+  <!-- Pembahasan -->
+  <div id="explain" class="card rounded-2xl p-5 hidden-area"></div>
+
   <div class="card rounded-2xl p-5 flex items-start gap-4 border-l-4 border-cyan-500">
     <div class="text-3xl">💡</div>
     <div>
       <h4 class="font-bold text-slate-800 text-sm mb-1">Catatan Lensa Prof. Sigma</h4>
-      <p class="text-xs text-slate-600 leading-relaxed">
-        "Perhatikan baik-baik! Bilangan desimal seperti <b>0.5</b> sebenarnya hanyalah cara menulis pecahan <span class='m'>5/10</span> tanpa perlu menggambar garis per-sepuluh lagi. Titik koma (.) di depan adalah tanda pemisah antara bilangan utuh dan pecahan persepuluhan."
-      </p>
+      <p class="text-sm text-slate-600 leading-relaxed" id="sigma"></p>
     </div>
   </div>
 
-  <!-- TOMBOL LANJUT KE POS 3 -->
   <div class="text-center pt-2 hidden-area" id="next-pos-container">
-    <a href="mission-d1-pos3.html" onclick="completePos2()" class="btn btn-next px-10 py-3.5 shadow-lg">
-      Lanjut ke Pos 3: Visualize (Mesin Pengganda Penyebut) ➔
-    </a>
+    <a href="mission-d1-pos3.html" onclick="completePos2()" class="btn btn-next px-10 py-3.5 shadow-lg">Lanjut ke Pos 3: Visualize (Mesin Pengganda Penyebut) ➔</a>
   </div>
 
 </main>
 
 <script>
-  let currentFraction = 'half'; // default 1/2
+function fr(n,d){return `<span class="math-frac"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`;}
+function M(s){return `<span class="m">${s}</span>`;}
+const $=id=>document.getElementById(id);
 
-  function selectFraction(type) {
-    currentFraction = type;
-    document.querySelectorAll('.exp-btn').forEach(btn => btn.classList.remove('active'));
-    
-    if (type === 'half') document.getElementById('btn-half').classList.add('active');
-    if (type === 'quarter') document.getElementById('btn-quarter').classList.add('active');
-    if (type === 'fifth') document.getElementById('btn-fifth').classList.add('active');
+/* n/d = N/D  (D = 10 atau 100), pengali k = D ÷ d */
+const S={ half:{n:1,d:2,D:10}, quarter:{n:1,d:4,D:100}, fifth:{n:3,d:5,D:10} };
+let cur='half', timers=[], scanned=false;
+function clearT(){ timers.forEach(clearTimeout); timers=[]; }
+function decOf(s){ return (s.n*(s.D/s.d)/s.D).toFixed(s.D===10?1:2).replace('.',','); }
 
-    resetLab();
+/* ---------- Bagian statis ---------- */
+$('sigma').innerHTML = `"Bilangan desimal ${M('0,5')} adalah cara menulis pecahan ${M(fr(5,10))}. Tanda koma (,) memisahkan bilangan utuh dan bagian pecahannya. Satu angka di belakang koma berarti <b>persepuluhan</b>, dua angka berarti <b>perseratusan</b>."`;
+$('picker').innerHTML = Object.keys(S).map(k=>`<button id="btn-${k}" class="exp-btn ${k===cur?'active':''}" onclick="selectFraction('${k}')">Pecahan ${M(fr(S[k].n,S[k].d))}</button>`).join('');
+
+function selectFraction(k){
+  cur=k; document.querySelectorAll('.exp-btn').forEach(b=>b.classList.remove('active'));
+  $('btn-'+k).classList.add('active'); resetLab();
+}
+
+function cells(total,onCount,cls){ let h=''; for(let i=0;i<total;i++) h+=`<div class="cell ${cls||''} ${i<onCount?'on':''}" data-i="${i}"></div>`; return h; }
+
+function resetLab(){
+  clearT(); const s=S[cur];
+  $('before-label').innerHTML = `SEBELUM: 1 utuh dipotong menjadi ${s.d} bagian sama besar. Diarsir ${M(fr(s.n,s.d))}`;
+  $('before').innerHTML = `<div class="bar">${cells(s.d,s.n,'orig')}</div>`;
+  $('guess-q').innerHTML = fr(s.n,s.d);
+  $('guess').value=''; $('guess').disabled=false;
+  $('after').innerHTML=''; $('counter').textContent='';
+  $('after-label').textContent='Potongan baru akan muncul di sini setelah dipindai.';
+  $('lab-status').textContent='STATUS: SAMPEL DIMUAT'; $('lab-zoom').textContent='ZOOM: —';
+  $('result').classList.add('hidden-area'); $('explain').classList.add('hidden-area');
+  $('btn-scan').disabled=false; $('btn-scan').textContent='🔍 AKTIFKAN MESIN PEMBESAR (ZOOM)';
+}
+
+function runScan(){
+  if($('btn-scan').disabled) return;
+  const s=S[cur], k=s.D/s.d, N=s.n*k, D=s.D, full=Math.floor(N/10)*10;
+  $('btn-scan').disabled=true; $('guess').disabled=true;
+  $('lab-status').textContent='STATUS: MEMOTONG ULANG…';
+  $('lab-zoom').textContent = D===10 ? 'ZOOM: ×'+k+' (PERSEPULUHAN)' : 'ZOOM: ×'+k+' (PERSERATUSAN)';
+  $('after-label').innerHTML = `SESUDAH: 1 utuh dipotong menjadi <b>${D}</b> bagian sama besar${D===100?' (10 kolom × 10 baris)':''}.`;
+  $('after').innerHTML = D===10 ? `<div class="bar">${cells(10,0)}</div>` : `<div class="grid100">${cells(100,0)}</div>`;
+  $('counter').textContent = `Menyala: 0 dari ${D} potongan`;
+
+  const delay = D===10 ? 220 : 45;
+  for(let i=0;i<N;i++){
+    timers.push(setTimeout(()=>{
+      const c=document.querySelector(`#after .cell[data-i="${i}"]`);
+      c.classList.add(D===100 && i>=full ? 'extra' : 'on');
+      $('counter').innerHTML = `Menyala: <b>${i+1}</b> dari ${D} potongan = ${M(fr(i+1,D))}`;
+    }, 400+i*delay));
   }
+  timers.push(setTimeout(()=>finish(s,k,N),400+N*delay+300));
+}
 
-  function resetLab() {
-    const grid = document.getElementById('visual-grid');
-    grid.innerHTML = '';
-    
-    // Render 10 kotak kosong
-    for (let i = 0; i < 10; i++) {
-      grid.innerHTML += `<div class="grid-box">·</div>`;
-    }
+function parseGuess(v){ v=v.trim().replace(',','.'); return /^\d*\.?\d+$/.test(v)?parseFloat(v):null; }
 
-    document.getElementById('lab-status-title').innerText = "STATUS: SAMPEL DIMUAT";
-    document.getElementById('lab-instruction').innerHTML = `Sampel terpilih siap dipindai oleh mesin pembesar.`;
-    document.getElementById('result-display').classList.add('hidden-area');
-    document.getElementById('btn-scan').style.display = 'inline-block';
-  }
+function finish(s,k,N){
+  const D=s.D, dec=decOf(s), g=parseGuess($('guess').value);
+  $('lab-status').textContent='STATUS: PEMINDAIAN SUKSES ✓';
+  $('result-eq').innerHTML = `${fr(s.n,s.d)} = ${fr(s.n+' × '+k,s.d+' × '+k)} = ${fr(N,D)} = <b style="color:#fbbf24">${dec}</b>`;
+  const fb=$('guess-fb');
+  if(g===null){ fb.textContent='Kamu belum menebak. Cocokkan hasil mesin dengan hitunganmu sendiri.'; fb.style.color='#cbd5e1'; }
+  else if(Math.abs(g-N/D)<1e-9){ fb.innerHTML='✅ Tebakanmu benar!'; fb.style.color='#5eead4'; }
+  else { fb.innerHTML=`❌ Tebakanmu ${M(String($('guess').value).replace(/</g,'&lt;'))} belum tepat. Yang benar ${M(dec)}.`; fb.style.color='#fca5a5'; }
+  $('result').classList.remove('hidden-area');
 
-  // Inisialisasi awal
-  resetLab();
+  const tens=Math.floor(N/10), ones=N%10, pad=String(N).padStart(2,'0');
+  const st=[
+    [`Cari pengali <b>k</b> agar penyebut menjadi ${D}.`, `${s.d} × ${k} = ${D}`, `Bilangan yang dikali ${s.d} hasilnya ${D} adalah ${k}.`],
+    [`Kalikan pembilang dan penyebut dengan bilangan yang sama.`, `${fr(s.n,s.d)} = ${fr(s.n+' × '+k,s.d+' × '+k)} = ${fr(N,D)}`, `Nilainya tetap. Potongan menjadi lebih kecil, tetapi jumlahnya ${k} kali lebih banyak.`],
+    [`Tulis sebagai desimal.`, `${fr(N,D)} = ${dec}`, D===10?`Per sepuluh: 1 angka di belakang koma.`:`Per seratus: 2 angka di belakang koma.`]
+  ];
+  if(D===100 && ones>0 && tens>0) st.push([`Uraikan berdasarkan warna pada gambar.`, `${fr(N,100)} = ${fr(tens,10)} + ${fr(ones,100)} = 0,${tens} + 0,0${ones} = ${dec}`, `Kolom biru penuh = persepuluhan (tiap kolom 10 kotak). Kotak kuning = perseratusan.`]);
+  $('explain').innerHTML = `<p class="font-bold mb-1" style="color:var(--cyan-dk)">Pembahasan: ${M(fr(s.n,s.d)+' = '+dec)}</p>
+    <ol class="steps">${st.map(x=>`<li>${x[0]}<span class="eq m">${x[1]}</span><p class="why">${x[2]}</p></li>`).join('')}</ol>
+    <span class="eq m" style="background:#fff8e6;border:2px solid var(--amber);font-weight:700;color:#a16207">${fr(s.n,s.d)} = ${dec}</span>
+    <div class="text-center mt-2"><button class="btn text-sm" style="background:var(--teal)" onclick="resetLab()">🔄 Ulangi Pemindaian</button></div>`;
+  $('explain').classList.remove('hidden-area');
+  $('next-pos-container').classList.remove('hidden-area');
+  $('btn-scan').textContent='✓ SELESAI';
+}
 
-  function runScan() {
-    const grid = document.getElementById('visual-grid');
-    grid.innerHTML = '';
-
-    let activeCount = 0;
-    let fracTitle = "";
-    let decValue = "";
-    let stepDesc = "";
-
-    if (currentFraction === 'half') {
-      activeCount = 5; // 1/2 = 5/10
-      fracTitle = "1/2 = 5/10";
-      decValue = "0.5";
-      stepDesc = "Balok 1/2 diperbesar menjadi 10 bagian. Tepat 5 bagian menyala!";
-    } else if (currentFraction === 'quarter') {
-      // 1/4 = 25/100, tapi untuk grid 10 kita jelaskan persepuluhan terdekat / perseratusan
-      // Atau kita tunjukkan 2.5 kotak dari 10 kotak
-      activeCount = 2.5; 
-      fracTitle = "1/4 = 25/100";
-      decValue = "0.25";
-      stepDesc = "Balok 1/4 setara dengan 25 dari 100 bagian (Perseratusan).";
-    } else if (currentFraction === 'fifth') {
-      activeCount = 6; // 3/5 = 6/10
-      fracTitle = "3/5 = 6/10";
-      decValue = "0.6";
-      stepDesc = "Balok 3/5 diperbesar menjadi 10 bagian. Tepat 6 bagian menyala!";
-    }
-
-    // Render ulang grid dengan animasi aktif
-    for (let i = 0; i < 10; i++) {
-      let isActive = false;
-      if (currentFraction === 'quarter') {
-        // Untuk 1/4 (0.25), 2 kotak penuh + 1 setengah kotak
-        if (i < 2) isActive = true;
-        else if (i === 2) isActive = 'half-active';
-      } else {
-        if (i < activeCount) isActive = true;
-      }
-
-      let boxClass = isActive === true ? 'grid-box active' : (isActive === 'half-active' ? 'grid-box active opacity-75' : 'grid-box');
-      let boxText = isActive ? '1' : '·';
-      grid.innerHTML += `<div class="${boxClass}">${boxText}</div>`;
-    }
-
-    document.getElementById('lab-status-title').innerText = "STATUS: PEMINDAIAN SUKSES ✓";
-    document.getElementById('lab-instruction').innerText = stepDesc;
-    
-    document.getElementById('conversion-text').innerHTML = `Bentuk Pecahan Senilai: <span class="m text-white font-bold">${fracTitle}</span>`;
-    document.getElementById('decimal-output').innerHTML = `Format Digital Desimal: <span class="text-amber-400 font-mono">${decValue}</span>`;
-    
-    document.getElementById('result-display').classList.remove('hidden-area');
-    document.getElementById('btn-scan').style.display = 'none';
-
-    // Munculkan tombol lanjut
-    document.getElementById('next-pos-container').classList.remove('hidden-area');
-  }
-
-  function completePos2() {
-    let currentProgress = parseInt(localStorage.getItem('vm_d1_progress')) || 1;
-    if (currentProgress < 3) {
-      localStorage.setItem('vm_d1_progress', 3);
-    }
-  }
+function completePos2(){
+  try{ const p=parseInt(localStorage.getItem('vm_d1_progress'))||1; if(p<3) localStorage.setItem('vm_d1_progress',3); }catch(e){}
+}
+resetLab();
 </script>
 </body>
 </html>
