@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission D: Bilangan Desimal | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  /* Palet Warna Laboratorium Digital / Presisi */
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; /* Nuansa cyan sangat muda */
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Header & Buttons */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); position: relative; z-index: 10; }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 700; color: var(--cyan-dk); background: #cffafe; padding: 6px 16px; border-radius: 99px; transition: all 0.2s; border: 1px solid #67e8f9; }
+  .home-btn:hover { background: var(--cyan-dk); color: #fff; transform: translateY(-1px); }
+  
+  /* Kartu Misi Utama */
+  .mission-card {
+    background: var(--card); border-radius: 1.5rem; padding: 2rem;
+    border: 2px solid var(--line); position: relative;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex; flex-direction: column; height: 100%; z-index: 10;
+    overflow: hidden;
+  }
+  .mission-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, var(--cyan), var(--teal));
+    opacity: 0.5; transition: opacity 0.3s;
+  }
+  .mission-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px -5px rgba(6, 182, 212, 0.2); border-color: var(--cyan); }
+  .mission-card:hover::before { opacity: 1; }
+  
+  .icon-wrapper { width: 4rem; height: 4rem; border-radius: 1rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; background: #ecfeff; color: var(--cyan-dk); margin-bottom: 1.5rem; border: 1px solid #a5f3fc; }
+  
+  /* Badge Misi */
+  .badge-mission { position: absolute; top: 1.5rem; right: 1.5rem; background: var(--navy); color: white; padding: 4px 12px; border-radius: 99px; font-size: 0.75rem; font-weight: 900; letter-spacing: 1px; }
+  
+  /* Tombol Mulai */
+  .btn-start { margin-top: auto; padding: 0.75rem; width: 100%; border-radius: 0.75rem; text-align: center; font-weight: bold; transition: all 0.2s; }
+  .btn-start.active { background: linear-gradient(to right, var(--cyan-dk), var(--teal)); color: white; box-shadow: 0 4px 10px rgba(8, 145, 178, 0.3); }
+  .btn-start.active:hover { box-shadow: 0 6px 15px rgba(8, 145, 178, 0.4); transform: scale(1.02); }
+
+  /* Animasi Floating elements */
+  @keyframes floatAnim { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(5deg); } 100% { transform: translateY(0px) rotate(0deg); } }
+  .floating-element { animation: floatAnim 6s ease-in-out infinite; }
+  .floating-element-slow { animation: floatAnim 9s ease-in-out infinite reverse; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- DEKORASI BACKGROUND (Digital & Precision Grid) -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-30">
+  <!-- Grid Titik Digital -->
+  <svg class="absolute top-0 left-0 w-full h-full text-cyan-600 opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <pattern id="gridDots" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.5" fill="currentColor"/>
+    </pattern>
+    <rect x="0" y="0" width="100%" height="100%" fill="url(#gridDots)"/>
+  </svg>
+  
+  <!-- Elemen Floating Desimal -->
+  <div class="absolute top-20 left-10 text-6xl font-mono text-cyan-800 opacity-20 font-black tracking-widest floating-element">0.75</div>
+  <div class="absolute bottom-32 right-16 text-7xl font-mono text-teal-800 opacity-20 font-black tracking-widest floating-element-slow">1.05</div>
+  <div class="absolute top-1/2 right-1/4 text-5xl font-mono text-blue-800 opacity-10 font-black tracking-widest floating-element" style="animation-delay: 2s;">0.01</div>
+
+  <!-- Ornamen Lensa Presisi -->
+  <svg class="absolute bottom-10 left-20 w-48 h-48 text-cyan-700 opacity-20 floating-element-slow" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 4"/>
+    <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="1"/>
+    <line x1="50" y1="0" x2="50" y2="100" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+    <line x1="0" y1="50" x2="100" y2="50" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+    <circle cx="50" cy="50" r="5" fill="currentColor"/>
+  </svg>
+</div>
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center relative z-20">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Pusat Komando Kelas 6</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="index.html" class="home-btn shadow-sm">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home / Bab Utama</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1 w-full bg-slate-200">
+    <div class="h-full bg-gradient-to-r from-cyan-500 to-teal-500 w-full"></div>
+  </div>
+</header>
+
+<main class="flex-grow max-w-6xl mx-auto w-full px-4 py-12 relative z-10">
+
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-4 mb-12">
+    <div class="inline-flex items-center gap-2 px-6 py-2 rounded-full text-sm font-bold border-2 shadow-sm bg-white" style="border-color:var(--cyan); color:var(--cyan-dk)">
+      🔬 MISSION D: THE PRECISION LAB
+    </div>
+    
+    <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-800 mt-2">
+      Bab <span style="color:var(--cyan-dk)">Bilangan Desimal</span>
+    </h2>
+    
+    <p class="text-slate-600 max-w-3xl mx-auto text-lg md:text-xl font-medium bg-white/70 p-5 rounded-2xl border border-white shadow-sm backdrop-blur-sm leading-relaxed">
+      Selamat datang di Laboratorium Presisi! Di dunia digital, pecahan biasa tidak bisa dibaca oleh komputer. Kita membutuhkan sistem <b>Desimal</b> untuk mengukur ukuran mikroskopis dengan akurat. Bersiaplah untuk menaklukkan 4 Misi Utama di bawah ini!
+    </p>
+  </section>
+
+  <!-- KUMPULAN 4 SUB-MISSION (GRID) -->
+  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    
+    <!-- MISSION D1 -->
+    <div class="mission-card group">
+      <div class="badge-mission">MISSION D1</div>
+      <div class="icon-wrapper group-hover:scale-110 transition-transform duration-300">
+        🔄
+      </div>
+      <h3 class="text-xl font-extrabold text-slate-800 mb-2">Konversi Desimal</h3>
+      <p class="text-sm text-slate-600 mb-6 flex-grow">Pelajari rahasia mesin konverter! Ubah wujud pecahan menjadi angka desimal menggunakan kelipatan per-10, per-100, dan per-1000.</p>
+      <a href="mission-d1.html" class="btn-start active block">
+        Buka Dashboard D1 ➔
+      </a>
+    </div>
+
+    <!-- MISSION D2 -->
+    <div class="mission-card group">
+      <div class="badge-mission">MISSION D2</div>
+      <div class="icon-wrapper group-hover:scale-110 transition-transform duration-300">
+        🧮
+      </div>
+      <h3 class="text-xl font-extrabold text-slate-800 mb-2">Nilai Tempat Desimal</h3>
+      <p class="text-sm text-slate-600 mb-6 flex-grow">Eksplorasi tabel mesin hologram. Bedah makna angka di belakang koma (persepuluhan, perseratusan) menggunakan Blok Base-10.</p>
+      <a href="mission-d2.html" class="btn-start active block">
+        Buka Dashboard D2 ➔
+      </a>
+    </div>
+
+    <!-- MISSION D3 -->
+    <div class="mission-card group">
+      <div class="badge-mission">MISSION D3</div>
+      <div class="icon-wrapper group-hover:scale-110 transition-transform duration-300">
+        ⚖️
+      </div>
+      <h3 class="text-xl font-extrabold text-slate-800 mb-2">Membandingkan Desimal</h3>
+      <p class="text-sm text-slate-600 mb-6 flex-grow">Pecahkan jebakan "angka lebih banyak bukan berarti lebih besar"! Gunakan timbangan digital untuk membuktikan mana yang lebih berat.</p>
+      <a href="mission-d3.html" class="btn-start active block">
+        Buka Dashboard D3 ➔
+      </a>
+    </div>
+
+    <!-- MISSION D4 -->
+    <div class="mission-card group">
+      <div class="badge-mission">MISSION D4</div>
+      <div class="icon-wrapper group-hover:scale-110 transition-transform duration-300">
+        📡
+      </div>
+      <h3 class="text-xl font-extrabold text-slate-800 mb-2">Mengurutkan Desimal</h3>
+      <p class="text-sm text-slate-600 mb-6 flex-grow">Gunakan radar garis bilangan. Tarik dan urutkan berbagai angka desimal dari yang terkecil hingga terbesar tanpa tertipu.</p>
+      <a href="mission-d4.html" class="btn-start active block">
+        Buka Dashboard D4 ➔
+      </a>
+    </div>
+
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="mt-auto py-6 border-t border-slate-200 bg-white/50 relative z-10 text-center">
+  <p class="text-sm text-slate-500 font-medium">© 2026 Math Mastery (Singapore Math Curriculum). All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
