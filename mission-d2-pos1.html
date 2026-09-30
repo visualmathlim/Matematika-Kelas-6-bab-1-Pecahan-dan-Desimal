@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 1: Briefing - Mission D2 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+    --red: #dc2626; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--cyan-dk); background: #cffafe; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #67e8f9; }
+  .home-btn:hover { background: var(--cyan-dk); color: #fff; transform: translateY(-1px); }
+
+  /* Interactive Input */
+  .input-light { background: #f8fafc; border: 2px solid #cbd5e1; color: var(--navy); border-radius: .75rem; padding: .5rem .75rem; width: 7rem; text-align: center; font-weight: bold; font-size: 1.1rem; outline: none; transition: all 0.2s; }
+  .input-light:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(6,182,212,0.2); }
+  
+  /* Tombol */
+  .btn { padding: .75rem 1.5rem; border-radius: 9999px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
+  .btn-check { background: linear-gradient(to right, var(--cyan-dk), var(--teal)); box-shadow: 0 4px 10px rgba(8,145,178,0.3); }
+  .btn-check:hover { transform: translateY(-1px); box-shadow: 0 6px 15px rgba(8,145,178,0.4); }
+
+  .digit-highlight { display: inline-block; padding: .1rem .4rem; border-radius: .4rem; background: #ccfbf1; border: 1px solid #5eead4; color: var(--teal); font-weight: bold; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D2 • Pos 1</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#ecfeff; border:1px solid var(--cyan); color:var(--cyan-dk)">🎯 Pos 1/8: Briefing</span>
+      <a href="mission-d2.html" class="home-btn shadow-sm">
+        <span>← Peta D2</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 12.5%; background: linear-gradient(to right, var(--cyan), var(--gold-bg));"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-cyan-50 border-cyan-300 text-cyan-800">
+      🔬 Briefing Komando
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Selamat Datang di Lab Presisi</h2>
+    <p class="text-sm text-slate-600 max-w-md mx-auto">Persiapkan dirimu untuk membedah angka mikroskopis di balik koma.</p>
+  </section>
+
+  <!-- KASUS TIMER DIGITAL -->
+  <section class="card rounded-3xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-center bg-gradient-to-br from-white to-cyan-50/40">
+    <div class="shrink-0 text-center">
+      <div class="rounded-2xl p-5 shadow-inner" style="background:var(--navy); border:2px solid var(--cyan)">
+        <p class="text-[10px] tracking-widest text-cyan-300 mb-1 font-bold">TIMER FINIS LOMBA</p>
+        <p class="text-3xl md:text-4xl font-mono font-black text-cyan-400">9<span class="text-amber-400">,</span>825 <span class="text-xs text-slate-300">detik</span></p>
+      </div>
+      <p class="text-xs text-slate-500 mt-2 font-medium">Layar timer presisi 100 meter</p>
+    </div>
+    <div class="space-y-3 text-sm text-slate-700 leading-relaxed font-medium">
+      <p>Dua pelari finis nyaris bersamaan. Timer presisi mencatat sampai <b>tiga angka di belakang koma</b>: Pelari A = <span class="font-mono font-bold text-slate-900">9,825</span> detik, Pelari B = <span class="font-mono font-bold text-slate-900">9,831</span> detik.</p>
+      <p class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 font-bold">
+        Selisih 0,006 detik itu menentukan siapa juaranya — dan untuk membacanya dengan akurat, kamu harus paham betul nilai tempat tiap angka di belakang koma!
+      </p>
+    </div>
+  </section>
+
+  <!-- DIALOG PROF. SIGMA -->
+  <section class="card rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-center border-l-4 border-amber-500">
+    <img src="assets/Sigma.png" alt="Prof. Sigma" class="w-20 h-20 rounded-full border-4 border-amber-400 shrink-0 object-cover shadow-md bg-amber-100" onerror="this.outerHTML='<div class=\'w-20 h-20 rounded-full bg-amber-400 border-4 border-white flex-shrink-0 flex items-center justify-center text-3xl shadow-md text-slate-900\'>👨‍🏫</div>'">
+    <div class="text-sm text-slate-700 space-y-3 flex-grow">
+      <div class="flex items-center gap-2">
+        <span class="font-extrabold text-slate-900 text-base">Prof. Sigma</span>
+        <span class="text-[10px] bg-cyan-100 text-cyan-800 font-bold px-2 py-0.5 rounded-full">Kepala Laboratorium</span>
+      </div>
+      <p class="leading-relaxed">
+        "Selamat datang di Mikroskop Hologram Komponen Desimal! Di sini kita akan 'memperbesar' setiap angka di belakang koma, satu demi satu, sampai ke tingkat perseribuan. Setiap angka punya dua identitas yang wajib kamu kuasai."
+      </p>
+      
+      <!-- TARGET MISI -->
+      <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2 mt-2">
+        <p class="font-extrabold text-slate-800 text-xs uppercase tracking-wider">🎯 Target Misi D2:</p>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-600">
+          <li class="flex items-center gap-1.5"><span>✅</span> Membedakan Nilai Angka & Tempat</li>
+          <li class="flex items-center gap-1.5"><span>✅</span> Menguasai Posisi hingga Perseribuan</li>
+          <li class="flex items-center gap-1.5"><span>✅</span> Menulis Bentuk Panjang (Expanded Form)</li>
+          <li class="flex items-center gap-1.5"><span>✅</span> Membaca Desimal Cara Akademik</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- KALIBRASI MINI -->
+  <section class="card rounded-3xl p-6 md:p-8 space-y-4 bg-gradient-to-r from-white to-amber-50/40 border-2 border-amber-200">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl">🔧</span>
+      <h3 class="font-extrabold text-lg text-slate-900">Kalibrasi Mini — Orientasi Posisi</h3>
+    </div>
+    <p class="text-sm text-slate-600 font-medium">Pada bilangan presisi berikut, tulis angka yang berada tepat <b>2 tempat di sebelah kanan koma</b> (perseratusan).</p>
+    
+    <div class="text-3xl font-mono font-black text-center py-3 bg-white rounded-2xl border border-slate-200 shadow-sm tracking-wider">
+      3<span class="text-amber-600">,</span>4<span class="digit-highlight">2</span>5
+    </div>
+    
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+      <span class="text-sm font-bold text-slate-700">Jawabanmu:</span>
+      <input id="c1" class="input-light" placeholder="?">
+      <button id="chk" class="btn btn-check px-6 py-2.5 text-sm">Periksa ⚡</button>
+    </div>
+    
+    <div id="fb" class="text-sm text-center font-bold hidden p-3 rounded-xl"></div>
+  </section>
+
+  <!-- TOMBOL NAVIGASI BAWAH -->
+  <div class="flex justify-between items-center pt-4 pb-12">
+    <a href="mission-d2.html" class="home-btn shadow-sm">⬅ Kembali ke Peta D2</a>
+    <a href="mission-d2-pos2.html" class="btn btn-check px-8 py-3.5 shadow-lg">Lanjut ke Pos 2 (See) ➔</a>
+  </div>
+
+</main>
+
+<script>
+document.getElementById('chk').addEventListener('click', ()=>{
+  const val = document.getElementById('c1').value.trim();
+  const ok = (val === '2');
+  const fb = document.getElementById('fb'); 
+  fb.classList.remove('hidden');
+  
+  if(ok){ 
+    fb.innerHTML = '✅ <b>Betul!</b> Urutan dari koma ke kanan: tempat ke-1 persepuluhan (4), tempat ke-2 perseratusan (<b>2</b>), tempat ke-3 perseribuan (5).'; 
+    fb.className = 'text-sm text-center font-bold p-3 rounded-xl bg-green-50 border border-green-200 text-green-700';
+  } else { 
+    fb.innerHTML = '❌ <b>Kurang tepat.</b> Hitung langkah ke kanan dari koma: tempat ke-1 = persepuluhan, tempat ke-2 = perseratusan.'; 
+    fb.className = 'text-sm text-center font-bold p-3 rounded-xl bg-red-50 border border-red-200 text-red-600'; 
+  }
+});
+</script>
+</body>
+</html>
