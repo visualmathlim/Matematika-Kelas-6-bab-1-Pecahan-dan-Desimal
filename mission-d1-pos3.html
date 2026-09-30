@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 3: Visualize - Mission D1 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Header & Buttons */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); position: relative; z-index: 10; }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--cyan-dk); background: #cffafe; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #67e8f9; }
+  .home-btn:hover { background: var(--cyan-dk); color: #fff; transform: translateY(-1px); }
+
+  /* Math UI */
+  .m { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', serif; white-space: nowrap; font-weight: bold; }
+  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.2rem; line-height: 1.1; font-size: 1.1em; }
+  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
+  .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+
+  /* Mesin Konverter Box */
+  .machine-box { background: #ffffff; border: 2px solid #a5f3fc; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 25px rgba(6, 182, 212, 0.08); position: relative; }
+  
+  /* Tombol Pilihan Pengali */
+  .multiplier-btn { padding: 0.75rem 1rem; border-radius: 12px; font-weight: bold; background: #f8fafc; border: 2px solid #cbd5e1; color: #475569; transition: all 0.2s; cursor: pointer; }
+  .multiplier-btn:hover { border-color: var(--cyan); background: #ecfeff; color: var(--cyan-dk); }
+  .multiplier-btn.selected { background: var(--cyan-dk); color: white; border-color: var(--cyan); box-shadow: 0 4px 10px rgba(8, 145, 178, 0.3); transform: scale(1.05); }
+
+  /* Struk Hasil Digital */
+  .receipt-box { background: #fdfbf7; background-image: linear-gradient(#e5e7eb 1px, transparent 1px); background-size: 100% 1.5rem; border: 1px dashed #94a3b8; border-radius: 8px; padding: 1.5rem; box-shadow: 4px 4px 12px rgba(0,0,0,0.05); }
+
+  /* Tombol */
+  .btn { display: inline-block; text-align: center; padding: 0.8rem 1.8rem; border-radius: 99px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
+  .btn-next { background: linear-gradient(to right, var(--cyan-dk), var(--teal)); box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3); font-size: 1.1rem; }
+  .btn-next:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5); }
+  
+  .hidden-area { display: none; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-20">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Kelas 6 • Mission D1 • Pos 3</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <a href="mission-d1.html" class="home-btn shadow-sm" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd;">
+        <span>← Peta D1</span>
+      </a>
+      <a href="index.html" class="home-btn shadow-sm">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full bg-cyan-600" style="width: 37.5%;"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-8 space-y-6">
+  
+  <!-- HEADER POS -->
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--cyan); color:var(--cyan-dk); background:#cffafe">
+      ⚙️ Pos 3/8: Visualize (Mesin Pengganda Penyebut)
+    </div>
+    <h2 class="text-3xl font-extrabold text-slate-800">Uji Coba Mesin Konverter</h2>
+    <p class="text-sm text-slate-600 max-w-xl mx-auto">
+      Tugasmu adalah mencari angka pengali yang tepat agar penyebut bawah pecahan berubah menjadi <b>10 atau 100</b>!
+    </p>
+  </section>
+
+  <!-- KARTU UTAMA MESIN -->
+  <div class="machine-box space-y-6">
+    
+    <!-- KASUS YANG HARUS DISELESAIKAN -->
+    <div class="text-center bg-slate-50 p-6 rounded-xl border border-slate-200">
+      <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Sampel Pecahan Saat Ini:</p>
+      <div class="text-4xl text-cyan-700 font-bold my-2" id="target-frac-display">
+        <span class="m"><span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span></span>
+      </div>
+      <p class="text-xs text-slate-500 mt-2">Penyebut bawah saat ini adalah <span class="font-bold text-slate-700" id="current-den">4</span>. Cari angka pengali agar bawahnya jadi 10 atau 100!</p>
+    </div>
+
+    <!-- PILIHAN ANGKA PENGALI -->
+    <div class="space-y-3">
+      <p class="text-xs font-bold text-slate-500 uppercase tracking-widest text-center">Pilih Angka Pengali (Atas & Bawah):</p>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="multiplier-options">
+        <!-- Diisi JS -->
+      </div>
+    </div>
+
+    <!-- TOMBOL PROSES -->
+    <div class="text-center pt-2">
+      <button id="btn-process" onclick="processMachine()" class="btn btn-next px-10 py-3 text-sm" disabled style="opacity: 0.5;">
+        ⚙️ JALANKAN MESIN PENGGANDA
+      </button>
+    </div>
+
+    <!-- STRUK HASIL DIGITAL (MUNCUL JIKA BENAR) -->
+    <div id="receipt-result" class="receipt-box hidden-area space-y-3">
+      <div class="text-center border-b border-slate-300 pb-2">
+        <p class="text-xs font-mono text-slate-500">--- LABORATORIUM PRESISI (STRUK DIGITAL) ---</p>
+        <h4 class="font-bold text-teal-800 text-lg">Konversi Berhasil! ✓</h4>
+      </div>
+      <div class="text-sm text-slate-700 space-y-1 font-mono text-center">
+        <p id="receipt-steps"></p>
+        <p class="text-2xl font-black text-amber-600 mt-2" id="receipt-final"></p>
+      </div>
+      <div class="text-center pt-3">
+        <button onclick="nextSample()" class="btn btn-next text-xs px-6 py-2">Coba Sampel Berikutnya ➔</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TOMBOL LANJUT KE POS 4 (MUNCUL SETELAH 3 SAMPEL SELESAI) -->
+  <div class="text-center pt-2 hidden-area" id="next-pos-container">
+    <a href="mission-d1-pos4.html" onclick="completePos3()" class="btn btn-next px-10 py-3.5 shadow-lg">
+      Lanjut ke Pos 4: Think (Jurnal Detektif Pola Nol) ➔
+    </a>
+  </div>
+
+</main>
+
+<script>
+  // Daftar 3 Sampel Latihan Sandbox
+  const samples = [
+    { num: 3, den: 4, correctMultiplier: 25, newDen: 100, newNum: 75, decimal: "0.75", options: [2, 5, 10, 25] },
+    { num: 2, den: 5, correctMultiplier: 2, newDen: 10, newNum: 4, decimal: "0.4", options: [2, 4, 10, 20] },
+    { num: 1, den: 2, correctMultiplier: 5, newDen: 10, newNum: 5, decimal: "0.5", options: [2, 5, 10, 50] }
+  ];
+
+  let currentSampleIdx = 0;
+  let selectedMultiplier = null;
+
+  function loadSample() {
+    let s = samples[currentSampleIdx];
+    selectedMultiplier = null;
+
+    // Render Pecahan
+    document.getElementById('target-frac-display').innerHTML = `
+      <span class="m"><span class="math-frac"><span class="math-num">${s.num}</span><span class="math-den">${s.den}</span></span></span>
+    `;
+    document.getElementById('current-den').innerText = s.den;
+
+    // Render Tombol Pengali
+    let optContainer = document.getElementById('multiplier-options');
+    optContainer.innerHTML = '';
+    
+    // Acak posisi tombol pengali agar tidak selalu sama
+    let shuffledOpts = [...s.options].sort(() => Math.random() - 0.5);
+
+    shuffledOpts.forEach(multiplier => {
+      optContainer.innerHTML += `
+        <button onclick="selectMultiplier(${multiplier}, this)" class="multiplier-btn">
+          × ${multiplier}
+        </button>
+      `;
+    });
+
+    document.getElementById('receipt-result').classList.add('hidden-area');
+    document.getElementById('btn-process').style.display = 'inline-block';
+    document.getElementById('btn-process').setAttribute('disabled', 'true');
+    document.getElementById('btn-process').style.opacity = '0.5';
+  }
+
+  loadSample();
+
+  function selectMultiplier(mult, btnElement) {
+    document.querySelectorAll('.multiplier-btn').forEach(b => b.classList.remove('selected'));
+    btnElement.classList.add('selected');
+    selectedMultiplier = mult;
+
+    let processBtn = document.getElementById('btn-process');
+    processBtn.removeAttribute('disabled');
+    processBtn.style.opacity = '1';
+  }
+
+  function processMachine() {
+    let s = samples[currentSampleIdx];
+    let processBtn = document.getElementById('btn-process');
+    processBtn.style.display = 'none';
+
+    let receipt = document.getElementById('receipt-result');
+    receipt.classList.remove('hidden-area');
+
+    if (selectedMultiplier === s.correctMultiplier) {
+      // BENAR
+      document.getElementById('receipt-steps').innerHTML = `
+        Pecahan <span class="m"><span class="math-frac"><span class="math-num">${s.num}</span><span class="math-den">${s.den}</span></span></span> dikali <span class="font-bold text-cyan-600">${s.correctMultiplier}</span> (Atas & Bawah)<br>
+        = <span class="m"><span class="math-frac"><span class="math-num">${s.newNum}</span><span class="math-den">${s.newDen}</span></span></span>
+      `;
+      document.getElementById('receipt-final').innerHTML = `Bentuk Desimal: <span class="text-cyan-700">${s.decimal}</span>`;
+    } else {
+      // SALAH PILIH PENGALI
+      document.getElementById('receipt-steps').innerHTML = `
+        <span class="text-red-600 font-bold">⚠️ Pengali ×${selectedMultiplier} gagal membuat penyebut menjadi 10 atau 100!</span><br>
+        Coba ingat kembali: Penyebut harus diubah menjadi 10, 100, atau 1000.
+      `;
+      document.getElementById('receipt-final').innerHTML = `<span class="text-red-500 text-sm">Gagal Mengonversi</span>`;
+    }
+  }
+
+  function nextSample() {
+    currentSampleIdx++;
+    if (currentSampleIdx < samples.length) {
+      loadSample();
+    } else {
+      // Selesai 3 sampel sandbox
+      document.getElementById('receipt-result').classList.add('hidden-area');
+      document.querySelector('.machine-box').innerHTML = `
+        <div class="text-center space-y-4 py-6">
+          <div class="text-5xl">🎉</div>
+          <h3 class="text-2xl font-bold text-slate-800">Kalibrasi Mesin Selesai!</h3>
+          <p class="text-sm text-slate-600 max-w-md mx-auto">Kamu telah berhasil menguasai cara mengubah penyebut pecahan menjadi bentuk persepuluhan dan perseratusan.</p>
+        </div>
+      `;
+      document.getElementById('next-pos-container').classList.remove('hidden-area');
+    }
+  }
+
+  function completePos3() {
+    let currentProgress = parseInt(localStorage.getItem('vm_d1_progress')) || 1;
+    if (currentProgress < 4) {
+      localStorage.setItem('vm_d1_progress', 4);
+    }
+  }
+</script>
+</body>
+</html>
