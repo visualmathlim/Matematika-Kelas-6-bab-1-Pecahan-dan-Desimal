@@ -6,39 +6,44 @@
 <title>Pos 2: See - Mission D4 | Math Mastery</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  :root { 
-    --indigo: #6366f1; 
+  :root {
+    --indigo: #6366f1;
     --indigo-dk: #4f46e5;
-    --navy: #0f172a; 
-    --bg: #f8fafc; 
-    --card: #ffffff; 
+    --navy: #0f172a;
+    --bg: #f8fafc;
+    --card: #ffffff;
     --line: #e2e8f0;
-    --violet: #8b5cf6; 
+    --violet: #8b5cf6;
   }
-  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
-  
-  /* Kartu & Header */
-  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
-  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--indigo-dk); background: #e0e7ff; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #c7d2fe; }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; overflow-x: hidden; }
+
+  /* Kartu & tombol navigasi */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0,0,0,.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: .85rem; font-weight: 700; color: var(--indigo-dk); background: #e0e7ff; padding: 6px 14px; border-radius: 99px; transition: all .2s; border: 1px solid #c7d2fe; }
   .home-btn:hover { background: var(--indigo-dk); color: #fff; transform: translateY(-1px); }
 
-  /* Format Pecahan Matematika Vertikal */
-  .m { font-family: 'Cambria Math', 'STIX Two Math', serif; white-space: nowrap; font-weight: bold; display: inline-block; vertical-align: middle; }
-  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.2rem; line-height: 1.1; font-size: 1em; }
-  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
-  .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+  /* ===== Rumus matematika ===== */
+  .m { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', serif; font-weight: 700; white-space: nowrap; }
+  /* Pecahan: <span class="frac"><span>pembilang</span><span>penyebut</span></span> */
+  .frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 .2em; line-height: 1.15; pointer-events: none; }
+  .frac > span { padding: 0 .3em; text-align: center; min-width: 1.2em; }
+  .frac > span:first-child { border-bottom: .09em solid currentColor; }
 
-  /* Tombol Aksi */
-  .btn { padding: .75rem 1.8rem; border-radius: 9999px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; font-size: 1rem; }
-  .btn-action { background: linear-gradient(to right, var(--indigo-dk), var(--violet)); box-shadow: 0 4px 15px rgba(99,102,241,0.3); }
-  .btn-action:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,102,241,0.4); }
+  /* Tombol aksi */
+  .btn { display: inline-block; padding: .75rem 1.8rem; border-radius: 9999px; font-weight: bold; color: #fff; transition: all .2s; cursor: pointer; border: none; font-size: 1rem; }
+  .btn-action { background: linear-gradient(to right, var(--indigo-dk), var(--violet)); box-shadow: 0 4px 15px rgba(99,102,241,.3); }
+  .btn-action:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,102,241,.4); }
 
-  /* Kartu Konversi Interaktif */
-  .conv-card { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 1rem; padding: 1.25rem; text-align: center; cursor: pointer; transition: all 0.3s; position: relative; }
-  .conv-card:hover { border-color: var(--indigo); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(99,102,241,0.1); }
-  .conv-card.active { border-color: var(--indigo); background: #eef2ff; box-shadow: 0 0 0 3px rgba(99,102,241,0.2); }
+  /* Kartu konversi */
+  .conv-card { width: 100%; background: #fff; border: 2px solid #e2e8f0; border-radius: 1rem; padding: 1.25rem; text-align: center; cursor: pointer; transition: all .3s; font: inherit; color: inherit; }
+  .conv-card:hover { border-color: var(--indigo); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(99,102,241,.1); }
+  .conv-card:focus-visible { outline: 3px solid var(--indigo); outline-offset: 2px; }
+  .conv-card.active { border-color: var(--indigo); background: #eef2ff; box-shadow: 0 0 0 3px rgba(99,102,241,.2); }
 
-  .step-box { background: #f8fafc; border-left: 4px solid var(--indigo); padding: 1.2rem; border-radius: 0 8px 8px 0; font-size: 0.95rem; }
+  .step-box { background: #f8fafc; border-left: 4px solid var(--indigo); padding: 1.2rem; border-radius: 0 8px 8px 0; font-size: .95rem; }
+  .step-list { list-style: none; padding: 0; margin: .5rem 0 0; }
+  .step-list li { margin: .5rem 0; display: flex; flex-wrap: wrap; align-items: center; gap: .3rem; }
+  .step-list li::before { content: "•"; color: var(--indigo); font-weight: 900; }
 </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
@@ -47,26 +52,25 @@
 <header class="card border-b sticky top-0 z-50">
   <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
     <div class="flex items-center gap-3">
-      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto"
+           onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm',textContent:'MM'}))">
       <div>
-        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <h1 class="text-lg font-bold leading-tight">Math Mastery</h1>
         <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D4 • Pos 2</p>
       </div>
     </div>
-    
+
     <div class="flex items-center gap-2">
-      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#eef2ff; border:1px solid var(--indigo); color:var(--indigo-dk)">👀 Pos 2/8: See</span>
-      <a href="mission-d4.html" class="home-btn shadow-sm">
-        <span>← Peta D4</span>
-      </a>
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm bg-indigo-50 border border-indigo-500 text-indigo-700">👀 Pos 2/8: See</span>
+      <a href="mission-d4.html" class="home-btn shadow-sm"><span>← Peta D4</span></a>
     </div>
   </div>
-  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 25%; background: linear-gradient(to right, var(--indigo-dk), var(--violet));"></div></div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width:25%; background:linear-gradient(to right, var(--indigo-dk), var(--violet))"></div></div>
 </header>
 
 <main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
 
-  <!-- HERO SECTION -->
+  <!-- HERO -->
   <section class="text-center space-y-2">
     <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-indigo-50 border-indigo-300 text-indigo-900">
       👀 See (Jembatan Konversi Pecahan)
@@ -77,56 +81,35 @@
 
   <!-- DIALOG LUNA -->
   <section class="card rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-center border-l-4 border-violet-500 bg-violet-50/30">
-    <img src="assets/Luna.png" alt="Luna" class="w-20 h-20 rounded-full border-4 border-violet-400 shrink-0 object-cover shadow-md bg-white" onerror="this.outerHTML='<div class=\'w-20 h-20 rounded-full bg-violet-500 border-4 border-white flex-shrink-0 flex items-center justify-center text-3xl shadow-md text-white\'>👧</div>'">
+    <img src="assets/Luna.png" alt="Luna" class="w-20 h-20 rounded-full border-4 border-violet-400 shrink-0 object-cover shadow-md bg-white"
+         onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'w-20 h-20 rounded-full bg-violet-500 border-4 border-white flex-shrink-0 flex items-center justify-center text-3xl shadow-md text-white',textContent:'👧'}))">
     <div class="text-sm text-slate-700 space-y-2 flex-grow">
       <div class="flex items-center gap-2">
         <span class="font-extrabold text-slate-900 text-base">Luna</span>
         <span class="text-[10px] bg-violet-100 text-violet-900 font-bold px-2 py-0.5 rounded-full">Penjelajah Visual</span>
       </div>
       <p class="leading-relaxed font-medium">
-        "Agar robot galaksi bisa mengurutkan data dengan akurat, kita gunakan <b>Jembatan Penyebut 10 atau 100</b>. Pilih salah satu kartu pecahan di bawah ini untuk melihat cara lengkap mengubahnya menjadi bentuk desimal!"
+        &ldquo;Agar robot galaksi bisa mengurutkan data dengan akurat, kita gunakan <b>Jembatan Penyebut 10 atau 100</b>. Pilih salah satu kartu pecahan di bawah ini untuk melihat cara lengkap mengubahnya menjadi bentuk desimal!&rdquo;
       </p>
     </div>
   </section>
 
-  <!-- INTERAKTIF KARTU KONVERSI -->
+  <!-- KARTU KONVERSI -->
   <section class="card rounded-3xl p-6 md:p-8 space-y-6 bg-white border-2 border-indigo-100">
     <h3 class="font-extrabold text-slate-800 text-center uppercase tracking-wider text-sm">Pilih Pecahan untuk Dikonversi:</h3>
-    
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-      <!-- Kartu 1: 1/2 -->
-      <div class="conv-card" id="card-half" onclick="showConversion('half')">
-        <p class="text-xs text-slate-400 font-bold uppercase mb-1">Pecahan 1</p>
-        <div class="text-xl text-indigo-900"><span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span></span></div>
-      </div>
-      <!-- Kartu 2: 1/4 -->
-      <div class="conv-card" id="card-quarter" onclick="showConversion('quarter')">
-        <p class="text-xs text-slate-400 font-bold uppercase mb-1">Pecahan 2</p>
-        <div class="text-xl text-indigo-900"><span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span></span></div>
-      </div>
-      <!-- Kartu 3: 3/4 -->
-      <div class="conv-card" id="card-three-quarter" onclick="showConversion('three-quarter')">
-        <p class="text-xs text-slate-400 font-bold uppercase mb-1">Pecahan 3</p>
-        <div class="text-xl text-indigo-900"><span class="m"><span class="math-frac"><span class="math-num">3</span><span class="math-den">4</span></span></span></div>
-      </div>
-      <!-- Kartu 4: 1/5 -->
-      <div class="conv-card" id="card-fifth" onclick="showConversion('fifth')">
-        <p class="text-xs text-slate-400 font-bold uppercase mb-1">Pecahan 4</p>
-        <div class="text-xl text-indigo-900"><span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">5</span></span></span></div>
-      </div>
-    </div>
 
-    <!-- Kotak Penjelasan Lengkap (Dinamis) -->
-    <div id="explanation-box" class="step-box hidden space-y-3">
-      <h4 class="font-bold text-indigo-900 text-base" id="expl-title">Langkah Konversi</h4>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="picker" role="group" aria-label="Pilihan pecahan"></div>
+
+    <!-- Penjelasan (dinamis) -->
+    <div id="explanation-box" class="step-box hidden space-y-3" aria-live="polite">
+      <h4 class="font-bold text-indigo-900 text-base" id="expl-title"></h4>
       <p class="text-slate-700 leading-relaxed font-medium" id="expl-desc"></p>
-      <div class="bg-white p-3 rounded-lg border border-indigo-200 text-center font-mono font-black text-xl text-indigo-700" id="expl-result">
-        -
-      </div>
+      <ul class="step-list text-slate-700 font-medium" id="expl-steps"></ul>
+      <div class="bg-white p-3 rounded-lg border border-indigo-200 text-center font-black text-2xl text-indigo-700" id="expl-result"></div>
     </div>
   </section>
 
-  <!-- TOMBOL NAVIGASI BAWAH -->
+  <!-- NAVIGASI BAWAH -->
   <div class="flex justify-between items-center pt-4 pb-12">
     <a href="mission-d4-pos1.html" class="home-btn shadow-sm">⬅ Kembali ke Pos 1</a>
     <a href="mission-d4-pos3.html" class="btn btn-action px-8 py-3.5 shadow-lg">Lanjut ke Pos 3 (Visualize) ➔</a>
@@ -135,49 +118,60 @@
 </main>
 
 <script>
-  const dataConv = {
-    half: {
-      title: "Konversi Pecahan Setengah ( 1/2 )",
-      desc: "Ubah penyebut 2 menjadi 10 dengan cara mengalikan pembilang dan penyebut dengan angka 5.<br><br><b>Langkah:</b><br>• Penyebut: 2 × 5 = 10<br>• Pembilang: 1 × 5 = 5<br>• Menjadi: <span class='m'><span class='math-frac'><span class='math-num'>5</span><span class='math-den">10</span></span></span> = 0,5",
-      result: "1/2 = 0,5"
-    },
-    quarter: {
-      title: "Konversi Pecahan Seperempat ( 1/4 )",
-      desc: "Ubah penyebut 4 menjadi 100 dengan cara mengalikan pembilang dan penyebut dengan angka 25.<br><br><b>Langkah:</b><br>• Penyebut: 4 × 25 = 100<br>• Pembilang: 1 × 25 = 25<br>• Menjadi: <span class='m'><span class='math-frac'><span class='math-num'>25</span><span class='math-den">100</span></span></span> = 0,25",
-      result: "1/4 = 0,25"
-    },
-    "three-quarter": {
-      title: "Konversi Pecahan Tiga Perempat ( 3/4 )",
-      desc: "Ubah penyebut 4 menjadi 100 dengan mengalikan pembilang dan penyebut dengan 25.<br><br><b>Langkah:</b><br>• Penyebut: 4 × 25 = 100<br>• Pembilang: 3 × 25 = 75<br>• Menjadi: <span class='m'><span class='math-frac'><span class='math-num'>75</span><span class='math-den">100</span></span></span> = 0,75",
-      result: "3/4 = 0,75"
-    },
-    fifth: {
-      title: "Konversi Pecahan Seperlima ( 1/5 )",
-      desc: "Ubah penyebut 5 menjadi 10 dengan cara mengalikan pembilang dan penyebut dengan angka 2.<br><br><b>Langkah:</b><br>• Penyebut: 5 × 2 = 10<br>• Pembilang: 1 × 2 = 2<br>• Menjadi: <span class='m'><span class='math-frac'><span class='math-num'>2</span><span class='math-den">10</span></span></span> = 0,2",
-      result: "1/5 = 0,2"
-    }
-  };
+  const $ = id => document.getElementById(id);
+  const fr = (n, d) => `<span class="frac"><span>${n}</span><span>${d}</span></span>`;
+  const M  = s => `<span class="m">${s}</span>`;
 
-  function showConversion(type) {
-    // Reset active card styles
-    document.querySelectorAll('.conv-card').forEach(c => c.classList.remove('active'));
-    document.getElementById(`card-${type}`).classList.add('active');
+  /* Tiap pecahan n/d diubah ke N/D dengan pengali k (D = 10 atau 100) */
+  const FRACTIONS = [
+    { key: 'half',          name: 'Setengah',    n: 1, d: 2, D: 10  },
+    { key: 'quarter',       name: 'Seperempat',  n: 1, d: 4, D: 100 },
+    { key: 'three-quarter', name: 'Tiga Perempat', n: 3, d: 4, D: 100 },
+    { key: 'fifth',         name: 'Seperlima',   n: 1, d: 5, D: 10  }
+  ];
+  const decimalOf = f => (f.n * (f.D / f.d) / f.D).toFixed(f.D === 10 ? 1 : 2).replace('.', ',');
 
-    const item = dataConv[type];
-    const box = document.getElementById('explanation-box');
-    
-    document.getElementById('expl-title').innerHTML = item.title;
-    document.getElementById('expl-desc').innerHTML = item.desc;
-    document.getElementById('expl-result').innerHTML = item.result;
-    
+  /* Buat kartu pilihan */
+  $('picker').innerHTML = FRACTIONS.map((f, i) => `
+    <button type="button" class="conv-card" data-key="${f.key}" aria-pressed="false">
+      <p class="text-xs text-slate-400 font-bold uppercase mb-1">Pecahan ${i + 1}</p>
+      <div class="text-xl text-indigo-900">${M(fr(f.n, f.d))}</div>
+    </button>`).join('');
+
+  /* Satu pendengar klik untuk semua kartu (delegasi) */
+  $('picker').addEventListener('click', e => {
+    const btn = e.target.closest('.conv-card');
+    if (btn) showConversion(btn.dataset.key);
+  });
+
+  function showConversion(key) {
+    const f = FRACTIONS.find(x => x.key === key);
+    const k = f.D / f.d, N = f.n * k, dec = decimalOf(f);
+
+    document.querySelectorAll('.conv-card').forEach(c => {
+      const on = c.dataset.key === key;
+      c.classList.toggle('active', on);
+      c.setAttribute('aria-pressed', on);
+    });
+
+    $('expl-title').innerHTML = `Konversi Pecahan ${f.name} (${M(fr(f.n, f.d))})`;
+    $('expl-desc').textContent = `Ubah penyebut ${f.d} menjadi ${f.D} dengan cara mengalikan pembilang dan penyebut dengan angka ${k}.`;
+    $('expl-steps').innerHTML = `
+      <li><b>Langkah:</b></li>
+      <li>Penyebut: ${M(`${f.d} × ${k} = ${f.D}`)}</li>
+      <li>Pembilang: ${M(`${f.n} × ${k} = ${N}`)}</li>
+      <li>Menjadi: ${M(`${fr(N, f.D)} = ${dec}`)}</li>`;
+    $('expl-result').innerHTML = M(`${fr(f.n, f.d)} = ${dec}`);
+
+    const box = $('explanation-box');
     box.classList.remove('hidden');
     box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
     // Simpan progres Pos 2
     try {
-      let p = +localStorage.getItem('vm_d4_progress') || 0;
-      if(p < 2) localStorage.setItem('vm_d4_progress', 2);
-    } catch(e) {}
+      const p = +localStorage.getItem('vm_d4_progress') || 0;
+      if (p < 2) localStorage.setItem('vm_d4_progress', 2);
+    } catch (e) {}
   }
 </script>
 </body>
