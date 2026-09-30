@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 5: Skill Unlock - Mission D2 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+    --red: #dc2626; 
+    --purple: #7c3aed;
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--cyan-dk); background: #cffafe; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #67e8f9; }
+  .home-btn:hover { background: var(--cyan-dk); color: #fff; transform: translateY(-1px); }
+
+  /* Format Pecahan Vertikal */
+  .m { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', serif; white-space: nowrap; font-weight: bold; display: inline-block; vertical-align: middle; }
+  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.2rem; line-height: 1.1; font-size: 0.95em; }
+  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
+  .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+
+  /* Jebakan Fatal Interaktif */
+  .alert-box { background: #fef2f2; border: 2px dashed var(--red); border-radius: 1rem; padding: 1.5rem; position: relative; overflow: hidden; transition: all 0.3s; cursor: pointer; }
+  .alert-box::before { content: "⚠️ JEBAKAN FATAL!"; position: absolute; top: 0; left: 0; background: var(--red); color: white; padding: 4px 12px; font-size: 0.75rem; font-weight: bold; border-bottom-right-radius: 8px; letter-spacing: 1px; }
+  
+  .boom-overlay { position: absolute; inset: 0; background: rgba(220,38,38,0.95); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; font-size: 1.6rem; font-weight: 900; opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 20; text-align: center; padding: 1rem; }
+  .boom-overlay.show { opacity: 1; pointer-events: auto; animation: shake 0.5s; }
+  @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-10px); } 40%, 80% { transform: translateX(10px); } }
+
+  /* Tabs Jurus */
+  .method-tab { cursor: pointer; padding: 12px 20px; font-weight: bold; text-align: center; border-radius: 8px 8px 0 0; transition: all 0.2s; border: 2px solid transparent; border-bottom: none; background: #f1f5f9; color: #64748b; font-size: 1rem; }
+  .method-tab.active-teal { background: white; color: var(--teal); border-color: var(--teal); border-bottom: 2px solid white; margin-bottom: -2px; z-index: 10; position: relative; }
+  .method-tab.active-purple { background: white; color: var(--purple); border-color: var(--purple); border-bottom: 2px solid white; margin-bottom: -2px; z-index: 10; position: relative; }
+  
+  .method-content { background: white; border-radius: 0 0 1rem 1rem; padding: 2rem; border: 2px solid var(--line); display: none; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+  .method-content.active { display: block; animation: fadeIn 0.4s ease; }
+
+  .step-row { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px dashed #e2e8f0; }
+  .step-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .step-num { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .btn { display: inline-block; text-align: center; padding: 0.8rem 1.8rem; border-radius: 99px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
+  .btn-next { background: linear-gradient(to right, var(--cyan-dk), var(--teal)); box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3); font-size: 1.1rem; width: 100%; }
+  .btn-next:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5); }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-20">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D2 • Pos 5</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#ecfeff; border:1px solid var(--cyan); color:var(--cyan-dk)">🔓 Pos 5/8: Skill Unlock</span>
+      <a href="mission-d2.html" class="home-btn shadow-sm">
+        <span>← Peta D2</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 62.5%; background: linear-gradient(to right, var(--cyan), var(--gold-bg));"></div></div>
+</header>
+
+<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-8">
+  
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-cyan-50 border-cyan-300 text-cyan-800">
+      🔓 Master Class Prof. Sigma
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Dua Jurus Sakti Nilai Tempat Desimal</h2>
+    <p class="text-sm text-slate-600 max-w-2xl mx-auto font-medium">
+      Mari bedah rumus matematika Bentuk Panjang dan Cara Baca Desimal sedetail mungkin! Tapi sebelumnya, waspadai jebakan fatal berikut!
+    </p>
+  </section>
+
+  <!-- JEBAKAN FATAL (INTERAKTIF) -->
+  <div class="alert-box shadow-md" onclick="triggerTrap()">
+    <div class="boom-overlay" id="boom">
+      <span>💥 KELIRU BESAR! 💥</span>
+      <span class="text-sm font-normal mt-2 px-4">Jangan membaca <span class="font-mono">3,425</span> sebagai <br><b>"tiga koma empat ratus dua puluh lima"</b>! <br>Angka dibaca per digit di belakang koma: "tiga koma empat dua lima".</span>
+      <button class="mt-4 px-6 py-2 bg-white text-red-600 rounded-full text-sm font-bold shadow hover:bg-slate-100" onclick="resetTrap(event)">Saya Mengerti</button>
+    </div>
+
+    <div class="pt-2 text-center">
+      <p class="font-semibold text-slate-700 mb-3 text-sm">Kesalahan Fatal: Mengira angka di belakang koma dibaca seperti bilangan ratusan biasa. <br><span class="text-red-600 font-bold animate-pulse">Klik kotak ini untuk melihat peringatan darurat Prof. Sigma!</span></p>
+      
+      <div class="flex flex-col md:flex-row items-center justify-center gap-4 bg-white p-4 rounded-xl border border-red-200 shadow-inner">
+        <div class="font-mono text-2xl font-black">3,425</div>
+        <div class="text-xl font-bold text-slate-400">➜</div>
+        <div class="bg-red-50 p-3 rounded border border-red-200 text-center">
+          <span class="text-xs text-red-500 font-bold block mb-1 uppercase">Cara Baca Salah</span>
+          <span class="text-sm font-bold text-red-700 line-through">"Tiga koma empat ratus dua puluh lima"</span>
+        </div>
+        <div class="text-xl font-bold text-slate-400">➜</div>
+        <div class="text-sm font-extrabold text-teal-800 bg-teal-50 p-3 border border-teal-300 rounded-lg text-center">
+          Cara Benar: <br><b>"Tiga koma empat dua lima"</b>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MASTER CLASS: DUA JURUS SAKTI -->
+  <div class="bg-white rounded-3xl p-6 md:p-8 border-2 border-cyan-500 shadow-xl relative mt-10">
+    
+    <!-- PANDUAN PROF. SIGMA -->
+    <div class="flex items-center gap-4 mb-6 bg-cyan-50 p-4 rounded-2xl border border-cyan-200">
+      <img src="assets/Sigma.png" alt="Prof. Sigma" class="w-16 h-16 rounded-full border-3 border-amber-400 object-cover shadow-sm bg-amber-100 flex-shrink-0" onerror="this.outerHTML='<div class=\'w-16 h-16 rounded-full bg-amber-400 border-3 border-white flex-shrink-0 flex items-center justify-center text-2xl shadow-sm text-slate-900\'>👨‍🏫</div>'">
+      <p class="text-xs md:text-sm text-slate-700 font-medium leading-relaxed">
+        "Perhatikan dua SOP rumus matematika berikut untuk menguasai struktur bilangan <span class='font-mono font-bold text-cyan-800'>3,425</span> secara tuntas!"
+      </p>
+    </div>
+
+    <!-- TABS JURUS -->
+    <div class="flex justify-center border-b-2 border-line">
+      <div class="method-tab active-teal" id="tab-1" onclick="switchTab(1)">
+        Jurus 1: Bentuk Panjang (Expanded Form)
+      </div>
+      <div class="method-tab" id="tab-2" onclick="switchTab(2)">
+        Jurus 2: Cara Membaca Desimal
+      </div>
+    </div>
+
+    <!-- KONTEN JURUS 1 (BENTUK PANJANG) -->
+    <div id="content-1" class="method-content active !border-teal-500 space-y-6">
+      <p class="text-sm text-slate-600 text-center font-medium bg-teal-50 py-2.5 rounded-xl border border-teal-100">
+        Bentuk panjang menguraikan suatu bilangan berdasarkan jumlah nilai tempat masing-masing digitnya.
+      </p>
+      
+      <div class="text-center bg-slate-50 py-3 rounded-xl border border-slate-200">
+        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Contoh Soal:</p>
+        <p class="font-mono text-3xl font-black text-cyan-800 mt-1">3,425 = ... ?</p>
+      </div>
+
+      <div class="space-y-4">
+        <div class="step-row">
+          <div class="step-num bg-teal-600 shadow-md">1</div>
+          <div class="flex-grow">
+            <p class="font-bold text-teal-800 mb-1">Uraikan Bagian Satuan (Kiri Koma)</p>
+            <p class="text-sm text-slate-700">Angka <span class="font-bold">3</span> berada di tempat satuan, maka nilainya tetap <span class="font-bold text-teal-700">3</span>.</p>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-num bg-teal-600 shadow-md">2</div>
+          <div class="flex-grow">
+            <p class="font-bold text-teal-800 mb-1">Uraikan Bagian Desimal (Kanan Koma)</p>
+            <ul class="text-sm text-slate-700 space-y-3 pl-2 font-medium">
+              <li>• Angka 4 di persepuluhan &rarr; <span class="font-mono font-bold text-teal-700">0,4</span> atau <span class="m"><span class="math-frac"><span class="math-num">4</span><span class="math-den">10</span></span></span></li>
+              <li>• Angka 2 di perseratusan &rarr; <span class="font-mono font-bold text-teal-700">0,02</span> atau <span class="m"><span class="math-frac"><span class="math-num">2</span><span class="math-den">100</span></span></span></li>
+              <li>• Angka 5 di perseribuan &rarr; <span class="font-mono font-bold text-teal-700">0,005</span> atau <span class="m"><span class="math-frac"><span class="math-num">5</span><span class="math-den">1000</span></span></span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="step-row border-none pb-0">
+          <div class="step-num bg-teal-600 shadow-md">3</div>
+          <div class="flex-grow">
+            <p class="font-bold text-teal-800 mb-1">Gabungkan dalam Bentuk Penjumlahan</p>
+            <div class="bg-teal-50 p-4 rounded-xl border border-teal-200 text-center space-y-2">
+              <p class="font-mono text-xl font-black text-teal-900">3,425 = 3 + 0,4 + 0,02 + 0,005</p>
+              <p class="text-xs text-teal-700 font-semibold">Atau menggunakan bentuk pecahan: 3 + <span class="m"><span class="math-frac"><span class="math-num">4</span><span class="math-den">10</span></span></span> + <span class="m"><span class="math-frac"><span class="math-num">2</span><span class="math-den">100</span></span></span> + <span class="m"><span class="math-frac"><span class="math-num">5</span><span class="math-den">1000</span></span></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KONTEN JURUS 2 (CARA BACA DESIMAL) -->
+    <div id="content-2" class="method-content !border-purple-500 space-y-6">
+      <p class="text-sm text-slate-600 text-center font-medium bg-purple-50 py-2.5 rounded-xl border border-purple-100">
+        Aturan membaca bilangan desimal secara benar dalam matematika sekolah dasar.
+      </p>
+      
+      <div class="text-center bg-slate-50 py-3 rounded-xl border border-slate-200">
+        <p class="text-xs text-slate-500 font-bold uppercase tracking-wider">Aturan Penamaan:</p>
+        <p class="font-mono text-3xl font-black text-purple-800 mt-1">Bilangan: 12,345</p>
+      </div>
+
+      <div class="space-y-4">
+        <div class="step-row">
+          <div class="step-num bg-purple-600 shadow-md">1</div>
+          <div class="flex-grow">
+            <p class="font-bold text-purple-800 mb-1">Baca Bagian Bulat di Kiri Koma</p>
+            <p class="text-sm text-slate-700">Sebutkan angka di sebelah kiri koma secara utuh (contoh: <span class="font-bold text-purple-700">Dua belas</span>).</p>
+          </div>
+        </div>
+
+        <div class="step-row">
+          <div class="step-num bg-purple-600 shadow-md">2</div>
+          <div class="flex-grow">
+            <p class="font-bold text-purple-800 mb-1">Sebutkan Kata "Koma"</p>
+            <p class="text-sm text-slate-700">Ucapkan kata <span class="font-bold text-purple-700">"koma"</span> tepat pada posisi tanda komanya.</p>
+          </div>
+        </div>
+
+        <div class="step-row border-none pb-0">
+          <div class="step-num bg-purple-600 shadow-md">3</div>
+          <div class="flex-grow">
+            <p class="font-bold text-purple-800 mb-1">Sebutkan Setiap Angka di Kanan Koma Satu Per Satu</p>
+            <div class="bg-purple-50 p-4 rounded-xl border border-purple-200 text-center space-y-1">
+              <p class="text-sm text-slate-700">Sebutkan digit demi digit angka di belakang koma secara berurutan.</p>
+              <p class="font-mono text-lg font-black text-purple-900 pt-1">"Dua belas koma tiga empat lima"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TOMBOL LANJUT KE POS 6 (QUEST) -->
+  <div class="mt-10 max-w-md mx-auto text-center space-y-3">
+    <p class="text-xs font-bold text-slate-500 uppercase tracking-widest">Master Class Selesai</p>
+    <a href="mission-d2-pos6.html" onclick="completePos5()" class="btn btn-next py-4 shadow-xl block">Lanjut ke Pos 6: Quest Ujian KKM ➔</a>
+  </div>
+
+</main>
+
+<script>
+  // Logika Jebakan Fatal
+  const boom = document.getElementById('boom');
+  
+  function triggerTrap() {
+    boom.classList.add('show');
+  }
+  
+  function resetTrap(e) {
+    e.stopPropagation();
+    boom.classList.remove('show');
+    
+    // Update progress ke Pos 6
+    let currentProgress = parseInt(localStorage.getItem('vm_d2_progress')) || 1;
+    if (currentProgress < 6) localStorage.setItem('vm_d2_progress', 6);
+  }
+
+  // Logika Switching Tabs Jurus 1 & Jurus 2
+  function switchTab(tabId) {
+    const t1 = document.getElementById('tab-1');
+    const t2 = document.getElementById('tab-2');
+    const c1 = document.getElementById('content-1');
+    const c2 = document.getElementById('content-2');
+
+    if (tabId === 1) {
+      t1.className = "method-tab active-teal";
+      t2.className = "method-tab";
+      c1.classList.add('active');
+      c2.classList.remove('active');
+    } else {
+      t1.className = "method-tab";
+      t2.className = "method-tab active-purple";
+      c1.classList.remove('active');
+      c2.classList.add('active');
+    }
+    
+    let currentProgress = parseInt(localStorage.getItem('vm_d2_progress')) || 1;
+    if (currentProgress < 6) localStorage.setItem('vm_d2_progress', 6);
+  }
+
+  function completePos5() {
+    let currentProgress = parseInt(localStorage.getItem('vm_d2_progress')) || 1;
+    if (currentProgress < 6) {
+      localStorage.setItem('vm_d2_progress', 6);
+    }
+  }
+</script>
+</body>
+</html>
