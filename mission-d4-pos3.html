@@ -1,281 +1,1516 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pos 3: Visualize - Mission D4 | Math Mastery</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-  :root { 
-    --indigo: #6366f1; 
-    --indigo-dk: #4f46e5;
-    --navy: #0f172a; 
-    --bg: #f8fafc; 
-    --card: #ffffff; 
-    --line: #e2e8f0;
-    --violet: #8b5cf6; 
-  }
-  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
-  
-  /* Kartu & Header */
-  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
-  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--indigo-dk); background: #e0e7ff; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #c7d2fe; }
-  .home-btn:hover { background: var(--indigo-dk); color: #fff; transform: translateY(-1px); }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pos 3: Visualize - Mission D4 | Math Mastery</title>
 
-  /* Format Pecahan Matematika Vertikal */
-  .m { font-family: 'Cambria Math', 'STIX Two Math', serif; white-space: nowrap; font-weight: bold; display: inline-block; vertical-align: middle; }
-  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.2rem; line-height: 1.1; font-size: 1em; }
-  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
-  .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+  <script src="https://cdn.tailwindcss.com"></script>
 
-  /* Tombol Aksi */
-  .btn { padding: .75rem 1.8rem; border-radius: 9999px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; font-size: 1rem; }
-  .btn-action { background: linear-gradient(to right, var(--indigo-dk), var(--violet)); box-shadow: 0 4px 15px rgba(99,102,241,0.3); }
-  .btn-action:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,102,241,0.4); }
+  <style>
+    :root {
+      --indigo: #6366f1;
+      --indigo-dk: #4f46e5;
+      --navy: #0f172a;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --line: #e2e8f0;
+      --violet: #8b5cf6;
+      --teal: #0d9488;
+      --gold: #ca8a04;
+    }
 
-  /* Kotak Item Kargo (Bisa Diklik) */
-  .cargo-chip { background: #ffffff; border: 2px solid var(--indigo); color: var(--indigo-dk); padding: 0.75rem 1.25rem; border-radius: 0.75rem; font-family: monospace; font-size: 1.25rem; font-weight: 900; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 6px rgba(99,102,241,0.1); user-select: none; }
-  .cargo-chip:hover { background: #eef2ff; transform: translateY(-2px); }
-  .cargo-chip.selected { opacity: 0.4; pointer-events: none; border-style: dashed; }
+    * {
+      box-sizing: border-box;
+    }
 
-  /* Slot Target Penempatan */
-  .slot-target { width: 110px; height: 75px; border: 3px dashed #cbd5e1; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; background: #f8fafc; font-family: monospace; font-size: 1.25rem; font-weight: 900; color: #64748b; transition: all 0.3s; position: relative; }
-  .slot-target.filled { border-style: solid; border-color: var(--indigo); background: #eef2ff; color: var(--indigo-dk); }
+    body {
+      background-color: var(--bg);
+      color: var(--navy);
+      font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-  /* Garis Bilangan Visualisasi */
-  .nl-container { position: relative; width: 100%; height: 90px; margin: 2rem 0 1rem; padding: 0 20px; }
-  .nl-line { position: absolute; top: 50%; left: 20px; right: 20px; height: 4px; background: #cbd5e1; border-radius: 2px; transform: translateY(-50%); }
-  .nl-tick { position: absolute; top: 50%; width: 2px; height: 12px; background: #64748b; transform: translate(-50%, -50%); }
-  .nl-label { position: absolute; top: 50%; transform: translate(-50%, 14px); font-size: 0.7rem; font-weight: bold; color: #64748b; }
-  
-  .marker-pt { position: absolute; top: 50%; width: 22px; height: 22px; background: var(--indigo); border: 2px solid white; border-radius: 50%; transform: translate(-50%, -50%); transition: left 0.5s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 5; }
-</style>
+    /* ===============================
+       KARTU & HEADER
+    =============================== */
+
+    .card {
+      background-color: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--indigo-dk);
+      background: #e0e7ff;
+      padding: 6px 14px;
+      border-radius: 99px;
+      transition: all 0.2s;
+      border: 1px solid #c7d2fe;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .home-btn:hover {
+      background: var(--indigo-dk);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* ===============================
+       FORMAT MATEMATIKA
+    =============================== */
+
+    .m {
+      font-family:
+        'Cambria Math',
+        'STIX Two Math',
+        'Latin Modern Math',
+        serif;
+      white-space: nowrap;
+      font-weight: bold;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .math-frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+      margin: 0 0.18rem;
+      line-height: 1;
+      font-size: 1em;
+      min-width: 26px;
+    }
+
+    .math-num {
+      border-bottom: 2px solid currentColor;
+      padding: 0 0.3rem 2px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .math-den {
+      padding: 2px 0.3rem 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Simbol relasi matematika */
+    .math-symbol {
+      font-family:
+        'Cambria Math',
+        'STIX Two Math',
+        'Latin Modern Math',
+        serif;
+      font-weight: 800;
+      font-size: 1.2em;
+      display: inline-block;
+      margin: 0 0.25rem;
+      vertical-align: middle;
+    }
+
+    .math-expression {
+      font-family:
+        'Cambria Math',
+        'STIX Two Math',
+        'Latin Modern Math',
+        serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* ===============================
+       TOMBOL
+    =============================== */
+
+    .btn {
+      padding: 0.75rem 1.8rem;
+      border-radius: 9999px;
+      font-weight: bold;
+      color: #fff;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-action {
+      background: linear-gradient(
+        to right,
+        var(--indigo-dk),
+        var(--violet)
+      );
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+    }
+
+    /* ===============================
+       KARGO
+    =============================== */
+
+    .cargo-chip {
+      background: #ffffff;
+      border: 2px solid var(--indigo);
+      color: var(--indigo-dk);
+      padding: 0.75rem 1.25rem;
+      border-radius: 0.75rem;
+      font-family:
+        'Cambria Math',
+        'STIX Two Math',
+        serif;
+      font-size: 1.25rem;
+      font-weight: 900;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 6px rgba(99, 102, 241, 0.1);
+      user-select: none;
+      min-width: 82px;
+      text-align: center;
+    }
+
+    .cargo-chip:hover {
+      background: #eef2ff;
+      transform: translateY(-2px);
+    }
+
+    .cargo-chip.selected {
+      opacity: 0.4;
+      pointer-events: none;
+      border-style: dashed;
+    }
+
+    /* ===============================
+       SLOT TARGET
+    =============================== */
+
+    .slot-target {
+      width: 115px;
+      min-height: 75px;
+      border: 3px dashed #cbd5e1;
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8fafc;
+      font-family:
+        'Cambria Math',
+        'STIX Two Math',
+        serif;
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #64748b;
+      transition: all 0.3s;
+      position: relative;
+      text-align: center;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .slot-target:hover {
+      border-color: var(--indigo);
+    }
+
+    .slot-target.filled {
+      border-style: solid;
+      border-color: var(--indigo);
+      background: #eef2ff;
+      color: var(--indigo-dk);
+    }
+
+    .slot-placeholder {
+      font-size: 0.78rem;
+      font-family:
+        'Segoe UI',
+        sans-serif;
+      color: #94a3b8;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    /* ===============================
+       GARIS BILANGAN
+    =============================== */
+
+    .nl-container {
+      position: relative;
+      width: 100%;
+      height: 90px;
+      margin: 2rem 0 1rem;
+      padding: 0 20px;
+    }
+
+    .nl-line {
+      position: absolute;
+      top: 50%;
+      left: 20px;
+      right: 20px;
+      height: 4px;
+      background: #cbd5e1;
+      border-radius: 2px;
+      transform: translateY(-50%);
+    }
+
+    .nl-tick {
+      position: absolute;
+      top: 50%;
+      width: 2px;
+      height: 12px;
+      background: #64748b;
+      transform: translate(-50%, -50%);
+    }
+
+    .nl-label {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, 14px);
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: #64748b;
+    }
+
+    .marker-pt {
+      position: absolute;
+      top: 50%;
+      width: 22px;
+      height: 22px;
+      background: var(--indigo);
+      border: 2px solid white;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: left 0.5s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 5;
+    }
+
+    /* ===============================
+       LABEL RELASI
+    =============================== */
+
+    .ordering-relation {
+      font-family:
+        'Cambria Math',
+        'STIX Two Math',
+        serif;
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #475569;
+      line-height: 1;
+    }
+
+    /* ===============================
+       FEEDBACK
+    =============================== */
+
+    .feedback-box {
+      display: none;
+    }
+
+    /* ===============================
+       MOBILE
+    =============================== */
+
+    @media (max-width: 640px) {
+      .slot-target {
+        width: 90px;
+        min-height: 70px;
+        font-size: 1rem;
+      }
+
+      .cargo-chip {
+        font-size: 1.1rem;
+        min-width: 70px;
+        padding: 0.65rem 0.9rem;
+      }
+
+      .math-expression {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
+
 <body class="antialiased min-h-screen flex flex-col">
 
-<!-- HEADER NAVIGASI -->
-<header class="card border-b sticky top-0 z-50">
-  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
-    <div class="flex items-center gap-3">
-      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
-      <div>
-        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
-        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D4 • Pos 3</p>
+  <!-- ======================================
+       HEADER NAVIGASI
+  ======================================= -->
+
+  <header class="card border-b sticky top-0 z-50">
+
+    <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+
+      <div class="flex items-center gap-3 min-w-0">
+
+        <img
+          src="assets/logo.png"
+          alt="Math Mastery"
+          class="h-10 w-auto"
+          onerror="
+            this.outerHTML=
+            '<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>';
+          "
+        >
+
+        <div>
+          <h1
+            class="text-lg font-bold leading-tight"
+            style="color:var(--navy)"
+          >
+            Math Mastery
+          </h1>
+
+          <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">
+            Mission D4 • Pos 3
+          </p>
+        </div>
+
       </div>
-    </div>
-    
-    <div class="flex items-center gap-2">
-      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#eef2ff; border:1px solid var(--indigo); color:var(--indigo-dk)">🔍 Pos 3/8: Visualize</span>
-      <a href="mission-d4.html" class="home-btn shadow-sm">
-        <span>← Peta D4</span>
-      </a>
-    </div>
-  </div>
-  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 37.5%; background: linear-gradient(to right, var(--indigo-dk), var(--violet));"></div></div>
-</header>
 
-<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-8">
 
-  <!-- HERO SECTION -->
-  <section class="text-center space-y-2">
-    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-indigo-50 border-indigo-300 text-indigo-900">
-      🔍 Visualize (Jalur Pengurutan Magnetik)
-    </div>
-    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Penyusunan Kargo Berurutan</h2>
-    <p class="text-sm text-slate-600 max-w-lg mx-auto font-medium">Susun kontainer kargo dari yang terkecil ke terbesar (<span class="m">Ascending</span>) dengan bantuan garis bilangan!</p>
-  </section>
-
-  <!-- DIALOG LUNA -->
-  <section class="card rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-center border-l-4 border-violet-500 bg-violet-50/30">
-    <img src="assets/Luna.png" alt="Luna" class="w-20 h-20 rounded-full border-4 border-violet-400 shrink-0 object-cover shadow-md bg-white" onerror="this.outerHTML='<div class=\'w-20 h-20 rounded-full bg-violet-500 border-4 border-white flex-shrink-0 flex items-center justify-center text-3xl shadow-md text-white\'>👧</div>'">
-    <div class="text-sm text-slate-700 space-y-2 flex-grow">
       <div class="flex items-center gap-2">
-        <span class="font-extrabold text-slate-900 text-base">Luna</span>
-        <span class="text-[10px] bg-violet-100 text-violet-900 font-bold px-2 py-0.5 rounded-full">Penjelajah Visual</span>
+
+        <span
+          class="px-4 py-1.5 rounded-full text-xs font-extrabold
+                 shadow-sm hidden sm:inline-flex"
+          style="
+            background:#eef2ff;
+            border:1px solid var(--indigo);
+            color:var(--indigo-dk);
+          "
+        >
+          🔍 Pos 3/8: Visualize
+        </span>
+
+        <a
+          href="mission-d4.html"
+          class="home-btn shadow-sm"
+        >
+          <span>← Peta D4</span>
+        </a>
+
       </div>
-      <p class="leading-relaxed font-medium">
-        "Klik kontainer di bawah ini untuk memasukkannya ke Slot Pengurutan (dari kiri = terkecil, ke kanan = terbesar). Ingat nilai konversinya:<br>
-        • <span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span></span> = 0,25<br>
-        • <span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span></span> = 0,50"
+
+    </div>
+
+
+    <div class="h-1.5 w-full bg-slate-200">
+      <div
+        class="h-full"
+        style="
+          width:37.5%;
+          background:linear-gradient(
+            to right,
+            var(--indigo-dk),
+            var(--violet)
+          );
+        "
+      ></div>
+    </div>
+
+  </header>
+
+
+  <!-- ======================================
+       MAIN
+  ======================================= -->
+
+  <main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-8">
+
+    <!-- HERO -->
+
+    <section class="text-center space-y-2">
+
+      <div
+        class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full
+               text-sm border font-semibold shadow-sm
+               bg-indigo-50 border-indigo-300 text-indigo-900"
+      >
+        🔍 Visualize (Jalur Pengurutan)
+      </div>
+
+      <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">
+        Penyusunan Kargo Berurutan
+      </h2>
+
+      <p class="text-sm text-slate-600 max-w-lg mx-auto font-medium">
+        Susun bilangan dari yang terkecil ke terbesar
+        (<span class="m">Ascending</span>)
+        dengan bantuan garis bilangan.
       </p>
-    </div>
-  </section>
 
-  <!-- INTERAKTIF GAME PENGURUTAN -->
-  <section class="card rounded-3xl p-6 md:p-10 space-y-8 bg-white border-2 border-indigo-100">
-    
-    <!-- Bagian Pilihan Kargo (Acak) -->
-    <div class="space-y-3 text-center">
-      <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Kontainer Kargo Tersedia (Klik untuk Mengisi Slot)</p>
-      <div class="flex flex-wrap justify-center gap-4" id="cargo-pool">
-        <div class="cargo-chip" onclick="selectCargo(this, '0,35')">0,35</div>
-        <div class="cargo-chip" onclick="selectCargo(this, '0,3')">0,3</div>
-        <div class="cargo-chip" onclick="selectCargo(this, '0,25')"><span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">4</span></span></span></div>
-        <div class="cargo-chip" onclick="selectCargo(this, '0,5')"><span class="m"><span class="math-frac"><span class="math-num">1</span><span class="math-den">2</span></span></span></div>
+    </section>
+
+
+    <!-- ======================================
+         DIALOG LUNA
+    ======================================= -->
+
+    <section
+      class="card rounded-3xl p-6 md:p-8
+             flex flex-col sm:flex-row gap-6 items-center
+             border-l-4 border-violet-500
+             bg-violet-50/30"
+    >
+
+      <img
+        src="assets/Luna.png"
+        alt="Luna"
+        class="w-20 h-20 rounded-full border-4 border-violet-400
+               shrink-0 object-cover shadow-md bg-white"
+        onerror="
+          this.outerHTML=
+          '<div class=\'w-20 h-20 rounded-full bg-violet-500 border-4 border-white flex-shrink-0 flex items-center justify-center text-3xl shadow-md text-white\'>👧</div>';
+        "
+      >
+
+      <div class="text-sm text-slate-700 space-y-3 flex-grow">
+
+        <div class="flex items-center gap-2">
+          <span class="font-extrabold text-slate-900 text-base">
+            Luna
+          </span>
+
+          <span
+            class="text-[10px] bg-violet-100 text-violet-900
+                   font-bold px-2 py-0.5 rounded-full"
+          >
+            Penjelajah Visual
+          </span>
+        </div>
+
+        <p class="leading-relaxed font-medium">
+          "Klik kontainer di bawah untuk memasukkannya
+          ke Slot Pengurutan. Susun dari kiri
+          (terkecil) ke kanan (terbesar)."
+        </p>
+
+
+        <!-- CONTOH KONVERSI -->
+
+        <div
+          class="bg-white border border-violet-200
+                 rounded-xl p-4"
+        >
+
+          <p class="font-bold text-violet-900 mb-2">
+            Ingat nilai konversinya:
+          </p>
+
+          <div class="flex flex-wrap items-center gap-3">
+
+            <span class="math-expression">
+
+              <span class="math-frac">
+                <span class="math-num">1</span>
+                <span class="math-den">4</span>
+              </span>
+
+              <span class="math-symbol">=</span>
+
+              0,25
+
+            </span>
+
+
+            <span class="math-symbol">;</span>
+
+
+            <span class="math-expression">
+
+              <span class="math-frac">
+                <span class="math-num">1</span>
+                <span class="math-den">2</span>
+              </span>
+
+              <span class="math-symbol">=</span>
+
+              0,50
+
+            </span>
+
+          </div>
+
+        </div>
+
       </div>
-    </div>
 
-    <!-- Bagian Slot Penempatan Target -->
-    <div class="space-y-3 text-center pt-4 border-t">
-      <p class="text-xs font-bold text-indigo-700 uppercase tracking-widest">Slot Pengurutan (<span class="m">Terkecil → Terbesar</span>)</p>
-      <div class="flex justify-center items-center gap-3 sm:gap-6 flex-wrap">
-        <div class="slot-target" id="slot-0" onclick="resetSlot(0)">1 (Min)</div>
-        <span class="font-bold text-slate-400">&lt;</span>
-        <div class="slot-target" id="slot-1" onclick="resetSlot(1)">2</div>
-        <span class="font-bold text-slate-400">&lt;</span>
-        <div class="slot-target" id="slot-2" onclick="resetSlot(2)">3</div>
-        <span class="font-bold text-slate-400">&lt;</span>
-        <div class="slot-target" id="slot-3" onclick="resetSlot(3)">4 (Max)</div>
+    </section>
+
+
+    <!-- ======================================
+         GAME PENGURUTAN
+    ======================================= -->
+
+    <section
+      class="card rounded-3xl p-6 md:p-10
+             space-y-8 bg-white border-2 border-indigo-100"
+    >
+
+      <!-- KARGO -->
+
+      <div class="space-y-3 text-center">
+
+        <p
+          class="text-xs font-bold text-slate-400
+                 uppercase tracking-widest"
+        >
+          Kontainer Kargo Tersedia
+        </p>
+
+
+        <p class="text-xs text-slate-500">
+          Klik bilangan untuk memasukkannya ke slot pengurutan.
+        </p>
+
+
+        <div
+          class="flex flex-wrap justify-center gap-4"
+          id="cargo-pool"
+        >
+
+          <div
+            class="cargo-chip"
+            data-value="0,35"
+            onclick="selectCargo(this, '0,35')"
+          >
+            0,35
+          </div>
+
+
+          <div
+            class="cargo-chip"
+            data-value="0,3"
+            onclick="selectCargo(this, '0,3')"
+          >
+            0,3
+          </div>
+
+
+          <div
+            class="cargo-chip"
+            data-value="0,25"
+            onclick="selectCargo(this, '0,25')"
+          >
+
+            <span class="math-frac">
+              <span class="math-num">1</span>
+              <span class="math-den">4</span>
+            </span>
+
+          </div>
+
+
+          <div
+            class="cargo-chip"
+            data-value="0,5"
+            onclick="selectCargo(this, '0,5')"
+          >
+
+            <span class="math-frac">
+              <span class="math-num">1</span>
+              <span class="math-den">2</span>
+            </span>
+
+          </div>
+
+        </div>
+
       </div>
-    </div>
 
-    <!-- Visualisasi Garis Bilangan -->
-    <div class="space-y-2 pt-4 border-t">
-      <p class="text-xs font-bold text-slate-500 text-center uppercase">Visualisasi Posisi di Garis Bilangan (0,0 hingga 0,6)</p>
-      <div class="nl-container bg-slate-50 border border-slate-200 rounded-xl">
-        <div class="nl-line"></div>
-        <div id="nl-ticks"></div>
-        <div class="marker-pt" id="marker-0" style="left: 0%; opacity: 0;" title="Slot 1"></div>
-        <div class="marker-pt" id="marker-1" style="left: 0%; opacity: 0; background: var(--violet);" title="Slot 2"></div>
-        <div class="marker-pt" id="marker-2" style="left: 0%; opacity: 0; background: #0d9488;" title="Slot 3"></div>
-        <div class="marker-pt" id="marker-3" style="left: 0%; opacity: 0; background: #ca8a04;" title="Slot 4"></div>
+
+      <!-- ======================================
+           SLOT PENGURUTAN
+      ======================================= -->
+
+      <div class="space-y-4 text-center pt-4 border-t">
+
+        <p
+          class="text-xs font-bold text-indigo-700
+                 uppercase tracking-widest"
+        >
+          Slot Pengurutan
+        </p>
+
+
+        <p class="text-sm text-slate-500">
+          Susun dari
+          <b>terkecil</b>
+          ke
+          <b>terbesar</b>.
+        </p>
+
+
+        <div
+          class="flex justify-center items-center
+                 gap-2 sm:gap-4 flex-wrap"
+        >
+
+          <!-- SLOT 1 -->
+
+          <div
+            class="slot-target"
+            id="slot-0"
+            onclick="resetSlot(0)"
+          >
+            <span class="slot-placeholder">
+              1<br>(Terkecil)
+            </span>
+          </div>
+
+
+          <!-- SIMBOL < -->
+
+          <span class="ordering-relation">
+            &lt;
+          </span>
+
+
+          <!-- SLOT 2 -->
+
+          <div
+            class="slot-target"
+            id="slot-1"
+            onclick="resetSlot(1)"
+          >
+            <span class="slot-placeholder">
+              2
+            </span>
+          </div>
+
+
+          <span class="ordering-relation">
+            &lt;
+          </span>
+
+
+          <!-- SLOT 3 -->
+
+          <div
+            class="slot-target"
+            id="slot-2"
+            onclick="resetSlot(2)"
+          >
+            <span class="slot-placeholder">
+              3
+            </span>
+          </div>
+
+
+          <span class="ordering-relation">
+            &lt;
+          </span>
+
+
+          <!-- SLOT 4 -->
+
+          <div
+            class="slot-target"
+            id="slot-3"
+            onclick="resetSlot(3)"
+          >
+            <span class="slot-placeholder">
+              4<br>(Terbesar)
+            </span>
+          </div>
+
+        </div>
+
       </div>
-    </div>
 
-    <!-- Tombol Periksa & Reset -->
-    <div class="text-center pt-2">
-      <button onclick="checkSorting()" class="btn btn-action px-10 py-3.5 shadow-lg">Verifikasi Urutan 🚀</button>
-      <button onclick="resetAll()" class="btn bg-slate-400 hover:bg-slate-500 text-sm ml-3 px-6 py-3.5 shadow">↺ Reset</button>
-    </div>
 
-    <!-- Kotak Hasil / Sukses -->
-    <div id="success-box" class="hidden bg-indigo-900 text-white p-6 rounded-2xl text-center space-y-3 shadow-lg border-2 border-indigo-400">
-      <h3 class="text-xl font-bold text-indigo-300">🎉 URUTAN BENAR & PRESISI!</h3>
-      <div class="font-mono font-black text-2xl tracking-wide text-indigo-200">
-        0,25 &lt; 0,30 &lt; 0,35 &lt; 0,50
+      <!-- ======================================
+           CONTOH NOTASI PENGURUTAN
+      ======================================= -->
+
+      <div
+        class="bg-indigo-50 border border-indigo-200
+               rounded-2xl p-4 text-center"
+      >
+
+        <p
+          class="text-xs font-bold text-indigo-700
+                 uppercase tracking-widest mb-3"
+        >
+          Bentuk Pengurutan
+        </p>
+
+        <div class="math-expression text-indigo-900">
+
+          0,25
+
+          <span class="math-symbol">
+            &lt;
+          </span>
+
+          0,30
+
+          <span class="math-symbol">
+            &lt;
+          </span>
+
+          0,35
+
+          <span class="math-symbol">
+            &lt;
+          </span>
+
+          0,50
+
+        </div>
+
+        <p class="text-xs text-slate-500 mt-2">
+          Dibaca:
+          <i>0,25 lebih kecil dari 0,30,
+          0,30 lebih kecil dari 0,35,
+          dan 0,35 lebih kecil dari 0,50.</i>
+        </p>
+
       </div>
-      <p class="text-sm text-slate-300">
-        Hebat! Kamu berhasil menyamakan format pecahan ke desimal dan mengurutkannya dari yang terkecil ke terbesar secara tepat.
-      </p>
-      <div class="pt-2">
-        <a href="mission-d4-pos4.html" class="btn btn-action px-8 py-3 inline-block shadow-lg">Lanjut ke Pos 4 (Think) ➔</a>
+
+
+      <!-- ======================================
+           GARIS BILANGAN
+      ======================================= -->
+
+      <div class="space-y-2 pt-4 border-t">
+
+        <p
+          class="text-xs font-bold text-slate-500
+                 text-center uppercase"
+        >
+          Visualisasi Posisi di Garis Bilangan
+          (0,0 hingga 0,6)
+        </p>
+
+
+        <div
+          class="nl-container bg-slate-50
+                 border border-slate-200 rounded-xl"
+        >
+
+          <div class="nl-line"></div>
+
+          <div id="nl-ticks"></div>
+
+
+          <div
+            class="marker-pt"
+            id="marker-0"
+            style="left:0%;opacity:0;"
+            title="Posisi 1"
+          ></div>
+
+
+          <div
+            class="marker-pt"
+            id="marker-1"
+            style="
+              left:0%;
+              opacity:0;
+              background:var(--violet);
+            "
+            title="Posisi 2"
+          ></div>
+
+
+          <div
+            class="marker-pt"
+            id="marker-2"
+            style="
+              left:0%;
+              opacity:0;
+              background:#0d9488;
+            "
+            title="Posisi 3"
+          ></div>
+
+
+          <div
+            class="marker-pt"
+            id="marker-3"
+            style="
+              left:0%;
+              opacity:0;
+              background:#ca8a04;
+            "
+            title="Posisi 4"
+          ></div>
+
+        </div>
+
       </div>
+
+
+      <!-- ======================================
+           TOMBOL
+      ======================================= -->
+
+      <div class="text-center pt-2">
+
+        <button
+          onclick="checkSorting()"
+          class="btn btn-action px-10 py-3.5 shadow-lg"
+        >
+          Verifikasi Urutan 🚀
+        </button>
+
+
+        <button
+          onclick="resetAll()"
+          class="btn bg-slate-400 hover:bg-slate-500
+                 text-sm ml-3 px-6 py-3.5 shadow"
+        >
+          ↺ Reset
+        </button>
+
+      </div>
+
+
+      <!-- ======================================
+           HASIL BENAR
+      ======================================= -->
+
+      <div
+        id="success-box"
+        class="hidden bg-indigo-900 text-white
+               p-6 rounded-2xl text-center
+               space-y-4 shadow-lg border-2
+               border-indigo-400"
+      >
+
+        <h3 class="text-xl font-bold text-indigo-300">
+          🎉 URUTAN BENAR & PRESISI!
+        </h3>
+
+
+        <div
+          class="math-expression
+                 text-2xl tracking-wide
+                 text-indigo-200"
+        >
+
+          0,25
+
+          <span class="math-symbol">
+            &lt;
+          </span>
+
+          0,30
+
+          <span class="math-symbol">
+            &lt;
+          </span>
+
+          0,35
+
+          <span class="math-symbol">
+            &lt;
+          </span>
+
+          0,50
+
+        </div>
+
+
+        <p class="text-sm text-slate-300">
+          Hebat! Kamu berhasil mengurutkan bilangan
+          dari yang terkecil ke terbesar.
+        </p>
+
+
+        <!-- KONVERSI PECAHAN -->
+
+        <div
+          class="bg-white/10 border border-white/20
+                 rounded-xl p-4"
+        >
+
+          <p class="text-xs font-bold text-indigo-200 mb-3">
+            Hubungan pecahan dan desimal:
+          </p>
+
+
+          <div
+            class="flex justify-center flex-wrap
+                   items-center gap-3
+                   text-indigo-100"
+          >
+
+            <span class="math-expression">
+
+              <span class="math-frac">
+                <span class="math-num">1</span>
+                <span class="math-den">4</span>
+              </span>
+
+              <span class="math-symbol">
+                =
+              </span>
+
+              0,25
+
+            </span>
+
+
+            <span class="math-symbol">
+              ;
+            </span>
+
+
+            <span class="math-expression">
+
+              <span class="math-frac">
+                <span class="math-num">1</span>
+                <span class="math-den">2</span>
+              </span>
+
+              <span class="math-symbol">
+                =
+              </span>
+
+              0,50
+
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="pt-2">
+
+          <a
+            href="mission-d4-pos4.html"
+            class="btn btn-action px-8 py-3
+                   inline-flex shadow-lg"
+          >
+            Lanjut ke Pos 4 (Think) ➔
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ======================================
+         NAVIGASI BAWAH
+    ======================================= -->
+
+    <div
+      class="flex justify-between items-center
+             pt-4 pb-12 gap-3"
+    >
+
+      <a
+        href="mission-d4-pos2.html"
+        class="home-btn shadow-sm"
+      >
+        ⬅ Kembali ke Pos 2
+      </a>
+
+
+      <a
+        href="mission-d4-pos4.html"
+        class="home-btn shadow-sm"
+      >
+        Lanjut ke Pos 4 ➔
+      </a>
+
     </div>
 
-  </section>
+  </main>
 
-  <!-- TOMBOL NAVIGASI BAWAH -->
-  <div class="flex justify-between items-center pt-4 pb-12">
-    <a href="mission-d4-pos2.html" class="home-btn shadow-sm">⬅ Kembali ke Pos 2</a>
-    <a href="mission-d4-pos4.html" class="home-btn shadow-sm" style="background:#e0e7ff; color:#3730a3;">Lanjut ke Pos 4 ➔</a>
-  </div>
 
-</main>
+  <!-- ======================================
+       JAVASCRIPT
+  ======================================= -->
 
-<script>
-  // Generate Ticks untuk Garis Bilangan (0.0 sampai 0.6)
-  const ticksContainer = document.getElementById('nl-ticks');
-  for (let i = 0; i <= 6; i++) {
-    let val = (i * 0.1).toFixed(1).replace('.', ',');
-    let pct = (i / 6) * 100;
-    ticksContainer.innerHTML += `
-      <div class="nl-tick" style="left: ${pct}%"></div>
-      <div class="nl-label" style="left: ${pct}%">${val}</div>
-    `;
-  }
+  <script>
 
-  // Data nilai desimal asli dari kargo
-  // 1/4 = 0.25, 0.3 = 0.30, 0.35 = 0.35, 1/2 = 0.50
-  const cargoValues = {
-    '0,35': 0.35,
-    '0,3': 0.30,
-    '0,25': 0.25,
-    '0,5': 0.50
-  };
+    /* =========================================
+       GARIS BILANGAN
+    ========================================= */
 
-  let currentSlots = [null, null, null, null];
-  let selectedCardVal = null;
-  let selectedCardElement = null;
+    const ticksContainer =
+      document.getElementById('nl-ticks');
 
-  function selectCargo(el, val) {
-    if (el.classList.contains('selected')) return;
-    
-    // Cari slot kosong pertama
-    let emptyIdx = currentSlots.indexOf(null);
-    if (emptyIdx !== -1) {
+
+    for (let i = 0; i <= 6; i++) {
+
+      const val =
+        (i * 0.1)
+          .toFixed(1)
+          .replace('.', ',');
+
+      const pct =
+        (i / 6) * 100;
+
+
+      ticksContainer.innerHTML += `
+        <div
+          class="nl-tick"
+          style="left:${pct}%"
+        ></div>
+
+        <div
+          class="nl-label"
+          style="left:${pct}%"
+        >
+          ${val}
+        </div>
+      `;
+    }
+
+
+    /* =========================================
+       NILAI KARGO
+    ========================================= */
+
+    const cargoValues = {
+      '0,35': 0.35,
+      '0,3': 0.30,
+      '0,25': 0.25,
+      '0,5': 0.50
+    };
+
+
+    /* =========================================
+       STATE
+    ========================================= */
+
+    let currentSlots = [
+      null,
+      null,
+      null,
+      null
+    ];
+
+
+    /* =========================================
+       PILIH KARGO
+    ========================================= */
+
+    function selectCargo(el, val) {
+
+      if (
+        el.classList.contains('selected')
+      ) {
+        return;
+      }
+
+
+      const emptyIdx =
+        currentSlots.indexOf(null);
+
+
+      if (emptyIdx === -1) {
+        alert(
+          "⚠️ Semua slot sudah terisi."
+        );
+        return;
+      }
+
+
       currentSlots[emptyIdx] = val;
+
       el.classList.add('selected');
-      
-      let slotElem = document.getElementById(`slot-${emptyIdx}`);
-      slotElem.textContent = el.textContent;
+
+
+      const slotElem =
+        document.getElementById(
+          `slot-${emptyIdx}`
+        );
+
+
+      /*
+       * Tampilkan bilangan dengan
+       * format matematika yang benar.
+       */
+
+      if (val === '0,25') {
+
+        slotElem.innerHTML = `
+          <span class="math-frac">
+            <span class="math-num">1</span>
+            <span class="math-den">4</span>
+          </span>
+        `;
+
+      } else if (val === '0,5') {
+
+        slotElem.innerHTML = `
+          <span class="math-frac">
+            <span class="math-num">1</span>
+            <span class="math-den">2</span>
+          </span>
+        `;
+
+      } else {
+
+        slotElem.textContent = val;
+      }
+
+
       slotElem.classList.add('filled');
+
       slotElem.dataset.val = val;
     }
-  }
 
-  function resetSlot(idx) {
-    let val = currentSlots[idx];
-    if (!val) return;
 
-    // Kembalikan status chip di pool
-    document.querySelectorAll('.cargo-chip').forEach(chip => {
-      if (chip.textContent.trim() === document.getElementById(`slot-${idx}`).textContent.trim()) {
-        chip.classList.remove('selected');
+    /* =========================================
+       RESET SATU SLOT
+    ========================================= */
+
+    function resetSlot(idx) {
+
+      const val =
+        currentSlots[idx];
+
+
+      if (!val) {
+        return;
       }
-    });
 
-    currentSlots[idx] = null;
-    let slotElem = document.getElementById(`slot-${idx}`);
-    slotElem.textContent = `${idx + 1} (${idx===0?'Min':'Max'})`;
-    slotElem.classList.remove('filled');
-    delete slotElem.dataset.val;
-  }
 
-  function resetAll() {
-    currentSlots = [null, null, null, null];
-    document.querySelectorAll('.cargo-chip').forEach(c => c.classList.remove('selected'));
-    for(let i=0; i<4; i++){
-      let slotElem = document.getElementById(`slot-${i}`);
-      slotElem.textContent = `${i + 1} (${i===0?'Min':(i===3?'Max':'')})`;
-      slotElem.classList.remove('filled');
+      /*
+       * Cari chip berdasarkan data-value,
+       * bukan textContent.
+       */
+
+      document
+        .querySelectorAll('.cargo-chip')
+        .forEach(chip => {
+
+          if (
+            chip.dataset.value === val
+          ) {
+            chip.classList.remove(
+              'selected'
+            );
+          }
+        });
+
+
+      currentSlots[idx] = null;
+
+
+      const slotElem =
+        document.getElementById(
+          `slot-${idx}`
+        );
+
+
+      const placeholder =
+        idx === 0
+          ? `1<br><span class="slot-placeholder">(Terkecil)</span>`
+          : idx === 3
+            ? `4<br><span class="slot-placeholder">(Terbesar)</span>`
+            : `${idx + 1}`;
+
+
+      slotElem.innerHTML =
+        `<span class="slot-placeholder">${placeholder}</span>`;
+
+
+      slotElem.classList.remove(
+        'filled'
+      );
+
+
       delete slotElem.dataset.val;
-      document.getElementById(`marker-${i}`).style.opacity = '0';
-    }
-    document.getElementById('success-box').classList.add('hidden');
-  }
 
-  function checkSorting() {
-    if (currentSlots.includes(null)) {
-      alert("⚠️ Harap isi semua 4 slot pengurutan terlebih dahulu!");
-      return;
-    }
 
-    // Ubah ke nilai numerik untuk validasi urutan ascending (kecil ke besar)
-    let vals = currentSlots.map(s => cargoValues[s]);
-    let isAscending = vals[0] <= vals[1] && vals[1] <= vals[2] && vals[2] <= vals[3];
+      /*
+       * Sembunyikan marker pada posisi slot.
+       */
 
-    // Update posisi marker visual garis bilangan (Rentang 0.0 sampai 0.6 -> 0.6 adalah 100%)
-    for(let i=0; i<4; i++){
-      let numVal = vals[i];
-      let pct = (numVal / 0.6) * 100;
-      let marker = document.getElementById(`marker-${i}`);
-      marker.style.left = `${pct}%`;
-      marker.style.opacity = '1';
+      document
+        .getElementById(
+          `marker-${idx}`
+        )
+        .style.opacity = '0';
+
+
+      document
+        .getElementById(
+          'success-box'
+        )
+        .classList.add(
+          'hidden'
+        );
     }
 
-    if (isAscending && vals[0] === 0.25 && vals[1] === 0.30 && vals[2] === 0.35 && vals[3] === 0.50) {
-      document.getElementById('success-box').classList.remove('hidden');
-      document.getElementById('success-box').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      
-      // Simpan Progress Pos 3
-      try {
-        let p = +localStorage.getItem('vm_d4_progress') || 0;
-        if(p < 3) localStorage.setItem('vm_d4_progress', 3);
-      } catch(e) {}
-    } else {
-      alert("❌ Urutan belum tepat dari yang terkecil ke terbesar. Perhatikan nilai desimalnya (0,25 < 0,3 < 0,35 < 0,5)! Marker pada garis bilangan telah menunjukkan posisi nilainya.");
+
+    /* =========================================
+       RESET SEMUA
+    ========================================= */
+
+    function resetAll() {
+
+      currentSlots = [
+        null,
+        null,
+        null,
+        null
+      ];
+
+
+      document
+        .querySelectorAll('.cargo-chip')
+        .forEach(chip => {
+
+          chip.classList.remove(
+            'selected'
+          );
+        });
+
+
+      for (let i = 0; i < 4; i++) {
+
+        const slotElem =
+          document.getElementById(
+            `slot-${i}`
+          );
+
+
+        let placeholder;
+
+
+        if (i === 0) {
+
+          placeholder =
+            `1<br>
+             <span class="slot-placeholder">
+               (Terkecil)
+             </span>`;
+
+        } else if (i === 3) {
+
+          placeholder =
+            `4<br>
+             <span class="slot-placeholder">
+               (Terbesar)
+             </span>`;
+
+        } else {
+
+          placeholder =
+            `${i + 1}`;
+        }
+
+
+        slotElem.innerHTML =
+          `<span class="slot-placeholder">
+             ${placeholder}
+           </span>`;
+
+
+        slotElem.classList.remove(
+          'filled'
+        );
+
+
+        delete slotElem.dataset.val;
+
+
+        document
+          .getElementById(
+            `marker-${i}`
+          )
+          .style.opacity = '0';
+      }
+
+
+      document
+        .getElementById(
+          'success-box'
+        )
+        .classList.add(
+          'hidden'
+        );
     }
-  }
-</script>
+
+
+    /* =========================================
+       CEK URUTAN
+    ========================================= */
+
+    function checkSorting() {
+
+      /*
+       * Pastikan semua slot terisi.
+       */
+
+      if (
+        currentSlots.includes(null)
+      ) {
+
+        alert(
+          "⚠️ Harap isi semua 4 slot pengurutan terlebih dahulu."
+        );
+
+        return;
+      }
+
+
+      /*
+       * Konversi ke nilai numerik.
+       */
+
+      const vals =
+        currentSlots.map(
+          value => cargoValues[value]
+        );
+
+
+      /*
+       * Urutan ascending:
+       *
+       * a < b < c < d
+       */
+
+      const isAscending =
+        vals[0] < vals[1] &&
+        vals[1] < vals[2] &&
+        vals[2] < vals[3];
+
+
+      /*
+       * Tampilkan marker garis bilangan.
+       */
+
+      for (let i = 0; i < 4; i++) {
+
+        const numVal =
+          vals[i];
+
+
+        const pct =
+          (numVal / 0.6) * 100;
+
+
+        const marker =
+          document.getElementById(
+            `marker-${i}`
+          );
+
+
+        marker.style.left =
+          `${pct}%`;
+
+        marker.style.opacity =
+          '1';
+      }
+
+
+      /*
+       * Urutan yang benar:
+       *
+       * 1/4 = 0,25
+       * 0,3 = 0,30
+       * 0,35
+       * 1/2 = 0,50
+       *
+       * sehingga:
+       *
+       * 0,25 < 0,30 < 0,35 < 0,50
+       */
+
+      const correctOrder =
+        vals[0] === 0.25 &&
+        vals[1] === 0.30 &&
+        vals[2] === 0.35 &&
+        vals[3] === 0.50;
+
+
+      if (
+        isAscending &&
+        correctOrder
+      ) {
+
+        document
+          .getElementById(
+            'success-box'
+          )
+          .classList.remove(
+            'hidden'
+          );
+
+
+        document
+          .getElementById(
+            'success-box'
+          )
+          .scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+
+
+        /*
+         * Simpan progres.
+         */
+
+        try {
+
+          const progress =
+            Number(
+              localStorage.getItem(
+                'vm_d4_progress'
+              )
+            ) || 0;
+
+
+          if (progress < 3) {
+
+            localStorage.setItem(
+              'vm_d4_progress',
+              '3'
+            );
+          }
+
+        } catch (error) {
+          console.warn(
+            'Progress tidak dapat disimpan.',
+            error
+          );
+        }
+
+      } else {
+
+        alert(
+          "❌ Urutan belum tepat.\n\n" +
+          "Ingat:\n" +
+          "0,25 < 0,30 < 0,35 < 0,50\n\n" +
+          "Gunakan garis bilangan untuk membantu melihat " +
+          "bilangan mana yang lebih kecil dan lebih besar."
+        );
+      }
+
+    }
+
+  </script>
+
 </body>
 </html>
