@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pos 6: Quest - Mission D2 | Math Mastery</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    :root {
+      --cyan: #06b6d4;
+      --cyan-dk: #0891b2;
+      --navy: #0f172a;
+      --navy-lt: #1e293b;
+      --bg: #f0fdfa;
+      --card: #ffffff;
+      --line: #cffafe;
+      --teal: #0d9488;
+      --gold: #ca8a04;
+      --gold-bg: #f4b400;
+      --red: #dc2626;
+      --green: #16a34a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--navy);
+      font-family: "Segoe UI", Tahoma, Verdana, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       CARD
+    ========================== */
+
+    .card {
+      background-color: var(--card);
+      border: 1px solid var(--line);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    .home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--cyan-dk);
+      background: #cffafe;
+      padding: 7px 14px;
+      border-radius: 999px;
+      transition: all 0.2s ease;
+      border: 1px solid #67e8f9;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .home-btn:hover {
+      background: var(--cyan-dk);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* =========================
+       FRACTION
+    ========================== */
+
+    .m {
+      font-family:
+        "Cambria Math",
+        "STIX Two Math",
+        "Latin Modern Math",
+        serif;
+      white-space: nowrap;
+      font-weight: bold;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .math-frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 0.15rem;
+      line-height: 1.1;
+      font-size: 0.95em;
+    }
+
+    .math-num {
+      border-bottom: 2px solid currentColor;
+      padding: 0 0.3rem;
+      min-width: 22px;
+      text-align: center;
+    }
+
+    .math-den {
+      padding: 0 0.3rem;
+      min-width: 22px;
+      text-align: center;
+    }
+
+    /* =========================
+       OPTION
+    ========================== */
+
+    .option-card {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 13px 16px;
+      cursor: pointer;
+      transition:
+        transform 0.18s ease,
+        border-color 0.18s ease,
+        background-color 0.18s ease,
+        box-shadow 0.18s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      color: var(--navy);
+      user-select: none;
+    }
+
+    .option-card:hover {
+      border-color: var(--teal);
+      background: #f0fdf4;
+      transform: translateY(-1px);
+    }
+
+    .option-card.selected {
+      border-color: var(--teal);
+      background: #ccfbf1;
+      color: #134e4a;
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.12);
+    }
+
+    .option-card.correct {
+      border-color: #22c55e !important;
+      background: #dcfce7 !important;
+      color: #166534 !important;
+    }
+
+    .option-card.wrong {
+      border-color: #ef4444 !important;
+      background: #fee2e2 !important;
+      color: #991b1b !important;
+    }
+
+    .option-card.disabled {
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .option-card input {
+      flex-shrink: 0;
+      accent-color: var(--teal);
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0.8rem 1.8rem;
+      border-radius: 999px;
+      font-weight: bold;
+      color: #fff;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-submit {
+      background: linear-gradient(
+        to right,
+        var(--teal),
+        #0f766e
+      );
+      box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);
+      font-size: 1.1rem;
+    }
+
+    .btn-retry {
+      background: linear-gradient(
+        to right,
+        #475569,
+        #1e293b
+      );
+      box-shadow: 0 4px 10px rgba(71, 85, 105, 0.3);
+      font-size: 1.05rem;
+    }
+
+    .btn-next-boss {
+      background: linear-gradient(
+        to right,
+        var(--cyan-dk),
+        var(--teal)
+      );
+      box-shadow: 0 4px 10px rgba(6, 182, 212, 0.3);
+      font-size: 1.05rem;
+    }
+
+    /* =========================
+       QUESTION STATUS
+    ========================== */
+
+    .question-correct {
+      border-color: #86efac !important;
+    }
+
+    .question-wrong {
+      border-color: #fca5a5 !important;
+    }
+
+    .question-unanswered {
+      border-color: #fbbf24 !important;
+    }
+
+    .question-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #ecfeff;
+      border: 1px solid #67e8f9;
+      color: var(--cyan-dk);
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* =========================
+       EXPLANATION
+    ========================== */
+
+    .expl-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--teal);
+      padding: 1.15rem;
+      border-radius: 0 10px 10px 0;
+      margin-top: 1rem;
+      text-align: left;
+      display: none;
+      font-size: 0.95rem;
+    }
+
+    .expl-box.correct-box {
+      background: #f0fdf4;
+      border-left-color: #22c55e;
+    }
+
+    .expl-box.wrong-box {
+      background: #fff7ed;
+      border-left-color: #f97316;
+    }
+
+    .expl-visual {
+      background: #ffffff;
+      border: 1px dashed var(--teal);
+      border-radius: 10px;
+      padding: 10px 15px;
+      margin-top: 10px;
+      font-size: 0.88rem;
+      color: #334155;
+    }
+
+    .answer-summary {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid #cbd5e1;
+    }
+
+    /* =========================
+       RESULT
+    ========================== */
+
+    .result-banner {
+      border-radius: 18px;
+      padding: 2rem;
+      margin-top: 2rem;
+      text-align: center;
+      display: none;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    }
+
+    .result-banner.pass {
+      background: #f0fdf4;
+      border: 2px solid #86efac;
+      color: #166534;
+    }
+
+    .result-banner.fail {
+      background: #fef2f2;
+      border: 2px solid #fca5a5;
+      color: #991b1b;
+    }
+
+    /* =========================
+       KIAN
+    ========================== */
+
+    .guide-img {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+      border-radius: 999px;
+      border: 3px solid #14b8a6;
+      background: #ccfbf1;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(15, 118, 110, 0.15);
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 640px) {
+      .home-btn {
+        padding: 6px 10px;
+        font-size: 0.78rem;
+      }
+
+      .question-card {
+        padding: 1rem !important;
+      }
+
+      .option-card {
+        padding: 12px;
+        font-size: 0.92rem;
+      }
+
+      .result-banner {
+        padding: 1.4rem;
+      }
+
+      .guide-img {
+        width: 56px;
+        height: 56px;
+      }
+    }
+  </style>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col">
+
+  <!-- ============================================
+       HEADER NAVIGASI
+  ============================================= -->
+
+  <header class="card border-b sticky top-0 z-50">
+
+    <div
+      class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center gap-3"
+    >
+
+      <div class="flex items-center gap-3 min-w-0">
+
+        <img
+          src="assets/logo.png"
+          alt="Math Mastery"
+          class="h-10 w-auto"
+          onerror="
+            this.style.display='none';
+            document.getElementById('logo-fallback').style.display='flex';
+          "
+        >
+
+        <div
+          id="logo-fallback"
+          class="h-10 w-10 bg-blue-800 rounded-full items-center justify-center
+                 font-bold text-amber-400 text-xl border-2 border-amber-400
+                 shadow-sm"
+          style="display:none;"
+        >
+          MM
+        </div>
+
+        <div class="min-w-0">
+          <h1
+            class="text-lg font-bold leading-tight truncate"
+            style="color:var(--navy)"
+          >
+            Math Mastery
+          </h1>
+
+          <p
+            class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider"
+          >
+            Mission D2 • Pos 6 (Quest)
+          </p>
+        </div>
+
+      </div>
+
+      <div class="flex items-center gap-2 shrink-0">
+
+        <span
+          class="px-3 sm:px-4 py-1.5 rounded-full text-xs font-extrabold
+                 shadow-sm hidden sm:inline-flex"
+          style="
+            background:#ecfeff;
+            border:1px solid var(--cyan);
+            color:var(--cyan-dk);
+          "
+        >
+          ⚔️ Pos 6/8: Quest
+        </span>
+
+        <a
+          href="mission-d2.html"
+          class="home-btn shadow-sm"
+        >
+          <span>← Peta D2</span>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="h-1.5 w-full bg-slate-200">
+      <div
+        class="h-full"
+        style="
+          width:75%;
+          background:linear-gradient(
+            to right,
+            var(--cyan),
+            var(--gold-bg)
+          );
+        "
+      ></div>
+    </div>
+
+  </header>
+
+
+  <!-- ============================================
+       MAIN
+  ============================================= -->
+
+  <main
+    class="flex-grow max-w-3xl mx-auto w-full px-4 py-8 sm:py-10 space-y-8"
+  >
+
+    <!-- TITLE -->
+
+    <section class="text-center space-y-3">
+
+      <div
+        class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full
+               text-sm border font-semibold shadow-sm
+               bg-cyan-50 border-cyan-300 text-cyan-800"
+      >
+        ⚔️ Ujian Pemantapan Quest
+      </div>
+
+      <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">
+        Uji Kompetensi Nilai Tempat Desimal
+      </h2>
+
+      <p class="text-sm text-slate-600 max-w-xl mx-auto font-medium">
+        Selesaikan 5 soal berikut.
+        Standar kelulusan adalah <b>70</b>,
+        yaitu minimal <b>4 soal benar dari 5 soal</b>.
+      </p>
+
+    </section>
+
+
+    <!-- ============================================
+         PANDUAN KIAN
+    ============================================= -->
+
+    <section
+      class="card rounded-3xl p-5 sm:p-6 flex items-center gap-4 sm:gap-5
+             border-l-4 border-teal-600
+             bg-gradient-to-r from-white to-teal-50/40"
+    >
+
+      <img
+        src="assets/Kian.png"
+        alt="Kian"
+        class="guide-img"
+        onerror="
+          this.style.display='none';
+          document.getElementById('kian-fallback').style.display='flex';
+        "
+      >
+
+      <div
+        id="kian-fallback"
+        class="w-16 h-16 rounded-full bg-teal-600 border-3 border-white
+               flex-shrink-0 items-center justify-center text-2xl shadow-md text-white"
+        style="display:none;"
+      >
+        👦
+      </div>
+
+      <div class="text-sm text-slate-700 space-y-1">
+
+        <span class="font-extrabold text-slate-900">
+          Kian Berpesan:
+        </span>
+
+        <p class="font-medium leading-relaxed">
+          "Teliti setiap posisi angka di belakang koma.
+          Gunakan jurus bentuk panjang jika ragu.
+          Semoga sukses, Agen!"
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- ============================================
+         FORM KUIS
+    ============================================= -->
+
+    <form id="quiz-form">
+
+      <div
+        id="questions-container"
+        class="space-y-6"
+      ></div>
+
+      <div
+        class="text-center py-6"
+        id="submit-section"
+      >
+
+        <button
+          type="submit"
+          class="btn btn-submit px-8 sm:px-12 py-3.5 shadow-lg"
+        >
+          Kirim Jawaban Quest 🚀
+        </button>
+
+        <p
+          id="empty-warning"
+          class="hidden text-sm font-semibold text-amber-700 mt-3"
+        >
+          ⚠️ Masih ada soal yang belum dijawab.
+          Silakan lengkapi semua jawaban.
+        </p>
+
+      </div>
+
+    </form>
+
+
+    <!-- ============================================
+         HASIL
+    ============================================= -->
+
+    <section
+      id="result-banner"
+      class="result-banner"
+      aria-live="polite"
+    >
+
+      <h3
+        class="text-2xl font-extrabold mb-2"
+        id="res-title"
+      >
+        Hasil Ujian Quest
+      </h3>
+
+      <p
+        class="text-lg font-semibold mb-4"
+        id="res-score-text"
+      >
+        Skor Ujian: 0 / 100
+      </p>
+
+      <p
+        class="text-sm mb-6 max-w-lg mx-auto"
+        id="res-msg"
+      >
+        Pembahasan lengkap dapat disimak di bawah setiap soal.
+      </p>
+
+      <div
+        class="flex flex-col sm:flex-row justify-center gap-4"
+      >
+
+        <button
+          type="button"
+          id="btn-action-retry"
+          class="btn btn-retry px-8 py-3 hidden"
+        >
+          🔄 Coba Ujian Lagi
+        </button>
+
+        <button
+          type="button"
+          id="btn-action-next"
+          class="btn btn-next-boss px-8 py-3 hidden"
+        >
+          Lanjut ke Boss Battle (Pos 7) ➔
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ============================================
+       JAVASCRIPT
+  ============================================= -->
+
+  <script>
+
+    /* ==================================================
+       BANK SOAL
+    ================================================== */
+
+    const masterQuestions = [
+      {
+        id: 1,
+
+        q:
+          "Pada bilangan desimal " +
+          "<span class='font-mono font-bold text-teal-800'>6,834</span>, " +
+          "angka <span class='font-bold text-amber-600'>3</span> " +
+          "menempati nilai tempat...",
+
+        options: [
+          "Persepuluhan",
+          "Perseratusan",
+          "Perseribuan",
+          "Satuan"
+        ],
+
+        answer: 1,
+
+        expl:
+          "Angka <b>3</b> berada di tempat kedua di sebelah kanan koma. " +
+          "Tempat kedua setelah koma disebut <b>perseratusan</b>. " +
+          "Jadi, nilai tempat angka 3 adalah perseratusan.",
+
+        visual:
+          "🔍 <b>Analisis Posisi:</b><br>" +
+          "6 = Satuan<br>" +
+          "8 = Persepuluhan → tempat ke-1 setelah koma<br>" +
+          "<b>3 = Perseratusan → tempat ke-2 setelah koma</b><br>" +
+          "4 = Perseribuan → tempat ke-3 setelah koma"
+      },
+
+
+      {
+        id: 2,
+
+        q:
+          "Berapakah <b>nilai angka</b> dari digit " +
+          "<span class='font-bold text-cyan-700'>7</span> " +
+          "pada bilangan " +
+          "<span class='font-mono font-bold text-teal-800'>2,075</span>?",
+
+        options: [
+          "0,7",
+          "0,07",
+          "0,007",
+          "7"
+        ],
+
+        answer: 1,
+
+        expl:
+          "Pada bilangan <b>2,075</b>, angka 7 berada di tempat kedua " +
+          "setelah koma, yaitu <b>perseratusan</b>. " +
+          "Karena itu nilai angka 7 adalah <b>0,07</b> atau " +
+          "7/100.",
+
+        visual:
+          "🔍 <b>Visualisasi Nilai Tempat:</b><br>" +
+          "2 = Satuan<br>" +
+          "0 = Persepuluhan → 0,0<br>" +
+          "<b>7 = Perseratusan → 0,07</b><br>" +
+          "5 = Perseribuan → 0,005"
+      },
+
+
+      {
+        id: 3,
+
+        q:
+          "Bentuk panjang (expanded form) dari bilangan " +
+          "<span class='font-mono font-bold text-teal-800'>5,408</span> " +
+          "adalah...",
+
+        options: [
+          "5 + 0,4 + 0,08",
+          "5 + 0,4 + 0,008",
+          "5 + 0,04 + 0,008",
+          "5 + 4 + 0 + 8"
+        ],
+
+        answer: 1,
+
+        expl:
+          "Uraikan berdasarkan nilai tempat setiap digit:<br>" +
+          "5 = satuan → <b>5</b><br>" +
+          "4 = persepuluhan → <b>0,4</b><br>" +
+          "0 = perseratusan → <b>0</b><br>" +
+          "8 = perseribuan → <b>0,008</b><br><br>" +
+          "Jadi bentuk panjangnya adalah " +
+          "<b>5 + 0,4 + 0,008</b>.",
+
+        visual:
+          "🔍 <b>Penjabaran:</b><br>" +
+          "5,408 = 5 + 0,4 + 0 + 0,008<br><br>" +
+          "Karena 0 tidak mengubah nilai jumlah, dapat ditulis:<br>" +
+          "<b>5 + 0,4 + 0,008</b>"
+      },
+
+
+      {
+        id: 4,
+
+        q:
+          "Bagaimanakah cara membaca bilangan desimal " +
+          "<span class='font-mono font-bold text-teal-800'>14,025</span> " +
+          "secara benar?",
+
+        options: [
+          "Empat belas koma dua puluh lima",
+          "Empat belas koma nol dua lima",
+          "Empat belas dan dua puluh lima perseribu",
+          "Empat belas koma seribu dua puluh lima"
+        ],
+
+        answer: 1,
+
+        expl:
+          "Bilangan desimal dibaca dengan menyebutkan bagian bulat, " +
+          "kata 'koma', kemudian angka-angka di belakang koma " +
+          "dibaca satu per satu.<br><br>" +
+          "14 → <b>empat belas</b><br>" +
+          ", → <b>koma</b><br>" +
+          "025 → <b>nol dua lima</b><br><br>" +
+          "Jadi bacaan yang benar adalah " +
+          "<b>empat belas koma nol dua lima</b>.",
+
+        visual:
+          "🔍 <b>Panduan Membaca:</b><br>" +
+          "14 → Empat belas<br>" +
+          ", → Koma<br>" +
+          "025 → Nol dua lima<br><br>" +
+          "<b>→ Empat belas koma nol dua lima</b>"
+      },
+
+
+      {
+        id: 5,
+
+        q:
+          "Manakah bilangan yang angka " +
+          "<span class='font-bold text-purple-700'>6</span>-nya " +
+          "memiliki nilai angka terbesar?",
+
+        options: [
+          "3,625",
+          "3,265",
+          "3,256",
+          "6,325"
+        ],
+
+        answer: 3,
+
+        expl:
+          "Bandingkan posisi angka <b>6</b> pada setiap bilangan.<br><br>" +
+          "Pada <b>3,625</b>, angka 6 bernilai 0,6.<br>" +
+          "Pada <b>3,265</b>, angka 6 bernilai 0,06.<br>" +
+          "Pada <b>3,256</b>, angka 6 bernilai 0,006.<br>" +
+          "Pada <b>6,325</b>, angka 6 berada di tempat satuan sehingga bernilai <b>6</b>.<br><br>" +
+          "Jadi nilai angka 6 terbesar terdapat pada <b>6,325</b>.",
+
+        visual:
+          "🔍 <b>Perbandingan Nilai Angka 6:</b><br>" +
+          "3,<b>6</b>25 → 0,6<br>" +
+          "3,2<b>6</b>5 → 0,06<br>" +
+          "3,25<b>6</b> → 0,006<br>" +
+          "<b>6</b>,325 → 6<br><br>" +
+          "Karena <b>6 > 0,6 > 0,06 > 0,006</b>, " +
+          "maka nilai terbesar adalah <b>6</b>."
+      }
+    ];
+
+
+    /* ==================================================
+       STATE
+    ================================================== */
+
+    let shuffledQuestions = [];
+    let quizSubmitted = false;
+
+
+    /* ==================================================
+       FISHER-YATES SHUFFLE
+    ================================================== */
+
+    function shuffle(array) {
+      const result = [...array];
+
+      for (let i = result.length - 1; i > 0; i--) {
+
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+
+      return result;
+    }
+
+
+    /* ==================================================
+       INITIALIZE QUIZ
+    ================================================== */
+
+    function initQuiz() {
+
+      quizSubmitted = false;
+
+      /*
+       * Soal diacak.
+       * Opsi juga diacak.
+       */
+      shuffledQuestions = shuffle(masterQuestions).map(item => {
+
+        const shuffledOptions = shuffle(
+          item.options.map((text, originalIndex) => ({
+            text,
+            originalIndex
+          }))
+        );
+
+        const newAnswerIndex = shuffledOptions.findIndex(
+          option => option.originalIndex === item.answer
+        );
+
+        return {
+          ...item,
+
+          options: shuffledOptions.map(
+            option => option.text
+          ),
+
+          answer: newAnswerIndex
+        };
+      });
+
+
+      const container =
+        document.getElementById("questions-container");
+
+      container.innerHTML = "";
+
+
+      shuffledQuestions.forEach((question, questionIndex) => {
+
+        const optionsHtml =
+          question.options.map((optionText, optionIndex) => {
+
+            return `
+              <label
+                class="option-card"
+                data-question="${questionIndex}"
+                data-option="${optionIndex}"
+              >
+
+                <input
+                  type="radio"
+                  name="q_${questionIndex}"
+                  value="${optionIndex}"
+                  class="w-4 h-4"
+                >
+
+                <span class="flex-1">
+                  ${optionText}
+                </span>
+
+              </label>
+            `;
+
+          }).join("");
+
+
+        const cardHtml = `
+          <article
+            class="card question-card rounded-2xl p-5 sm:p-6 space-y-4"
+            id="q-card-${questionIndex}"
+          >
+
+            <div class="flex items-start gap-3">
+
+              <span class="question-number">
+                ${questionIndex + 1}
+              </span>
+
+              <p
+                class="font-extrabold text-slate-800 text-base leading-relaxed pt-1"
+              >
+                ${question.q}
+              </p>
+
+            </div>
+
+            <div
+              class="space-y-2 pt-1"
+              id="options-group-${questionIndex}"
+            >
+              ${optionsHtml}
+            </div>
+
+
+            <div
+              id="expl-${questionIndex}"
+              class="expl-box"
+            >
+            </div>
+
+          </article>
+        `;
+
+        container.insertAdjacentHTML(
+          "beforeend",
+          cardHtml
+        );
+      });
+
+
+      /*
+       * Pasang event listener untuk setiap opsi.
+       */
+      document
+        .querySelectorAll(".option-card")
+        .forEach(card => {
+
+          card.addEventListener("click", () => {
+
+            if (quizSubmitted) return;
+
+            const qIndex =
+              Number(card.dataset.question);
+
+            const optIndex =
+              Number(card.dataset.option);
+
+            selectOption(qIndex, optIndex);
+          });
+        });
+
+
+      /*
+       * Reset tampilan hasil.
+       */
+      const resultBanner =
+        document.getElementById("result-banner");
+
+      resultBanner.style.display = "none";
+
+      resultBanner.className = "result-banner";
+
+      document
+        .getElementById("submit-section")
+        .style.display = "block";
+
+      document
+        .getElementById("empty-warning")
+        .classList.add("hidden");
+
+      document
+        .getElementById("btn-action-retry")
+        .classList.add("hidden");
+
+      document
+        .getElementById("btn-action-next")
+        .classList.add("hidden");
+
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+
+    /* ==================================================
+       SELECT OPTION
+    ================================================== */
+
+    function selectOption(qIndex, optIndex) {
+
+      const group =
+        document.getElementById(
+          `options-group-${qIndex}`
+        );
+
+      const cards =
+        group.querySelectorAll(".option-card");
+
+
+      cards.forEach(card => {
+        card.classList.remove("selected");
+      });
+
+
+      const selectedCard = cards[optIndex];
+
+      if (!selectedCard) return;
+
+
+      selectedCard.classList.add("selected");
+
+      const radio =
+        selectedCard.querySelector("input[type='radio']");
+
+      if (radio) {
+        radio.checked = true;
+      }
+    }
+
+
+    /* ==================================================
+       CHECK ALL QUESTIONS ANSWERED
+    ================================================== */
+
+    function getSelectedAnswers() {
+
+      return shuffledQuestions.map(
+        (question, index) => {
+
+          const selected =
+            document.querySelector(
+              `input[name="q_${index}"]:checked`
+            );
+
+          return selected
+            ? Number(selected.value)
+            : -1;
+        }
+      );
+    }
+
+
+    /* ==================================================
+       SUBMIT QUIZ
+    ================================================== */
+
+    function submitQuiz(event) {
+
+      event.preventDefault();
+
+      if (quizSubmitted) return;
+
+
+      const answers = getSelectedAnswers();
+
+
+      /*
+       * Cek apakah semua soal sudah dijawab.
+       */
+      const unansweredIndex =
+        answers.findIndex(answer => answer === -1);
+
+
+      if (unansweredIndex !== -1) {
+
+        const warning =
+          document.getElementById("empty-warning");
+
+        warning.classList.remove("hidden");
+
+        const unansweredCard =
+          document.getElementById(
+            `q-card-${unansweredIndex}`
+          );
+
+        unansweredCard.classList.add(
+          "question-unanswered"
+        );
+
+
+        unansweredCard.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
+        return;
+      }
+
+
+      /*
+       * Semua sudah dijawab.
+       */
+      document
+        .getElementById("empty-warning")
+        .classList.add("hidden");
+
+
+      quizSubmitted = true;
+
+
+      let correctCount = 0;
+
+      const quizLogs = [];
+
+
+      shuffledQuestions.forEach(
+        (question, questionIndex) => {
+
+          const userAnswer =
+            answers[questionIndex];
+
+          const isCorrect =
+            userAnswer === question.answer;
+
+
+          if (isCorrect) {
+            correctCount++;
+          }
+
+
+          const card =
+            document.getElementById(
+              `q-card-${questionIndex}`
+            );
+
+          const optionsGroup =
+            document.getElementById(
+              `options-group-${questionIndex}`
+            );
+
+          const optionCards =
+            optionsGroup.querySelectorAll(
+              ".option-card"
+            );
+
+
+          /*
+           * Tandai opsi benar dan salah.
+           */
+          optionCards.forEach(
+            (optionCard, optionIndex) => {
+
+              optionCard.classList.add("disabled");
+
+              optionCard.classList.remove(
+                "selected"
+              );
+
+
+              if (
+                optionIndex === question.answer
+              ) {
+                optionCard.classList.add(
+                  "correct"
+                );
+              }
+
+
+              if (
+                optionIndex === userAnswer &&
+                optionIndex !== question.answer
+              ) {
+                optionCard.classList.add(
+                  "wrong"
+                );
+              }
+            }
+          );
+
+
+          /*
+           * Tandai kartu soal.
+           */
+          if (isCorrect) {
+
+            card.classList.add(
+              "question-correct"
+            );
+
+          } else {
+
+            card.classList.add(
+              "question-wrong"
+            );
+          }
+
+
+          /*
+           * Pembahasan.
+           */
+          const explBox =
+            document.getElementById(
+              `expl-${questionIndex}`
+            );
+
+
+          const userAnswerText =
+            question.options[userAnswer];
+
+          const correctAnswerText =
+            question.options[question.answer];
+
+
+          if (isCorrect) {
+
+            explBox.className =
+              "expl-box correct-box";
+
+            explBox.innerHTML = `
+              <p class="font-bold text-green-800 mb-2">
+                ✅ Jawabanmu benar!
+              </p>
+
+              <div class="answer-summary">
+                <b>Jawaban:</b>
+                ${correctAnswerText}
+              </div>
+
+              <p class="text-slate-700 mt-3">
+                ${question.expl}
+              </p>
+
+              <div class="expl-visual">
+                ${question.visual}
+              </div>
+            `;
+
+          } else {
+
+            explBox.className =
+              "expl-box wrong-box";
+
+            explBox.innerHTML = `
+              <p class="font-bold text-orange-800 mb-2">
+                ❌ Jawabanmu belum tepat.
+              </p>
+
+              <div class="answer-summary">
+                <div>
+                  <b>Jawabanmu:</b>
+                  ${userAnswerText}
+                </div>
+
+                <div class="mt-2 text-green-700">
+                  <b>Jawaban yang benar:</b>
+                  ${correctAnswerText}
+                </div>
+              </div>
+
+              <p class="text-slate-700 mt-3">
+                <b>Pembahasan lengkap:</b><br>
+                ${question.expl}
+              </p>
+
+              <div class="expl-visual">
+                ${question.visual}
+              </div>
+            `;
+          }
+
+
+          explBox.style.display = "block";
+
+
+          /*
+           * Simpan log.
+           */
+          quizLogs.push({
+            no: questionIndex + 1,
+            questionId: question.id,
+            correct: isCorrect,
+            userAnswer:
+              userAnswer !== -1
+                ? userAnswerText
+                : "Tidak dijawab",
+            correctAnswer:
+              correctAnswerText
+          });
+
+        }
+      );
+
+
+      /*
+       * Perhitungan nilai.
+       */
+      const finalScore =
+        correctCount * 20;
+
+
+      /*
+       * Simpan hasil.
+       */
+      localStorage.setItem(
+        "vm_d2_pos6_score",
+        String(finalScore)
+      );
+
+      localStorage.setItem(
+        "vm_d2_pos6_logs",
+        JSON.stringify(quizLogs)
+      );
+
+
+      /*
+       * Tampilkan hasil.
+       */
+      const banner =
+        document.getElementById(
+          "result-banner"
+        );
+
+      const resTitle =
+        document.getElementById(
+          "res-title"
+        );
+
+      const resScoreText =
+        document.getElementById(
+          "res-score-text"
+        );
+
+      const resMsg =
+        document.getElementById(
+          "res-msg"
+        );
+
+      const btnRetry =
+        document.getElementById(
+          "btn-action-retry"
+        );
+
+      const btnNext =
+        document.getElementById(
+          "btn-action-next"
+        );
+
+
+      banner.style.display = "block";
+
+      document
+        .getElementById("submit-section")
+        .style.display = "none";
+
+
+      resScoreText.textContent =
+        `Skor Ujian: ${finalScore} / 100 ` +
+        `(${correctCount} dari 5 soal benar)`;
+
+
+      /*
+       * LULUS
+       */
+      if (finalScore >= 70) {
+
+        banner.className =
+          "result-banner pass";
+
+        resTitle.textContent =
+          "🎉 SELAMAT! KAMU LULUS KKM!";
+
+        resMsg.textContent =
+          "Kamu berhasil mencapai minimal 70. " +
+          "Pembahasan setiap soal dapat digunakan " +
+          "untuk mengecek kembali cara berpikirmu. " +
+          "Boss Battle Pos 7 sekarang terbuka.";
+
+        btnRetry.classList.add("hidden");
+
+        btnNext.classList.remove("hidden");
+
+
+        /*
+         * Update progres.
+         */
+        const currentProgress =
+          parseInt(
+            localStorage.getItem(
+              "vm_d2_progress"
+            )
+          ) || 1;
+
+
+        if (currentProgress < 7) {
+
+          localStorage.setItem(
+            "vm_d2_progress",
+            "7"
+          );
+        }
+
+
+        localStorage.setItem(
+          "vm_d2_pos6",
+          JSON.stringify({
+            passed: true,
+            score: finalScore,
+            correct: correctCount
+          })
+        );
+
+      }
+
+      /*
+       * BELUM LULUS
+       */
+      else {
+
+        banner.className =
+          "result-banner fail";
+
+        resTitle.textContent =
+          "📚 BELUM MENCAPAI KKM 70";
+
+        resMsg.textContent =
+          "Jangan berhenti di sini. " +
+          "Baca pembahasan dan visualisasi pada setiap soal, " +
+          "kemudian coba kembali dengan soal yang diacak.";
+
+        btnRetry.classList.remove("hidden");
+
+        btnNext.classList.add("hidden");
+
+
+        localStorage.setItem(
+          "vm_d2_pos6",
+          JSON.stringify({
+            passed: false,
+            score: finalScore,
+            correct: correctCount
+          })
+        );
+      }
+
+
+      /*
+       * Scroll menuju hasil.
+       */
+      setTimeout(() => {
+
+        banner.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
+      }, 150);
+    }
+
+
+    /* ==================================================
+       RETRY
+    ================================================== */
+
+    function retryQuiz() {
+
+      initQuiz();
+
+    }
+
+
+    /* ==================================================
+       NEXT BOSS
+    ================================================== */
+
+    function goToBoss() {
+
+      window.location.href =
+        "mission-d2-pos7.html";
+
+    }
+
+
+    /* ==================================================
+       EVENT LISTENER
+    ================================================== */
+
+    document
+      .getElementById("quiz-form")
+      .addEventListener(
+        "submit",
+        submitQuiz
+      );
+
+
+    document
+      .getElementById("btn-action-retry")
+      .addEventListener(
+        "click",
+        retryQuiz
+      );
+
+
+    document
+      .getElementById("btn-action-next")
+      .addEventListener(
+        "click",
+        goToBoss
+      );
+
+
+    /* ==================================================
+       START
+    ================================================== */
+
+    initQuiz();
+
+  </script>
+
+</body>
+</html>
