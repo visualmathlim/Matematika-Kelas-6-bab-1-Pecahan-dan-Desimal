@@ -6,57 +6,32 @@
 <title>Pos 4: Think - Mission D4 | Math Mastery</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  :root { 
-    --indigo: #6366f1; 
-    --indigo-dk: #4f46e5;
-    --navy: #0f172a; 
-    --bg: #f8fafc; 
-    --card: #ffffff; 
-    --line: #e2e8f0;
-    --violet: #8b5cf6; 
-  }
-  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
-  
-  /* Kartu & Header */
-  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
-  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--indigo-dk); background: #e0e7ff; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #c7d2fe; }
-  .home-btn:hover { background: var(--indigo-dk); color: #fff; transform: translateY(-1px); }
+  :root { --indigo:#6366f1; --indigo-dk:#4f46e5; --navy:#0f172a; --bg:#f8fafc; --card:#ffffff; --line:#e2e8f0; --violet:#8b5cf6; }
+  body { background-color:var(--bg); color:var(--navy); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; position:relative; overflow-x:hidden; }
+  .card { background-color:var(--card); border:1px solid var(--line); box-shadow:0 4px 6px -1px rgba(0,0,0,.05); }
+  .home-btn { display:inline-flex; align-items:center; gap:6px; font-size:.85rem; font-weight:700; color:var(--indigo-dk); background:#e0e7ff; padding:6px 14px; border-radius:99px; transition:all .2s; border:1px solid #c7d2fe; }
+  .home-btn:hover { background:var(--indigo-dk); color:#fff; transform:translateY(-1px); }
 
-  /* Format Pecahan Matematika Vertikal */
-  .m { font-family: 'Cambria Math', 'STIX Two Math', serif; white-space: nowrap; font-weight: bold; display: inline-block; vertical-align: middle; }
-  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.2rem; line-height: 1.1; font-size: 1em; }
-  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
-  .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+  /* Notasi matematika (MathML native, tanpa library) */
+  math { font-family:'Cambria Math','STIX Two Math','Latin Modern Math','Noto Sans Math',serif; font-size:1.15em; }
+  math mn { font-weight:700; }
+  math .zero { color:#dc2626; }               /* nol hasil kloning */
+  .on-dark math .zero { color:#fbbf24; }
+  math mo { font-weight:400; }
 
-  /* Jurnal Detektif Theme */
-  .detective-journal { 
-    background-color: #fdfbf7; 
-    background-image: linear-gradient(#e5e7eb 1px, transparent 1px);
-    background-size: 100% 2.4rem;
-    border: 1px solid #d1d5db;
-    border-radius: 1rem;
-    padding: 2rem;
-    box-shadow: 6px 6px 20px rgba(0,0,0,0.05), inset 4px 0 0 var(--indigo); 
-    position: relative;
-  }
-  .paper-clip {
-    position: absolute; top: -15px; right: 35px; width: 28px; height: 55px;
-    border: 3px solid #94a3b8; border-radius: 15px; background: transparent; z-index: 10;
-  }
+  .detective-journal { background-color:#fdfbf7; background-image:linear-gradient(#e5e7eb 1px,transparent 1px); background-size:100% 2.4rem; border:1px solid #d1d5db; border-radius:1rem; padding:2rem; box-shadow:6px 6px 20px rgba(0,0,0,.05), inset 4px 0 0 var(--indigo); position:relative; }
+  .paper-clip { position:absolute; top:-15px; right:35px; width:28px; height:55px; border:3px solid #94a3b8; border-radius:15px; background:transparent; z-index:10; }
 
-  /* Tombol Aksi */
-  .btn { padding: .75rem 1.8rem; border-radius: 9999px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; font-size: 1rem; }
-  .btn-action { background: linear-gradient(to right, var(--indigo-dk), var(--violet)); box-shadow: 0 4px 15px rgba(99,102,241,0.3); }
-  .btn-action:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99,102,241,0.4); }
+  .btn { padding:.75rem 1.8rem; border-radius:9999px; font-weight:bold; color:#fff; transition:all .2s; cursor:pointer; border:none; font-size:1rem; }
+  .btn-action { background:linear-gradient(to right,var(--indigo-dk),var(--violet)); box-shadow:0 4px 15px rgba(99,102,241,.3); }
+  .btn-action:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(99,102,241,.4); }
 
-  /* Input Game Lab */
-  .lab-input { width: 100%; font-family: monospace; font-size: 1.1rem; font-weight: bold; padding: 0.6rem 1rem; border: 2px solid #cbd5e1; border-radius: 0.5rem; outline: none; background: white; transition: all 0.2s; }
-  .lab-input:focus { border-color: var(--indigo); box-shadow: 0 0 0 3px rgba(99,102,241,0.2); }
+  .lab-input { width:100%; font-family:monospace; font-size:1.1rem; font-weight:bold; padding:.6rem 1rem; border:2px solid #cbd5e1; border-radius:.5rem; outline:none; background:white; transition:all .2s; }
+  .lab-input:focus { border-color:var(--indigo); box-shadow:0 0 0 3px rgba(99,102,241,.2); }
 </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
 
-<!-- HEADER NAVIGASI -->
 <header class="card border-b sticky top-0 z-50">
   <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
     <div class="flex items-center gap-3">
@@ -66,29 +41,22 @@
         <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D4 • Pos 4</p>
       </div>
     </div>
-    
     <div class="flex items-center gap-2">
       <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#eef2ff; border:1px solid var(--indigo); color:var(--indigo-dk)">🧠 Pos 4/8: Think</span>
-      <a href="mission-d4.html" class="home-btn shadow-sm">
-        <span>← Peta D4</span>
-      </a>
+      <a href="mission-d4.html" class="home-btn shadow-sm"><span>← Peta D4</span></a>
     </div>
   </div>
-  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 50%; background: linear-gradient(to right, var(--indigo-dk), var(--violet));"></div></div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width:50%; background:linear-gradient(to right,var(--indigo-dk),var(--violet));"></div></div>
 </header>
 
 <main class="flex-grow max-w-3xl mx-auto w-full px-4 py-10 space-y-8">
 
-  <!-- HERO SECTION -->
   <section class="text-center space-y-2">
-    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-indigo-50 border-indigo-300 text-indigo-900">
-      🧠 Think (Jurnal Detektif & Game Lab)
-    </div>
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-indigo-50 border-indigo-300 text-indigo-900">🧠 Think (Jurnal Detektif & Game Lab)</div>
     <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Jurus Kloning Angka Nol</h2>
     <p class="text-sm text-slate-600 max-w-lg mx-auto font-medium">Samakan jumlah digit belakang koma agar proses pengurutan menjadi sangat mudah dan transparan!</p>
   </section>
 
-  <!-- DIALOG KIAN -->
   <section class="card rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-center border-l-4 border-indigo-600 bg-indigo-50/30">
     <img src="assets/Kian.png" alt="Kian" class="w-20 h-20 rounded-full border-4 border-indigo-500 shrink-0 object-cover shadow-md bg-indigo-100" onerror="this.outerHTML='<div class=\'w-20 h-20 rounded-full bg-indigo-600 border-4 border-white flex-shrink-0 flex items-center justify-center text-3xl shadow-md text-white\'>👦</div>'">
     <div class="text-sm text-slate-700 space-y-2 flex-grow">
@@ -97,91 +65,84 @@
         <span class="text-[10px] bg-indigo-100 text-indigo-900 font-bold px-2 py-0.5 rounded-full">Penjelajah Strategi</span>
       </div>
       <p class="leading-relaxed font-medium">
-        "Sebelum mengurutkan deretan angka seperti <span class="font-mono font-bold text-indigo-700">0,4</span>, <span class="font-mono font-bold text-indigo-700">0,38</span>, dan <span class="font-mono font-bold text-indigo-700">0,405</span>, kita harus membuat 'kelas beratnya' sama dengan menambahkan angka nol di ujung kanan. Di bawah ini ada catatan investigasiku dan <b>Game Lab</b> untuk kamu coba sendiri!"
+        "Sebelum mengurutkan deretan angka seperti
+        <span class="text-indigo-700"><math><mn>0,4</mn></math></span>,
+        <span class="text-indigo-700"><math><mn>0,38</mn></math></span>, dan
+        <span class="text-indigo-700"><math><mn>0,405</mn></math></span>,
+        kita harus membuat 'kelas beratnya' sama dengan menambahkan angka nol di ujung kanan. Di bawah ini ada catatan investigasiku dan <b>Game Lab</b> untuk kamu coba sendiri!"
       </p>
     </div>
   </section>
 
-  <!-- JURNAL DETEKTIF -->
   <div class="detective-journal space-y-6">
     <div class="paper-clip"></div>
-    
+
     <div class="text-center border-b border-slate-300 pb-3">
       <h3 class="font-serif italic font-bold text-xl text-slate-800">Catatan Investigasi: Menyamakan Digit Urutan</h3>
-      <p class="text-xs text-slate-500 font-mono mt-1">Contoh Kasus: Mengurutkan 0,4; 0,38; dan 0,405</p>
+      <p class="text-xs text-slate-500 mt-1">Contoh Kasus: Mengurutkan
+        <math><mn>0,4</mn><mo>;</mo><mspace width="0.4em"/><mn>0,38</mn><mo>;</mo><mspace width="0.4em"/><mn>0,405</mn></math>
+      </p>
     </div>
 
     <div class="space-y-4 text-sm text-slate-700">
       <div class="bg-white/90 p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
         <p class="font-bold text-indigo-900">1. Analisis Jumlah Digit Terpanjang</p>
-        <p>Dari angka 0,4 (1 digit), 0,38 (2 digit), dan 0,405 (3 digit), pemegang rekor terpanjang adalah <b>3 digit di belakang koma</b>.</p>
+        <p>Dari angka <math><mn>0,4</mn></math> (1 digit), <math><mn>0,38</mn></math> (2 digit), dan <math><mn>0,405</mn></math> (3 digit), pemegang rekor terpanjang adalah <b>3 digit di belakang koma</b>.</p>
       </div>
 
       <div class="bg-white/90 p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
         <p class="font-bold text-indigo-900">2. Terapkan Jurus Kloning Nol (Phantom Zeros)</p>
-        <ul class="space-y-1 pl-4 list-disc font-mono font-semibold text-slate-800">
-          <li>0,4 $\rightarrow$ 0,4<b>00</b> (Ditambah dua nol)</li>
-          <li>0,38 $\rightarrow$ 0,38<b>0</b> (Ditambah satu nol)</li>
-          <li>0,405 $\rightarrow$ 0,405 (Tetap karena sudah 3 digit)</li>
+        <ul class="space-y-2 pl-4 list-disc text-slate-800">
+          <li><math><mn>0,4</mn><mo lspace="0.6em" rspace="0.6em">→</mo><mn>0,4</mn><mn class="zero">00</mn></math> (ditambah dua nol)</li>
+          <li><math><mn>0,38</mn><mo lspace="0.6em" rspace="0.6em">→</mo><mn>0,38</mn><mn class="zero">0</mn></math> (ditambah satu nol)</li>
+          <li><math><mn>0,405</mn><mo lspace="0.6em" rspace="0.6em">→</mo><mn>0,405</mn></math> (tetap karena sudah 3 digit)</li>
         </ul>
       </div>
 
       <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-200 text-center space-y-1">
         <p class="font-bold text-indigo-950 uppercase tracking-wider text-xs">Hasil Urutan dari yang Terkecil:</p>
-        <div class="font-mono font-black text-xl text-indigo-700 pt-1">
-          0,380 &lt; 0,400 &lt; 0,405
+        <div class="text-indigo-700 pt-1" style="font-size:1.35rem">
+          <math display="block"><mn>0,380</mn><mo lspace="0.5em" rspace="0.5em">&lt;</mo><mn>0,400</mn><mo lspace="0.5em" rspace="0.5em">&lt;</mo><mn>0,405</mn></math>
         </div>
-        <p class="text-xs text-slate-600 mt-1">Kembalikan ke bentuk aslinya: <b>0,38 &lt; 0,4 &lt; 0,405</b></p>
+        <p class="text-xs text-slate-600 mt-1">Kembalikan ke bentuk aslinya:
+          <math><mn>0,38</mn><mo lspace="0.4em" rspace="0.4em">&lt;</mo><mn>0,4</mn><mo lspace="0.4em" rspace="0.4em">&lt;</mo><mn>0,405</mn></math>
+        </p>
       </div>
     </div>
   </div>
 
-  <!-- GAME LAB INTERAKTIF (SISWA ISI SENDIRI) -->
   <section class="card rounded-3xl p-6 md:p-8 space-y-6 bg-white border-2 border-indigo-200">
     <div class="text-center space-y-2">
-      <div class="inline-flex items-center gap-1 bg-indigo-100 text-indigo-900 text-xs font-extrabold px-3 py-1 rounded-full uppercase">
-        🧪 Laboratorium Mandiri Kloning Nol
-      </div>
+      <div class="inline-flex items-center gap-1 bg-indigo-100 text-indigo-900 text-xs font-extrabold px-3 py-1 rounded-full uppercase">🧪 Laboratorium Mandiri Kloning Nol</div>
       <h3 class="text-2xl font-extrabold text-slate-900">Uji Coba Angkamu Sendiri!</h3>
       <p class="text-sm text-slate-600">Masukkan 3 bilangan desimal acak di bawah ini, lalu jalankan mesin untuk melihat proses penyamaan digit dan urutannya secara otomatis!</p>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
-      <div>
-        <label class="block text-xs font-bold text-slate-500 mb-1">Angka 1</label>
-        <input type="text" id="lab-1" class="lab-input text-center" placeholder="Contoh: 0,5" value="0,5">
-      </div>
-      <div>
-        <label class="block text-xs font-bold text-slate-500 mb-1">Angka 2</label>
-        <input type="text" id="lab-2" class="lab-input text-center" placeholder="Contoh: 0,12" value="0,12">
-      </div>
-      <div>
-        <label class="block text-xs font-bold text-slate-500 mb-1">Angka 3</label>
-        <input type="text" id="lab-3" class="lab-input text-center" placeholder="Contoh: 0,325" value="0,325">
-      </div>
+      <div><label class="block text-xs font-bold text-slate-500 mb-1">Angka 1</label><input type="text" id="lab-1" class="lab-input text-center" placeholder="Contoh: 0,5" value="0,5"></div>
+      <div><label class="block text-xs font-bold text-slate-500 mb-1">Angka 2</label><input type="text" id="lab-2" class="lab-input text-center" placeholder="Contoh: 0,12" value="0,12"></div>
+      <div><label class="block text-xs font-bold text-slate-500 mb-1">Angka 3</label><input type="text" id="lab-3" class="lab-input text-center" placeholder="Contoh: 0,325" value="0,325"></div>
     </div>
 
     <div class="text-center">
       <button onclick="runLabSimulation()" class="btn btn-action px-10 py-3 shadow-md">Jalankan Mesin Kloning & Urutkan ⚙️</button>
     </div>
 
-    <!-- Output Hasil Laboratorium -->
-    <div id="lab-output" class="hidden bg-slate-900 text-white p-6 rounded-2xl space-y-4 shadow-inner border-2 border-indigo-400">
+    <div id="lab-output" class="on-dark hidden bg-slate-900 text-white p-6 rounded-2xl space-y-4 shadow-inner border-2 border-indigo-400">
       <h4 class="text-center font-bold text-indigo-300 text-lg">Hasil Analisis Laboratorium Matrix</h4>
-      
+
       <div class="space-y-2 text-sm">
         <p class="text-slate-300 font-semibold">1. Proses Kloning Nol (Menyamakan Digit):</p>
-        <div id="out-cloned" class="bg-slate-800 p-3 rounded-lg font-mono text-cyan-300 text-center font-bold"></div>
+        <div id="out-cloned" class="bg-slate-800 p-3 rounded-lg text-cyan-300 text-center space-y-1"></div>
       </div>
 
       <div class="space-y-2 text-sm">
-        <p class="text-slate-300 font-semibold">2. Urutan dari yang Terkecil ke Terbesar (<span class="m">Ascending</span>):</p>
-        <div id="out-sorted" class="bg-indigo-950 p-4 rounded-xl font-mono text-emerald-300 text-center font-black text-xl border border-indigo-500"></div>
+        <p class="text-slate-300 font-semibold">2. Urutan dari yang Terkecil ke Terbesar (<i>Ascending</i>):</p>
+        <div id="out-sorted" class="bg-indigo-950 p-4 rounded-xl text-emerald-300 text-center border border-indigo-500" style="font-size:1.35rem"></div>
       </div>
     </div>
   </section>
 
-  <!-- TOMBOL NAVIGASI BAWAH -->
   <div class="flex justify-between items-center pt-4 pb-12">
     <a href="mission-d4-pos3.html" class="home-btn shadow-sm">⬅ Kembali ke Pos 3</a>
     <a href="mission-d4-pos5.html" class="btn btn-action px-8 py-3.5 shadow-lg">Lanjut ke Pos 5 (Skill Unlock) ➔</a>
@@ -190,72 +151,43 @@
 </main>
 
 <script>
+  // Helper MathML: bilangan desimal (koma Indonesia) + nol tambahan berwarna
+  const mn = (s, zeros = '') => `<mn>${s}</mn>` + (zeros ? `<mn class="zero">${zeros}</mn>` : '');
+  const op = (sym, sp = '0.5em') => `<mo lspace="${sp}" rspace="${sp}">${sym}</mo>`;
+
   function runLabSimulation() {
-    let raw1 = document.getElementById('lab-1').value.trim().replace(',', '.');
-    let raw2 = document.getElementById('lab-2').value.trim().replace(',', '.');
-    let raw3 = document.getElementById('lab-3').value.trim().replace(',', '.');
+    // Normalisasi: terima titik atau koma, tampilkan selalu dengan koma
+    const norm = id => document.getElementById(id).value.trim().replace(/\./g, ',');
+    const strs = [norm('lab-1'), norm('lab-2'), norm('lab-3')];
+    const vals = strs.map(s => parseFloat(s.replace(',', '.')));
 
-    let v1 = parseFloat(raw1);
-    let v2 = parseFloat(raw2);
-    let v3 = parseFloat(raw3);
-
-    if (isNaN(v1) || isNaN(v2) || isNaN(v3)) {
-      alert("⚠️ Harap masukkan angka desimal yang valid (gunakan titik atau koma untuk desimal, contoh: 0,5)");
+    if (vals.some(isNaN) || strs.some(s => !/^\d+(,\d+)?$/.test(s))) {
+      alert("⚠️ Harap masukkan bilangan desimal yang valid (contoh: 0,5)");
       return;
     }
 
-    // Ambil string asli untuk deteksi jumlah digit belakang koma
-    let s1 = raw1.replace('.', ',');
-    let s2 = raw2.replace('.', ',');
-    let s3 = raw3.replace('.', ',');
+    // Bilangan bulat dianggap punya 1 digit desimal (mis. 5 → 5,0)
+    const bases = strs.map(s => s.includes(',') ? s : s + ',0');
+    const decs = bases.map(b => b.split(',')[1].length);
+    const maxDec = Math.max(...decs);
 
-    let dec1 = s1.includes(',') ? s1.split(',')[1].length : 0;
-    let dec2 = s2.includes(',') ? s2.split(',')[1].length : 0;
-    let dec3 = s3.includes(',') ? s3.split(',')[1].length : 0;
+    document.getElementById('out-cloned').innerHTML = bases.map((b, i) => {
+      const added = '0'.repeat(maxDec - decs[i]);
+      return `<div><math>${mn(strs[i])}${op('→', '0.6em')}${mn(b, added)}</math></div>`;
+    }).join('');
 
-    let maxDec = Math.max(dec1, dec2, dec3);
-    if (maxDec === 0) maxDec = 1; // Minimal 1 jika bilangan bulat / desimal polos
+    const sorted = strs.map((s, i) => ({ s, v: vals[i] })).sort((a, b) => a.v - b.v);
+    document.getElementById('out-sorted').innerHTML =
+      `<math display="block">${sorted.map(x => mn(x.s)).join(op('&lt;'))}</math>`;
 
-    // Fungsi helper format kloning nol
-    function padZero(str, targetLen) {
-      if (!str.includes(',')) str += ',0';
-      let parts = str.split(',');
-      let currentLen = parts[1].length;
-      while (parts[1].length < targetLen) {
-        parts[1] += '0';
-      }
-      return {
-        formatted: parts.join(','),
-        added: parts[1].length > currentLen ? parts[1].slice(currentLen) : ''
-      };
-    }
+    const out = document.getElementById('lab-output');
+    out.classList.remove('hidden');
+    out.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-    let p1 = padZero(s1, maxDec);
-    let p2 = padZero(s2, maxDec);
-    let p3 = padZero(s3, maxDec);
-
-    let clonedHtml = `• ${s1} &rarr; <b>${p1.formatted}</b><br>• ${s2} &rarr; <b>${p2.formatted}</b><br>• ${s3} &rarr; <b>${p3.formatted}</b>`;
-    document.getElementById('out-cloned').innerHTML = clonedHtml;
-
-    // Urutkan nilai numerik asli
-    let list = [
-      { orig: s1, val: v1 },
-      { orig: s2, val: v2 },
-      { orig: s3, val: v3 }
-    ];
-    list.sort((a, b) => a.val - b.val);
-
-    let sortedStr = list.map(item => item.orig).join(" < ");
-    document.getElementById('out-sorted').innerHTML = sortedStr;
-
-    document.getElementById('lab-output').classList.remove('hidden');
-    document.getElementById('lab-output').scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-    // Simpan progres Pos 4
     try {
       let p = +localStorage.getItem('vm_d4_progress') || 0;
-      if(p < 4) localStorage.setItem('vm_d4_progress', 4);
-    } catch(e) {}
+      if (p < 4) localStorage.setItem('vm_d4_progress', 4);
+    } catch (e) {}
   }
 </script>
 </body>
