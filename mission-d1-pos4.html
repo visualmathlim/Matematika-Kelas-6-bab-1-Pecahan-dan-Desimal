@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 4: Think - Mission D1 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Header & Buttons */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); position: relative; z-index: 10; }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--cyan-dk); background: #cffafe; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #67e8f9; }
+  .home-btn:hover { background: var(--cyan-dk); color: #fff; transform: translateY(-1px); }
+
+  /* Math UI */
+  .m { font-family: 'Cambria Math', 'STIX Two Math', 'Latin Modern Math', serif; white-space: nowrap; font-weight: bold; }
+  .math-frac { display: inline-flex; flex-direction: column; align-items: center; vertical-align: middle; margin: 0 0.2rem; line-height: 1.1; font-size: 1.1em; }
+  .math-num { border-bottom: 2px solid currentColor; padding: 0 0.3rem; width: 100%; text-align: center; }
+  .math-den { padding: 0 0.3rem; width: 100%; text-align: center; }
+
+  /* Jurnal Detektif Theme */
+  .detective-journal { 
+    background-color: #fdfbf7; 
+    background-image: linear-gradient(#e5e7eb 1px, transparent 1px);
+    background-size: 100% 2.2rem;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 6px 6px 20px rgba(0,0,0,0.05), inset 4px 0 0 var(--cyan); 
+    position: relative;
+  }
+  .paper-clip {
+    position: absolute; top: -15px; right: 35px; width: 28px; height: 55px;
+    border: 3px solid #94a3b8; border-radius: 15px; background: transparent; z-index: 10;
+  }
+
+  /* Input Kotak Jurnal */
+  .journal-input { width: 70px; text-align: center; font-weight: bold; font-size: 1.1rem; border: 2px solid var(--cyan-dk); border-radius: 6px; padding: 4px; background: white; outline: none; }
+  
+  /* Golden Rule Box */
+  .gold-rule { background: #eff6ff; border: 2px dashed #3b82f6; border-radius: 12px; padding: 1.5rem; position: relative; }
+
+  /* Tombol */
+  .btn { display: inline-block; text-align: center; padding: 0.8rem 1.8rem; border-radius: 99px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; }
+  .btn-next { background: linear-gradient(to right, var(--cyan-dk), var(--teal)); box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3); font-size: 1.1rem; }
+  .btn-next:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5); }
+  
+  .hidden-area { opacity: 0; max-height: 0; overflow: hidden; transition: all 0.6s ease; }
+  .show-area { opacity: 1; max-height: 1000px; padding-top: 1rem; margin-top: 1rem; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center relative z-20">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Kelas 6 • Mission D1 • Pos 4</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <a href="mission-d1.html" class="home-btn shadow-sm" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd;">
+        <span>← Peta D1</span>
+      </a>
+      <a href="index.html" class="home-btn shadow-sm">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full bg-cyan-600" style="width: 50%;"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-8 space-y-6">
+  
+  <!-- HEADER POS -->
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--cyan); color:var(--cyan-dk); background:#cffafe">
+      🕵️ Pos 4/8: Think (Jurnal Detektif Pola Nol)
+    </div>
+    <h2 class="text-3xl font-extrabold text-slate-800">Menemukan Pola Rahasia Desimal</h2>
+    <p class="text-sm text-slate-600 max-w-xl mx-auto">
+      Prof. Sigma mencatat ada keanehan pada jumlah angka nol di penyebut dengan jumlah digit di belakang koma. Mari kita selidiki bersama!
+    </p>
+  </section>
+
+  <!-- JURNAL DETEKTIF -->
+  <div class="detective-journal mt-6 space-y-6">
+    <div class="paper-clip"></div>
+    <h3 class="font-bold text-xl text-slate-800 font-serif italic text-center">Catatan Investigasi: Hubungan Nol dan Komka</h3>
+    
+    <p class="text-sm text-slate-700 leading-relaxed">
+      Lengkapi tabel investigasi di bawah ini dengan menebak bentuk desimal yang tepat berdasarkan jumlah nol di penyebutnya:
+    </p>
+
+    <div class="space-y-4">
+      <!-- Baris 1 -->
+      <div class="bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between shadow-sm">
+        <div class="flex items-center gap-3">
+          <span class="m text-2xl text-cyan-800"><span class="math-frac"><span class="math-num">7</span><span class="math-den">10</span></span></span>
+          <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded font-mono">Penyebut punya 1 nol (10)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-sm font-bold text-slate-500">=</span>
+          <input type="text" id="ans-1" class="journal-input" placeholder="0.?">
+        </div>
+      </div>
+
+      <!-- Baris 2 -->
+      <div class="bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between shadow-sm">
+        <div class="flex items-center gap-3">
+          <span class="m text-2xl text-cyan-800"><span class="math-frac"><span class="math-num">25</span><span class="math-den">100</span></span></span>
+          <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded font-mono">Penyebut punya 2 nol (100)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-sm font-bold text-slate-500">=</span>
+          <input type="text" id="ans-2" class="journal-input" placeholder="0.??">
+        </div>
+      </div>
+
+      <!-- Baris 3 -->
+      <div class="bg-white p-4 rounded-xl border border-slate-200 flex items-center justify-between shadow-sm">
+        <div class="flex items-center gap-3">
+          <span class="m text-2xl text-cyan-800"><span class="math-frac"><span class="math-num">3</span><span class="math-den">1000</span></span></span>
+          <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded font-mono">Penyebut punya 3 nol (1000)</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-sm font-bold text-slate-500">=</span>
+          <input type="text" id="ans-3" class="journal-input" placeholder="0.???">
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center pt-2">
+      <button id="btn-verify" onclick="verifyJournal()" class="btn btn-next px-8 py-3 text-sm">
+        Periksa Pola Investigasi 🔍
+      </button>
+      <p id="msg-error" class="text-red-600 text-sm font-bold mt-2 hidden">Ups! Cek kembali tebakan desimalmu (Contoh: 7/10 adalah 0.7).</p>
+    </div>
+
+    <!-- KESIMPULAN (MUNCUL JIKA BENAR) -->
+    <div id="conclusion-area" class="hidden-area gold-rule space-y-3">
+      <h4 class="font-bold text-blue-900 text-lg flex items-center gap-2">
+        <span>✨</span> <span>Momen "Aha!" Terungkap!</span>
+      </h4>
+      <p class="text-sm text-slate-700 leading-relaxed font-medium">
+        Hebat, Agen! Polanya sudah sangat jelas:
+      </p>
+      <ul class="text-sm text-slate-700 space-y-1 ml-4 list-disc font-bold">
+        <li>Penyebut <span class="text-cyan-700">10</span> (1 nol) ➔ 1 angka di belakang koma (<span class="text-cyan-700">0.7</span>)</li>
+        <li>Penyebut <span class="text-cyan-700">100</span> (2 nol) ➔ 2 angka di belakang koma (<span class="text-cyan-700">0.25</span>)</li>
+        <li>Penyebut <span class="text-cyan-700">1000</span> (3 nol) ➔ 3 angka di belakang koma (<span class="text-cyan-700">0.003</span>)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TOMBOL LANJUT KE POS 5 (MUNCUL SETELAH JURNAL SELESAI) -->
+  <div class="text-center pt-2 hidden-area" id="next-pos-container">
+    <a href="mission-d1-pos5.html" onclick="completePos4()" class="btn btn-next px-10 py-3.5 shadow-lg">
+      Lanjut ke Pos 5: Skill Unlock (Master Class Prof. Sigma) ➔
+    </a>
+  </div>
+
+</main>
+
+<script>
+  function verifyJournal() {
+    let a1 = document.getElementById('ans-1').value.trim();
+    let a2 = document.getElementById('ans-2').value.trim();
+    let a3 = document.getElementById('ans-3').value.trim();
+
+    // Validasi jawaban benar (toleransi penulisan 0.7, 0.25, 0.003)
+    let correct1 = (a1 === "0.7" || a1 === "0,7");
+    let correct2 = (a2 === "0.25" || a2 === "0,25");
+    let correct3 = (a3 === "0.003" || a3 === "0,003");
+
+    let errorMsg = document.getElementById('msg-error');
+    let conclusion = document.getElementById('conclusion-area');
+    let nextBtnContainer = document.getElementById('next-pos-container');
+    let verifyBtn = document.getElementById('btn-verify');
+
+    if (correct1 && correct2 && correct3) {
+      errorMsg.classList.add('hidden');
+      verifyBtn.style.display = 'none';
+      
+      // Kunci input
+      document.querySelectorAll('.journal-input').forEach(inp => {
+        inp.disabled = true;
+        inp.classList.add('bg-slate-100', 'text-teal-700');
+      });
+
+      // Tampilkan kesimpulan dan tombol lanjut
+      conclusion.classList.add('show-area');
+      nextBtnContainer.classList.remove('hidden-area');
+
+      // Scroll ke bawah
+      conclusion.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      errorMsg.classList.remove('hidden');
+    }
+  }
+
+  function completePos4() {
+    let currentProgress = parseInt(localStorage.getItem('vm_d1_progress')) || 1;
+    if (currentProgress < 5) {
+      localStorage.setItem('vm_d1_progress', 5);
+    }
+  }
+</script>
+</body>
+</html>
