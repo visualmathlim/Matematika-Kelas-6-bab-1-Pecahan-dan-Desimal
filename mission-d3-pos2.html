@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 2: See - Mission D3 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { 
+    --cyan: #06b6d4; 
+    --cyan-dk: #0891b2;
+    --navy: #0f172a; 
+    --navy-lt: #1e293b;
+    --bg: #f0fdfa; 
+    --card: #ffffff; 
+    --line: #cffafe;
+    --teal: #0d9488; 
+    --gold: #ca8a04; 
+    --gold-bg: #f4b400; 
+  }
+  body { background-color: var(--bg); color: var(--navy); font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; position: relative; overflow-x: hidden; }
+  
+  /* Kartu & Header */
+  .card { background-color: var(--card); border: 1px solid var(--line); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+  .home-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 700; color: var(--teal); background: #ccfbf1; padding: 6px 14px; border-radius: 99px; transition: all 0.2s; border: 1px solid #5eead4; }
+  .home-btn:hover { background: var(--teal); color: #fff; transform: translateY(-1px); }
+
+  /* Tombol Aksi */
+  .btn { padding: .85rem 1.8rem; border-radius: 9999px; font-weight: bold; color: #fff; transition: all 0.2s; cursor: pointer; border: none; font-size: 1.05rem; }
+  .btn-action { background: linear-gradient(to right, var(--cyan-dk), var(--teal)); box-shadow: 0 4px 15px rgba(13,148,136,0.3); }
+  .btn-action:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(13,148,136,0.4); }
+  .btn-action:disabled { background: #94a3b8; box-shadow: none; cursor: not-allowed; transform: none; }
+
+  /* Grid 10x10 */
+  .grid-container { width: 100%; max-width: 220px; aspect-ratio: 1/1; margin: 0 auto; display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr); border: 3px solid var(--navy); border-radius: 8px; overflow: hidden; background: #f8fafc; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+  
+  .cell { border: 0.5px solid #cbd5e1; transition: background 0.4s ease; background: transparent; }
+  
+  /* Warna Isian Cairan */
+  .fill-a { background: var(--cyan); box-shadow: inset 0 0 4px rgba(0,0,0,0.1); }
+  .fill-b { background: var(--gold-bg); box-shadow: inset 0 0 4px rgba(0,0,0,0.1); }
+  .fill-half { background: linear-gradient(to top, var(--gold-bg) 50%, transparent 50%); box-shadow: inset 0 0 4px rgba(0,0,0,0.1); }
+
+  /* Animasi Pulse Kesimpulan */
+  @keyframes highlightPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(13, 148, 136, 0); }
+  }
+  .concl-box { animation: highlightPulse 2s infinite; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- HEADER NAVIGASI -->
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight" style="color:var(--navy)">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Mission D3 • Pos 2</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <span class="px-4 py-1.5 rounded-full text-xs font-extrabold shadow-sm" style="background:#f0fdf4; border:1px solid var(--teal); color:var(--teal)">👀 Pos 2/8: See</span>
+      <a href="mission-d3.html" class="home-btn shadow-sm">
+        <span>← Peta D3</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full" style="width: 25%; background: linear-gradient(to right, var(--cyan-dk), var(--teal));"></div></div>
+</header>
+
+<main class="flex-grow max-w-4xl mx-auto w-full px-4 py-10 space-y-8">
+
+  <!-- HERO SECTION -->
+  <section class="text-center space-y-2">
+    <div class="inline-flex items-center gap-2 px-5 py-1.5 rounded-full text-sm border font-semibold shadow-sm bg-teal-50 border-teal-300 text-teal-800">
+      👀 See (Visual Area Model)
+    </div>
+    <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Pembuktian Area Hologram</h2>
+    <p class="text-sm text-slate-600 max-w-lg mx-auto font-medium">Jangan tertipu oleh jumlah angka! Mari kita tuangkan cairan 0,4 dan 0,125 ke dalam wadah kotak yang ukurannya persis sama.</p>
+  </section>
+
+  <!-- DIALOG LUNA -->
+  <section class="card rounded-3xl p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-center border-l-4 border-amber-400 bg-amber-50/30">
+    <img src="assets/Luna.png" alt="Luna" class="w-20 h-20 rounded-full border-4 border-amber-300 shrink-0 object-cover shadow-md bg-white" onerror="this.outerHTML='<div class=\'w-20 h-20 rounded-full bg-amber-400 border-4 border-white flex-shrink-0 flex items-center justify-center text-3xl shadow-md text-slate-900\'>👧</div>'">
+    <div class="text-sm text-slate-700 space-y-3 flex-grow">
+      <div class="flex items-center gap-2">
+        <span class="font-extrabold text-slate-900 text-base">Luna</span>
+        <span class="text-[10px] bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded-full">Penjelajah Visual</span>
+      </div>
+      <p class="leading-relaxed font-medium">
+        "Di hadapan kita ada dua wadah Grid yang masing-masing bernilai <span class='font-bold'>1 Satuan Penuh (100 kotak kecil)</span>. Ingat aturan Pos sebelumnya: 1 kolom penuh = 1 persepuluhan (0,1). Tekan tombol di bawah untuk mulai menuangkan cairan!"
+      </p>
+    </div>
+  </section>
+
+  <!-- AREA INTERAKTIF GRID -->
+  <section class="card rounded-3xl p-6 md:p-10 space-y-8 bg-gradient-to-b from-white to-slate-50">
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+      
+      <!-- Wadah A (0,4) -->
+      <div class="space-y-4 text-center">
+        <h3 class="font-extrabold text-xl text-slate-800">Cairan A: <span class="text-cyan-700 font-mono text-2xl">0,4</span></h3>
+        <div class="grid-container" id="grid-a">
+          <!-- 100 sel di-generate via JS -->
+        </div>
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-2">Wadah 1 Satuan</p>
+        <p class="text-sm font-semibold text-cyan-800 h-6" id="desc-a"></p>
+      </div>
+
+      <!-- Wadah B (0,125) -->
+      <div class="space-y-4 text-center">
+        <h3 class="font-extrabold text-xl text-slate-800">Cairan B: <span class="text-amber-600 font-mono text-2xl">0,125</span></h3>
+        <div class="grid-container" id="grid-b">
+          <!-- 100 sel di-generate via JS -->
+        </div>
+        <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-2">Wadah 1 Satuan</p>
+        <p class="text-sm font-semibold text-amber-800 h-6" id="desc-b"></p>
+      </div>
+
+    </div>
+
+    <!-- Tombol Aksi Animasi -->
+    <div class="text-center pt-4">
+      <button id="btn-animate" onclick="startPouring()" class="btn btn-action px-10 py-4 shadow-xl">
+        Mulai Tuangkan Cairan 💧
+      </button>
+      <button id="btn-reset" onclick="resetGrid()" class="btn hidden px-6 py-2 mt-4 bg-slate-500 hover:bg-slate-600 shadow-md text-sm">
+        ↺ Ulangi Simulasi
+      </button>
+    </div>
+
+    <!-- Kotak Kesimpulan (Muncul setelah animasi) -->
+    <div id="conclusion" class="hidden concl-box bg-teal-50 border-2 border-teal-400 p-6 rounded-2xl text-center space-y-3 mt-6">
+      <h4 class="text-xl font-black text-teal-900">💥 ILUSI TERBONGKAR!</h4>
+      <p class="text-slate-700 font-medium leading-relaxed">
+        Ternyata <b class="font-mono text-cyan-800">0,4</b> menempati area seluas <b>4 kolom (40 kotak)</b>. Sedangkan <b class="font-mono text-amber-700">0,125</b> hanya menempati <b>1 kolom lebih sedikit (12,5 kotak)</b>.
+      </p>
+      <div class="inline-block bg-white px-6 py-2 rounded-xl border border-teal-200 mt-2">
+        <p class="font-mono font-black text-2xl text-slate-800">0,4 <span class="text-teal-600 mx-2">&gt;</span> 0,125</p>
+      </div>
+      <p class="text-sm text-teal-800 font-bold mt-2">
+        "Nilai desimal TIDAK ditentukan dari seberapa panjang angkanya, melainkan dari besaran Nilai Tempat terdepan (kiri)!"
+      </p>
+    </div>
+
+  </section>
+
+  <!-- TOMBOL NAVIGASI BAWAH -->
+  <div class="flex justify-between items-center pt-4 pb-12">
+    <a href="mission-d3-pos1.html" class="home-btn shadow-sm">⬅ Kembali ke Pos 1</a>
+    <a href="mission-d3-pos3.html" id="btn-next" class="btn hidden" style="background:linear-gradient(to right,var(--cyan-dk),var(--teal)); box-shadow: 0 4px 15px rgba(6,182,212,0.3); padding: .8rem 2rem;">Lanjut ke Pos 3 (Visualize) ➔</a>
+  </div>
+
+</main>
+
+<script>
+  const gridA = document.getElementById('grid-a');
+  const gridB = document.getElementById('grid-b');
+  
+  // Buat 100 sel untuk masing-masing grid (10 kolom x 10 baris, per kolom mengisi dari atas ke bawah)
+  function createGrids() {
+    gridA.innerHTML = '';
+    gridB.innerHTML = '';
+    for(let r = 0; r < 10; r++) {
+      for(let c = 0; c < 10; c++) {
+        const cellA = document.createElement('div');
+        cellA.className = 'cell';
+        cellA.dataset.col = c;
+        cellA.dataset.row = r;
+        gridA.appendChild(cellA);
+
+        const cellB = document.createElement('div');
+        cellB.className = 'cell';
+        cellB.dataset.col = c;
+        cellB.dataset.row = r;
+        gridB.appendChild(cellB);
+      }
+    }
+  }
+
+  // Panggil saat load
+  createGrids();
+
+  function startPouring() {
+    document.getElementById('btn-animate').disabled = true;
+    document.getElementById('btn-animate').textContent = "Cairan Sedang Dituangkan...";
+    
+    const cellsA = gridA.querySelectorAll('.cell');
+    const cellsB = gridB.querySelectorAll('.cell');
+    const descA = document.getElementById('desc-a');
+    const descB = document.getElementById('desc-b');
+
+    // Kita animasikan pengisian berdasarkan Kolom (dari kiri ke kanan)
+    let col = 0;
+    
+    const interval = setInterval(() => {
+      // Logic untuk Grid A (0.4 = 4 kolom penuh)
+      if (col < 4) {
+        cellsA.forEach(cell => {
+          if (parseInt(cell.dataset.col) === col) cell.classList.add('fill-a');
+        });
+        descA.textContent = `Mengisi Persepuluhan ke-${col+1}...`;
+      }
+
+      // Logic untuk Grid B (0.125 = 1 kolom penuh + 2 kotak perseratusan + 0.5 kotak)
+      if (col === 0) {
+        // Isi 1 kolom penuh
+        cellsB.forEach(cell => {
+          if (parseInt(cell.dataset.col) === col) cell.classList.add('fill-b');
+        });
+        descB.textContent = "1 Persepuluhan terisi...";
+      } 
+      else if (col === 1) {
+        // Kolom ke-2 hanya diisi 2 kotak penuh (perseratusan) dan 1 setengah kotak (perseribuan)
+        cellsB.forEach(cell => {
+          if (parseInt(cell.dataset.col) === 1) {
+            let r = parseInt(cell.dataset.row);
+            // Pengisian grid CSS secara visual mengisi baris dari atas
+            if (r === 0 || r === 1) cell.classList.add('fill-b'); // 2 perseratusan
+            if (r === 2) cell.classList.add('fill-half'); // 5 perseribuan (setengah kotak)
+          }
+        });
+        descB.textContent = "Ditambah 2 perseratusan & 5 perseribuan...";
+      }
+
+      col++;
+
+      // Hentikan interval jika kolom sudah melebihi 4
+      if (col >= 4) {
+        clearInterval(interval);
+        
+        // Finalisasi Teks
+        descA.textContent = "40 Kotak Terisi Penuh!";
+        descB.textContent = "Hanya 12,5 Kotak Terisi!";
+        
+        // Tampilkan kesimpulan
+        setTimeout(() => {
+          document.getElementById('conclusion').classList.remove('hidden');
+          document.getElementById('btn-animate').style.display = 'none';
+          document.getElementById('btn-reset').classList.remove('hidden');
+          document.getElementById('btn-next').classList.remove('hidden');
+          
+          // Simpan Progress
+          try {
+            let p = +localStorage.getItem('vm_d3_progress') || 0;
+            if(p < 2) localStorage.setItem('vm_d3_progress', 2);
+          } catch(e) {}
+
+          document.getElementById('conclusion').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 800);
+      }
+    }, 500); // Kecepatan penuangan per kolom
+  }
+
+  function resetGrid() {
+    createGrids();
+    document.getElementById('desc-a').textContent = "";
+    document.getElementById('desc-b').textContent = "";
+    document.getElementById('conclusion').classList.add('hidden');
+    
+    document.getElementById('btn-animate').style.display = 'inline-block';
+    document.getElementById('btn-animate').disabled = false;
+    document.getElementById('btn-animate').textContent = "Mulai Tuangkan Cairan 💧";
+    document.getElementById('btn-reset').classList.add('hidden');
+  }
+
+</script>
+</body>
+</html>
