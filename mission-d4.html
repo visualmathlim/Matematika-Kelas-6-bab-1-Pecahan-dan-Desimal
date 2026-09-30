@@ -42,7 +42,29 @@
 
   /* Avatar Karakter */
   .avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 2px solid var(--indigo); background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); flex-shrink: 0; }
-  
+
+  /* Pecahan ditampilkan vertikal: pembilang di atas, penyebut di bawah */
+  .fraction {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    vertical-align: middle;
+    line-height: 1;
+    text-align: center;
+    margin: 0 0.08em;
+    min-width: 0.9em;
+  }
+  .fraction .numerator {
+    display: block;
+    padding: 0 0.16em 0.08em;
+    border-bottom: 2px solid currentColor;
+  }
+  .fraction .denominator {
+    display: block;
+    padding: 0.08em 0.16em 0;
+  }
+
   /* Efek Kartu Node */
   .node-card:hover { transform: translateX(4px); border-color: var(--indigo); box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.15); }
   .node.locked .node-card { background: rgba(248, 250, 252, 0.8); cursor: not-allowed; }
@@ -53,7 +75,7 @@
 
 <!-- DEKORASI BACKGROUND -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-10">
-  <div class="absolute top-20 right-10 text-6xl font-mono text-indigo-900 font-black tracking-widest" style="transform: rotate(12deg);">1/4 → 0,25</div>
+  <div class="absolute top-20 right-10 text-6xl font-mono text-indigo-900 font-black tracking-widest" style="transform: rotate(12deg);"><span class="fraction" aria-label="satu per empat"><span class="numerator">1</span><span class="denominator">4</span></span> → 0,25</div>
   <div class="absolute bottom-10 left-10 text-7xl font-mono text-violet-900 font-black tracking-widest" style="transform: rotate(-8deg);">📊</div>
 </div>
 
@@ -90,7 +112,7 @@
     <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Mengurutkan Desimal & Pecahan</h2>
     
     <div class="inline-block bg-slate-900 text-white font-mono text-xl md:text-2xl font-black px-6 py-3 rounded-2xl shadow-inner border-2 border-indigo-400/50 my-2 tracking-wide">
-      0,3 <span class="text-indigo-400 mx-1">→</span> 1/4 <span class="text-indigo-400 mx-1">→</span> 0,35
+      0,3 <span class="text-indigo-400 mx-1">→</span> <span class="fraction" aria-label="satu per empat"><span class="numerator">1</span><span class="denominator">4</span></span> <span class="text-indigo-400 mx-1">→</span> 0,35
     </div>
     
     <p class="max-w-lg mx-auto text-sm md:text-base text-slate-600 italic font-medium">
