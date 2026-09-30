@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pos 7: Boss Battle - Mission D1 | Math Mastery</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root { --cyan-dk:#0891b2; --navy:#0f172a; --bg:#fff1f2; --card:#fff; --teal:#0d9488; --red:#dc2626; --purple:#7c3aed; --amber:#f4b400; }
+  body { background:var(--bg); color:var(--navy); font-family:'Segoe UI',Tahoma,Verdana,sans-serif; overflow-x:hidden; }
+  .card { background:var(--card); border:1px solid #f87171; box-shadow:0 4px 6px -1px rgba(220,38,38,.1); }
+  .home-btn { display:inline-flex; align-items:center; gap:6px; font-size:.85rem; font-weight:700; color:var(--cyan-dk); background:#cffafe; padding:6px 14px; border-radius:99px; transition:all .2s; border:1px solid #67e8f9; }
+  .home-btn:hover { background:var(--cyan-dk); color:#fff; transform:translateY(-1px); }
+
+  /* Tampilan matematika */
+  .m { font-family:'Cambria Math','STIX Two Math','Latin Modern Math','Times New Roman',serif; font-size:1.1em; white-space:nowrap; }
+  .math-frac { display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; margin:0 .18em; line-height:1.15; font-size:.95em; }
+  .math-num { border-bottom:1.5px solid currentColor; padding:0 .3em; width:100%; text-align:center; }
+  .math-den { padding:0 .3em; width:100%; text-align:center; }
+  .eq { display:block; text-align:center; font-size:1.1rem; padding:.45rem .4rem; margin:.35rem 0; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:.6rem; overflow-x:auto; }
+  .ans { display:block; text-align:center; font-size:1.25rem; padding:.5rem; margin-top:.7rem; background:#fff8e6; border:2px solid var(--amber); border-radius:.6rem; color:#a16207; font-weight:700; }
+  .why { font-size:.8rem; color:#475569; margin:.1rem 0 0; }
+  .pill { font-size:.75rem; padding:.15rem .65rem; border-radius:9999px; font-weight:700; color:#fff; }
+  ol.steps { list-style:none; padding:0; counter-reset:s; }
+  ol.steps li { counter-increment:s; margin:.6rem 0; padding-left:1.9rem; position:relative; font-size:.88rem; text-align:left; }
+  ol.steps li::before { content:counter(s); position:absolute; left:0; top:0; width:1.3rem; height:1.3rem; border-radius:50%; background:var(--teal); color:#fff; font-size:.72rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
+
+  /* Porogapit step by step */
+  .pg { display:grid; margin:.5rem auto; width:max-content; font-family:'Cambria Math','STIX Two Math','Times New Roman',serif; font-size:1.5rem; font-weight:700; }
+  .pc { display:flex; align-items:center; justify-content:center; color:#1e293b; animation:pop .3s ease; }
+  .pc.q { color:var(--purple); }
+  .pc.div { justify-content:flex-end; padding-right:.3rem; color:var(--teal); }
+  .pc.dv { border-top:3px solid #334155; }
+  .pc.first { border-left:3px solid #334155; border-top-left-radius:10px; }
+  .pc.ul { border-bottom:2px solid #334155; }
+  .pc.sg { color:#94a3b8; font-size:1.1rem; justify-content:flex-end; padding-right:.3rem; }
+  .pc.hl { background:#fef3c7; border-radius:6px; }
+  @keyframes pop { from{transform:scale(.6);opacity:0} to{transform:scale(1);opacity:1} }
+  .mini { padding:.45rem 1rem; border-radius:99px; font-weight:700; color:#fff; font-size:.85rem; border:none; cursor:pointer; }
+  .mini:disabled { opacity:.4; cursor:default; }
+
+  /* Boss */
+  .answer-input-container { display:inline-flex; align-items:center; background:#f8fafc; border:2px solid var(--red); padding:4px 12px; border-radius:8px; }
+  .input-decimal { width:130px; text-align:center; font-weight:bold; font-size:1.2rem; border:1px solid #cbd5e1; border-radius:4px; padding:4px; outline:none; }
+  .input-decimal:focus { border-color:var(--red); box-shadow:0 0 0 3px rgba(220,38,38,.2); }
+  .btn { display:inline-block; text-align:center; padding:.8rem 1.5rem; border-radius:99px; font-weight:bold; color:#fff; transition:all .2s; cursor:pointer; border:none; }
+  .btn-submit { background:linear-gradient(to right,var(--red),#991b1b); box-shadow:0 4px 10px rgba(220,38,38,.3); font-size:1.1rem; }
+  .btn-retry { background:linear-gradient(to right,#475569,#1e293b); font-size:1.1rem; }
+  .btn-next-mission { background:linear-gradient(to right,var(--teal),#0f766e); font-size:1.1rem; }
+  .boss-card { background:#fff; border-radius:16px; border:2px solid #fecdd3; padding:1.5rem; box-shadow:0 6px 20px rgba(220,38,38,.05); position:relative; margin-bottom:1.5rem; }
+  .badge-boss { position:absolute; top:-14px; left:24px; padding:4px 16px; border-radius:99px; font-size:.75rem; font-weight:bold; color:#fff; background:var(--red); letter-spacing:1px; }
+  .result-banner { border-radius:16px; padding:2rem; margin-top:2rem; text-align:center; display:none; }
+  .result-banner.pass { background:#f0fdf4; border:2px solid #86efac; color:#166534; }
+  .result-banner.fail { background:#fef2f2; border:2px solid #fca5a5; color:#991b1b; }
+  .expl-box { background:#fff5f5; border-left:4px solid var(--red); padding:1rem; border-radius:0 8px 8px 0; margin-top:1.2rem; text-align:left; display:none; }
+  .expl-box.pass-expl { border-left-color:var(--teal); background:#f8fafc; }
+  .hidden { display:none; }
+</style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<header class="card border-b sticky top-0 z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <img src="assets/logo.png" alt="Math Mastery" class="h-10 w-auto" onerror="this.outerHTML='<div class=\'h-10 w-10 bg-blue-800 rounded-full flex items-center justify-center font-bold text-amber-400 text-xl border-2 border-amber-400 shadow-sm\'>MM</div>'">
+      <div>
+        <h1 class="text-lg font-bold leading-tight">Math Mastery</h1>
+        <p class="text-[11px] text-slate-500 font-semibold uppercase tracking-wider">Kelas 6 • Mission D1 • Pos 7</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="mission-d1.html" class="home-btn shadow-sm" style="background:#e0f2fe; color:#0369a1; border-color:#bae6fd;"><span>← Peta D1</span></a>
+      <a href="index.html" class="home-btn shadow-sm">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </a>
+    </div>
+  </div>
+  <div class="h-1.5 w-full bg-slate-200"><div class="h-full bg-red-600" style="width:87.5%;"></div></div>
+</header>
+
+<main class="flex-grow max-w-3xl mx-auto w-full px-4 py-8 space-y-6">
+  <section class="text-center space-y-2 mb-4">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-sm border font-semibold" style="border-color:var(--red); background:#fee2e2; color:var(--red)">👹 Tantangan Tingkat Tinggi</div>
+    <h2 class="text-3xl font-extrabold text-slate-900">Boss Battle: Studi Kasus Laboratorium Presisi</h2>
+    <p class="text-sm text-slate-600 max-w-xl mx-auto font-medium">Selesaikan <b>4 soal cerita HOTS</b>. KKM Boss Battle <b>75</b> (minimal 3 benar dari 4). Tulis jawaban dengan koma, misalnya <span class="m">0,5</span>.</p>
+  </section>
+
+  <div id="boss-form">
+    <div id="boss-questions-container"></div>
+    <div class="text-center py-6" id="boss-submit-section">
+      <button type="button" onclick="submitBossBattle()" class="btn btn-submit px-12 py-3.5 shadow-lg">Kirim Jawaban Boss Battle ⚔️</button>
+      <p id="err" class="text-red-600 text-sm mt-3"></p>
+    </div>
+  </div>
+
+  <div id="result-banner" class="result-banner">
+    <h3 class="text-2xl font-extrabold mb-2" id="res-title"></h3>
+    <p class="text-lg font-semibold mb-4" id="res-score-text"></p>
+    <p class="text-sm mb-6 max-w-lg mx-auto" id="res-msg"></p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+      <button id="btn-action-retry" onclick="initBossBattle()" class="btn btn-retry px-8 py-3 hidden">🔄 Coba Lawan Boss Lagi</button>
+      <button id="btn-action-next" onclick="location.href='mission-d1-pos8.html'" class="btn btn-next-mission px-8 py-3 hidden">Lihat Rapor Misi (Pos 8) ➔</button>
+    </div>
+  </div>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const fr=(n,d)=>`<span class="math-frac"><span class="math-num">${n}</span><span class="math-den">${d}</span></span>`;
+const M=s=>`<span class="m">${s}</span>`;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* Bank soal cerita */
+const POOL=[
+ {t:'Kasus 1: Timbangan Logam Presisi', n:3,d:4,u:'kg', s:f=>`Timbangan digital di pabrik presisi menunjukkan berat sampel lempengan logam sebesar ${M(f+' kg')}. Komputer server pusat memerlukan format desimal untuk laporan inventaris.`},
+ {t:'Kasus 2: Tabung Reaksi Kimia', n:1,d:2,u:'liter', s:f=>`Sebuah tabung reaksi di laboratorium terisi cairan khusus setinggi ${M(f+' liter')}. Sensor otomatis pada mesin memerlukan nilai desimal untuk memicu katup pengaman.`},
+ {t:'Kasus 3: Indikator Baterai Perangkat', n:4,d:5,u:'bagian', s:f=>`Layar monitor sistem kendali menunjukkan sisa daya baterai perangkat darurat adalah ${M(f+' bagian')}. Teknisi harus memasukkan angka desimal ke terminal utama sebelum sistem melakukan reboot.`},
+ {t:'Kasus 4: Spesifikasi Mikro Chip', n:5,d:8,u:'mm', s:f=>`Ketebalan komponen mikro chip pada cetak biru tercatat ${M(f+' mm')}. Berapa nilai desimal yang harus dicetak pada sertifikat spesifikasi?`}
+];
+
+/* Cara 1: pecahan senilai */
+function senilai(n,d,u){
+  let m=1,D=10; while(D%d!==0){m++;D*=10;}
+  const k=D/d,N=n*k,dec='0,'+String(N).padStart(m,'0');
+  return {dec,li:[
+    `Ubah penyebut ${M(d)} menjadi ${M(D)}. Cari pengalinya:<span class="eq m">${d} × <b style="color:var(--red)">${k}</b> = ${D}</span>`,
+    `Kalikan pembilang dan penyebut dengan ${M(k)} (nilainya tidak berubah):<span class="eq m">${fr(n,d)} = ${fr(n+' × '+k,d+' × '+k)} = ${fr(N,D)}</span>`,
+    `Penyebut ${M(D)} punya ${m} angka nol, jadi desimalnya punya <b>${m} angka di belakang koma</b>:<span class="eq m">${fr(N,D)} = ${dec}</span>`
+  ]};
+}
+
+/* Cara 2: porogapit step by step */
+const PG={};
+function pgBuild(id,n,d){
+  const Q=[],P=[],R=[]; let x=n,K=0;
+  while(x!==0){ x*=10; const q=Math.floor(x/d), p=q*d; Q.push(q);P.push(p);x-=p;R.push(x);K++; }
+  const col=i=>i===0?2:3+i, dec='0,'+Q.join('');
+  /* [baris, kolom, isi, kelas, langkah muncul] */
+  const C=[[2,1,d,'div',0],[2,2,n,'dv first',0],[2,3,',','dv',1],[1,2,'0','q',2],[1,3,',','q',2],[3,1,'−','sg',2],[3,2,'0','ul',2]];
+  const caps=[
+    `Tulis ${M(n+' ÷ '+d)} sebagai porogapit (bagi akar): pembagi <b>${d}</b> di luar, yang dibagi <b>${n}</b> di dalam gapit.`,
+    `Karena ${M(n+' < '+d)}, ${n} belum bisa dibagi habis. Tambahkan koma dan nol: ${M(n+' = '+n+','+'0'.repeat(K))} (nilainya tetap).`,
+    `${d} tidak muat di ${n}, jadi hasilnya <b>0</b>. Tulis ${M('0,')} di atas. Hitung ${M('0 × '+d+' = 0')}, lalu ${M(n+' − 0 = '+n)}.`
+  ];
+  let r=4, prev=n;
+  for(let i=1;i<=K;i++){
+    const w=(i===1?n:R[i-2])*10, sB=2*i+2, ps=String(P[i-1]);
+    C.push([2,col(i),'0','dv',1],[1,col(i),Q[i-1],'q',2*i+1],[r,col(i-1),prev,'',2*i],[r,col(i),'0','',2*i+1]); r++;
+    if(ps.length===2) C.push([r,col(i-1),ps[0],'ul',sB],[r,col(i),ps[1],'ul',sB]); else C.push([r,col(i),ps,'ul',sB]);
+    C.push([r,1,'−','sg',sB]); r++; prev=R[i-1];
+    caps.push(`Turunkan angka 0, jadi <b>${w}</b>. Berapa kali ${d} muat di ${w}? <b>${Q[i-1]}</b> kali. Tulis <b>${Q[i-1]}</b> di hasil.`);
+    caps.push(`Hitung ${M(Q[i-1]+' × '+d+' = '+P[i-1])}, tulis di bawah ${w}. Kurangkan: ${M(w+' − '+P[i-1]+' = '+R[i-1])}.${R[i-1]===0?' Sisa 0, pembagian selesai.':' Sisa '+R[i-1]+', lanjut turunkan 0.'}`);
+  }
+  C.push([r,col(K),prev,'',2*K+2]);
+  caps.push(`Selesai! ${M(n+' ÷ '+d+' = <b>'+dec+'</b>')}. Cek: ${M(dec+' × '+d+' = '+n+' ✓')}`);
+  PG[id]={C,caps,rows:r,K,step:0,S:2*K+3};
+  return `<div class="overflow-x-auto"><div class="pg" id="pg_${id}"></div></div>
+    <div class="rounded-lg p-3 text-sm text-slate-700 min-h-[4.5rem]" style="background:#fffbeb;border:1px solid #fde68a" id="cap_${id}"></div>
+    <div class="flex flex-wrap justify-center gap-2 mt-2">
+      <button type="button" class="mini" style="background:#64748b" id="prv_${id}" onclick="pgMove('${id}',-1)">⬅ Mundur</button>
+      <button type="button" class="mini" style="background:var(--purple)" id="nxt_${id}" onclick="pgMove('${id}',1)">Langkah berikutnya ➔</button>
+      <button type="button" class="mini" style="background:var(--teal)" onclick="pgMove('${id}',99)">Tampilkan semua</button>
+    </div><p class="text-center text-xs text-slate-500 mt-1" id="cnt_${id}"></p>`;
+}
+function pgRender(id){
+  const g=PG[id], el=$('pg_'+id); if(!el) return;
+  el.style.gridTemplateColumns=`2rem 2rem 1rem repeat(${g.K},2rem)`;
+  el.style.gridTemplateRows=`repeat(${g.rows},2.2rem)`;
+  el.innerHTML=g.C.filter(c=>c[4]<=g.step).map(c=>`<div class="pc ${c[3]} ${c[4]===g.step?'hl':''}" style="grid-row:${c[0]};grid-column:${c[1]}">${c[2]}</div>`).join('');
+  $('cap_'+id).innerHTML=g.caps[g.step];
+  $('cnt_'+id).textContent=`Langkah ${g.step+1} dari ${g.S+1}`;
+  $('prv_'+id).disabled=g.step<=0; $('nxt_'+id).disabled=g.step>=g.S;
+}
+function pgMove(id,d){ const g=PG[id]; g.step=Math.max(0,Math.min(g.S,g.step+d)); pgRender(id); }
+
+function explain(q,i){
+  const a=senilai(q.n,q.d,q.u), L=x=>x.map(s=>`<li>${s}</li>`).join('');
+  return `<div class="eq m">Model: ${fr(q.n,q.d)} = ${q.n} ÷ ${q.d}</div>
+  <div class="space-y-3">
+    <div class="rounded-xl p-3 bg-white" style="border:1px solid #fecaca">
+      <p class="font-bold text-sm"><span class="pill" style="background:var(--red)">Cara 1</span> Pecahan Senilai</p>
+      <ol class="steps">${L(a.li)}</ol></div>
+    <div class="rounded-xl p-3 bg-white" style="border:1px solid #d8b4fe">
+      <p class="font-bold text-sm mb-1"><span class="pill" style="background:var(--purple)">Cara 2</span> Porogapit (Bagi Akar), step by step</p>
+      ${pgBuild('b'+i,q.n,q.d)}</div>
+  </div>
+  <span class="ans m">${fr(q.n,q.d)} = ${a.dec} ${q.u}</span>`;
+}
+
+let active=[];
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function initBossBattle(){
+  active=shuffle(POOL);
+  const c=$('boss-questions-container'); c.innerHTML='';
+  active.forEach((q,i)=>{
+    c.insertAdjacentHTML('beforeend',`
+    <div class="boss-card" id="boss-card-${i}">
+      <div class="badge-boss">${q.t}</div>
+      <div class="pt-3 space-y-4 text-center">
+        <p class="text-sm md:text-base text-slate-700 font-medium leading-relaxed px-2">${q.s(fr(q.n,q.d))}</p>
+        <div class="flex flex-col items-center space-y-2 pt-1">
+          <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Jawaban desimal akhir:</span>
+          <div class="answer-input-container"><input type="text" name="ans_${i}" class="input-decimal" placeholder="mis. 0,5" inputmode="decimal" autocomplete="off"></div>
+        </div>
+        <div id="boss_expl_${i}" class="expl-box">
+          <p class="font-bold text-sm mb-2 text-slate-800" id="boss_expl_title_${i}"></p>
+          ${explain(q,i)}
+        </div>
+      </div>
+    </div>`);
+    pgRender('b'+i);
+  });
+  $('result-banner').style.display='none'; $('boss-submit-section').style.display='block'; $('err').textContent='';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+$('boss-questions-container').addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); submitBossBattle(); } });
+initBossBattle();
+
+function parseDec(s){ s=s.trim().replace(',','.'); return /^\d*\.?\d+$/.test(s)?parseFloat(s):null; }
+
+function submitBossBattle(){
+  try{ doSubmit(); $('err').textContent=''; }
+  catch(e){ $('err').textContent='Terjadi kesalahan saat memeriksa jawaban: '+e.message; }
+}
+function doSubmit(){
+  let correct=0; const logs=[];
+  active.forEach((q,i)=>{
+    const raw=document.querySelector(`input[name="ans_${i}"]`).value, v=parseDec(raw);
+    const ok=v!==null && Math.abs(v-q.n/q.d)<1e-9; if(ok) correct++;
+    const dec=senilai(q.n,q.d,q.u).dec, box=$('boss-card-'+i), ex=$('boss_expl_'+i), t=$('boss_expl_title_'+i);
+    ex.style.display='block';
+    if(ok){ box.style.borderColor='#86efac'; ex.className='expl-box pass-expl'; t.innerHTML=`✅ Benar! ${M(fr(q.n,q.d)+' = '+dec)} ${q.u}. Rincian solusi dua cara:`; }
+    else {
+      box.style.borderColor='#fca5a5'; ex.className='expl-box';
+      const trap = v!==null && Math.abs(v-q.d/10)<1e-9 ? ` Ingat, penyebut ${q.d} tidak langsung menjadi ${M('0,'+q.d)}.` : '';
+      t.innerHTML=`❌ Jawabanmu ${M(raw.trim()?esc(raw.trim()):'(kosong)')}, jawaban benar ${M(dec)} ${q.u}.${trap} Pelajari solusi dua cara berikut:`;
+    }
+    logs.push({no:i+1,title:q.t,correct:ok,userAnswer:raw.trim()||'Kosong'});
+  });
+  const score=correct*25;
+  try{ localStorage.setItem('vm_d1_pos7_score',score); localStorage.setItem('vm_d1_pos7_logs',JSON.stringify(logs)); }catch(_){}
+
+  const b=$('result-banner'), rt=$('btn-action-retry'), nx=$('btn-action-next');
+  b.style.display='block'; $('boss-submit-section').style.display='none';
+  $('res-score-text').innerText=`Skor Boss Battle: ${score} / 100 (${correct} dari 4 soal benar)`;
+  if(score>=75){
+    b.className='result-banner pass'; $('res-title').innerText='🏆 BOSS DEFEATED! KAMU LULUS KKM!';
+    $('res-msg').innerText='Luar biasa! Kamu menaklukkan studi kasus HOTS dengan nilai ≥ 75. Rapor kelulusanmu siap dibuka di Pos 8!';
+    rt.classList.add('hidden'); nx.classList.remove('hidden');
+    try{ const p=parseInt(localStorage.getItem('vm_d1_progress'))||1; if(p<8) localStorage.setItem('vm_d1_progress',8); }catch(_){}
+  } else {
+    b.className='result-banner fail'; $('res-title').innerText='💥 BOSS MENGAMUK! BELUM MENCAPAI KKM 75';
+    $('res-msg').innerText='Nilaimu di bawah 75. Pelajari pembahasan dua cara di bawah tiap soal, lalu klik Coba Lawan Boss Lagi!';
+    rt.classList.remove('hidden'); nx.classList.add('hidden');
+  }
+  b.scrollIntoView({behavior:'smooth',block:'center'});
+}
+</script>
+</body>
+</html>
